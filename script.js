@@ -1,9 +1,26 @@
+// --- IMPORTACIONES DE FIREBASE ---
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+// --- CONFIGURACIÓN DE FIREBASE (REEMPLAZA CON TUS DATOS) ---
+const firebaseConfig = {
+    apiKey: "AIzaSyBCbnup0noV5iG139vfx-JynvPs2DYxB7w",
+    authDomain: "checklist-ar2025.firebaseapp.com",
+    projectId: "checklist-ar2025",
+    storageBucket: "checklist-ar2025.appspot.com",
+    messagingSenderId: "207074993986",
+    appId: "1:207074993986:web:bc6b1150fcfd2885040adb"
+};
+
+// --- INICIALIZACIÓN DE FIREBASE ---
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const tareasCollectionRef = collection(db, "tareas");
+
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- CONFIGURACIÓN PRINCIPAL ---
+    // --- CONFIGURACIÓN PRINCIPAL DE LA APP ---
     const contraseñaCorrecta = "programa2025";
-    const appStateKey = 'programaChecklistState_v2';
-
     const programa = [
         // ... (El contenido del programa es el mismo)
         {
@@ -98,6 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
     ];
 
+
+  // --- DATOS DEL CHECKLIST (Modifica si es necesario) ---
     const itemsChecklist = [
         { id: 'recogida', texto: 'Recogida en presidencia', tipo: 'checkbox', icon: 'fa-solid fa-handshake', indicator: true },
         { id: 'orientacion', texto: 'Orientación inicial', tipo: 'checkbox', icon: 'fa-solid fa-compass', indicator: true },
@@ -107,14 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: "recordatorios", texto: "Recordatorios finales", tipo: "checkbox", icon: "fa-solid fa-bullhorn", indicator: false },
         { id: 'discursado', texto: 'Participación completada', tipo: 'checkbox', icon: 'fa-solid fa-microphone-slash', indicator: true }
     ];
-    // --- FIN DE LA CONFIGURACIÓN ---
 
-    // ... (Variables del DOM sin cambios)
+    // --- ELEMENTOS DEL DOM ---
     const programContainer = document.getElementById('program-container');
     const navContainer = document.getElementById('day-nav');
     const summaryPanel = document.getElementById('summary-panel');
 
-
+    // --- FUNCIONES DE RENDERIZADO ---
     function crearAcordeon(participante, idUnico) {
         const accordionItem = document.createElement('div');
         accordionItem.className = 'participant-accordion';
@@ -123,8 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const header = document.createElement('button');
         header.className = 'accordion-header';
         
-        // **NUEVO:** Genera los spans para los indicadores
-        let indicatorsHTML = itemsChecklist
+        const indicatorsHTML = itemsChecklist
             .filter(item => item.indicator)
             .map(item => `<span class="indicator" data-indicator-for="${item.id}"></span>`)
             .join('');
@@ -139,23 +156,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${participante.hora ? `<span class="details-time">${participante.hora}</span>` : ''}
                 ${participante.numero ? `<span class="details-number">#${participante.numero}</span>` : ''}
                 <i class="fas fa-chevron-down accordion-icon"></i>
-            </div>
-        `;
+            </div>`;
 
         const content = document.createElement('div');
         content.className = 'accordion-content';
+        const checklistContainer = document.createElement('div');
+        checklistContainer.className = 'checklist-container';
 
         itemsChecklist.forEach(item => {
             const itemDiv = document.createElement('div');
             itemDiv.className = 'checklist-item';
-            // **NUEVO:** Añade un data attribute para encontrar este item fácilmente
             itemDiv.dataset.containerFor = item.id;
-            itemDiv.innerHTML = `<i class="icon ${item.icon}"></i>`;
+            itemDiv.innerHTML = `<i class="icon ${item.icon}"></i><label for="check-${idUnico}-${item.id}">${item.texto}</label>`;
             
-            const label = document.createElement('label');
-            label.textContent = item.texto;
-            itemDiv.appendChild(label);
-
             if (item.tipo === 'checkbox') {
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
@@ -180,190 +193,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 itemDiv.appendChild(radioGroup);
             }
-            content.appendChild(itemDiv);
+            checklistContainer.appendChild(itemDiv);
         });
         
-        const progressContainer = document.createElement('div');
-        progressContainer.className = 'progress-bar-container';
-        const progressBar = document.createElement('div');
-        progressBar.className = 'progress-bar';
-        content.appendChild(progressContainer);
-        progressContainer.appendChild(progressBar);
+        content.appendChild(checklistContainer);
         accordionItem.appendChild(header);
         accordionItem.appendChild(content);
         return accordionItem;
     }
 
-    // --- FUNCIÓN DE ACTUALIZACIÓN PRINCIPAL (MODIFICADA) ---
-    function actualizarEstado(accordionItem) {
-        // --- 1. Lógica condicional para Maquillaje ---
-        const makeupRadio = accordionItem.querySelector('input[data-item-id="maquillaje"]:checked');
-        const repasoContainer = accordionItem.querySelector('[data-container-for="repaso_maquillaje"]');
-        const repasoInput = repasoContainer.querySelector('input');
-        
-        let esMaquillajeNA = makeupRadio && makeupRadio.value === 'N/A';
-        if (esMaquillajeNA) {
-            repasoContainer.classList.add('disabled');
-            repasoInput.checked = false; // Desmarcar si se vuelve N/A
-            repasoInput.disabled = true;
-        } else {
-            repasoContainer.classList.remove('disabled');
-            repasoInput.disabled = false;
-        }
-
-        // --- 2. Actualizar Indicadores de Estado en el Header ---
-        accordionItem.querySelectorAll('.indicator').forEach(indicator => {
-            const itemId = indicator.dataset.indicatorFor;
-            const input = accordionItem.querySelector(`input[data-item-id="${itemId}"]`);
-
-            // Limpiar clases de color anteriores
-            indicator.className = 'indicator';
-
-            if (input.type === 'checkbox' && input.checked) {
-                indicator.classList.add(itemId);
-            } else if (input.type === 'radio') {
-                const checkedRadio = accordionItem.querySelector(`input[name="${input.name}"]:checked`);
-                if (checkedRadio) {
-                    const valueClass = `maquillaje-${checkedRadio.value.toLowerCase()}`;
-                    indicator.classList.add(valueClass);
-                }
-            }
-        });
-
-        // --- 3. Calcular y Actualizar Progreso ---
-        let totalItems = itemsChecklist.length;
-        if (esMaquillajeNA) {
-            totalItems--; // Si es N/A, hay un item menos que completar
-        }
-
-        let completados = 0;
-        const itemsRevisados = {};
-        accordionItem.querySelectorAll('input[data-item-id]').forEach(input => {
-            if (input.disabled) return; // No contar items deshabilitados
-            const itemId = input.dataset.itemId;
-            if (itemsRevisados[itemId]) return;
-            if (input.type === 'checkbox' ? input.checked : accordionItem.querySelector(`input[name="${input.name}"]:checked`)) {
-                completados++;
-            }
-            itemsRevisados[itemId] = true;
-        });
-        
-        const porcentaje = totalItems > 0 ? (completados / totalItems) * 100 : 0;
-        const progressBar = accordionItem.querySelector('.progress-bar');
-        const header = accordionItem.querySelector('.accordion-header');
-        
-        progressBar.style.width = `${porcentaje}%`;
-        header.classList.toggle('completed', porcentaje === 100);
-        progressBar.classList.toggle('completed', porcentaje === 100);
-    }
-
-    // El resto de funciones (init, saveState, loadState, etc.) permanecen igual.
-    // Solo necesitamos asegurarnos de que la llamada a actualizarEstado lo gestione todo.
-    // ... (El resto del código de la v4 se mantiene igual)
-    function init() {
-        const pass = prompt("Por favor, introduce la contraseña:");
-        if (pass === contraseñaCorrecta) {
-            document.querySelectorAll('.hidden').forEach(el => el.classList.remove('hidden'));
-            generarPrograma();
-            setupNavigation();
-            loadState(); 
-        } else {
-            alert("Contraseña incorrecta.");
-        }
-    }
-    function saveState() {
-        const state = {};
-        document.querySelectorAll('.participant-accordion').forEach(acc => {
-            const id = acc.dataset.id;
-            state[id] = {};
-            acc.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
-                if (input.type === 'checkbox') {
-                    state[id][input.id] = input.checked;
-                } else if (input.type === 'radio' && input.checked) {
-                    state[id][input.name] = input.value;
-                }
-            });
-        });
-        localStorage.setItem(appStateKey, JSON.stringify(state));
-    }
-    function loadState() {
-        const state = JSON.parse(localStorage.getItem(appStateKey));
-        if (!state) {
-            updateAll();
-            return;
-        }
-        Object.keys(state).forEach(id => {
-            Object.keys(state[id]).forEach(inputId => {
-                const value = state[id][inputId];
-                const input = document.getElementById(inputId);
-                if (input) {
-                    if (input.type === 'checkbox') input.checked = value;
-                } else { 
-                    const radioWithValue = document.querySelector(`input[name="${inputId}"][value="${value}"]`);
-                    if (radioWithValue) radioWithValue.checked = true;
-                }
-            });
-        });
-        updateAll();
-    }
-    function updateAll() {
-        document.querySelectorAll('.participant-accordion').forEach(acc => actualizarEstado(acc));
-        updateSummary();
-    }
-    function updateSummary() {
-        const diaActual = navContainer.querySelector('.active').dataset.day;
-        const containerActual = document.getElementById(`content-${diaActual}`);
-        if (!containerActual) return;
-        const total = containerActual.querySelectorAll('.participant-accordion').length;
-        let completados = 0;
-        let maquillajeSi = 0;
-        containerActual.querySelectorAll('.participant-accordion').forEach(acc => {
-            if (acc.querySelector('.accordion-header.completed')) {
-                completados++;
-            }
-            const makeupRadio = acc.querySelector('input[data-item-id="maquillaje"][value="Sí"]:checked');
-            if (makeupRadio) {
-                maquillajeSi++;
-            }
-        });
-        summaryPanel.innerHTML = `
-            <div class="summary-item"><div class="count">${total}</div><div class="label">Participantes del Día</div></div>
-            <div class="summary-item"><div class="count">${completados}</div><div class="label">Checklists Completos</div></div>
-            <div class="summary-item"><div class="count">${maquillajeSi}</div><div class="label">Requieren Maquillaje</div></div>`;
-        document.title = `(${completados}/${total}) Checklist ${diaActual}`;
-    }
-    function setupNavigation() {
-        navContainer.addEventListener('click', (e) => {
-            const button = e.target.closest('.nav-button');
-            if (button) {
-                navContainer.querySelector('.active').classList.remove('active');
-                button.classList.add('active');
-                document.querySelectorAll('.day-content').forEach(c => c.classList.add('hidden'));
-                document.getElementById(`content-${button.dataset.day}`).classList.remove('hidden');
-                updateSummary();
-            }
-        });
-    }
-    function addEventListeners() {
-        programContainer.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', (e) => {
-                if(e.target.closest('.status-indicators')) return;
-                header.classList.toggle('active');
-                const content = header.nextElementSibling;
-                content.classList.toggle('active');
-                content.style.maxHeight = content.classList.contains('active') ? content.scrollHeight + "px" : null;
-            });
-        });
-        programContainer.addEventListener('change', (e) => {
-            if (e.target.matches('input')) {
-                const accordionItem = e.target.closest('.participant-accordion');
-                actualizarEstado(accordionItem);
-                saveState();
-                updateSummary();
-            }
-        });
-    }
-    function generarPrograma() {
+    function generarProgramaHTML() {
         programContainer.innerHTML = '';
         const dias = ["Viernes", "Sábado", "Domingo"];
         dias.forEach(dia => {
@@ -375,18 +214,198 @@ document.addEventListener('DOMContentLoaded', () => {
                 const sessionBlock = document.createElement('div');
                 sessionBlock.className = 'session-block';
                 sessionBlock.innerHTML = `<h2>${sesion.sesion}</h2>`;
-                sesion.participantes.forEach((participante, index) => {
-                    const idUnico = `${sesion.sesion.replace(/\s+/g, '-')}-${index}`;
-                    sessionBlock.appendChild(crearAcordeon(participante, idUnico));
+                sesion.participantes.forEach((p) => {
+                    const idUnico = `${sesion.sesion.replace(/\s+/g, '-')}-${p.nombre.replace(/\s+/g, '-')}-${p.rol.replace(/\s+/g, '-')}`;
+                    sessionBlock.appendChild(crearAcordeon(p, idUnico));
                 });
                 dayContainer.appendChild(sessionBlock);
             });
             programContainer.appendChild(dayContainer);
         });
         document.getElementById('content-Viernes').classList.remove('hidden');
-        addEventListeners();
     }
-    
-    init();
 
+    // --- LÓGICA DE ESTADO Y ACTUALIZACIÓN DE UI ---
+    function actualizarEstadoUI(accordionItem) {
+        if (!accordionItem) return;
+
+        // 1. Lógica condicional para Maquillaje
+        const makeupRadio = accordionItem.querySelector('input[data-item-id="maquillaje"]:checked');
+        const repasoContainer = accordionItem.querySelector('[data-container-for="repaso_maquillaje"]');
+        const repasoInput = repasoContainer.querySelector('input');
+        
+        const esMaquillajeNoAplicable = makeupRadio && makeupRadio.value === 'N/A';
+        repasoContainer.classList.toggle('disabled', esMaquillajeNoAplicable);
+        repasoInput.disabled = esMaquillajeNoAplicable;
+        if (esMaquillajeNoAplicable) {
+            repasoInput.checked = false;
+        }
+
+        // 2. Calcular Progreso
+        let totalItemsConsiderados = itemsChecklist.filter(item => {
+            return !(esMaquillajeNoAplicable && item.id === 'repaso_maquillaje');
+        }).length;
+
+        let completados = 0;
+        const itemsRevisados = {};
+        accordionItem.querySelectorAll('input[data-item-id]').forEach(input => {
+            if (input.disabled || itemsRevisados[input.dataset.itemId]) return;
+            
+            if ((input.type === 'checkbox' && input.checked) || (input.type === 'radio' && accordionItem.querySelector(`input[name="${input.name}"]:checked`))) {
+                completados++;
+            }
+            itemsRevisados[input.dataset.itemId] = true;
+        });
+        
+        const porcentaje = totalItemsConsiderados > 0 ? (completados / totalItemsConsiderados) * 100 : 0;
+        
+        // 3. Actualizar la variable CSS para el fondo progresivo
+        accordionItem.style.setProperty('--progress-percent', `${porcentaje}%`);
+
+        // 4. Actualizar clase 'is-complete' para el estado final
+        const isComplete = porcentaje >= 100;
+        accordionItem.classList.toggle('is-complete', isComplete);
+
+        // 5. Actualizar Indicadores del Header
+        accordionItem.querySelectorAll('.indicator').forEach(indicator => {
+            const itemId = indicator.dataset.indicatorFor;
+            const input = accordionItem.querySelector(`input[data-item-id="${itemId}"]`);
+            indicator.className = 'indicator'; // Reset classes
+            indicator.classList.add(`indicator-for-${itemId}`);
+
+            if (input.type === 'checkbox' && input.checked) {
+                indicator.classList.add(itemId);
+            } else if (input.type === 'radio') {
+                const checkedRadio = accordionItem.querySelector(`input[name="${input.name}"]:checked`);
+                if (checkedRadio) {
+                    indicator.classList.add(`maquillaje-${checkedRadio.value.toLowerCase()}`);
+                }
+            }
+        });
+    }
+
+    function updateAllUI() {
+        document.querySelectorAll('.participant-accordion').forEach(acc => actualizarEstadoUI(acc));
+        updateSummary();
+    }
+
+    function updateSummary() {
+        const activeDayButton = navContainer.querySelector('.active');
+        if (!activeDayButton) return;
+        const diaActual = activeDayButton.dataset.day;
+        const containerActual = document.getElementById(`content-${diaActual}`);
+        if (!containerActual) return;
+
+        const total = containerActual.querySelectorAll('.participant-accordion').length;
+        const completados = containerActual.querySelectorAll('.participant-accordion.is-complete').length;
+        const maquillajeSi = containerActual.querySelectorAll('input[data-item-id="maquillaje"][value="Sí"]:checked').length;
+
+        summaryPanel.innerHTML = `
+            <div class="summary-item"><div class="count">${total}</div><div class="label">Participantes</div></div>
+            <div class="summary-item"><div class="count">${completados}</div><div class="label">Completos</div></div>
+            <div class="summary-item"><div class="count">${maquillajeSi}</div><div class="label">Maquillaje</div></div>`;
+        document.title = `(${completados}/${total}) Checklist ${diaActual}`;
+    }
+
+    // --- LÓGICA DE FIREBASE ---
+    async function saveStateToFirebase(uniqueId, itemId, value) {
+        try {
+            const docRef = doc(db, "tareas", uniqueId);
+            const docSnap = await getDoc(docRef);
+            
+            let currentData = docSnap.exists() ? docSnap.data() : { id: uniqueId };
+            currentData[itemId] = value;
+            
+            await setDoc(docRef, currentData);
+        } catch (error) {
+            console.error("❌ Error guardando en Firebase:", error);
+            alert("Error de conexión. No se pudo guardar el cambio.");
+        }
+    }
+
+    function syncStateFromFirebase() {
+        onSnapshot(tareasCollectionRef, (snapshot) => {
+            snapshot.docs.forEach(doc => {
+                const taskData = doc.data();
+                const accordionItem = document.querySelector(`.participant-accordion[data-id="${taskData.id}"]`);
+                if (accordionItem) {
+                    Object.keys(taskData).forEach(itemId => {
+                        if (itemId === 'id') return;
+
+                        const value = taskData[itemId];
+                        const checkbox = accordionItem.querySelector(`input[data-item-id="${itemId}"][type="checkbox"]`);
+                        if (checkbox) {
+                            checkbox.checked = value;
+                        } else {
+                            const radio = accordionItem.querySelector(`input[data-item-id="${itemId}"][value="${value}"]`);
+                            if (radio) {
+                                radio.checked = true;
+                            }
+                        }
+                    });
+                }
+            });
+            updateAllUI();
+        });
+    }
+
+    // --- MANEJADORES DE EVENTOS ---
+    function setupEventListeners() {
+        programContainer.addEventListener('click', (e) => {
+            const header = e.target.closest('.accordion-header');
+            if (header) {
+                header.classList.toggle('active');
+                const content = header.nextElementSibling;
+                content.classList.toggle('active');
+            }
+        });
+
+        programContainer.addEventListener('change', (e) => {
+            if (e.target.matches('input[data-item-id]')) {
+                const input = e.target;
+                const accordionItem = input.closest('.participant-accordion');
+                const uniqueId = accordionItem.dataset.id;
+                const itemId = input.dataset.itemId;
+                let value = (input.type === 'checkbox') ? input.checked : input.value;
+
+                if (value !== undefined) {
+                    saveStateToFirebase(uniqueId, itemId, value);
+                }
+                actualizarEstadoUI(accordionItem);
+                updateSummary();
+            }
+        });
+
+        navContainer.addEventListener('click', (e) => {
+            const button = e.target.closest('.nav-button');
+            if (button && !button.classList.contains('active')) {
+                navContainer.querySelector('.active').classList.remove('active');
+                button.classList.add('active');
+                
+                const day = button.dataset.day.toLowerCase();
+                document.body.className = `day-${day}`;
+                
+                document.querySelectorAll('.day-content').forEach(c => c.classList.add('hidden'));
+                document.getElementById(`content-${button.dataset.day}`).classList.remove('hidden');
+                
+                updateSummary();
+            }
+        });
+    }
+
+    // --- INICIALIZACIÓN DE LA APLICACIÓN ---
+    function init() {
+        const pass = prompt("Por favor, introduce la contraseña:", "");
+        if (pass === contraseñaCorrecta) {
+            document.body.className = 'day-viernes';
+            document.querySelectorAll('.hidden').forEach(el => el.classList.remove('hidden'));
+            generarProgramaHTML();
+            setupEventListeners();
+            syncStateFromFirebase();
+        } else {
+            document.body.innerHTML = `<h1>Contraseña incorrecta. Acceso denegado.</h1>`;
+        }
+    }
+
+    init();
 });
