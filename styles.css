@@ -1,0 +1,122 @@
+/* --- PALETA DE COLORES Y ESTILOS GLOBALES --- */
+:root {
+    --font-family: 'Inter', sans-serif;
+    --primary: #005A9C;
+    --background: #F8F9FA;
+    --card-bg: #FFFFFF;
+    --text-primary: #212529;
+    --text-secondary: #6C757D;
+    --border-color: #DEE2E6;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.08);
+
+    /* Colores de estado (HEADER) */
+    --status-yes-bg: #E6F4EA;
+    --status-yes-border: #34A853;
+    --status-no-bg: #FCE8E6;
+    --status-no-border: #EA4335;
+    --status-na-bg: #F1F3F4;
+    --status-na-border: #80868B;
+    
+    /* Colores para indicadores de tarea */
+    --indicator-recogida: #ffc107;
+    --indicator-orientacion: #007bff;
+    --indicator-detras_plataforma: #fd7e14;
+    --indicator-discursado: #6f42c1;
+    --indicator-maquillaje-si: #ea4335;
+    --indicator-maquillaje-no: #34a853;
+    --indicator-maquillaje-na: #80868b;
+    --indicator-default: #ced4da;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ... (Estilos de header, nav, y summary sin cambios) ... */
+header { text-align: center; margin-bottom: 20px; }
+header h1 { color: var(--text-primary); }
+header p { color: var(--text-secondary); font-size: 1.1em; }
+.hidden { display: none !important; }
+#day-nav { display: flex; justify-content: center; margin-bottom: 25px; background-color: var(--card-bg); padding: 8px; border-radius: 12px; box-shadow: var(--shadow); max-width: 600px; margin-left: auto; margin-right: auto; }
+.nav-button { flex-grow: 1; padding: 12px 20px; border: none; background: transparent; color: var(--text-secondary); font-size: 1em; font-weight: 600; cursor: pointer; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background-color 0.2s ease, color 0.2s ease; }
+.nav-button.active { background-color: var(--primary); color: white; box-shadow: 0 2px 4px rgba(0, 90, 156, 0.2); }
+#summary-panel { display: flex; gap: 20px; justify-content: center; margin: 0 auto 30px auto; padding: 15px; background-color: var(--card-bg); border-radius: 12px; box-shadow: var(--shadow); max-width: 800px; flex-wrap: wrap; }
+.summary-item { text-align: center; }
+.summary-item .count { font-size: 1.8em; font-weight: 700; color: var(--primary); }
+.summary-item .label { font-size: 0.9em; color: var(--text-secondary); font-weight: 500; }
+.session-block { margin-bottom: 30px; }
+.session-block h2 { font-size: 1.5em; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+
+
+/* --- ACORDEÓN MEJORADO CON INDICADORES --- */
+.accordion-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    background-color: var(--card-bg);
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+.accordion-header:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.06); border-color: var(--primary); }
+
+.participant-info { flex-grow: 1; }
+.participant-name { font-size: 1.1em; font-weight: 600; }
+.participant-role { font-size: 0.9em; color: var(--text-secondary); }
+
+.participant-details { display: flex; align-items: center; gap: 15px; }
+.details-time, .details-number { background-color: #e9ecef; padding: 4px 10px; border-radius: 15px; font-size: 0.9em; font-weight: 600; }
+
+/* --- INDICADORES DE ESTADO EN EL HEADER --- */
+.status-indicators {
+    display: flex;
+    gap: 6px;
+    margin: 0 15px;
+}
+.indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--indicator-default);
+    transition: background-color 0.3s ease;
+    box-shadow: inset 0 0 2px rgba(0,0,0,0.1);
+}
+/* Colores de indicadores completados */
+.indicator.recogida { background-color: var(--indicator-recogida); }
+.indicator.orientacion { background-color: var(--indicator-orientacion); }
+.indicator.detras_plataforma { background-color: var(--indicator-detras_plataforma); }
+.indicator.discursado { background-color: var(--indicator-discursado); }
+.indicator.maquillaje-si { background-color: var(--indicator-maquillaje-si); }
+.indicator.maquillaje-no { background-color: var(--indicator-maquillaje-no); }
+.indicator.maquillaje-na { background-color: var(--indicator-maquillaje-na); }
+
+
+.accordion-icon { font-size: 1.2em; transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); }
+.accordion-header.active .accordion-icon { transform: rotate(180deg); }
+
+.accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.4s ease-out; background: #fff; border-radius: 0 0 8px 8px; border: 1px solid var(--border-color); border-top: none; margin-top: -8px; margin-bottom: 8px; }
+.accordion-content.active { padding: 20px; }
+
+/* Checklist interno */
+.checklist-item { display: flex; align-items: center; padding: 14px 5px; border-bottom: 1px solid #f1f3f4; transition: opacity 0.3s; }
+.checklist-item:last-child { border-bottom: none; }
+.checklist-item.disabled { opacity: 0.5; pointer-events: none; } /* Estilo para tarea deshabilitada */
+.checklist-item .icon { color: var(--text-secondary); margin-right: 15px; width: 20px; text-align: center; }
+.checklist-item label { flex-grow: 1; }
+.makeup-options { display: flex; gap: 15px; }
+
+/* ... (Barra de progreso sin cambios) ... */
+.progress-bar-container { background-color: #e9ecef; border-radius: 20px; height: 10px; margin-top: 20px; overflow: hidden; }
+.progress-bar { background-color: var(--primary); height: 100%; width: 0%; border-radius: 20px; transition: width 0.4s ease, background-color 0.4s ease; }
+.progress-bar.completed { background-color: var(--status-yes-border); }
