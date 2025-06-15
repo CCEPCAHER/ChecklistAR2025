@@ -1,87 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checklist del Programa</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist del Programa</title>
 
-  <!-- Google Fonts: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Tu hoja de estilos -->
-  <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <header>
-    <h1>Checklist del Programa</h1>
-    <p>Una herramienta de gestión para un evento impecable.</p>
-  </header>
+    <header>
+        <h1>Checklist del Programa</h1>
+        <p>Una herramienta de gestión para un evento impecable.</p>
+    </header>
 
-  <nav id="day-nav" class="hidden">
-    <button class="nav-button active" data-day="Viernes"><i class="fas fa-calendar-day"></i> Viernes</button>
-    <button class="nav-button" data-day="Sábado"><i class="fas fa-calendar-day"></i> Sábado</button>
-    <button class="nav-button" data-day="Domingo"><i class="fas fa-calendar-day"></i> Domingo</button>
-  </nav>
+    <nav id="day-nav" class="hidden">
+        <button class="nav-button active" data-day="Viernes"><i class="fas fa-calendar-day"></i> Viernes</button>
+        <button class="nav-button" data-day="Sábado"><i class="fas fa-calendar-day"></i> Sábado</button>
+        <button class="nav-button" data-day="Domingo"><i class="fas fa-calendar-day"></i> Domingo</button>
+    </nav>
 
-  <!-- Panel de Resumen Dinámico -->
-  <section id="summary-panel" class="hidden"></section>
+    <section id="summary-panel" class="hidden"></section>
 
-  <main id="program-container" class="hidden">
-    <!-- El contenido del programa se generará aquí -->
-  </main>
+    <main id="program-container" class="hidden">
+        </main>
 
-  <!-- Tu JavaScript de funcionalidad -->
-  <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 
-  <!-- Firebase Configuración -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-analytics.js";
-    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBCbnup0noV5iG139vfx-JynvPs2DYxB7w",
-      authDomain: "checklist-ar2025.firebaseapp.com",
-      projectId: "checklist-ar2025",
-      storageBucket: "checklist-ar2025.appspot.com",
-      messagingSenderId: "207074993986",
-      appId: "1:207074993986:web:bc6b1150fcfd2885040adb",
-      measurementId: "G-PPWDTGNP8K"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const db = getFirestore(app);
-
-    // Guardar estado de tarea cada vez que cambia un checkbox
-    document.addEventListener("change", async (e) => {
-      if (e.target.matches(".checklist-item input[type='checkbox']")) {
-        const checkbox = e.target;
-        const tareaId = checkbox.dataset.id;
-        const participante = checkbox.dataset.participante || "desconocido";
-        const completado = checkbox.checked;
-
-        if (!tareaId) return;
-
-        try {
-          await setDoc(doc(db, "tareas", `${participante}_${tareaId}`), {
-            tarea: tareaId,
-            participante,
-            completado,
-            timestamp: Date.now()
-          });
-          console.log(`✅ Guardado: ${participante} - ${tareaId} - ${completado}`);
-        } catch (error) {
-          console.error("❌ Error guardando tarea:", error);
-        }
-      }
-    });
-  </script>
 </body>
 </html>
