@@ -1,382 +1,207 @@
-/* --- PALETA DE COLORES Y ESTILOS GLOBALES --- */
-:root {
-    --font-family: 'Inter', sans-serif;
-    --background: #F8F9FA;
-    --card-bg: #FFFFFF;
-    --text-primary: #212529;
-    --text-secondary: #6C757D;
-    --border-color: #DEE2E6;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.08);
+/* ─────────────── RESET & TOKENS ─────────────── */
+@layer reset, tokens, base, layout, components, utilities, overrides;
 
-    /* --- PALETAS DE COLORES POR DÍA --- */
-    --viernes-primary: #0d6efd;
-    --viernes-progress: #7ab1ff;
-    --viernes-bg-light: #e7f0ff;
+@layer reset {
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+}
 
-    --sabado-primary: #fd7e14;
-    --sabado-progress: #fdb47d;
-    --sabado-bg-light: #fff3e8;
-    
-    --domingo-primary: #6f42c1;
-    --domingo-progress: #ab8edb;
-    --domingo-bg-light: #f1ebf9;
+@layer tokens {
+  :root {
+    /* — Tipografía & medidas — */
+    --ff-base: 'Inter', system-ui, sans-serif;
+    --fs-base: 1rem;
+    --radius: 0.5rem;
+    --radius-full: 50%;
+    --transition: 0.25s ease;
 
-    /* Color de estado completado (global) */
+    /* — Sombras — */
+    --shadow-xs: 0 1px 2px rgba(0 0 0 / .05);
+    --shadow-sm: 0 1px 3px rgba(0 0 0 / .08), 0 1px 2px rgba(0 0 0 / .04);
+    --shadow-md: 0 4px 6px rgba(0 0 0 / .04), 0 2px 4px rgba(0 0 0 / .08);
+
+    /* — Paleta global — */
+    --bg: #f8f9fa;
+    --card: #fff;
+    --border: #dee2e6;
+    --text: #212529;
+    --text-sub: #6c757d;
+
+    /* — Éxito / casos generales — */
     --success: #198754;
-    --success-light: #e8f3ee;
-}
+    --success-bg: #e8f3ee;
 
-body {
-    font-family: var(--font-family);
-    background-color: #e9ecef; /* Color de fondo inicial claro */
-    color: var(--text-primary);
-    margin: 0;
-    padding: 1rem;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.3s ease;
-}
-
-/* --- PANTALLA DE LOGIN --- */
-#login-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #e9ecef; /* Fondo claro */
-    z-index: 1000;
-}
-
-.login-container {
-    text-align: center;
-    background: var(--card-bg);
-    padding: 2rem 2.5rem;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    max-width: 400px;
-    width: 90%;
-}
-
-.login-container h1 {
-    color: var(--text-primary);
-    margin-top: 0;
-}
-
-.login-container p {
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-}
-
-#login-form input {
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 1em;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    margin-bottom: 1rem;
-    box-sizing: border-box;
-}
-
-#login-form button {
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 1em;
-    font-weight: 600;
-    color: white;
-    background-color: var(--viernes-primary);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-#login-form button:hover {
-    background-color: #0b5ed7;
-}
-
-#login-error {
-    color: #dc3545;
-    margin-top: 1rem;
-    font-size: 0.9em;
-}
-
-
-/* --- ESTILOS GENERALES APP --- */
-.hidden { 
-    display: none !important; 
-}
-
-header { 
-    text-align: center; 
-    margin-bottom: 1.5rem; 
-    position: relative; /* Para posicionar el botón de logout */
-}
-header h1 { 
-    color: var(--text-primary); 
-    margin: 0; 
-}
-header p { 
-    color: var(--text-secondary); 
-    font-size: 1.1em; 
-    margin-top: 0.5rem; 
-}
-
-#logout-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: none;
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: all 0.2s ease;
-}
-#logout-button:hover {
-    background-color: var(--border-color);
-    color: var(--text-primary);
-}
-
-
-/* --- ESTILOS DE NAVEGACIÓN TEMATIZADOS --- */
-#day-nav { 
-    display: flex; 
-    justify-content: center; 
-    margin-bottom: 1.5rem; 
-    background-color: var(--card-bg); 
-    padding: 0.5rem; 
-    border-radius: 12px; 
-    box-shadow: var(--shadow); 
-    max-width: 600px; 
-    margin-left: auto; 
-    margin-right: auto; 
-}
-.nav-button {
-    flex-grow: 1; 
-    padding: 0.75rem 1rem; 
-    border: none; 
-    background: transparent; 
-    color: var(--text-secondary); 
-    font-size: 1em; 
-    font-weight: 600; 
-    cursor: pointer; 
-    border-radius: 8px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 0.5rem; 
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-/* Colores dinámicos para el botón activo */
-.day-viernes .nav-button.active[data-day="Viernes"] { background-color: var(--viernes-primary); color: white; }
-.day-sabado .nav-button.active[data-day="Sábado"] { background-color: var(--sabado-primary); color: white; }
-.day-domingo .nav-button.active[data-day="Domingo"] { background-color: var(--domingo-primary); color: white; }
-
-/* --- PANEL DE RESUMEN --- */
-#summary-panel { 
-    display: flex; 
-    gap: 1.5rem; 
-    justify-content: center; 
-    margin: 0 auto 2rem auto; 
-    padding: 1rem; 
-    background-color: var(--card-bg); 
-    border-radius: 12px; 
-    box-shadow: var(--shadow); 
-    max-width: 800px; 
-    flex-wrap: wrap; 
-}
-.summary-item { 
-    text-align: center; 
-}
-.summary-item .count { 
-    font-size: 1.8em; 
-    font-weight: 700; 
-    color: var(--text-primary); 
-}
-.summary-item .label { 
-    font-size: 0.9em; 
-    color: var(--text-secondary); 
-    font-weight: 500; 
-}
-.day-viernes .summary-item .count { color: var(--viernes-primary); }
-.day-sabado .summary-item .count { color: var(--sabado-primary); }
-.day-domingo .summary-item .count { color: var(--domingo-primary); }
-
-main { 
-    max-width: 800px; 
-    margin: 0 auto; 
-}
-
-/* --- CONTENEDORES DE DÍA TEMATIZADOS --- */
-#content-Viernes {
-    --day-color-primary: var(--viernes-primary);
-    --day-color-progress: var(--viernes-progress);
-    --day-color-bg-light: var(--viernes-bg-light);
-}
-#content-Sábado {
-    --day-color-primary: var(--sabado-primary);
-    --day-color-progress: var(--sabado-progress);
-    --day-color-bg-light: var(--sabado-bg-light);
-}
-#content-Domingo {
-    --day-color-primary: var(--domingo-primary);
-    --day-color-progress: var(--domingo-progress);
-    --day-color-bg-light: var(--domingo-bg-light);
-}
-
-/* --- TÍTULOS DE SESIÓN TEMATIZADOS --- */
-.session-block h2 {
-    font-size: 1.5em;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    color: var(--day-color-primary); /* Color del día */
-    border-bottom: 2px solid var(--day-color-primary); /* Color del día */
-}
-
-/* --- ACORDEÓN CON FONDO PROGRESIVO --- */
-.participant-accordion {
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
-    overflow: hidden;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-    
-    /* Variable que JS actualizará. Valor por defecto 0%. */
-    --progress-percent: 0%;
-
-    /* EL CORAZÓN DE LA MAGIA: El fondo es un gradiente que se "llena" */
-    background: linear-gradient(
-        to right, 
-        var(--day-color-progress), /* Color de progreso del día */
-        var(--day-color-progress) var(--progress-percent), 
-        var(--day-color-bg-light) var(--progress-percent) /* Color de fondo del día */
-    );
-    
-    /* Transición suave para el cambio de color y borde */
-    transition: background 0.4s ease, border-color 0.4s ease;
-}
-.participant-accordion:hover {
-    border-color: var(--day-color-primary);
-}
-/* Cuando se completa, el fondo cambia al color de éxito */
-.participant-accordion.is-complete {
-    background: var(--success-light);
-    border-color: var(--success);
-}
-/* Aseguramos que el header sea transparente para ver el fondo progresivo */
-.accordion-header {
-    display: flex; 
-    align-items: center; 
-    width: 100%; 
-    text-align: left; 
-    padding: 0.75rem 1rem; 
-    cursor: pointer; 
-    border: none;
-    background-color: transparent;
-}
-.accordion-icon { 
-    font-size: 1.2em; 
-    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); 
-}
-.accordion-header.active .accordion-icon { 
-    transform: rotate(180deg); 
-}
-
-.participant-info { flex-grow: 1; }
-.participant-name { font-size: 1.1em; font-weight: 600; }
-.participant-role { font-size: 0.9em; color: var(--text-secondary); }
-.participant-details { display: flex; align-items: center; gap: 1rem; margin-left: 1rem; }
-.details-time, .details-number { background-color: #e9ecef; padding: 4px 10px; border-radius: 15px; font-size: 1em; font-weight: 700; }
-
-.status-indicators { display: flex; gap: 6px; }
-.indicator { width: 10px; height: 10px; border-radius: 50%; background-color: #ced4da; transition: background-color 0.3s ease; box-shadow: inset 0 0 2px rgba(0,0,0,0.1); }
-.indicator.recogida { background-color: #ffc107; }
-.indicator.orientacion { background-color: #007bff; }
-.indicator.detras_plataforma { background-color: #fd7e14; }
-.indicator.discursado { background-color: #6f42c1; }
-
-.indicator.maquillaje-sí { background-color: #ea4335; } /* Rojo para 'Sí' */
-.indicator.maquillaje-no { background-color: var(--text-primary); } /* Negro para 'No' */
-.indicator.maquillaje-n\/a { background-color: #80868b; } /* Gris para 'N/A' */
-
-
-.accordion-content { 
-    max-height: 0; 
-    overflow: hidden; 
-    transition: max-height 0.4s ease-out; 
-}
-.accordion-content.active { 
-    max-height: 500px; /* Suficiente para el contenido */ 
-}
-.checklist-container { 
-    padding: 0.5rem 1rem 1rem 1rem; 
-    background: rgba(255,255,255,0.6); 
-    backdrop-filter: blur(2px); 
-}
-.checklist-item { 
-    display: flex; 
-    align-items: center; 
-    padding: 0.9rem 0.5rem; 
-    border-bottom: 1px solid #f1f3f4; 
-    transition: opacity 0.3s; 
-}
-.checklist-item:last-child { 
-    border-bottom: none; 
-}
-.checklist-item.disabled { 
-    opacity: 0.5; 
-    pointer-events: none; 
-    background-color: #f8f9fa; 
-}
-.checklist-item .icon { 
-    color: var(--text-secondary); 
-    margin-right: 1rem; 
-    width: 20px; 
-    text-align: center; 
-}
-.checklist-item label { 
-    flex-grow: 1; 
-}
-.makeup-options { 
-    display: flex; 
-    gap: 1rem; 
-}
-.makeup-options label { 
-    cursor: pointer; 
-    padding: 0.3rem 0.8rem; 
-    border-radius: 15px; 
-    border: 1px solid var(--border-color); 
-    transition: all 0.2s ease; 
-}
-.makeup-options input[type="radio"] { 
-    display: none; 
-}
-.makeup-options input[type="radio"]:checked + label {
-    background-color: var(--day-color-primary);
-    color: white;
-    border-color: var(--day-color-primary);
-}
-
-.progress-bar-container { 
-    display: none; /* La barra ya no es necesaria, el fondo cumple su función */
-}
-@media (max-width: 480px) {
-  .details-time, .details-number {
-    font-size: 1.1em;
+    /* — Paletas por día — */
+    --viernes:  #0d6efd;   --viernes-50:  #e7f0ff; --viernes-70:#7ab1ff;
+    --sabado:   #fd7e14;   --sabado-50:   #fff3e8; --sabado-70:#fdb47d;
+    --domingo:  #6f42c1;   --domingo-50:  #f1ebf9; --domingo-70:#ab8edb;
   }
-  #logout-button {
-    position: static;
-    margin: 0.5rem auto 0;
-    display: block;
-    width: auto;
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#1f1f1f; --card:#2a2a2a; --border:#3a3a3a;
+      --text:#f1f3f4; --text-sub:#adb5bd;
+    }
+  }
+}
+
+/* ─────────────── BASE ─────────────── */
+@layer base {
+  body{
+    font:var(--fs-base)/1.5 var(--ff-base);
+    background:var(--bg);
+    color:var(--text);
+    padding:1rem;
+    -webkit-font-smoothing:antialiased;
+    transition:background var(--transition);
+  }
+  img,svg{display:block;max-width:100%}
+  button{font:inherit}
+  :focus-visible{outline:2px solid var(--viernes);outline-offset:2px}
+}
+
+/* ─────────────── LAYOUT ─────────────── */
+@layer layout {
+  header{ text-align:center;margin-block:0 1.5rem;position:relative }
+  main{ max-width:800px;margin-inline:auto }
+  
+  #day-nav{
+    display:flex;gap:.25rem;
+    justify-content:center;
+    padding:.5rem;
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow-sm);
+  }
+  
+  #summary-panel{
+    display:flex;flex-wrap:wrap;gap:1.5rem;
+    justify-content:center;
+    margin-block:0 2rem;padding:1rem;
+    background:var(--card);border-radius:var(--radius);
+    box-shadow:var(--shadow-sm);
+  }
+
+  @container (max-width:480px){
+    #summary-panel .count{font-size:1.6em}
+  }
+}
+
+/* ─────────────── COMPONENTS ─────────────── */
+@layer components {
+  /* — Botones de navegación día — */
+  .nav-button{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:.5rem;
+    padding:.75rem 1rem;
+    background:none;border:none;border-radius:var(--radius);
+    color:var(--text-sub);font-weight:600;cursor:pointer;
+    transition:background var(--transition),color var(--transition);
+  }
+  .day-viernes   .nav-button.active[data-day="Viernes"] {background:var(--viernes);color:#fff}
+  .day-sabado    .nav-button.active[data-day="Sábado"]  {background:var(--sabado);color:#fff}
+  .day-domingo   .nav-button.active[data-day="Domingo"] {background:var(--domingo);color:#fff}
+
+  /* — Tarjeta login — */
+  .login-container{
+    width:min(90%,400px);padding:2rem 2.5rem;
+    background:var(--card);border-radius:var(--radius);
+    box-shadow:var(--shadow-md);text-align:center;
+  }
+  
+  /* Inputs y botones */
+  input,button{
+    width:100%;padding:.75rem;border-radius:var(--radius);
+    border:1px solid var(--border);box-sizing:border-box;
+  }
+  button{
+    font-weight:700;color:#fff;background:var(--viernes);
+    border:none;cursor:pointer;transition:background var(--transition)
+  }
+  button:hover{background:#0b5ed7}
+  button:disabled{opacity:.5;cursor:not-allowed}
+
+  /* — Accordión participante — */
+  .participant-accordion{
+    border:1px solid var(--border);border-radius:var(--radius);
+    overflow:hidden;box-shadow:var(--shadow-xs);
+    --p:0%; /* <- valor programado vía JS */
+    background:linear-gradient(
+      90deg,
+      var(--day-color-progress) var(--p),
+      var(--day-color-bg-light) var(--p)
+    );transition:background var(--transition),border-color var(--transition)
+  }
+  .participant-accordion:hover{border-color:var(--day-color-primary)}
+  .participant-accordion.is-complete{
+    background:var(--success-bg);border-color:var(--success)
+  }
+
+  .accordion-header{display:flex;align-items:center;width:100%;
+    padding:.75rem 1rem;background:none;border:none;cursor:pointer}
+  .accordion-icon{transition:transform var(--transition)}
+  .accordion-header.active .accordion-icon{transform:rotate(180deg)}
+  
+  .accordion-content{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .accordion-content.active{max-height:500px}
+  
+  .checklist-item{
+    display:flex;align-items:center;gap:1rem;
+    padding:.9rem .5rem;border-bottom:1px solid #f1f3f4;
+    transition:opacity var(--transition)
+  }
+  .checklist-item.disabled{opacity:.5;pointer-events:none;background:#f8f9fa}
+  
+  /* Indicadores circulares (usamos data-attr para no multiplicar clases) */
+  .indicator{--c:#ced4da;width:10px;height:10px;border-radius:50%;background:var(--c);
+    box-shadow:inset 0 0 2px rgb(0 0 0 / .1);transition:background var(--transition)}
+  .indicator[data-type="recogida"]        {--c:#ffc107}
+  .indicator[data-type="orientacion"]     {--c:#007bff}
+  .indicator[data-type="detras"]          {--c:#fd7e14}
+  .indicator[data-type="discursado"]      {--c:#6f42c1}
+  .indicator[data-type="maq-sí"]          {--c:#ea4335}
+  .indicator[data-type="maq-no"]          {--c:var(--text)}
+  .indicator[data-type="maq-na"]          {--c:#80868b}
+}
+
+/* ─────────────── UTILITIES ─────────────── */
+@layer utilities {
+  .hidden{display:none!important}
+  .count{font-size:1.8em;font-weight:700}
+  .label{font-size:.9em;font-weight:500;color:var(--text-sub)}
+  .rounded-full{border-radius:var(--radius-full)}
+  .shadow-sm{box-shadow:var(--shadow-sm)}
+  .text-center{text-align:center}
+}
+
+/* ─────────────── OVERRIDES POR DÍA ─────────────── */
+@layer overrides {
+  /* Color tokens se inyectan vía JS al <body class="day-viernes"> …*/
+  .day-viernes{
+    --day-color-primary:var(--viernes);
+    --day-color-progress:var(--viernes-70);
+    --day-color-bg-light:var(--viernes-50);
+  }
+  .day-sabado{
+    --day-color-primary:var(--sabado);
+    --day-color-progress:var(--sabado-70);
+    --day-color-bg-light:var(--sabado-50);
+  }
+  .day-domingo{
+    --day-color-primary:var(--domingo);
+    --day-color-progress:var(--domingo-70);
+    --day-color-bg-light:var(--domingo-50);
+  }
+
+  /* Texto numérico de resumen coloreado por tema (usa .count util) */
+  .day-viernes  .count{color:var(--viernes)}
+  .day-sabado   .count{color:var(--sabado)}
+  .day-domingo  .count{color:var(--domingo)}
+}
+
+/* ─────────────── MINI QUERIES EXTRA ─────────────── */
+@media (max-width:480px){
+  #logout-button{
+    position:static;margin:.5rem auto;width:auto;
+    display:block;border-radius:var(--radius);
+    padding:.5rem 1rem
   }
 }
