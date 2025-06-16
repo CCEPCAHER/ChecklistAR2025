@@ -22,23 +22,37 @@
       <p>Esta aplicación requiere JavaScript para funcionar. Por favor, actívalo en tu navegador.</p>
     </noscript>
 
-    <header>
-        <h1>Checklist del Programa</h1>
-        <p>Una herramienta de gestión para un evento impecable.</p>
-    </header>
+    <div id="login-screen">
+        <div class="login-container">
+            <h1>programa2025</h1>
+            <p>Por favor, introduce la contraseña para acceder.</p>
+            <form id="login-form">
+                <input type="password" id="password-input" placeholder="Contraseña" required>
+                <button type="submit">Acceder</button>
+                <p id="login-error" class="hidden">Contraseña incorrecta. Inténtalo de nuevo.</p>
+            </form>
+        </div>
+    </div>
 
-    <nav id="day-nav" class="hidden">
-        <button class="nav-button active" data-day="Viernes"><i class="fas fa-calendar-day"></i> Viernes</button>
-        <button class="nav-button" data-day="Sábado"><i class="fas fa-calendar-day"></i> Sábado</button>
-        <button class="nav-button" data-day="Domingo"><i class="fas fa-calendar-day"></i> Domingo</button>
-    </nav>
+    <div id="app-container" class="hidden">
+        <header>
+            <h1>Checklist del Programa</h1>
+            <p>Una herramienta de gestión para un evento impecable.</p>
+            <button id="logout-button" title="Cerrar Sesión"><i class="fas fa-sign-out-alt"></i></button>
+        </header>
 
-    <section id="summary-panel" class="hidden"></section>
+        <nav id="day-nav">
+            <button class="nav-button active" data-day="Viernes"><i class="fas fa-calendar-day"></i> Viernes</button>
+            <button class="nav-button" data-day="Sábado"><i class="fas fa-calendar-day"></i> Sábado</button>
+            <button class="nav-button" data-day="Domingo"><i class="fas fa-calendar-day"></i> Domingo</button>
+        </nav>
 
-    <main id="program-container" class="hidden">
-        </main>
+        <section id="summary-panel"></section>
+
+        <main id="program-container">
+            </main>
+    </div>
 
     <script type="module" src="script.js"></script>
-
 </body>
 </html>
