@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
 import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
-// --- CONFIGURACIÓN DE FIREBASE (REEMPLAZA CON TUS DATOS) ---
+// --- CONFIGURACIÓN DE FIREBASE (TUS DATOS) ---
 const firebaseConfig = {
     apiKey: "AIzaSyBCbnup0noV5iG139vfx-JynvPs2DYxB7w",
     authDomain: "checklist-ar2025.firebaseapp.com",
@@ -21,8 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- CONFIGURACIÓN PRINCIPAL DE LA APP ---
     const contraseñaCorrecta = "programa2025";
+    const SESSION_KEY = 'isLoggedIn-checklist2025';
     const programa = [
-        // ... (El contenido del programa es el mismo)
+        // ... (El contenido del programa es el mismo, no lo incluyo aquí para abreviar)
         {
             sesion: "Viernes Mañana",
             participantes: [
@@ -115,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
         },
     ];
 
-    // --- DATOS DEL CHECKLIST (Modifica si es necesario) ---
     const itemsChecklist = [
         { id: 'recogida', texto: 'Recogida en presidencia', tipo: 'checkbox', icon: 'fa-solid fa-handshake', indicator: true },
         { id: 'orientacion', texto: 'Orientación inicial', tipo: 'checkbox', icon: 'fa-solid fa-compass', indicator: true },
@@ -127,6 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     // --- ELEMENTOS DEL DOM ---
+    const loginScreen = document.getElementById('login-screen');
+    const loginForm = document.getElementById('login-form');
+    const passwordInput = document.getElementById('password-input');
+    const loginError = document.getElementById('login-error');
+    const appContainer = document.getElementById('app-container');
+    const logoutButton = document.getElementById('logout-button');
     const programContainer = document.getElementById('program-container');
     const navContainer = document.getElementById('day-nav');
     const summaryPanel = document.getElementById('summary-panel');
@@ -188,21 +194,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     radioLabel.textContent = opcion;
                     radioLabel.setAttribute('for', radioInput.id);
 
-                    // Permitir alternar selección del radio (marcar y desmarcar)
-                    radioInput.addEventListener('mousedown', function() {
-                        this.wasChecked = this.checked;
+                    // *** INICIO DE LA CORRECCIÓN PARA DESMARCAR RADIO ***
+                    let wasChecked = false;
+                    radioInput.addEventListener('mousedown', () => {
+                        wasChecked = radioInput.checked;
                     });
-                    radioInput.addEventListener('click', function(e) {
-                        if (this.wasChecked) {
-                            this.checked = false;
-                            this.wasChecked = false;
-                            e.preventDefault();
-                            // Disparar evento 'change' para actualizar el estado
-                            this.dispatchEvent(new Event('change', { bubbles: true }));
-                        } else {
-                            this.wasChecked = true;
+                    radioInput.addEventListener('click', (e) => {
+                        if (wasChecked) {
+                            radioInput.checked = false;
+                            // Disparar evento change manualmente para que se guarde el estado
+                            const changeEvent = new Event('change', { bubbles: true });
+                            radioInput.dispatchEvent(changeEvent);
                         }
                     });
+                    // *** FIN DE LA CORRECCIÓN ***
 
                     radioGroup.appendChild(radioInput);
                     radioGroup.appendChild(radioLabel);
@@ -245,23 +250,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function actualizarEstadoUI(accordionItem) {
         if (!accordionItem) return;
 
-        // 1. Lógica condicional para Maquillaje
         const makeupRadio = accordionItem.querySelector('input[data-item-id="maquillaje"]:checked');
         const repasoContainer = accordionItem.querySelector('[data-container-for="repaso_maquillaje"]');
         const repasoInput = repasoContainer.querySelector('input');
-
         const esMaquillajeNoAplicable = makeupRadio && makeupRadio.value === 'N/A';
+
         repasoContainer.classList.toggle('disabled', esMaquillajeNoAplicable);
         repasoInput.disabled = esMaquillajeNoAplicable;
-        if (esMaquillajeNoAplicable) {
+        if (esMaquillajeNoAplicable && repasoInput.checked) {
             repasoInput.checked = false;
+            repasoInput.dispatchEvent(new Event('change', { bubbles: true }));
         }
 
-        // 2. Calcular Progreso
-        let totalItemsConsiderados = itemsChecklist.filter(item => {
-            return !(esMaquillajeNoAplicable && item.id === 'repaso_maquillaje');
-        }).length;
-
+        let totalItemsConsiderados = itemsChecklist.filter(item => !(esMaquillajeNoAplicable && item.id === 'repaso_maquillaje')).length;
         let completados = 0;
         const itemsRevisados = {};
         accordionItem.querySelectorAll('input[data-item-id]').forEach(input => {
@@ -274,27 +275,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const porcentaje = totalItemsConsiderados > 0 ? (completados / totalItemsConsiderados) * 100 : 0;
-
-        // 3. Actualizar la variable CSS para el fondo progresivo
         accordionItem.style.setProperty('--progress-percent', `${porcentaje}%`);
-
-        // 4. Actualizar clase 'is-complete' para el estado final
         const isComplete = porcentaje >= 100;
         accordionItem.classList.toggle('is-complete', isComplete);
 
-        // 5. Actualizar Indicadores del Header
         accordionItem.querySelectorAll('.indicator').forEach(indicator => {
             const itemId = indicator.dataset.indicatorFor;
             const input = accordionItem.querySelector(`input[data-item-id="${itemId}"]`);
-            indicator.className = 'indicator'; // Reset clases
+            indicator.className = 'indicator'; // Reset
             indicator.classList.add(`indicator-for-${itemId}`);
-
+            
             if (input && input.type === 'checkbox' && input.checked) {
                 indicator.classList.add(itemId);
             } else if (input && input.type === 'radio') {
                 const checkedRadio = accordionItem.querySelector(`input[name="${input.name}"]:checked`);
                 if (checkedRadio) {
-                    indicator.classList.add(`maquillaje-${checkedRadio.value.toLowerCase()}`);
+                    const cleanValue = checkedRadio.value.toLowerCase().replace('/', '');
+                    indicator.classList.add(`maquillaje-${cleanValue}`);
                 }
             }
         });
@@ -328,11 +325,9 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const docRef = doc(db, "tareas", uniqueId);
             const docSnap = await getDoc(docRef);
-
             let currentData = docSnap.exists() ? docSnap.data() : { id: uniqueId };
             currentData[itemId] = value;
-
-            await setDoc(docRef, currentData);
+            await setDoc(docRef, currentData, { merge: true });
         } catch (error) {
             console.error("❌ Error guardando en Firebase:", error);
             alert("Error de conexión. No se pudo guardar el cambio.");
@@ -341,8 +336,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function syncStateFromFirebase() {
         onSnapshot(tareasCollectionRef, (snapshot) => {
-            snapshot.docs.forEach(doc => {
-                const taskData = doc.data();
+            snapshot.docs.forEach(docFB => {
+                const taskData = docFB.data();
                 const accordionItem = document.querySelector(`.participant-accordion[data-id="${taskData.id}"]`);
                 if (accordionItem) {
                     Object.keys(taskData).forEach(itemId => {
@@ -356,12 +351,17 @@ document.addEventListener('DOMContentLoaded', () => {
                             const radio = accordionItem.querySelector(`input[data-item-id="${itemId}"][value="${value}"]`);
                             if (radio) {
                                 radio.checked = true;
+                            } else if (value === null) { // Desmarcar si el valor en DB es null
+                                const radios = accordionItem.querySelectorAll(`input[data-item-id="${itemId}"]`);
+                                radios.forEach(r => r.checked = false);
                             }
                         }
                     });
                 }
             });
             updateAllUI();
+        }, error => {
+            console.error("Error en la sincronización en tiempo real:", error);
         });
     }
 
@@ -383,18 +383,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 const uniqueId = accordionItem.dataset.id;
                 const itemId = input.dataset.itemId;
                 let value;
+
                 if (input.type === 'checkbox') {
                     value = input.checked;
                 } else if (input.type === 'radio') {
-                    if (input.checked) {
-                        value = input.value;
-                    } else {
-                        value = null;
-                    }
+                    // Si está marcado, toma el valor. Si no, es null (desmarcado).
+                    value = input.checked ? input.value : null;
                 }
+                
                 if (value !== undefined) {
                     saveStateToFirebase(uniqueId, itemId, value);
                 }
+                // La actualización de la UI se hará por el listener de Firebase,
+                // pero una local es más rápida para la percepción del usuario.
                 actualizarEstadoUI(accordionItem);
                 updateSummary();
             }
@@ -408,6 +409,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const day = button.dataset.day.toLowerCase();
                 document.body.className = `day-${day}`;
+                document.body.style.backgroundColor = ''; // Usar el color del tema
 
                 document.querySelectorAll('.day-content').forEach(c => c.classList.add('hidden'));
                 document.getElementById(`content-${button.dataset.day}`).classList.remove('hidden');
@@ -415,33 +417,47 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateSummary();
             }
         });
+        
+        logoutButton.addEventListener('click', () => {
+            localStorage.removeItem(SESSION_KEY);
+            location.reload();
+        });
     }
 
     // --- INICIALIZACIÓN DE LA APLICACIÓN ---
+    function startApp() {
+        loginScreen.classList.add('hidden');
+        appContainer.classList.remove('hidden');
+        document.body.className = 'day-viernes'; // Tema inicial
+        document.body.style.backgroundColor = ''; // Permitir que el CSS del tema tome control
+
+        generarProgramaHTML();
+        setupEventListeners();
+        syncStateFromFirebase();
+    }
+
     function init() {
-        const pass = prompt("Por favor, introduce la contraseña:", "");
-        if (pass === contraseñaCorrecta) {
-            document.body.className = 'day-viernes';
-            document.querySelectorAll('.hidden').forEach(el => el.classList.remove('hidden'));
-            generarProgramaHTML();
-            setupEventListeners();
-            syncStateFromFirebase();
+        // Verificar si el usuario ya ha iniciado sesión
+        if (localStorage.getItem(SESSION_KEY) === 'true') {
+            startApp();
         } else {
-            document.body.innerHTML = `<h1>Contraseña incorrecta. Acceso denegado.</h1>`;
+            loginScreen.classList.remove('hidden');
         }
+
+        // Manejar el envío del formulario de login
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (passwordInput.value === contraseñaCorrecta) {
+                localStorage.setItem(SESSION_KEY, 'true');
+                startApp();
+            } else {
+                loginError.classList.remove('hidden');
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        });
     }
 
     init();
+
 });
-// --- REGISTRO DEL SERVICE WORKER (Para la PWA) ---
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(registration => {
-        console.log('✅ Service Worker registrado con éxito:', registration.scope);
-      })
-      .catch(error => {
-        console.error('❌ Error al registrar el Service Worker:', error);
-      });
-  });
-}
