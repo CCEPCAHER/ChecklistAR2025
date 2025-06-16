@@ -28,7 +28,7 @@
 
 body {
     font-family: var(--font-family);
-    background-color: var(--background);
+    background-color: #e9ecef; /* Color de fondo inicial claro */
     color: var(--text-primary);
     margin: 0;
     padding: 1rem;
@@ -37,6 +37,75 @@ body {
     transition: background-color 0.3s ease;
 }
 
+/* --- PANTALLA DE LOGIN --- */
+#login-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #e9ecef; /* Fondo claro */
+    z-index: 1000;
+}
+
+.login-container {
+    text-align: center;
+    background: var(--card-bg);
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    max-width: 400px;
+    width: 90%;
+}
+
+.login-container h1 {
+    color: var(--text-primary);
+    margin-top: 0;
+}
+
+.login-container p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+#login-form input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1em;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+}
+
+#login-form button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1em;
+    font-weight: 600;
+    color: white;
+    background-color: var(--viernes-primary);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#login-form button:hover {
+    background-color: #0b5ed7;
+}
+
+#login-error {
+    color: #dc3545;
+    margin-top: 1rem;
+    font-size: 0.9em;
+}
+
+
+/* --- ESTILOS GENERALES APP --- */
 .hidden { 
     display: none !important; 
 }
@@ -44,6 +113,7 @@ body {
 header { 
     text-align: center; 
     margin-bottom: 1.5rem; 
+    position: relative; /* Para posicionar el botón de logout */
 }
 header h1 { 
     color: var(--text-primary); 
@@ -54,6 +124,26 @@ header p {
     font-size: 1.1em; 
     margin-top: 0.5rem; 
 }
+
+#logout-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+}
+#logout-button:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+}
+
 
 /* --- ESTILOS DE NAVEGACIÓN TEMATIZADOS --- */
 #day-nav { 
@@ -212,10 +302,9 @@ main {
 .indicator.detras_plataforma { background-color: #fd7e14; }
 .indicator.discursado { background-color: #6f42c1; }
 
-/* === AJUSTE REALIZADO === */
-.indicator.maquillaje-si { background-color: #ea4335; }                 /* Rojo */
-.indicator.maquillaje-no { background-color: var(--text-primary); }   /* Negro */
-.indicator.maquillaje-na { background-color: #80868b; }                 /* Gris  */
+.indicator.maquillaje-sí { background-color: #ea4335; } /* Rojo para 'Sí' */
+.indicator.maquillaje-no { background-color: var(--text-primary); } /* Negro para 'No' */
+.indicator.maquillaje-n\/a { background-color: #80868b; } /* Gris para 'N/A' */
 
 
 .accordion-content { 
@@ -281,5 +370,13 @@ main {
 @media (max-width: 480px) {
   .details-time, .details-number {
     font-size: 1.1em;
+  }
+  #logout-button {
+    position: static;
+    margin: 0.5rem auto 0;
+    display: block;
+    width: auto;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
   }
 }
