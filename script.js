@@ -115,8 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
     ];
 
-
-  // --- DATOS DEL CHECKLIST (Modifica si es necesario) ---
+    // --- DATOS DEL CHECKLIST (Modifica si es necesario) ---
     const itemsChecklist = [
         { id: 'recogida', texto: 'Recogida en presidencia', tipo: 'checkbox', icon: 'fa-solid fa-handshake', indicator: true },
         { id: 'orientacion', texto: 'Orientación inicial', tipo: 'checkbox', icon: 'fa-solid fa-compass', indicator: true },
@@ -140,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const header = document.createElement('button');
         header.className = 'accordion-header';
-        
+
         const indicatorsHTML = itemsChecklist
             .filter(item => item.indicator)
             .map(item => `<span class="indicator" data-indicator-for="${item.id}"></span>`)
@@ -168,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             itemDiv.className = 'checklist-item';
             itemDiv.dataset.containerFor = item.id;
             itemDiv.innerHTML = `<i class="icon ${item.icon}"></i><label for="check-${idUnico}-${item.id}">${item.texto}</label>`;
-            
+
             if (item.tipo === 'checkbox') {
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
@@ -188,6 +187,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     const radioLabel = document.createElement('label');
                     radioLabel.textContent = opcion;
                     radioLabel.setAttribute('for', radioInput.id);
+
+                    // Permitir alternar selección del radio (marcar y desmarcar)
+                    radioInput.addEventListener('mousedown', function() {
+                        this.wasChecked = this.checked;
+                    });
+                    radioInput.addEventListener('click', function(e) {
+                        if (this.wasChecked) {
+                            this.checked = false;
+                            this.wasChecked = false;
+                            e.preventDefault();
+                            // Disparar evento 'change' para actualizar el estado
+                            this.dispatchEvent(new Event('change', { bubbles: true }));
+                        } else {
+                            this.wasChecked = true;
+                        }
+                    });
+
                     radioGroup.appendChild(radioInput);
                     radioGroup.appendChild(radioLabel);
                 });
@@ -195,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             checklistContainer.appendChild(itemDiv);
         });
-        
+
         content.appendChild(checklistContainer);
         accordionItem.appendChild(header);
         accordionItem.appendChild(content);
@@ -233,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const makeupRadio = accordionItem.querySelector('input[data-item-id="maquillaje"]:checked');
         const repasoContainer = accordionItem.querySelector('[data-container-for="repaso_maquillaje"]');
         const repasoInput = repasoContainer.querySelector('input');
-        
+
         const esMaquillajeNoAplicable = makeupRadio && makeupRadio.value === 'N/A';
         repasoContainer.classList.toggle('disabled', esMaquillajeNoAplicable);
         repasoInput.disabled = esMaquillajeNoAplicable;
@@ -250,15 +266,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const itemsRevisados = {};
         accordionItem.querySelectorAll('input[data-item-id]').forEach(input => {
             if (input.disabled || itemsRevisados[input.dataset.itemId]) return;
-            
+
             if ((input.type === 'checkbox' && input.checked) || (input.type === 'radio' && accordionItem.querySelector(`input[name="${input.name}"]:checked`))) {
                 completados++;
             }
             itemsRevisados[input.dataset.itemId] = true;
         });
-        
+
         const porcentaje = totalItemsConsiderados > 0 ? (completados / totalItemsConsiderados) * 100 : 0;
-        
+
         // 3. Actualizar la variable CSS para el fondo progresivo
         accordionItem.style.setProperty('--progress-percent', `${porcentaje}%`);
 
@@ -270,12 +286,12 @@ document.addEventListener('DOMContentLoaded', () => {
         accordionItem.querySelectorAll('.indicator').forEach(indicator => {
             const itemId = indicator.dataset.indicatorFor;
             const input = accordionItem.querySelector(`input[data-item-id="${itemId}"]`);
-            indicator.className = 'indicator'; // Reset classes
+            indicator.className = 'indicator'; // Reset clases
             indicator.classList.add(`indicator-for-${itemId}`);
 
-            if (input.type === 'checkbox' && input.checked) {
+            if (input && input.type === 'checkbox' && input.checked) {
                 indicator.classList.add(itemId);
-            } else if (input.type === 'radio') {
+            } else if (input && input.type === 'radio') {
                 const checkedRadio = accordionItem.querySelector(`input[name="${input.name}"]:checked`);
                 if (checkedRadio) {
                     indicator.classList.add(`maquillaje-${checkedRadio.value.toLowerCase()}`);
@@ -312,10 +328,10 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const docRef = doc(db, "tareas", uniqueId);
             const docSnap = await getDoc(docRef);
-            
+
             let currentData = docSnap.exists() ? docSnap.data() : { id: uniqueId };
             currentData[itemId] = value;
-            
+
             await setDoc(docRef, currentData);
         } catch (error) {
             console.error("❌ Error guardando en Firebase:", error);
@@ -366,8 +382,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const accordionItem = input.closest('.participant-accordion');
                 const uniqueId = accordionItem.dataset.id;
                 const itemId = input.dataset.itemId;
-                let value = (input.type === 'checkbox') ? input.checked : input.value;
-
+                let value;
+                if (input.type === 'checkbox') {
+                    value = input.checked;
+                } else if (input.type === 'radio') {
+                    if (input.checked) {
+                        value = input.value;
+                    } else {
+                        value = null;
+                    }
+                }
                 if (value !== undefined) {
                     saveStateToFirebase(uniqueId, itemId, value);
                 }
@@ -381,13 +405,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (button && !button.classList.contains('active')) {
                 navContainer.querySelector('.active').classList.remove('active');
                 button.classList.add('active');
-                
+
                 const day = button.dataset.day.toLowerCase();
                 document.body.className = `day-${day}`;
-                
+
                 document.querySelectorAll('.day-content').forEach(c => c.classList.add('hidden'));
                 document.getElementById(`content-${button.dataset.day}`).classList.remove('hidden');
-                
+
                 updateSummary();
             }
         });
