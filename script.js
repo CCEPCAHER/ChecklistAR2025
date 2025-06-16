@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const contraseñaCorrecta = "programa2025";
     const SESSION_KEY = 'isLoggedIn-checklist2025';
     const programa = [
-        // ... (El contenido del programa es el mismo, no lo incluyo aquí para abreviar)
         {
             sesion: "Viernes Mañana",
             participantes: [
@@ -194,20 +193,32 @@ document.addEventListener('DOMContentLoaded', () => {
                     radioLabel.textContent = opcion;
                     radioLabel.setAttribute('for', radioInput.id);
 
-                    // *** INICIO DE LA CORRECCIÓN PARA DESMARCAR RADIO ***
-                    let wasChecked = false;
-                    radioInput.addEventListener('mousedown', () => {
-                        wasChecked = radioInput.checked;
+                    // =================================================================
+                    // ========= INICIO DE LA SOLUCIÓN PARA DESMARCAR RADIOS =========
+                    // =================================================================
+                    // Guardamos el estado anterior en un atributo del propio elemento
+                    // para saber si estaba marcado antes del clic.
+                    radioInput.addEventListener('mousedown', function() {
+                        this.dataset.wasChecked = this.checked;
                     });
-                    radioInput.addEventListener('click', (e) => {
-                        if (wasChecked) {
-                            radioInput.checked = false;
-                            // Disparar evento change manualmente para que se guarde el estado
-                            const changeEvent = new Event('change', { bubbles: true });
-                            radioInput.dispatchEvent(changeEvent);
+
+                    // En el clic, si ya estaba marcado (según nuestro atributo),
+                    // lo desmarcamos y forzamos un evento 'change' para que
+                    // la app registre el cambio de estado (a nulo).
+                    radioInput.addEventListener('click', function() {
+                        if (this.dataset.wasChecked === 'true') {
+                            this.checked = false;
+                            this.dataset.wasChecked = 'false'; // Reseteamos el estado
+                            // Disparamos el evento 'change' manualmente
+                            this.dispatchEvent(new Event('change', { bubbles: true }));
+                        } else {
+                            // Si no estaba marcado, simplemente actualizamos el estado
+                            this.dataset.wasChecked = 'true';
                         }
                     });
-                    // *** FIN DE LA CORRECCIÓN ***
+                    // ===============================================================
+                    // ========= FIN DE LA SOLUCIÓN PARA DESMARCAR RADIOS ===========
+                    // ===============================================================
 
                     radioGroup.appendChild(radioInput);
                     radioGroup.appendChild(radioLabel);
@@ -324,10 +335,8 @@ document.addEventListener('DOMContentLoaded', () => {
     async function saveStateToFirebase(uniqueId, itemId, value) {
         try {
             const docRef = doc(db, "tareas", uniqueId);
-            const docSnap = await getDoc(docRef);
-            let currentData = docSnap.exists() ? docSnap.data() : { id: uniqueId };
-            currentData[itemId] = value;
-            await setDoc(docRef, currentData, { merge: true });
+            // Usamos merge: true para no sobreescribir el documento, sino actualizar campos
+            await setDoc(docRef, { [itemId]: value }, { merge: true });
         } catch (error) {
             console.error("❌ Error guardando en Firebase:", error);
             alert("Error de conexión. No se pudo guardar el cambio.");
@@ -347,13 +356,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         const checkbox = accordionItem.querySelector(`input[data-item-id="${itemId}"][type="checkbox"]`);
                         if (checkbox) {
                             checkbox.checked = value;
-                        } else {
-                            const radio = accordionItem.querySelector(`input[data-item-id="${itemId}"][value="${value}"]`);
-                            if (radio) {
-                                radio.checked = true;
-                            } else if (value === null) { // Desmarcar si el valor en DB es null
-                                const radios = accordionItem.querySelectorAll(`input[data-item-id="${itemId}"]`);
-                                radios.forEach(r => r.checked = false);
+                        } else { // Lógica para radios
+                            const radios = accordionItem.querySelectorAll(`input[data-item-id="${itemId}"]`);
+                            let anyChecked = false;
+                            radios.forEach(radio => {
+                                if (radio.value === value) {
+                                    radio.checked = true;
+                                    radio.dataset.wasChecked = 'true';
+                                    anyChecked = true;
+                                } else {
+                                    radio.dataset.wasChecked = 'false';
+                                }
+                            });
+                             // Si el valor es null en la DB, desmarca todos
+                            if (!anyChecked) {
+                                radios.forEach(radio => radio.checked = false);
                             }
                         }
                     });
@@ -394,8 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (value !== undefined) {
                     saveStateToFirebase(uniqueId, itemId, value);
                 }
-                // La actualización de la UI se hará por el listener de Firebase,
-                // pero una local es más rápida para la percepción del usuario.
+                
                 actualizarEstadoUI(accordionItem);
                 updateSummary();
             }
