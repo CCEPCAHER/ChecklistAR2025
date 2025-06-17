@@ -8,20 +8,23 @@
     --border-color: #DEE2E6;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.08);
 
-    /* --- PALETAS DE COLORES POR DÍA --- */
-    --viernes-primary: #0d6efd;
-    --viernes-progress: #7ab1ff;
-    --viernes-bg-light: #e7f0ff;
+    /* --- NUEVA PALETA DE COLORES POR DÍA --- */
+    /* VIERNES: Tonos Océano/Teal - Calma y concentración */
+    --viernes-primary: #005f73;
+    --viernes-progress: #0a9396;
+    --viernes-bg-light: #e9f5f5;
 
-    --sabado-primary: #21d551c4;
-    --sabado-progress: #30b400;
-    --sabado-bg-light: #a0f0b8;
+    /* SÁBADO: Tonos Ámbar/Naranja - Energía y calidez */
+    --sabado-primary: #ae2012;
+    --sabado-progress: #ee9b00;
+    --sabado-bg-light: #fff2e6;
     
-    --domingo-primary: #6f42c1;
-    --domingo-progress: #ab8edb;
-    --domingo-bg-light: #f1ebf9;
+    /* DOMINGO: Tonos Ciruela/Amatista - Reflexión y calidez */
+    --domingo-primary: #70286b;
+    --domingo-progress: #9d4edd;
+    --domingo-bg-light: #f6eff9;
 
-    /* Color de estado completado (global) */
+    /* Color de estado completado (global) - Se mantiene por su claridad */
     --success: #198754;
     --success-light: #e8f3ee;
 }
@@ -87,7 +90,7 @@ body {
     font-size: 1em;
     font-weight: 600;
     color: white;
-    background-color: var(--viernes-primary);
+    background-color: var(--viernes-primary); /* Se mantiene el color del viernes para el login */
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -95,7 +98,7 @@ body {
 }
 
 #login-form button:hover {
-    background-color: #0b5ed7;
+    background-color: #004c5c; /* Versión más oscura del nuevo azul */
 }
 
 #login-error {
@@ -256,7 +259,7 @@ main {
         to right, 
         var(--day-color-progress), /* Color de progreso del día */
         var(--day-color-progress) var(--progress-percent), 
-        var(--day-color-bg-light) var(--progress-percent) /* Color de fondo del día */
+        var(--card-bg) var(--progress-percent) /* MODIFICACIÓN: Fondo base blanco para mayor contraste */
     );
     
     /* Transición suave para el cambio de color y borde */
@@ -297,10 +300,12 @@ main {
 
 .status-indicators { display: flex; gap: 6px; }
 .indicator { width: 10px; height: 10px; border-radius: 50%; background-color: #ced4da; transition: background-color 0.3s ease; box-shadow: inset 0 0 2px rgba(0,0,0,0.1); }
-.indicator.recogida { background-color: #ffc107; }
-.indicator.orientacion { background-color: #007bff; }
-.indicator.detras_plataforma { background-color: #fd7e14; }
-.indicator.discursado { background-color: #6f42c1; }
+
+/* --- NUEVOS COLORES PARA INDICADORES --- */
+.indicator.recogida { background-color: #ffc107; } /* Amarillo/Oro */
+.indicator.orientacion { background-color: var(--viernes-primary); } /* Azul Océano */
+.indicator.detras_plataforma { background-color: var(--sabado-primary); } /* Naranja Cálido */
+.indicator.discursado { background-color: var(--domingo-primary); } /* Ciruela */
 
 .indicator.maquillaje-sí { background-color: #ea4335; } /* Rojo para 'Sí' */
 .indicator.maquillaje-no { background-color: var(--text-primary); } /* Negro para 'No' */
@@ -380,3 +385,4 @@ main {
     padding: 0.5rem 1rem;
   }
 }
+
