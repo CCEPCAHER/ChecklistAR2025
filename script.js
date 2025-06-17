@@ -146,22 +146,39 @@ document.addEventListener('DOMContentLoaded', () => {
         accordionItem.className = 'participant-accordion';
         accordionItem.dataset.id = idUnico;
         accordionItem.dataset.rol = participante.rol;
+        // --- MODIFICACIÓN: Guardar nombre para acceder a él fácilmente ---
+        accordionItem.dataset.nombre = participante.nombre;
 
         const header = document.createElement('button');
         header.className = 'accordion-header';
 
+        // --- MODIFICACIÓN: Lógica para casos especiales ---
+        const esProduccion = participante.nombre.includes('PRODUCCIÓN AUDIOVISUAL');
+        const esBetel = participante.nombre.includes('(Betel)');
         const esOracion = participante.rol.includes('Oración');
-        const itemsParaOcultar = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
 
-        const indicatorsHTML = itemsChecklist
-            .filter(item => {
-                if (!item.indicator) return false;
-                if (esOracion && itemsParaOcultar.includes(item.id)) return false;
-                return true;
-            })
-            .map(item => `<span class="indicator" data-indicator-for="${item.id}"></span>`)
-            .join('');
+        const itemsParaOcultarOracion = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
+        const itemsParaOcultarBetel = ['orientacion', 'recordatorios'];
+        
+        let indicatorsHTML = '';
+        let showChevron = true;
 
+        if (esProduccion) {
+            // Sin indicadores ni botón de expandir para la producción audiovisual
+            showChevron = false;
+        } else {
+            // Generar indicadores filtrando los casos especiales
+            indicatorsHTML = itemsChecklist
+                .filter(item => {
+                    if (!item.indicator) return false;
+                    if (esOracion && itemsParaOcultarOracion.includes(item.id)) return false;
+                    if (esBetel && itemsParaOcultarBetel.includes(item.id)) return false;
+                    return true;
+                })
+                .map(item => `<span class="indicator" data-indicator-for="${item.id}"></span>`)
+                .join('');
+        }
+        
         header.innerHTML = `
             <div class="participant-info">
                 <div class="participant-name">${participante.nombre}</div>
@@ -171,64 +188,68 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="status-indicators">${indicatorsHTML}</div>
                 ${participante.hora ? `<span class="details-time">${participante.hora}</span>` : ''}
                 ${participante.numero ? `<span class="details-number">#${participante.numero}</span>` : ''}
-                <i class="fas fa-chevron-down accordion-icon"></i>
+                ${showChevron ? '<i class="fas fa-chevron-down accordion-icon"></i>' : ''}
             </div>`;
 
         const content = document.createElement('div');
         content.className = 'accordion-content';
-        const checklistContainer = document.createElement('div');
-        checklistContainer.className = 'checklist-container';
 
-        itemsChecklist.forEach(item => {
-            if (esOracion && itemsParaOcultar.includes(item.id)) {
-                return;
-            }
+        // --- MODIFICACIÓN: No crear checklist si es una producción audiovisual ---
+        if (!esProduccion) {
+            const checklistContainer = document.createElement('div');
+            checklistContainer.className = 'checklist-container';
 
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'checklist-item';
-            itemDiv.dataset.containerFor = item.id;
-            itemDiv.innerHTML = `<i class="icon ${item.icon}"></i><label for="check-${idUnico}-${item.id}">${item.texto}</label>`;
+            itemsChecklist.forEach(item => {
+                // Aplicar filtros para no crear los items que no aplican
+                if (esOracion && itemsParaOcultarOracion.includes(item.id)) return;
+                if (esBetel && itemsParaOcultarBetel.includes(item.id)) return;
 
-            if (item.tipo === 'checkbox') {
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.dataset.itemId = item.id;
-                checkbox.id = `check-${idUnico}-${item.id}`;
-                itemDiv.appendChild(checkbox);
-            } else if (item.tipo === 'radio') {
-                const radioGroup = document.createElement('div');
-                radioGroup.className = 'makeup-options';
-                item.opciones.forEach(opcion => {
-                    const radioInput = document.createElement('input');
-                    radioInput.type = 'radio';
-                    radioInput.name = `radio-${idUnico}-${item.id}`;
-                    radioInput.value = opcion;
-                    radioInput.dataset.itemId = item.id;
-                    radioInput.id = `radio-${idUnico}-${item.id}-${opcion}`;
-                    const radioLabel = document.createElement('label');
-                    radioLabel.textContent = opcion;
-                    radioLabel.setAttribute('for', radioInput.id);
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'checklist-item';
+                itemDiv.dataset.containerFor = item.id;
+                itemDiv.innerHTML = `<i class="icon ${item.icon}"></i><label for="check-${idUnico}-${item.id}">${item.texto}</label>`;
 
-                    radioInput.addEventListener('mousedown', function() { this.dataset.wasChecked = this.checked; });
-                    radioInput.addEventListener('click', function() {
-                        if (this.dataset.wasChecked === 'true') {
-                            this.checked = false;
-                            this.dataset.wasChecked = 'false';
-                            this.dispatchEvent(new Event('change', { bubbles: true }));
-                        } else {
-                            this.dataset.wasChecked = 'true';
-                        }
+                if (item.tipo === 'checkbox') {
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.dataset.itemId = item.id;
+                    checkbox.id = `check-${idUnico}-${item.id}`;
+                    itemDiv.appendChild(checkbox);
+                } else if (item.tipo === 'radio') {
+                    const radioGroup = document.createElement('div');
+                    radioGroup.className = 'makeup-options';
+                    item.opciones.forEach(opcion => {
+                        const radioInput = document.createElement('input');
+                        radioInput.type = 'radio';
+                        radioInput.name = `radio-${idUnico}-${item.id}`;
+                        radioInput.value = opcion;
+                        radioInput.dataset.itemId = item.id;
+                        radioInput.id = `radio-${idUnico}-${item.id}-${opcion}`;
+                        const radioLabel = document.createElement('label');
+                        radioLabel.textContent = opcion;
+                        radioLabel.setAttribute('for', radioInput.id);
+
+                        radioInput.addEventListener('mousedown', function() { this.dataset.wasChecked = this.checked; });
+                        radioInput.addEventListener('click', function() {
+                            if (this.dataset.wasChecked === 'true') {
+                                this.checked = false;
+                                this.dataset.wasChecked = 'false';
+                                this.dispatchEvent(new Event('change', { bubbles: true }));
+                            } else {
+                                this.dataset.wasChecked = 'true';
+                            }
+                        });
+
+                        radioGroup.appendChild(radioInput);
+                        radioGroup.appendChild(radioLabel);
                     });
+                    itemDiv.appendChild(radioGroup);
+                }
+                checklistContainer.appendChild(itemDiv);
+            });
+            content.appendChild(checklistContainer);
+        }
 
-                    radioGroup.appendChild(radioInput);
-                    radioGroup.appendChild(radioLabel);
-                });
-                itemDiv.appendChild(radioGroup);
-            }
-            checklistContainer.appendChild(itemDiv);
-        });
-
-        content.appendChild(checklistContainer);
         accordionItem.appendChild(header);
         accordionItem.appendChild(content);
         return accordionItem;
@@ -261,9 +282,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function actualizarEstadoUI(accordionItem) {
         if (!accordionItem) return;
 
+        // --- MODIFICACIÓN: Lógica para casos especiales ---
+        const nombre = accordionItem.dataset.nombre || '';
+        const esProduccion = nombre.includes('PRODUCCIÓN AUDIOVISUAL');
+
+        if (esProduccion) {
+            accordionItem.style.setProperty('--progress-percent', '0%');
+            accordionItem.classList.remove('is-complete');
+            return; // No hacer nada más para la producción audiovisual
+        }
+        
         const rol = accordionItem.dataset.rol;
+        const esBetel = nombre.includes('(Betel)');
         const esOracion = rol && rol.includes('Oración');
-        const itemsParaOcultar = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
+        const itemsParaOcultarOracion = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
+        const itemsParaOcultarBetel = ['orientacion', 'recordatorios'];
 
         const makeupRadio = accordionItem.querySelector('input[data-item-id="maquillaje"]:checked');
         const repasoContainer = accordionItem.querySelector('[data-container-for="repaso_maquillaje"]');
@@ -271,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (repasoContainer) {
             const repasoInput = repasoContainer.querySelector('input');
-            if(repasoInput) { // Añadida comprobación de seguridad
+            if(repasoInput) {
                 repasoContainer.classList.toggle('disabled', esMaquillajeNoAplicable);
                 repasoInput.disabled = esMaquillajeNoAplicable;
                 if (esMaquillajeNoAplicable && repasoInput.checked) {
@@ -281,8 +314,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // --- MODIFICACIÓN: Calcular total de items considerando los casos especiales ---
         const totalItemsConsiderados = itemsChecklist.filter(item => {
-            if (esOracion && itemsParaOcultar.includes(item.id)) return false;
+            if (esOracion && itemsParaOcultarOracion.includes(item.id)) return false;
+            if (esBetel && itemsParaOcultarBetel.includes(item.id)) return false;
             if (esMaquillajeNoAplicable && item.id === 'repaso_maquillaje') return false;
             return true;
         }).length;
@@ -362,7 +397,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const idUnico = `${sesion.sesion.replace(/\s+/g, '-')}-${p.nombre.replace(/\s+/g, '-')}-${p.rol.replace(/\s+/g, '-')}`;
                 docRefs[idUnico] = doc(db, "tareas", idUnico);
                 
-                // Esta línea no es estrictamente necesaria pero asegura que el documento existe
                 setDoc(docRefs[idUnico], { id: idUnico }, { merge: true });
 
                 onSnapshot(docRefs[idUnico], (docFB) => {
@@ -371,6 +405,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     const taskData = docFB.data();
                     const accordionItem = document.querySelector(`.participant-accordion[data-id="${idUnico}"]`);
                     if (accordionItem) {
+                        // No intentar sincronizar items para la producción audiovisual ya que no tiene
+                        if (accordionItem.dataset.nombre.includes('PRODUCCIÓN AUDIOVISUAL')) {
+                            actualizarEstadoUI(accordionItem);
+                            updateSummary();
+                            return;
+                        }
+
                         Object.keys(taskData).forEach(itemId => {
                             if (itemId === 'id') return;
 
@@ -394,7 +435,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }, error => {
                     console.error(`Error en la sincronización para ${idUnico}:`, error);
-                    // Si este error aparece en la consola, podría indicar un problema con las reglas de seguridad de Firebase.
                 });
             });
         });
@@ -405,6 +445,11 @@ document.addEventListener('DOMContentLoaded', () => {
         programContainer.addEventListener('click', (e) => {
             const header = e.target.closest('.accordion-header');
             if (header) {
+                const accordionItem = header.closest('.participant-accordion');
+                // No expandir si es una producción audiovisual
+                if (accordionItem && accordionItem.dataset.nombre.includes('PRODUCCIÓN AUDIOVISUAL')) {
+                    return;
+                }
                 header.classList.toggle('active');
                 const content = header.nextElementSibling;
                 content.classList.toggle('active');
@@ -421,16 +466,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (input.type === 'checkbox') {
                     saveStateToFirebase(uniqueId, itemId, input.checked);
                 } 
-                // --- INICIO DE LA CORRECCIÓN ---
                 else if (input.type === 'radio') {
-                    // Esta nueva lógica soluciona la condición de carrera.
-                    // Busca el radio que está actualmente seleccionado en el grupo.
                     const checkedRadio = accordionItem.querySelector(`input[name="${input.name}"]:checked`);
-                    // Guarda su valor, o null si ninguno está seleccionado (caso de deselección).
                     const value = checkedRadio ? checkedRadio.value : null;
                     saveStateToFirebase(uniqueId, itemId, value);
                 }
-                // --- FIN DE LA CORRECCIÓN ---
             }
         });
 
