@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             participantes: [
                 { rol: "Presidente", nombre: "David Castro", hora: "9:30" },
                 { rol: "Oración", nombre: "Francisco José Sánchez" },
-                { rol: "Discursante", nombre: "Julián Lasheras", hora: "9:40", numero: 1 },
+                { rol: "Discursante", nombre: "Julián Lasheras ¿Qué es la adoración pura?", hora: "9:40", numero: 1 },
                 { rol: "Discursante", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús (Parte 1).", hora: "10:10", numero: 2 },
                 { rol: "Discursante", nombre: "Domingo Tarrasón", hora: "10:50", numero: 3 },
                 { rol: "Discursante", nombre: "Pedro Medina", hora: "11:11", numero: 4 },
