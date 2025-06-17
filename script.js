@@ -3,6 +3,10 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebas
 import { getFirestore, doc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
 // --- CONFIGURACIÓN DE FIREBASE (TUS DATOS) ---
+// ADVERTENCIA DE SEGURIDAD: Has expuesto tus claves de configuración de Firebase en el código del lado del cliente.
+// Esto es normal para la 'apiKey', pero tu base de datos debe estar protegida con "Firebase Rules"
+// para evitar que cualquiera con estas claves pueda leer o escribir en tu base de datos.
+// La contraseña que has puesto en JavaScript NO ofrece seguridad real.
 const firebaseConfig = {
     apiKey: "AIzaSyBCbnup0noV5iG139vfx-JynvPs2DYxB7w",
     authDomain: "checklist-ar2025.firebaseapp.com",
@@ -29,8 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { rol: "Presidente", nombre: "David Castro", hora: "9:30" },
                 { rol: "Oración", nombre: "Francisco José Sánchez" },
                 { rol: "Discursante", nombre: "Julián Lasheras", hora: "9:40", numero: 1 },
-                { rol: "Discursante", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús: Episodio 2.
-“Este es mi Hijo”(Parte 1).", hora: "10:10", numero: 2 },
+                { rol: "Discursante", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús (Parte 1).", hora: "10:10", numero: 2 },
                 { rol: "Discursante", nombre: "Domingo Tarrasón", hora: "10:50", numero: 3 },
                 { rol: "Discursante", nombre: "Pedro Medina", hora: "11:11", numero: 4 },
                 { rol: "Discursante", nombre: "Daniel Velasco", hora: "11:28", numero: 5 },
@@ -142,16 +145,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const accordionItem = document.createElement('div');
         accordionItem.className = 'participant-accordion';
         accordionItem.dataset.id = idUnico;
-        accordionItem.dataset.rol = participante.rol; // Guardar el rol para uso futuro
+        accordionItem.dataset.rol = participante.rol;
 
         const header = document.createElement('button');
         header.className = 'accordion-header';
 
-        // --- Lógica para ocultar items para roles de Oración ---
         const esOracion = participante.rol.includes('Oración');
         const itemsParaOcultar = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
 
-        // Filtrar indicadores que no aplican a la oración
         const indicatorsHTML = itemsChecklist
             .filter(item => {
                 if (!item.indicator) return false;
@@ -179,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
         checklistContainer.className = 'checklist-container';
 
         itemsChecklist.forEach(item => {
-            // Si es rol de oración y el item está en la lista de ocultar, no lo crea
             if (esOracion && itemsParaOcultar.includes(item.id)) {
                 return;
             }
@@ -271,22 +271,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (repasoContainer) {
             const repasoInput = repasoContainer.querySelector('input');
-            repasoContainer.classList.toggle('disabled', esMaquillajeNoAplicable);
-            repasoInput.disabled = esMaquillajeNoAplicable;
-            if (esMaquillajeNoAplicable && repasoInput.checked) {
-                repasoInput.checked = false;
-                repasoInput.dispatchEvent(new Event('change', { bubbles: true }));
+            if(repasoInput) { // Añadida comprobación de seguridad
+                repasoContainer.classList.toggle('disabled', esMaquillajeNoAplicable);
+                repasoInput.disabled = esMaquillajeNoAplicable;
+                if (esMaquillajeNoAplicable && repasoInput.checked) {
+                    repasoInput.checked = false;
+                    repasoInput.dispatchEvent(new Event('change', { bubbles: true }));
+                }
             }
         }
 
-        // Calcular el total de items que aplican a este participante
         const totalItemsConsiderados = itemsChecklist.filter(item => {
-            if (esOracion && itemsParaOcultar.includes(item.id)) {
-                return false;
-            }
-            if (esMaquillajeNoAplicable && item.id === 'repaso_maquillaje') {
-                return false;
-            }
+            if (esOracion && itemsParaOcultar.includes(item.id)) return false;
+            if (esMaquillajeNoAplicable && item.id === 'repaso_maquillaje') return false;
             return true;
         }).length;
 
@@ -365,6 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const idUnico = `${sesion.sesion.replace(/\s+/g, '-')}-${p.nombre.replace(/\s+/g, '-')}-${p.rol.replace(/\s+/g, '-')}`;
                 docRefs[idUnico] = doc(db, "tareas", idUnico);
                 
+                // Esta línea no es estrictamente necesaria pero asegura que el documento existe
                 setDoc(docRefs[idUnico], { id: idUnico }, { merge: true });
 
                 onSnapshot(docRefs[idUnico], (docFB) => {
@@ -382,18 +380,13 @@ document.addEventListener('DOMContentLoaded', () => {
                                 if (checkbox.checked !== value) checkbox.checked = value;
                             } else {
                                 const radios = accordionItem.querySelectorAll(`input[data-item-id="${itemId}"]`);
-                                let anyChecked = false;
                                 radios.forEach(radio => {
                                     const shouldBeChecked = radio.value === value;
                                     if (radio.checked !== shouldBeChecked) {
                                         radio.checked = shouldBeChecked;
                                     }
-                                    radio.dataset.wasChecked = shouldBeChecked;
-                                    if(shouldBeChecked) anyChecked = true;
+                                    radio.dataset.wasChecked = shouldBeChecked.toString();
                                 });
-                                 if (!anyChecked) {
-                                    radios.forEach(radio => radio.checked = false);
-                                 }
                             }
                         });
                         actualizarEstadoUI(accordionItem);
@@ -401,6 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }, error => {
                     console.error(`Error en la sincronización para ${idUnico}:`, error);
+                    // Si este error aparece en la consola, podría indicar un problema con las reglas de seguridad de Firebase.
                 });
             });
         });
@@ -423,17 +417,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 const accordionItem = input.closest('.participant-accordion');
                 const uniqueId = accordionItem.dataset.id;
                 const itemId = input.dataset.itemId;
-                let value;
-
-                if (input.type === 'checkbox') {
-                    value = input.checked;
-                } else if (input.type === 'radio') {
-                    value = input.checked ? input.value : null;
-                }
                 
-                if (value !== undefined) {
+                if (input.type === 'checkbox') {
+                    saveStateToFirebase(uniqueId, itemId, input.checked);
+                } 
+                // --- INICIO DE LA CORRECCIÓN ---
+                else if (input.type === 'radio') {
+                    // Esta nueva lógica soluciona la condición de carrera.
+                    // Busca el radio que está actualmente seleccionado en el grupo.
+                    const checkedRadio = accordionItem.querySelector(`input[name="${input.name}"]:checked`);
+                    // Guarda su valor, o null si ninguno está seleccionado (caso de deselección).
+                    const value = checkedRadio ? checkedRadio.value : null;
                     saveStateToFirebase(uniqueId, itemId, value);
                 }
+                // --- FIN DE LA CORRECCIÓN ---
             }
         });
 
