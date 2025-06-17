@@ -8,7 +8,7 @@
     --border-color: #DEE2E6;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.08);
 
-    /* --- NUEVA PALETA DE COLORES POR DÍA --- */
+    /* --- PALETA DE COLORES MEJORADA POR DÍA --- */
     /* VIERNES: Tonos Océano/Teal - Calma y concentración */
     --viernes-primary: #005f73;
     --viernes-progress: #0a9396;
@@ -24,7 +24,7 @@
     --domingo-progress: #9d4edd;
     --domingo-bg-light: #f6eff9;
 
-    /* Color de estado completado (global) - Se mantiene por su claridad */
+    /* Color de estado completado (global) */
     --success: #198754;
     --success-light: #e8f3ee;
 }
@@ -50,7 +50,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #e9ecef; /* Fondo claro */
+    background-color: #e9ecef;
     z-index: 1000;
 }
 
@@ -90,7 +90,7 @@ body {
     font-size: 1em;
     font-weight: 600;
     color: white;
-    background-color: var(--viernes-primary); /* Se mantiene el color del viernes para el login */
+    background-color: var(--viernes-primary);
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -98,7 +98,7 @@ body {
 }
 
 #login-form button:hover {
-    background-color: #004c5c; /* Versión más oscura del nuevo azul */
+    background-color: #004c5c;
 }
 
 #login-error {
@@ -116,7 +116,7 @@ body {
 header { 
     text-align: center; 
     margin-bottom: 1.5rem; 
-    position: relative; /* Para posicionar el botón de logout */
+    position: relative;
 }
 header h1 { 
     color: var(--text-primary); 
@@ -177,7 +177,6 @@ header p {
     gap: 0.5rem; 
     transition: background-color 0.3s ease, color 0.3s ease;
 }
-/* Colores dinámicos para el botón activo */
 .day-viernes .nav-button.active[data-day="Viernes"] { background-color: var(--viernes-primary); color: white; }
 .day-sabado .nav-button.active[data-day="Sábado"] { background-color: var(--sabado-primary); color: white; }
 .day-domingo .nav-button.active[data-day="Domingo"] { background-color: var(--domingo-primary); color: white; }
@@ -239,8 +238,8 @@ main {
     font-size: 1.5em;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    color: var(--day-color-primary); /* Color del día */
-    border-bottom: 2px solid var(--day-color-primary); /* Color del día */
+    color: var(--day-color-primary);
+    border-bottom: 2px solid var(--day-color-primary);
 }
 
 /* --- ACORDEÓN CON FONDO PROGRESIVO --- */
@@ -251,29 +250,47 @@ main {
     border: 1px solid var(--border-color);
     box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     
-    /* Variable que JS actualizará. Valor por defecto 0%. */
     --progress-percent: 0%;
 
-    /* EL CORAZÓN DE LA MAGIA: El fondo es un gradiente que se "llena" */
     background: linear-gradient(
         to right, 
-        var(--day-color-progress), /* Color de progreso del día */
+        var(--day-color-progress),
         var(--day-color-progress) var(--progress-percent), 
-        var(--card-bg) var(--progress-percent) /* MODIFICACIÓN: Fondo base blanco para mayor contraste */
+        var(--card-bg) var(--progress-percent)
     );
     
-    /* Transición suave para el cambio de color y borde */
-    transition: background 0.4s ease, border-color 0.4s ease;
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 .participant-accordion:hover {
     border-color: var(--day-color-primary);
 }
-/* Cuando se completa, el fondo cambia al color de éxito */
+
+/* --- ESTILO MEJORADO PARA EL ESTADO COMPLETADO --- */
 .participant-accordion.is-complete {
-    background: var(--success-light);
-    border-color: var(--success);
+    background: var(--success); /* Fondo sólido con el color de éxito */
+    border-color: #146c43; /* Un borde ligeramente más oscuro que el fondo */
+    color: white; /* El color del texto por defecto será blanco */
+    box-shadow: 0 0 12px rgba(25, 135, 84, 0.6); /* Sutil resplandor para destacar */
 }
-/* Aseguramos que el header sea transparente para ver el fondo progresivo */
+
+.participant-accordion.is-complete .participant-role {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.participant-accordion.is-complete .details-time,
+.participant-accordion.is-complete .details-number {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.participant-accordion.is-complete .accordion-icon {
+    color: white;
+}
+
+.participant-accordion.is-complete:hover {
+    border-color: #146c43;
+}
+
 .accordion-header {
     display: flex; 
     align-items: center; 
@@ -301,7 +318,7 @@ main {
 .status-indicators { display: flex; gap: 6px; }
 .indicator { width: 10px; height: 10px; border-radius: 50%; background-color: #ced4da; transition: background-color 0.3s ease; box-shadow: inset 0 0 2px rgba(0,0,0,0.1); }
 
-/* --- NUEVOS COLORES PARA INDICADORES --- */
+/* --- COLORES COHERENTES PARA INDICADORES --- */
 .indicator.recogida { background-color: #ffc107; } /* Amarillo/Oro */
 .indicator.orientacion { background-color: var(--viernes-primary); } /* Azul Océano */
 .indicator.detras_plataforma { background-color: var(--sabado-primary); } /* Naranja Cálido */
@@ -318,7 +335,7 @@ main {
     transition: max-height 0.4s ease-out; 
 }
 .accordion-content.active { 
-    max-height: 500px; /* Suficiente para el contenido */ 
+    max-height: 500px;
 }
 .checklist-container { 
     padding: 0.5rem 1rem 1rem 1rem; 
@@ -370,7 +387,7 @@ main {
 }
 
 .progress-bar-container { 
-    display: none; /* La barra ya no es necesaria, el fondo cumple su función */
+    display: none;
 }
 @media (max-width: 480px) {
   .details-time, .details-number {
@@ -385,4 +402,3 @@ main {
     padding: 0.5rem 1rem;
   }
 }
-
