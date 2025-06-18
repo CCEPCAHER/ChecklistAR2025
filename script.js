@@ -23,7 +23,8 @@ const tareasCollectionRef = collection(db, "tareas");
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- CONFIGURACIÓN PRINCIPAL DE LA APP ---
-    const contraseñaCorrecta = "programa2025";
+    // ADVERTENCIA DE SEGURIDAD: Esta contraseña es visible para cualquier persona que vea el código fuente.
+    const contraseñaCorrecta = "programa2025"; 
     const SESSION_KEY = 'isLoggedIn-checklist2025';
     const programa = [
         {
@@ -145,15 +146,13 @@ document.addEventListener('DOMContentLoaded', () => {
         accordionItem.className = 'participant-accordion';
         accordionItem.dataset.id = idUnico;
         accordionItem.dataset.rol = participante.rol;
-        // --- MODIFICACIÓN: Guardar nombre para acceder a él fácilmente ---
         accordionItem.dataset.nombre = participante.nombre;
 
         const header = document.createElement('button');
         header.className = 'accordion-header';
 
-        // --- MODIFICACIÓN: Lógica para casos especiales ---
         const esProduccion = participante.nombre.includes('PRODUCCIÓN AUDIOVISUAL');
-        const esBetel = participante.nombre.includes('(Betel)');
+        const esBetel = participante.nombre.includes('(Betel)') || participante.nombre.includes('(BTL)');
         const esOracion = participante.rol.includes('Oración');
 
         const itemsParaOcultarOracion = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
@@ -163,10 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let showChevron = true;
 
         if (esProduccion) {
-            // Sin indicadores ni botón de expandir para la producción audiovisual
             showChevron = false;
         } else {
-            // Generar indicadores filtrando los casos especiales
             indicatorsHTML = itemsChecklist
                 .filter(item => {
                     if (!item.indicator) return false;
@@ -193,13 +190,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const content = document.createElement('div');
         content.className = 'accordion-content';
 
-        // --- MODIFICACIÓN: No crear checklist si es una producción audiovisual ---
         if (!esProduccion) {
             const checklistContainer = document.createElement('div');
             checklistContainer.className = 'checklist-container';
 
             itemsChecklist.forEach(item => {
-                // Aplicar filtros para no crear los items que no aplican
                 if (esOracion && itemsParaOcultarOracion.includes(item.id)) return;
                 if (esBetel && itemsParaOcultarBetel.includes(item.id)) return;
 
@@ -281,18 +276,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function actualizarEstadoUI(accordionItem) {
         if (!accordionItem) return;
 
-        // --- MODIFICACIÓN: Lógica para casos especiales ---
         const nombre = accordionItem.dataset.nombre || '';
         const esProduccion = nombre.includes('PRODUCCIÓN AUDIOVISUAL');
 
+        // --- MODIFICACIÓN: Lógica para casos especiales ---
         if (esProduccion) {
+            accordionItem.classList.add('is-audiovisual'); // <-- ¡AQUÍ ESTÁ EL CAMBIO!
             accordionItem.style.setProperty('--progress-percent', '0%');
             accordionItem.classList.remove('is-complete');
             return; // No hacer nada más para la producción audiovisual
         }
         
         const rol = accordionItem.dataset.rol;
-        const esBetel = nombre.includes('(Betel)');
+        const esBetel = nombre.includes('(Betel)') || nombre.includes('(BTL)');
         const esOracion = rol && rol.includes('Oración');
         const itemsParaOcultarOracion = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
         const itemsParaOcultarBetel = ['orientacion', 'recordatorios'];
@@ -313,7 +309,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // --- MODIFICACIÓN: Calcular total de items considerando los casos especiales ---
         const totalItemsConsiderados = itemsChecklist.filter(item => {
             if (esOracion && itemsParaOcultarOracion.includes(item.id)) return false;
             if (esBetel && itemsParaOcultarBetel.includes(item.id)) return false;
@@ -367,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const containerActual = document.getElementById(`content-${diaActual}`);
         if (!containerActual) return;
 
-        const total = containerActual.querySelectorAll('.participant-accordion').length;
+        const total = containerActual.querySelectorAll('.participant-accordion:not(.is-audiovisual)').length;
         const completados = containerActual.querySelectorAll('.participant-accordion.is-complete').length;
         const maquillajeSi = containerActual.querySelectorAll('input[data-item-id="maquillaje"][value="Sí"]:checked').length;
 
@@ -390,27 +385,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function syncStateFromFirebase() {
-        const docRefs = {};
         programa.forEach(sesion => {
             sesion.participantes.forEach(p => {
                 const idUnico = `${sesion.sesion.replace(/\s+/g, '-')}-${p.nombre.replace(/\s+/g, '-')}-${p.rol.replace(/\s+/g, '-')}`;
-                docRefs[idUnico] = doc(db, "tareas", idUnico);
                 
-                setDoc(docRefs[idUnico], { id: idUnico }, { merge: true });
+                // No crear listeners para producciones audiovisuales
+                if (p.nombre.includes('PRODUCCIÓN AUDIOVISUAL')) {
+                    return;
+                }
 
-                onSnapshot(docRefs[idUnico], (docFB) => {
-                    if (!docFB.exists()) return;
-
-                    const taskData = docFB.data();
+                const docRef = doc(db, "tareas", idUnico);
+                onSnapshot(docRef, (docFB) => {
                     const accordionItem = document.querySelector(`.participant-accordion[data-id="${idUnico}"]`);
-                    if (accordionItem) {
-                        // No intentar sincronizar items para la producción audiovisual ya que no tiene
-                        if (accordionItem.dataset.nombre.includes('PRODUCCIÓN AUDIOVISUAL')) {
-                            actualizarEstadoUI(accordionItem);
-                            updateSummary();
-                            return;
-                        }
+                    if (!accordionItem) return;
 
+                    if (docFB.exists()) {
+                        const taskData = docFB.data();
                         Object.keys(taskData).forEach(itemId => {
                             if (itemId === 'id') return;
 
@@ -429,9 +419,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                 });
                             }
                         });
-                        actualizarEstadoUI(accordionItem);
-                        updateSummary();
                     }
+                    actualizarEstadoUI(accordionItem);
+                    updateSummary();
                 }, error => {
                     console.error(`Error en la sincronización para ${idUnico}:`, error);
                 });
@@ -445,8 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const header = e.target.closest('.accordion-header');
             if (header) {
                 const accordionItem = header.closest('.participant-accordion');
-                // No expandir si es una producción audiovisual
-                if (accordionItem && accordionItem.dataset.nombre.includes('PRODUCCIÓN AUDIOVISUAL')) {
+                if (accordionItem && accordionItem.classList.contains('is-audiovisual')) {
                     return;
                 }
                 header.classList.toggle('active');
@@ -462,14 +451,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const uniqueId = accordionItem.dataset.id;
                 const itemId = input.dataset.itemId;
                 
+                let value;
                 if (input.type === 'checkbox') {
-                    saveStateToFirebase(uniqueId, itemId, input.checked);
+                    value = input.checked;
                 } 
                 else if (input.type === 'radio') {
                     const checkedRadio = accordionItem.querySelector(`input[name="${input.name}"]:checked`);
-                    const value = checkedRadio ? checkedRadio.value : null;
-                    saveStateToFirebase(uniqueId, itemId, value);
+                    value = checkedRadio ? checkedRadio.value : null;
                 }
+                saveStateToFirebase(uniqueId, itemId, value);
             }
         });
 
@@ -481,7 +471,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dayForId = button.dataset.day;
                 const dayForClass = dayForId.toLowerCase().replace('á', 'a');
                 document.body.className = `day-${dayForClass}`;
-                document.body.style.backgroundColor = '';
                 document.querySelectorAll('.day-content').forEach(c => c.classList.add('hidden'));
                 document.getElementById(`content-${dayForId}`).classList.remove('hidden');
                 updateSummary();
@@ -499,11 +488,13 @@ document.addEventListener('DOMContentLoaded', () => {
         loginScreen.classList.add('hidden');
         appContainer.classList.remove('hidden');
         document.body.className = 'day-viernes';
-        document.body.style.backgroundColor = ''; 
 
         generarProgramaHTML();
         setupEventListeners();
-        syncStateFromFirebase(); 
+        // Sincronizar y luego actualizar toda la UI
+        syncStateFromFirebase();
+        // Llamada inicial para asegurar que todo se renderiza correctamente
+        updateAllUI();
     }
 
     function init() {
