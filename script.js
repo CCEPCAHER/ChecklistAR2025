@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             participantes: [
                 { rol: "Presidente", nombre: "Abel Reguant" },
                 { rol: "Oración", nombre: "Ricardo Cordovilla" },
-                { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL ¿Qué buscan?", hora: "9:40", numero: 19 },
+                { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL:¿Qué buscan?", hora: "9:40", numero: 19 },
                 { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL:Las buenas noticias según Jesús (Episodio 2).", hora: "9:50", numero: 20 },
                 { rol: "Discursante", nombre: "Gabriel Quintana", hora: "10:30", numero: 21 },
                 { rol: "Discursante", nombre: "Manuel Casino", hora: "10:40", numero: 22 },
