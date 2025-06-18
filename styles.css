@@ -291,6 +291,27 @@ main {
     border-color: #146c43;
 }
 
+/* --- NUEVO: ESTILO PARA PRODUCCIONES AUDIOVISUALES --- */
+.participant-accordion.is-audiovisual {
+    background: #f0f4f8; /* Un color azul-grisáceo muy claro y suave */
+    border-left: 5px solid #a6b7c9; /* Un borde izquierdo para darle un toque distintivo */
+    opacity: 0.9;
+}
+.participant-accordion.is-audiovisual .participant-name,
+.participant-accordion.is-audiovisual .participant-role,
+.participant-accordion.is-audiovisual .details-time,
+.participant-accordion.is-audiovisual .details-number {
+    color: #333;
+}
+.participant-accordion.is-audiovisual .accordion-header {
+    cursor: default;
+}
+.participant-accordion.is-audiovisual .accordion-header:hover {
+    background-color: transparent;
+    border-color: var(--border-color); /* Evita que el borde cambie de color */
+}
+/* -------------------------------------------------- */
+
 .accordion-header {
     display: flex; 
     align-items: center; 
