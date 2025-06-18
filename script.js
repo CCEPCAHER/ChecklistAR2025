@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { rol: "Discursante", nombre: "Francisco Javier Vila", hora: "10:07", numero: 40 },
                 { rol: "Discursante", nombre: "Joseph Salazar", hora: "10:21", numero: 41 },
                 { rol: "Discursante", nombre: "Fernando Teruel", hora: "10:35", numero: 42 },
-                { rol: "Discursante", nombre: "Por Asignar", hora: "10:49", numero: 43 },
+                { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Los campos están Blacos, listos para la cosecha", hora: "10:49", numero: 43 },
                 { rol: "Discursante", nombre: "José Manuel Lara", hora: "11:15", numero: 44 },
                 { rol: "Discursante", nombre: "Nino Llopis", hora: "11:45", numero: 45 },
             ]
