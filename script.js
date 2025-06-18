@@ -6,7 +6,6 @@ import { getFirestore, doc, setDoc, onSnapshot, collection } from "https://www.g
 // ADVERTENCIA DE SEGURIDAD: Has expuesto tus claves de configuración de Firebase en el código del lado del cliente.
 // Esto es normal para la 'apiKey', pero tu base de datos debe estar protegida con "Firebase Rules"
 // para evitar que cualquiera con estas claves pueda leer o escribir en tu base de datos.
-// La contraseña que has puesto en JavaScript NO ofrece seguridad real.
 const firebaseConfig = {
     apiKey: "AIzaSyBCbnup0noV5iG139vfx-JynvPs2DYxB7w",
     authDomain: "checklist-ar2025.firebaseapp.com",
@@ -65,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { rol: "Presidente", nombre: "Abel Reguant" },
                 { rol: "Oración", nombre: "Ricardo Cordovilla" },
                 { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL ¿Qué buscan?", hora: "9:40", numero: 19 },
-                { rol: "Video", nombre: "Las buenas noticias según Jesús (Episodio 2).", hora: "9:50", numero: 20 },
+                { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL:Las buenas noticias según Jesús (Episodio 2).", hora: "9:50", numero: 20 },
                 { rol: "Discursante", nombre: "Gabriel Quintana", hora: "10:30", numero: 21 },
                 { rol: "Discursante", nombre: "Manuel Casino", hora: "10:40", numero: 22 },
                 { rol: "Discursante", nombre: "Esteban Martín", hora: "10:49", numero: 23 },
@@ -84,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { rol: "Discursante", nombre: "Santiago Sáez", hora: "14:00", numero: 30 },
                 { rol: "Discursante", nombre: "Ricardo Anguita", hora: "14:09", numero: 31 },
                 { rol: "Discursante", nombre: "Josué Rabaneda", hora: "14:20", numero: 32 },
-                { rol: "Discursante", nombre: "Edgar Teruel (Betel)", hora: "14:45", numero: 33 },
+                { rol: "Discursante", nombre: "Edgar Teruel (B e t e l)", hora: "14:45", numero: 33 },
                 { rol: "Discursante", nombre: "Álvaro Paniagua", hora: "14:56", numero: 34 },
                 { rol: "Discursante", nombre: "Adolfo Forniels", hora: "15:06", numero: 35 },
                 { rol: "Discursante", nombre: "Alfonso Guerrero", hora: "15:30", numero: 36 },
