@@ -1,719 +1,607 @@
-/* GENERAL STYLES */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f2f5;
-    color: #333;
-    transition: background-color 0.5s ease;
+/* --- PALETA DE COLORES Y ESTILOS GLOBALES --- */
+:root {
+    --font-family: 'Inter', sans-serif;
+    --background: #F8F9FA;
+    --card-bg: #FFFFFF;
+    --text-primary: #212529;
+    --text-secondary: #6C757D;
+    --border-color: #DEE2E6;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.08);
+
+    /* --- PALETA DE COLORES MEJORADA POR DÍA --- */
+    /* VIERNES: Tonos Océano/Teal - Calma y concentración */
+    --viernes-primary: #005f73;
+    --viernes-progress: #0a9396;
+    --viernes-bg-light: #e9f5f5;
+
+    /* SÁBADO: Tonos Ámbar/Naranja - Energía y calidez */
+    --sabado-primary: #ae2012;
+    --sabado-progress: #ee9b00;
+    --sabado-bg-light: #fff2e6;
+    
+    /* DOMINGO: Tonos Ciruela/Amatista - Reflexión y calidez */
+    --domingo-primary: #70286b;
+    --domingo-progress: #9d4edd;
+    --domingo-bg-light: #f6eff9;
+
+    /* Color de estado completado (global) */
+    --success: #198754;
+    --success-light: #e8f3ee;
 }
 
-/* THEMES FOR EACH DAY */
-body.day-viernes { background-color: #e3f2fd; } /* Light Blue */
-body.day-sabado { background-color: #fffde7; } /* Light Yellow */
-body.day-domingo { background-color: #e8f5e9; } /* Light Green */
+body {
+    font-family: var(--font-family);
+    background-color: #e9ecef; /* Color de fondo inicial claro */
+    color: var(--text-primary);
+    margin: 0;
+    padding: 1rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.4s ease; /* Transición suave para el cambio de color */
+}
 
-/* LOGIN SCREEN */
-.login-screen {
+/* --- PANTALLA DE LOGIN --- */
+#login-screen {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-color: #0056b3; /* Color de fondo para login */
-}
-
-.login-form {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    width: 100%;
-    max-width: 400px;
-}
-
-.login-form h2 {
-    margin-bottom: 25px;
-    color: #0056b3;
-}
-
-.input-group {
-    margin-bottom: 15px;
-    text-align: left;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.input-group input[type="email"],
-.input-group input[type="password"] {
-    width: calc(100% - 20px);
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
-}
-
-.login-form button {
-    background-color: #007bff;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.login-form button:hover {
-    background-color: #0056b3;
-}
-
-.login-error {
-    color: #dc3545;
-    margin-top: 15px;
-    font-weight: bold;
-}
-
-/* APP CONTAINER */
-.app-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-/* HEADER AND NAVBAR */
-header {
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.navbar h1 {
-    font-size: 1.2em;
-    text-align: center;
-    flex-grow: 1; /* Permite que el título ocupe el espacio restante */
-    margin: 0;
-}
-
-/* HAMBURGER MENU */
-.hamburger {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 25px;
-    padding: 0;
-    z-index: 1100;
-}
-
-.hamburger .bar {
-    width: 100%;
-    height: 3px;
-    background-color: white;
-    transition: all 0.3s ease;
-}
-
-.hamburger.active .bar:nth-child(1) {
-    transform: translateY(11px) rotate(45deg);
-}
-
-.hamburger.active .bar:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger.active .bar:nth-child(3) {
-    transform: translateY(-11px) rotate(-45deg);
-}
-
-.nav-menu {
-    height: 0;
-    overflow: hidden;
-    transition: height 0.3s ease-out;
-    background-color: #444;
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 50px; /* Adjust according to header height */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.nav-menu.show {
-    height: auto;
-    max-height: 200px; /* Or a fixed value */
-}
-
-.nav-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.nav-menu ul li {
-    border-bottom: 1px solid #555;
-}
-
-.nav-menu ul li:last-child {
-    border-bottom: none;
-}
-
-.nav-menu ul li .nav-button {
-    display: block;
-    padding: 15px 20px;
-    color: white;
-    text-decoration: none;
-    background: none;
-    border: none;
-    width: 100%;
-    text-align: left;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.nav-menu ul li .nav-button:hover,
-.nav-menu ul li .nav-button.active {
-    background-color: #555;
-}
-
-.logout-button {
-    background-color: #dc3545;
-    color: white;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease;
-}
-
-.logout-button:hover {
-    background-color: #c82333;
-}
-
-/* MAIN CONTENT */
-main {
-    padding: 20px;
-    flex-grow: 1;
-}
-
-.hidden {
-    display: none !important;
-}
-
-.summary-panel {
-    display: flex;
-    justify-content: space-around;
-    background-color: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    text-align: center;
-    border-top: 5px solid #007bff; /* Color temático */
-}
-
-.summary-panel .summary-item {
-    flex: 1;
-    padding: 0 10px;
-}
-
-.summary-panel .summary-item + .summary-item {
-    border-left: 1px solid #eee;
-}
-
-.summary-panel .count {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #007bff;
-}
-
-.summary-panel .label {
-    font-size: 0.9em;
-    color: #666;
-}
-
-/* DAY CONTENT */
-.day-content {
-    margin-bottom: 40px;
-    background-color: white; /* Blanco para el contenido del día */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.session-block h2 {
-    color: #0056b3;
-    margin-top: 0;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #eee;
-}
-
-/* ACCORDION STYLES */
-.participant-accordion {
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #f9f9f9;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-.participant-accordion.is-complete {
-    border-color: #28a745;
-    box-shadow: 0 0 10px rgba(40, 167, 69, 0.3);
-}
-
-.participant-accordion.is-audiovisual {
-    background-color: #f0f8ff; /* Lighter background for audiovisual */
-    border-color: #a0d1f7;
-    pointer-events: none; /* Disable interaction */
-    opacity: 0.8;
-}
-
-/* Progress bar */
-.participant-accordion::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 5px;
-    width: var(--progress-percent, 0%);
-    background-color: #007bff;
-    transition: width 0.3s ease-in-out;
-    z-index: 1;
-    border-radius: 8px 8px 0 0;
-}
-
-.participant-accordion.is-complete::before {
-    background-color: #28a745;
-}
-
-.accordion-header {
-    background-color: #e2e2e2;
-    color: #333;
-    cursor: pointer;
-    padding: 15px 20px;
-    width: 100%;
-    text-align: left;
-    border: none;
-    outline: none;
-    font-size: 1.1em;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    z-index: 2; /* Bring header above progress bar */
-}
-
-.accordion-header:hover {
-    background-color: #dcdcdc;
-}
-
-.accordion-header.active {
-    background-color: #d1d1d1;
-}
-
-.participant-info {
-    flex-grow: 1;
-}
-
-.participant-name {
-    font-weight: bold;
-    color: #0056b3;
-    margin-bottom: 3px;
-    font-size: 1.2em;
-}
-
-.participant-role {
-    font-size: 0.9em;
-    color: #555;
-    margin-bottom: 2px;
-}
-
-.participant-congregation {
-    font-size: 0.8em;
-    color: #777;
-}
-
-.participant-details {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    white-space: nowrap;
-}
-
-.details-time {
-    font-weight: bold;
-    color: #007bff;
-    font-size: 1em;
-}
-
-.details-number {
-    background-color: #007bff;
-    color: white;
-    padding: 3px 8px;
-    border-radius: 5px;
-    font-size: 0.8em;
-    font-weight: bold;
-}
-
-/* WhatsApp Icon */
-.whatsapp-icon-container {
-    color: #25d366;
-    font-size: 1.5em;
-    margin-left: 10px;
-    transition: transform 0.2s ease;
-}
-
-.whatsapp-icon-container:hover {
-    transform: scale(1.1);
-}
-
-.accordion-icon {
-    margin-left: 15px;
-    transition: transform 0.3s ease;
-}
-
-.accordion-header.active .accordion-icon {
-    transform: rotate(180deg);
-}
-
-.accordion-content {
-    padding: 0 20px;
-    background-color: #ffffff;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-}
-
-.accordion-content.active {
-    max-height: 500px; /* Sufficient for typical content */
-    padding: 15px 20px;
-}
-
-/* CHECKLIST STYLES */
-.checklist-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-    padding-top: 10px;
-    border-top: 1px dashed #eee;
-    margin-top: 10px;
-}
-
-.checklist-item {
-    display: flex;
-    align-items: center;
-    background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #e0e0e0;
-    position: relative;
-}
-
-.checklist-item.disabled {
-    opacity: 0.6;
-    pointer-events: none;
-}
-
-.checklist-item .icon {
-    margin-right: 10px;
-    color: #007bff;
-    font-size: 1.2em;
-}
-
-.checklist-item label {
-    flex-grow: 1;
-    cursor: pointer;
-    font-weight: bold;
-    color: #444;
-}
-
-.checklist-item input[type="checkbox"] {
-    margin-left: auto; /* Pushes checkbox to the right */
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-
-.makeup-options {
-    display: flex;
-    gap: 10px;
-    margin-left: auto;
-}
-
-.makeup-options input[type="radio"] {
-    display: none; /* Hide default radio button */
-}
-
-.makeup-options input[type="radio"] + label {
-    background-color: #e9ecef;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    font-weight: normal; /* Override bold from main label */
-}
-
-.makeup-options input[type="radio"]:checked + label {
-    background-color: #007bff;
-    color: white;
-}
-
-/* INDICATORS (small circles for progress in header) */
-.status-indicators {
-    display: flex;
-    gap: 5px;
-}
-
-.indicator {
-    width: 12px;
-    height: 12px;
-    background-color: #ccc; /* Default grey */
-    border-radius: 50%;
-    border: 1px solid #aaa;
-}
-
-/* Indicator specific colors for CHECKED items */
-.indicator.recogida { background-color: #ffc107; border-color: #e0a800; } /* Warning yellow */
-.indicator.orientacion { background-color: #17a2b8; border-color: #138496; } /* Info cyan */
-.indicator.detras_plataforma { background-color: #28a745; border-color: #218838; } /* Success green */
-.indicator.discursado { background-color: #6610f2; border-color: #560aeb; } /* Indigo */
-.indicator.recordatorios { background-color: #fd7e14; border-color: #e66b0d; } /* Orange */
-
-/* Makeup specific indicator colors */
-.indicator.maquillajesí { background-color: #6f42c1; border-color: #5f33ac; } /* Purple */
-.indicator.maquillajeno { background-color: #dc3545; border-color: #c82333; } /* Danger red */
-.indicator.maquillajena { background-color: #6c757d; border-color: #5a6268; } /* Secondary grey */
-.indicator.repasofinaldemaquillaje { background-color: #0099ff; border-color: #007acc; } /* Bright blue for repaso */
-
-
-/* TABLE OVERLAY STYLES (for the full program table) */
-.program-table-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    background-color: #e9ecef;
+    z-index: 1000;
 }
 
-.program-table-overlay.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.program-table-content {
-    background-color: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+.login-container {
+    text-align: center;
+    background: var(--card-bg);
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    max-width: 400px;
     width: 90%;
-    max-width: 1200px;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
 }
 
-.close-button {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 2em;
-    color: #666;
-    cursor: pointer;
-}
-
-.tab-navigation {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #eee;
-}
-
-.tab-navigation .tab-button {
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    border-bottom: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 1.1em;
-    font-weight: bold;
-    border-radius: 8px 8px 0 0;
-    transition: background-color 0.3s ease;
-}
-
-.tab-navigation .tab-button:hover:not(.active) {
-    background-color: #e0e0e0;
-}
-
-.tab-navigation .tab-button.active {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
-    position: relative;
-    top: 1px; /* To make it appear selected */
-}
-
-.tab-content {
-    display: none;
-    padding: 15px 0;
-}
-
-.tab-content h2 {
-    color: #0056b3;
+.login-container h1 {
+    color: var(--text-primary);
     margin-top: 0;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
 }
 
-.tab-content table {
+.login-container p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+#login-form input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1em;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+}
+
+#login-form button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1em;
+    font-weight: 600;
+    color: white;
+    background-color: var(--viernes-primary);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#login-form button:hover {
+    background-color: #004c5c;
+}
+
+#login-error {
+    color: #dc3545;
+    margin-top: 1rem;
+    font-size: 0.9em;
+}
+
+
+/* --- ESTILOS GENERALES APP --- */
+.hidden { 
+    display: none !important; 
+}
+
+header { 
+    text-align: center; 
+    margin-bottom: 1.5rem; 
+    position: relative;
+}
+header h1 { 
+    color: var(--text-primary); 
+    margin: 0; 
+}
+header p { 
+    color: var(--text-secondary); 
+    font-size: 1.1em; 
+    margin-top: 0.5rem; 
+}
+
+#logout-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+}
+#logout-button:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+
+/* --- ESTILOS DE NAVEGACIÓN TEMATIZADOS --- */
+#day-nav { 
+    display: flex; 
+    justify-content: center; 
+    margin-bottom: 1.5rem; 
+    background-color: var(--card-bg); 
+    padding: 0.5rem; 
+    border-radius: 12px; 
+    box-shadow: var(--shadow); 
+    max-width: 800px; /* Aumentado para los nuevos botones */
+    margin-left: auto; 
+    margin-right: auto;
+    transition: box-shadow 0.4s ease; /* Transición para el resplandor */
+    flex-wrap: wrap; /* Permite que los botones se envuelvan en pantallas pequeñas */
+}
+.nav-button {
+    flex-grow: 1; 
+    padding: 0.75rem 1rem; 
+    border: none; 
+    background: transparent; 
+    color: var(--text-secondary); 
+    font-size: 1em; 
+    font-weight: 600; 
+    cursor: pointer; 
+    border-radius: 8px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 0.5rem; 
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-width: 120px; /* Asegura un tamaño mínimo para los botones */
+}
+
+/* Estilos específicos para los botones de día dentro del nav (Viernes, Sábado, Domingo) */
+.nav-button[data-view="checklist"],
+.nav-button[data-view="horarios"] {
+    display: none; /* Oculta por defecto los botones de día */
+}
+
+/* Muestra los botones de día si la vista activa es "checklist" */
+body.day-viernes .nav-button[data-view="checklist"][data-day="Viernes"],
+body.day-sabado .nav-button[data-view="checklist"][data-day="Sábado"],
+body.day-domingo .nav-button[data-view="checklist"][data-day="Domingo"],
+.nav-button[data-view="checklist"].active, /* Esto es para el botón "Checklist" principal */
+.nav-button[data-view="horarios"].active, /* Esto es para el botón "Horarios" principal */
+.nav-button[data-view="responsables"].active {
+    display: flex; /* Muestra el botón de la vista activa */
+}
+
+/* Mostrar los botones de día correspondientes si la vista es checklist */
+#day-nav:has(.nav-button[data-view="checklist"].active) .nav-button[data-view="checklist"][data-day] {
+    display: flex; /* Mostrar todos los botones de día cuando la vista "Checklist" está activa */
+}
+
+/* Mostrar los botones de día correspondientes si la vista es horarios */
+#day-nav:has(.nav-button[data-view="horarios"].active) .nav-button[data-view="horarios"][data-day] {
+    display: flex; /* Mostrar todos los botones de día cuando la vista "Horarios" está activa */
+}
+
+/* Asegurarse de que el botón principal de "Checklist" y "Horarios" tenga sentido */
+.nav-button[data-view="checklist"]:not([data-day]),
+.nav-button[data-view="horarios"]:not([data-day]) {
+    flex-basis: auto; /* Ajusta el ancho para estos botones */
+    /* Asegura que no se muestren si no están activos, y luego se manejan por JS */
+    display: flex; /* Estos son los botones "principales" de vista */
+}
+
+/* El `body` con la clase del día aplica el estilo al botón activo (solo para botones de día) */
+body.day-viernes .nav-button.active[data-day="Viernes"] { background-color: var(--viernes-primary); color: white; }
+body.day-sabado .nav-button.active[data-day="Sábado"] { background-color: var(--sabado-primary); color: white; }
+body.day-domingo .nav-button.active[data-day="Domingo"] { background-color: var(--domingo-primary); color: white; }
+
+/* El botón principal "Checklist" se iluminará con el color del día actual */
+.nav-button[data-view="checklist"].active {
+    background-color: var(--day-color-primary);
+    color: white;
+}
+/* El botón principal "Horarios" se iluminará con el color del día actual */
+.nav-button[data-view="horarios"].active {
+    background-color: var(--day-color-primary);
+    color: white;
+}
+/* El botón "Responsables" tiene su propio color */
+.nav-button[data-view="responsables"].active {
+    background-color: #6c757d; /* Un gris neutro o el color que prefieras */
+    color: white;
+}
+
+
+/* --- PANEL DE RESUMEN --- */
+#summary-panel { 
+    display: flex; 
+    gap: 1.5rem; 
+    justify-content: center; 
+    margin: 0 auto 2rem auto; 
+    padding: 1rem; 
+    background-color: var(--card-bg); 
+    border-radius: 12px; 
+    box-shadow: var(--shadow); 
+    max-width: 800px; 
+    flex-wrap: wrap; 
+    transition: box-shadow 0.4s ease; /* Transición para el resplandor */
+}
+.summary-item { 
+    text-align: center; 
+}
+.summary-item .count { 
+    font-size: 1.8em; 
+    font-weight: 700; 
+    color: var(--text-primary); 
+    transition: color 0.4s ease;
+}
+.summary-item .label { 
+    font-size: 0.9em; 
+    color: var(--text-secondary); 
+    font-weight: 500; 
+}
+
+/* El `body` con la clase del día aplica el estilo al contador */
+body.day-viernes .summary-item .count { color: var(--viernes-primary); }
+body.day-sabado .summary-item .count { color: var(--sabado-primary); }
+body.day-domingo .summary-item .count { color: var(--domingo-primary); }
+
+main { 
+    max-width: 800px; 
+    margin: 0 auto; 
+}
+
+/* --- CONTENEDORES DE DÍA TEMATIZADOS --- */
+#content-Viernes, #horario-viernes, .responsables-day-section h2:nth-child(1) {
+    --day-color-primary: var(--viernes-primary);
+    --day-color-progress: var(--viernes-progress);
+    --day-color-bg-light: var(--viernes-bg-light);
+}
+#content-Sábado, #horario-sabado, .responsables-day-section h2:nth-child(2) {
+    --day-color-primary: var(--sabado-primary);
+    --day-color-progress: var(--sabado-progress);
+    --day-color-bg-light: var(--sabado-bg-light);
+}
+#content-Domingo, #horario-domingo, .responsables-day-section h2:nth-child(3) {
+    --day-color-primary: var(--domingo-primary);
+    --day-color-progress: var(--domingo-progress);
+    --day-color-bg-light: var(--domingo-bg-light);
+}
+
+/* --- TÍTULOS DE SESIÓN TEMATIZADOS --- */
+.session-block h2, #horarios-container h2, #horarios-container h3, #responsables-container h2, #responsables-container h3 {
+    font-size: 1.5em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    color: var(--day-color-primary);
+    border-bottom: 2px solid var(--day-color-primary);
+    margin-top: 1.5rem;
+}
+#horarios-container h3, #responsables-container h3 {
+    font-size: 1.2em;
+    border-bottom: 1px solid var(--day-color-primary);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+
+/* --- ACORDEÓN CON FONDO PROGRESIVO --- */
+.participant-accordion {
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    
+    --progress-percent: 0%;
+
+    background: linear-gradient(
+        to right, 
+        var(--day-color-progress),
+        var(--day-color-progress) var(--progress-percent), 
+        var(--card-bg) var(--progress-percent)
+    );
+    
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.participant-accordion:hover {
+    border-color: var(--day-color-primary);
+}
+
+/* --- ESTILO MEJORADO PARA EL ESTADO COMPLETADO --- */
+.participant-accordion.is-complete {
+    background: var(--success); /* Fondo sólido con el color de éxito */
+    border-color: #146c43; /* Un borde ligeramente más oscuro que el fondo */
+    color: white; /* El color del texto por defecto será blanco */
+    box-shadow: 0 0 12px rgba(25, 135, 84, 0.6); /* Sutil resplandor para destacar */
+}
+
+.participant-accordion.is-complete .participant-role {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.participant-accordion.is-complete .details-time,
+.participant-accordion.is-complete .details-number {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.participant-accordion.is-complete .accordion-icon {
+    color: white;
+}
+
+.participant-accordion.is-complete:hover {
+    border-color: #146c43;
+    box-shadow: 0 0 16px rgba(25, 135, 84, 0.7);
+}
+
+/* --- NUEVO: ESTILO PARA PRODUCCIONES AUDIOVISUALES --- */
+.participant-accordion.is-audiovisual {
+    background: #f0f4f8; /* Un color azul-grisáceo muy claro y suave */
+    border-left: 5px solid #a6b7c9; /* Un borde izquierdo para darle un toque distintivo */
+    opacity: 0.9;
+}
+.participant-accordion.is-audiovisual .participant-name,
+.participant-accordion.is-audiovisual .participant-role,
+.participant-accordion.is-audiovisual .details-time,
+.participant-accordion.is-audiovisual .details-number {
+    color: #333;
+}
+.participant-accordion.is-audiovisual .accordion-header {
+    cursor: default;
+}
+.participant-accordion.is-audiovisual .accordion-header:hover {
+    background-color: transparent;
+    border-color: var(--border-color); /* Evita que el borde cambie de color */
+}
+/* -------------------------------------------------- */
+
+.accordion-header {
+    display: flex; 
+    align-items: center; 
+    width: 100%; 
+    text-align: left; 
+    padding: 0.75rem 1rem; 
+    cursor: pointer; 
+    border: none;
+    background-color: transparent;
+}
+.accordion-icon { 
+    font-size: 1.2em; 
+    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); 
+}
+.accordion-header.active .accordion-icon { 
+    transform: rotate(180deg); 
+}
+
+.participant-info { flex-grow: 1; }
+.participant-name { font-size: 1.1em; font-weight: 600; }
+.participant-role { font-size: 0.9em; color: var(--text-secondary); }
+.participant-details { display: flex; align-items: center; gap: 1rem; margin-left: 1rem; }
+.details-time, .details-number { background-color: #e9ecef; padding: 4px 10px; border-radius: 15px; font-size: 1em; font-weight: 700; }
+
+.status-indicators { display: flex; gap: 6px; }
+.indicator { width: 10px; height: 10px; border-radius: 50%; background-color: #ced4da; transition: background-color 0.3s ease; box-shadow: inset 0 0 2px rgba(0,0,0,0.1); }
+
+/* --- COLORES COHERENTES PARA INDICADORES --- */
+.indicator.recogida { background-color: #ffc107; } /* Amarillo/Oro */
+.indicator.orientacion { background-color: var(--viernes-primary); } /* Azul Océano */
+.indicator.detras_plataforma { background-color: var(--sabado-primary); } /* Naranja Cálido */
+.indicator.discursado { background-color: var(--domingo-primary); } /* Ciruela */
+
+.indicator.maquillaje-sí { background-color: #ea4335; } /* Rojo para 'Sí' */
+.indicator.maquillaje-no { background-color: var(--text-primary); } /* Negro para 'No' */
+.indicator.maquillaje-n\/a { background-color: #80868b; } /* Gris para 'N/A' */
+
+
+.accordion-content { 
+    max-height: 0; 
+    overflow: hidden; 
+    transition: max-height 0.4s ease-out; 
+}
+.accordion-content.active { 
+    max-height: 500px;
+}
+.checklist-container { 
+    padding: 0.5rem 1rem 1rem 1rem; 
+    background: rgba(255,255,255,0.6); 
+    backdrop-filter: blur(2px); 
+}
+.checklist-item { 
+    display: flex; 
+    align-items: center; 
+    padding: 0.9rem 0.5rem; 
+    border-bottom: 1px solid #f1f3f4; 
+    transition: opacity 0.3s; 
+}
+.checklist-item:last-child { 
+    border-bottom: none; 
+}
+.checklist-item.disabled { 
+    opacity: 0.5; 
+    pointer-events: none; 
+    background-color: #f8f9fa; 
+}
+.checklist-item .icon { 
+    color: var(--text-secondary); 
+    margin-right: 1rem; 
+    width: 20px; 
+    text-align: center; 
+}
+.checklist-item label { 
+    flex-grow: 1; 
+}
+.makeup-options { 
+    display: flex; 
+    gap: 1rem; 
+}
+.makeup-options label { 
+    cursor: pointer; 
+    padding: 0.3rem 0.8rem; 
+    border-radius: 15px; 
+    border: 1px solid var(--border-color); 
+    transition: all 0.2s ease; 
+}
+.makeup-options input[type="radio"] { 
+    display: none; 
+}
+.makeup-options input[type="radio"]:checked + label {
+    background-color: var(--day-color-primary);
+    color: white;
+    border-color: var(--day-color-primary);
+}
+
+.progress-bar-container { 
+    display: none;
+}
+@media (max-width: 480px) {
+  .details-time, .details-number {
+    font-size: 1.1em;
+  }
+  #logout-button {
+    position: static;
+    margin: 0.5rem auto 0;
+    display: block;
+    width: auto;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* --- ILUMINACIÓN DINÁMICA POR DÍA (NUEVA MEJORA) --- */
+/*
+  Estos estilos cambian el fondo de la página y añaden un "resplandor" 
+  sutil a los paneles principales, creando un ambiente inmersivo.
+  Se activan al añadir la clase .day-viernes, .day-sabado o .day-domingo al <body>.
+*/
+
+body.day-viernes {
+    background-color: var(--viernes-bg-light);
+}
+body.day-sabado {
+    background-color: var(--sabado-bg-light);
+}
+body.day-domingo {
+    background-color: var(--domingo-bg-light);
+}
+
+/* Resplandor temático para los paneles y acordeones al pasar el ratón */
+body.day-viernes #day-nav,
+body.day-viernes #summary-panel,
+body.day-viernes .participant-accordion:hover,
+body.day-viernes #horarios-container,
+body.day-viernes #responsables-container {
+    box-shadow: 0 5px 15px rgba(0, 95, 115, 0.12), 0 2px 6px rgba(0, 95, 115, 0.1);
+}
+
+body.day-sabado #day-nav,
+body.day-sabado #summary-panel,
+body.day-sabado .participant-accordion:hover,
+body.day-sabado #horarios-container,
+body.day-sabado #responsables-container {
+    box-shadow: 0 5px 15px rgba(174, 32, 18, 0.12), 0 2px 6px rgba(174, 32, 18, 0.1);
+}
+
+body.day-domingo #day-nav,
+body.day-domingo #summary-panel,
+body.day-domingo .participant-accordion:hover,
+body.day-domingo #horarios-container,
+body.day-domingo #responsables-container {
+    box-shadow: 0 5px 15px rgba(112, 40, 107, 0.12), 0 2px 6px rgba(112, 40, 107, 0.1);
+}
+
+/* --- ESTILOS ESPECÍFICOS PARA LA SECCIÓN DE HORARIOS --- */
+#horarios-container {
+    max-width: 900px;
+    margin: 0 auto 2rem auto;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.horario-day-section {
+    margin-bottom: 2rem;
+}
+
+.horario-session-block {
+    margin-bottom: 1rem;
+}
+
+#horarios-container table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    margin-top: 1rem;
+    font-size: 0.9em;
 }
 
-.tab-content th,
-.tab-content td {
-    border: 1px solid #ddd;
-    padding: 8px;
+#horarios-container th,
+#horarios-container td {
+    border: 1px solid var(--border-color);
+    padding: 0.8rem;
     text-align: left;
-    font-size: 0.9em;
     vertical-align: top;
 }
 
-.tab-content th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-    white-space: nowrap;
+#horarios-container th {
+    background-color: var(--day-color-bg-light);
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
-.tab-content tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+#horarios-container tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Ligeramente más oscuro para filas pares */
 }
 
-.table-president-row {
-    background-color: #e6f7ff; /* Light blue for president row */
-    font-weight: bold;
+/* --- ESTILOS ESPECÍFICOS PARA LA SECCIÓN DE RESPONSABLES --- */
+#responsables-container {
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
 }
 
-/* Fixed button to open program table */
-.open-program-table-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #28a745; /* Green for action button */
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    font-size: 1.5em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    z-index: 1500;
+.responsables-section, .responsables-day-section {
+    margin-bottom: 2rem;
 }
 
-.open-program-table-button:hover {
-    background-color: #218838;
-    transform: scale(1.05);
+.responsables-section ul, .responsables-session-block ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.5rem;
 }
 
-
-/* RESPONSIVE DESIGN */
-@media (max-width: 768px) {
-    .navbar h1 {
-        font-size: 1em;
-    }
-
-    .login-form {
-        margin: 20px;
-    }
-
-    .summary-panel {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .summary-panel .summary-item {
-        margin-bottom: 10px;
-        border-left: none;
-        width: 100%;
-    }
-
-    .summary-panel .summary-item + .summary-item {
-        border-top: 1px solid #eee;
-        border-left: none;
-        padding-top: 10px;
-    }
-
-    .checklist-container {
-        grid-template-columns: 1fr;
-    }
-
-    .participant-details {
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 5px;
-    }
-
-    .accordion-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .whatsapp-icon-container {
-        margin-left: 0;
-        margin-top: 5px;
-    }
-
-    .program-table-content {
-        width: 95%;
-        padding: 15px;
-    }
-
-    .tab-navigation {
-        flex-wrap: wrap;
-    }
-
-    .tab-navigation .tab-button {
-        flex: 1 1 auto; /* Allow buttons to wrap and take available space */
-        margin: 5px;
-        text-align: center;
-    }
+.responsables-section li, .responsables-session-block li {
+    padding: 0.4rem 0;
+    border-bottom: 1px dashed #e0e0e0;
+}
+.responsables-section li:last-child, .responsables-session-block li:last-child {
+    border-bottom: none;
 }
