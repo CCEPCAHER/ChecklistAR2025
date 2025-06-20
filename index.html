@@ -30,20 +30,21 @@
   <div id="login-screen">
     <div class="login-container">
       <h1>Acceso al Checklist</h1>
+      <p>Por favor, introduce tus credenciales para continuar.</p>
       <form id="login-form">
-        <label for="email-input">Correo electrónico</label>
         <input
           type="email"
           id="email-input"
           placeholder="tucorreo@ejemplo.com"
           required
+          aria-label="Correo electrónico"
         />
-        <label for="password-input">Contraseña</label>
         <input
           type="password"
           id="password-input"
           placeholder="********"
           required
+          aria-label="Contraseña"
         />
         <button type="submit">Entrar</button>
         <p id="login-error" class="hidden"></p>
@@ -66,37 +67,29 @@
       <button class="nav-button main-view-button" data-view="horarios">
         <i class="fas fa-calendar-alt"></i> Horarios
       </button>
-      <button class="nav-button main-view-button" data-view="turnosYResponsabilidades">
-        <i class="fas fa-users-cog"></i> Turnos y Responsabilidades
+      <button class="nav-button main-view-button" data-view="responsables">
+        <i class="fas fa-users-cog"></i> Responsables
       </button>
 
-      <button class="nav-button sub-day-button" data-view="checklist" data-day="Viernes">Viernes</button>
-      <button class="nav-button sub-day-button" data-view="checklist" data-day="Sábado">Sábado</button>
-      <button class="nav-button sub-day-button" data-view="checklist" data-day="Domingo">Domingo</button>
+      <button class="nav-button sub-day-button hidden" data-view="checklist" data-day="Viernes">Viernes</button>
+      <button class="nav-button sub-day-button hidden" data-view="checklist" data-day="Sábado">Sábado</button>
+      <button class="nav-button sub-day-button hidden" data-view="checklist" data-day="Domingo">Domingo</button>
 
-      <button class="nav-button sub-day-button" data-view="horarios" data-day="Viernes">Viernes</button>
-      <button class="nav-button sub-day-button" data-view="horarios" data-day="Sábado">Sábado</button>
-      <button class="nav-button sub-day-button" data-view="horarios" data-day="Domingo">Domingo</button>
-      
-      <button class="nav-button sub-day-button" data-view="turnosYResponsabilidades" data-day="Viernes">Viernes</button>
-      <button class="nav-button sub-day-button" data-view="turnosYResponsabilidades" data-day="Sábado">Sábado</button>
-      <button class="nav-button sub-day-button" data-view="turnosYResponsabilidades" data-day="Domingo">Domingo</button>
+      <button class="nav-button sub-day-button hidden" data-view="horarios" data-day="Viernes">Viernes</button>
+      <button class="nav-button sub-day-button hidden" data-view="horarios" data-day="Sábado">Sábado</button>
+      <button class="nav-button sub-day-button hidden" data-view="horarios" data-day="Domingo">Domingo</button>
     </nav>
 
-    <section id="summary-panel"></section>
+    <section id="summary-panel" class="hidden"></section>
 
-    <main id="program-container"></main>
+    <main id="program-container" class="hidden"></main>
 
     <section id="horarios-container" class="hidden">
-      <h2>Horario Completo del Programa</h2>
-      <div id="horarios-content">
-      </div>
+      <div id="horarios-content"></div>
     </section>
 
-    <section id="turnosYResponsabilidades-container" class="hidden">
-        <h2>Turnos y Responsabilidades</h2>
-        <div id="turnosYResponsabilidades-content">
-            </div>
+    <section id="responsables-container" class="hidden">
+      <div id="responsables-content"></div>
     </section>
   </div>
 
