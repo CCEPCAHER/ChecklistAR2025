@@ -23,74 +23,74 @@ const programa = [
     { sesion: "Viernes Mañana", dia: "Viernes", participantes: [
         { id: "VM-PRESIDENTE-DAVID-CASTRO", rol: "Presidente", nombre: "David Castro", congregacion: "Manresa-Este", telefono: "618200006", hora: "9:20" },
         { id: "VM-ORACION-FRANCISCO-JOSE-SANCHEZ", rol: "Oración", nombre: "Francisco José Sánchez", congregacion: "Sant Feliu de Llobregat- Norte", telefono: "697818981", hora: "9:30" },
-        { id: "VM-DISCURSANTE-JULIAN-LASHERAS", rol: "Discursante", nombre: "Julián Lasheras", congregacion: "Circuito ESP-B-03", telefono: "609919464", hora: "9:40", numero: 1, titulo: "¿Qué es la adoración pura?" },
-        { id: "VM-VIDEO-PRODUCCION-AUDIOVISUAL-1", rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús: Episodio 2.", hora: "10:10", numero: 2, titulo: "\"Este es mi Hijo\"(Parte 1)." },
-        { id: "VM-DISCURSANTE-DOMINGO-TARRASON", rol: "Discursante", nombre: "Domingo Tarrasón", congregacion: "Barcelona- Artesania", telefono: "34649455497", hora: "10:50", numero: 3 },
-        { id: "VM-DISCURSANTE-PEDRO-MEDINA", rol: "Discursante", nombre: "Pedro Medina", congregacion: "Circuito ESP-B-09", telefono: "34675734270", hora: "11:11", numero: 4 },
-        { id: "VM-DISCURSANTE-DANIEL-VELASCO", rol: "Discursante", nombre: "Daniel Velasco", congregacion: "Barcelona- Gracia", telefono: "34622033449", hora: "11:28", numero: 5 },
-        { id: "VM-DISCURSANTE-ALEX-BOTELLA", rol: "Discursante", nombre: "Álex Botella", congregacion: "Barcelona- Pueblo Nuevo", telefono: "34691556419", hora: "11:45", numero: 6 }
+        { id: "VM-DISCURSANTE-JULIAN-LASHERAS", rol: "Discursante", nombre: "Julián Lasheras", congregacion: "Circuito ESP-B-03", telefono: "609919464", hora: "9:40", numero: 1, titulo: "¿Qué es la adoración pura?", duracion: "0:30" },
+        { id: "VM-VIDEO-PRODUCCION-AUDIOVISUAL-1", rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús: Episodio 2.", hora: "10:10", numero: 2, titulo: "\"Este es mi Hijo\"(Parte 1).", duracion: "0:30" },
+        { id: "VM-DISCURSANTE-DOMINGO-TARRASON", rol: "Discursante", nombre: "Domingo Tarrasón", congregacion: "Barcelona- Artesania", telefono: "34649455497", hora: "10:50", numero: 3, titulo: "Reconocido por Días", duracion: "0:20" },
+        { id: "VM-DISCURSANTE-PEDRO-MEDINA", rol: "Discursante", nombre: "Pedro Medina", congregacion: "Circuito ESP-B-09", telefono: "34675734270", hora: "11:11", numero: 4, titulo: "Descendiente del rey David", duracion: "0:16" },
+        { id: "VM-DISCURSANTE-DANIEL-VELASCO", rol: "Discursante", nombre: "Daniel Velasco", congregacion: "Barcelona- Gracia", telefono: "34622033449", hora: "11:28", numero: 5, titulo: "Ungido para ser \"el Mesías, el Líder\"", duracion: "0:16" },
+        { id: "VM-DISCURSANTE-ALEX-BOTELLA", rol: "Discursante", nombre: "Álex Botella", congregacion: "Barcelona- Pueblo Nuevo", telefono: "34691556419", hora: "11:45", numero: 6, titulo: "¿Quién es realmente el gobernante del mundo?", duracion: "0:29" }
     ]},
     { sesion: "Viernes Tarde", dia: "Viernes", participantes: [
-        { id: "VT-PRESIDENTE-EDUARDO-AYALA", rol: "Presidente", nombre: "Eduardo Ayala", congregacion: "Hospitalet- Can Serra", telefono: "669380176", hora: "1:35" },
-        { id: "VT-DISCURSANTE-MIGUEL-SOLE", rol: "Discursante", nombre: "Miguel Solé", congregacion: "Circuito ESP-B-12", telefono: "34656331939", hora: "13:50", numero: 7 },
-        { id: "VT-DISCURSANTE-DAVID-ALEIXANDRI", rol: "Discursante", nombre: "David Aleixandri", congregacion: "Badalona- Llefia", telefono: "34610455277", hora: "14:06", numero: 8 },
-        { id: "VT-DISCURSANTE-DAVID-MALDONADO", rol: "Discursante", nombre: "David Maldonado", congregacion: "Sant Vicenç de Castellet- Centro", telefono: "34676607301", hora: "14:22", numero: 9 },
-        { id: "VT-DISCURSANTE-JUAN-MARTIN-PRIOR", rol: "Discursante", nombre: "Juan Martín Prior", congregacion: "Badalona- Oeste", telefono: "34645573306", hora: "14:36", numero: 10 },
-        { id: "VT-DISCURSANTE-ELLIOT-MIGUEL", rol: "Discursante", nombre: "Elliot Miguel", congregacion: "Barcelona- Guinardó", telefono: "667250970", hora: "15:00", numero: 11 },
-        { id: "VT-DISCURSANTE-JOSE-BONET", rol: "Discursante", nombre: "José Bonet", congregacion: "Barcelona- Triunfo", telefono: "34695354568", hora: "15:12", numero: 12 },
-        { id: "VT-DISCURSANTE-SANTIAGO-CARDONA", rol: "Discursante", nombre: "Santiago Cardona", congregacion: "Barcelona- Horta", telefono: "34671181894", hora: "15:21", numero: 13 },
-        { id: "VT-DISCURSANTE-ISRAEL-MALLA", rol: "Discursante", nombre: "Israel Malla", congregacion: "Manresa- Guinardó", telefono: "34658609587", hora: "15:30", numero: 14 },
-        { id: "VT-DISCURSANTE-BARBARO-YULIEXI-TEJERA-RIOS", rol: "Discursante", nombre: "Bárbaro Yuliexi Tejera Rios", congregacion: "Manresa- Norte", telefono: "34688586628", hora: "15:39", numero: 15 },
-        { id: "VT-DISCURSANTE-RAFAEL-CORRAL", rol: "Discursante", nombre: "Rafael Corral", congregacion: "San Feliu de Llobregat- Norte", telefono: "34616329783", hora: "15:48", numero: 16 },
-        { id: "VT-DISCURSANTE-MICHEL-GOTTARDO", rol: "Discursante", nombre: "Michel Gottardo", congregacion: "Cornellá- Centro", telefono: "34697578921", hora: "15:58", numero: 17 },
-        { id: "VT-DISCURSANTE-ANDRES-MAYOR-BETEL", rol: "Discursante", nombre: "Andres Mayor (Betel)", congregacion: "Alcalá de Henares- Inglesa", telefono: "34657107524", hora: "16:10", numero: 18 },
-        { id: "VT-ORACION-FINAL-PEDRO-MORA", rol: "Oración Final", nombre: "Pedro Mora", congregacion: "Cornellá- Linda Vista", telefono: "627584967", hora: "4:45" }
+        { id: "VT-PRESIDENTE-EDUARDO-AYALA", rol: "Presidente", nombre: "Eduardo Ayala", congregacion: "Hospitalet- Can Serra", telefono: "669380176", hora: "13:35" },
+        { id: "VT-DISCURSANTE-MIGUEL-SOLE", rol: "Discursante", nombre: "Miguel Solé", congregacion: "Circuito ESP-B-12", telefono: "34656331939", hora: "13:50", numero: 7, titulo: "Apoyémonos en la Palabra de Dios", duracion: "0:15" },
+        { id: "VT-DISCURSANTE-DAVID-ALEIXANDRI", rol: "Discursante", nombre: "David Aleixandri", congregacion: "Badalona- Llefia", telefono: "34610455277", hora: "14:05", numero: 8, titulo: "No pongamos a prueba a Jehová", duracion: "0:15" },
+        { id: "VT-DISCURSANTE-DAVID-MALDONADO", rol: "Discursante", nombre: "David Maldonado", congregacion: "Sant Vicenç de Castellet- Centro", telefono: "34676607301", hora: "14:22", numero: 9, titulo: "Adoremos solo a Jehová", duracion: "0:14" },
+        { id: "VT-DISCURSANTE-JUAN-MARTIN-PRIOR", rol: "Discursante", nombre: "Juan Martín Prior", congregacion: "Badalona- Oeste", telefono: "34645573306", hora: "14:36", numero: 10, titulo: "Defendamos la verdad", duracion: "0:13" },
+        { id: "VT-DISCURSANTE-ELLIOT-MIGUEL", rol: "Discursante", nombre: "Elliot Miguel", congregacion: "Barcelona- Guinardó", telefono: "667250970", hora: "15:00", numero: 11, titulo: "El desierto de Judea", duracion: "0:11" },
+        { id: "VT-DISCURSANTE-JOSE-BONET", rol: "Discursante", nombre: "José Bonet", congregacion: "Barcelona- Triunfo", telefono: "34695354568", hora: "15:12", numero: 12, titulo: "El valle del Jordán", duracion: "0:09" },
+        { id: "VT-DISCURSANTE-SANTIAGO-CARDONA", rol: "Discursante", nombre: "Santiago Cardona", congregacion: "Barcelona- Horta", telefono: "34671181894", hora: "15:21", numero: 13, titulo: "Jerusalén", duracion: "0:09" },
+        { id: "VT-DISCURSANTE-ISRAEL-MALLA", rol: "Discursante", nombre: "Israel Malla", congregacion: "Manresa- Guinardó", telefono: "34658609587", hora: "15:30", numero: 14, titulo: "Samaria", duracion: "0:09" },
+        { id: "VT-DISCURSANTE-BARBARO-YULIEXI-TEJERA-RIOS", rol: "Discursante", nombre: "Bárbaro Yuliexi Tejera Rios", congregacion: "Manresa- Norte", telefono: "34688586628", hora: "15:39", numero: 15, titulo: "Galilea", duracion: "0:09" },
+        { id: "VT-DISCURSANTE-RAFAEL-CORRAL", rol: "Discursante", nombre: "Rafael Corral", congregacion: "San Feliu de Llobregat- Norte", telefono: "34616329783", hora: "15:48", numero: 16, titulo: "Fenicia", duracion: "0:09" },
+        { id: "VT-DISCURSANTE-MICHEL-GOTTARDO", rol: "Discursante", nombre: "Michel Gottardo", congregacion: "Cornellá- Centro", telefono: "34697578921", hora: "15:58", numero: 17, titulo: "Siria", duracion: "0:11" },
+        { id: "VT-DISCURSANTE-ANDRES-MAYOR-BETEL", rol: "Discursante", nombre: "Andres Mayor (Betel)", congregacion: "Alcalá de Henares- Inglesa", telefono: "34657107524", hora: "16:10", numero: 18, titulo: "¿Qué ve Jesús en cada uno de nosotros?", duracion: "0:34" },
+        { id: "VT-ORACION-FINAL-PEDRO-MORA", rol: "Oración Final", nombre: "Pedro Mora", congregacion: "Cornellá- Linda Vista", telefono: "627584967", hora: "16:45" }
     ]},
     { sesion: "Sábado Mañana", dia: "Sábado", participantes: [
         { id: "SM-PRESIDENTE-ABEL-REGUANT", rol: "Presidente", nombre: "Abel Reguant", congregacion: "Manresa- Oeste", telefono: "619785527", hora: "9:20" },
         { id: "SM-ORACION-RICARDO-CORDOVILLA", rol: "Oración", nombre: "Ricardo Cordovilla", congregacion: "Hospitalet- Bellvitge", telefono: "609831085", hora: "9:30" },
-        { id: "SM-VIDEO-PRODUCCION-AUDIOVISUAL-2", rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: ¿Qué buscan?", hora: "9:40", numero: 19 },
-        { id: "SM-VIDEO-PRODUCCION-AUDIOVISUAL-3", rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús (Episodio 2).", hora: "9:50", numero: 20, titulo: "\"Este es mi Hijo\"(Parte 2)." },
-        { id: "SM-DISCURSANTE-GABRIEL-QUINTANA", rol: "Discursante", nombre: "Gabriel Quintana", congregacion: "Berga", telefono: "34627750431", hora: "10:30", numero: 21 },
-        { id: "SM-DISCURSANTE-MANUEL-CASINO", rol: "Discursante", nombre: "Manuel Casino", congregacion: "Barcelona- Industria", telefono: "34684041108", hora: "10:40", numero: 22 },
-        { id: "SM-DISCURSANTE-ESTEBAN-MARTIN", rol: "Discursante", nombre: "Esteban Martín", congregacion: "Barcelona- Correos", telefono: "34647418124", hora: "10:49", numero: 23 },
-        { id: "SM-DISCURSANTE-KEVIN-ADIEL-COBO", rol: "Discursante", nombre: "Kevin Adiel Cobo (BTL)", congregacion: "Madrid- Moratalaz", telefono: "34622026474", hora: "10:59", numero: 24 },
-        { id: "SM-DISCURSANTE-RUBEN-VERDES", rol: "Discursante", nombre: "Rubén Verdés", congregacion: "Barcelona- Ramblas", telefono: "34613777095", hora: "11:09", numero: 25 },
-        { id: "SM-DISCURSANTE-DAVID-MERCADER", rol: "Discursante", nombre: "David Mercader", congregacion: "Prat de Llobregat- Centric", telefono: "34603299172", hora: "11:17", numero: 26 },
-        { id: "SM-DISCURSANTE-DANIEL-SELLLARES", rol: "Discursante", nombre: "Daniel Sellares", congregacion: "Manresa- Sur", telefono: "34635670682", hora: "11:25", numero: 27 },
-        { id: "SM-DISCURSANTE-NATAN-BECERRIL", rol: "Discursante", nombre: "Natán Becerril", congregacion: "Hospitalet de Llobregat- Can Serra", telefono: "34650677392", hora: "11:34", numero: 28 }
+        { id: "SM-VIDEO-PRODUCCION-AUDIOVISUAL-2", rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: ¿Qué buscan?", hora: "9:40", numero: 19, duracion: "0:10" },
+        { id: "SM-VIDEO-PRODUCCION-AUDIOVISUAL-3", rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús (Episodio 2).", hora: "9:50", numero: 20, titulo: "\"Este es mi Hijo\"(Parte 2).", duracion: "0:35" },
+        { id: "SM-DISCURSANTE-GABRIEL-QUINTANA", rol: "Discursante", nombre: "Gabriel Quintana", congregacion: "Berga", telefono: "34627750431", hora: "10:30", numero: 21, titulo: "Juan el Bautista", duracion: "0:09" },
+        { id: "SM-DISCURSANTE-MANUEL-CASINO", rol: "Discursante", nombre: "Manuel Casino", congregacion: "Barcelona- Industria", telefono: "34684041108", hora: "10:40", numero: 22, titulo: "Andrés", duracion: "0:09" },
+        { id: "SM-DISCURSANTE-ESTEBAN-MARTIN", rol: "Discursante", nombre: "Esteban Martín", congregacion: "Barcelona- Correos", telefono: "34647418124", hora: "10:49", numero: 23, titulo: "Pedro", duracion: "0:09" },
+        { id: "SM-DISCURSANTE-KEVIN-ADIEL-COBO", rol: "Discursante", nombre: "Kevin Adiel Cobo (BTL)", congregacion: "Madrid- Moratalaz", telefono: "34622026474", hora: "10:59", numero: 24, titulo: "Juan", duracion: "0:09" },
+        { id: "SM-DISCURSANTE-RUBEN-VERDES", rol: "Discursante", nombre: "Rubén Verdés", congregacion: "Barcelona- Ramblas", telefono: "34613777095", hora: "11:09", numero: 25, titulo: "Santiago", duracion: "0:08" },
+        { id: "SM-DISCURSANTE-DAVID-MERCADER", rol: "Discursante", nombre: "David Mercader", congregacion: "Prat de Llobregat- Centric", telefono: "34603299172", hora: "11:17", numero: 26, titulo: "Felipe", duracion: "0:08" },
+        { id: "SM-DISCURSANTE-DANIEL-SELLLARES", rol: "Discursante", nombre: "Daniel Sellares", congregacion: "Manresa- Sur", telefono: "34635670682", hora: "11:25", numero: 27, titulo: "Natanael", duracion: "0:09" },
+        { id: "SM-DISCURSANTE-NATAN-BECERRIL", rol: "Discursante", nombre: "Natán Becerril", congregacion: "Hospitalet de Llobregat- Can Serra", telefono: "34650677392", hora: "11:34", numero: 28, titulo: "El significado de su bautismo", duracion: "0:29" }
     ]},
     { sesion: "Sábado Tarde", dia: "Sábado", participantes: [
-        { id: "ST-PRESIDENTE-CLIMENT-AMBROS", rol: "Presidente", nombre: "Climent Ambrós", congregacion: "Barcelona- Gracia", telefono: "670227872", hora: "1:35" },
-        { id: "ST-DISCURSANTE-JONATAN-VICENTE", rol: "Discursante", nombre: "Jonatán Vicente", congregacion: "Santa Coloma de Gramanet- Sur", telefono: "34696683559", hora: "13:50", numero: 29 },
-        { id: "ST-DISCURSANTE-SANTIAGO-SAEZ", rol: "Discursante", nombre: "Santiago Sáez", congregacion: "Sant Feliu de Llobregat- Norte", telefono: "34665817304", hora: "14:00", numero: 30 },
-        { id: "ST-DISCURSANTE-RICARDO-ANGUITA", rol: "Discursante", nombre: "Ricardo Anguita", congregacion: "Barcelona- Horts", telefono: "34630830486", hora: "14:09", numero: 31 },
-        { id: "ST-DISCURSANTE-JOSUE-RABANEDA", rol: "Discursante", nombre: "Josué Rabaneda", congregacion: "Barcelona- Ronda", telefono: "34627977232", hora: "14:20", numero: 32 },
-        { id: "ST-DISCURSANTE-EDGAR-TERUEL-BTL", rol: "Discursante", nombre: "Edgar Teruel (BTL)", congregacion: "Alcalá de Henares- Inglesa", telefono: "34627732231", hora: "14:45", numero: 33 },
-        { id: "ST-DISCURSANTE-ALVARO-PANIAGUA", rol: "Discursante", nombre: "Álvaro Paniagua", congregacion: "Manresa- Norte", telefono: "609325570", hora: "14:56", numero: 34 },
-        { id: "ST-DISCURSANTE-ADOLFO-FORNIELES", rol: "Discursante", nombre: "Circuito ESP-B-04", telefono: "34676716403", hora: "15:06", numero: 35 },
-        { id: "ST-DISCURSANTE-ALFONSO-GUERRERO", rol: "Discursante", nombre: "Alfonso Guerrero", congregacion: "Alcalá de Henares- Pueblo Nuevo", telefono: "34693931362", hora: "15:30", numero: 36 },
-        { id: "ST-DISCURSANTE-ANDRES-MAYOR-BETEL", rol: "Discursante", nombre: "Andres Mayor (Betel)", congregacion: "Alcalá de Henares- Inglesa", telefono: "34657107524", hora: "16:00", numero: 37 },
-        { id: "ST-ORACION-FINAL-JAIRO-JOSE-GALAN", rol: "Oración Final", nombre: "Jairo José Galán", congregacion: "Berga", telefono: "649031832", hora: "4:35" }
+        { id: "ST-PRESIDENTE-CLIMENT-AMBROS", rol: "Presidente", nombre: "Climent Ambrós", congregacion: "Barcelona- Gracia", telefono: "670227872", hora: "13:35" },
+        { id: "ST-DISCURSANTE-JONATAN-VICENTE", rol: "Discursante", nombre: "Jonatán Vicente", congregacion: "Santa Coloma de Gramanet- Sur", telefono: "34696683559", hora: "13:50", numero: 29, titulo: "a ser compasivos", duracion: "0:09" },
+        { id: "ST-DISCURSANTE-SANTIAGO-SAEZ", rol: "Discursante", nombre: "Santiago Sáez", congregacion: "Sant Feliu de Llobregat- Norte", telefono: "34665817304", hora: "14:00", numero: 30, titulo: "a ser humildes", duracion: "0:09" },
+        { id: "ST-DISCURSANTE-RICARDO-ANGUITA", rol: "Discursante", nombre: "Ricardo Anguita", congregacion: "Barcelona- Horts", telefono: "34630830486", hora: "14:09", numero: 31, titulo: "a ser generosos", duracion: "0:10" },
+        { id: "ST-DISCURSANTE-JOSUE-RABANEDA", rol: "Discursante", nombre: "Josué Rabaneda", congregacion: "Barcelona- Ronda", telefono: "34627977232", hora: "14:20", numero: 32, titulo: "¿Cómo quita el pecado \"el Cordero de Dios\"?", duracion: "0:24" },
+        { id: "ST-DISCURSANTE-EDGAR-TERUEL-BTL", rol: "Discursante", nombre: "Edgar Teruel (BTL)", congregacion: "Alcalá de Henares- Inglesa", telefono: "34627732231", hora: "14:45", numero: 33, titulo: "La devoción por la casa de Jehová ardió en su interior", duracion: "0:10" },
+        { id: "ST-DISCURSANTE-ALVARO-PANIAGUA", rol: "Discursante", nombre: "Álvaro Paniagua", congregacion: "Manresa- Norte", telefono: "609325570", hora: "14:56", numero: 34, titulo: "Anunció \"buenas noticias a los mansos\"", duracion: "0:10" },
+        { id: "ST-DISCURSANTE-ADOLFO-FORNIELES", rol: "Discursante", nombre: "Adolfo Fornieles", congregacion: "Circuito ESP-B-04", telefono: "34676716403", hora: "15:06", numero: 35, titulo: "\"Una gran luz brilló en Galilea\"", duracion: "0:13" },
+        { id: "ST-DISCURSANTE-ALFONSO-GUERRERO", rol: "Discursante", nombre: "Alfonso Guerrero", congregacion: "Alcalá de Henares- Pueblo Nuevo", telefono: "34693931362", hora: "15:30", numero: 36, titulo: "¡Quiten todo esto de aquí!", duracion: "0:29" },
+        { id: "ST-DISCURSANTE-ANDRES-MAYOR-BETEL", rol: "Discursante", nombre: "Andres Mayor (Betel)", congregacion: "Alcalá de Henares- Inglesa", telefono: "34657107524", hora: "16:00", numero: 37, titulo: "\"Lo levantaré\"", duracion: "0:34" },
+        { id: "ST-ORACION-FINAL-JAIRO-JOSE-GALAN", rol: "Oración Final", nombre: "Jairo José Galán", congregacion: "Berga", telefono: "649031832", hora: "16:45" }
     ]},
     { sesion: "Domingo Mañana", dia: "Domingo", participantes: [
         { id: "DM-PRESIDENTE-JUAN-ALCARAZ", rol: "Presidente", nombre: "Juan Alcaraz", congregacion: "Barcelona- Rondas", telefono: "600460360", hora: "9:20" },
         { id: "DM-ORACION-JOSE-DIEGO", rol: "Oración", nombre: "José Diego", congregacion: "Tona", telefono: "34624254650", hora: "9:30" },
-        { id: "DM-DISCURSANTE-ISAAC-DIAZ", rol: "Discursante", nombre: "Isaac Díaz", congregacion: "Tona", telefono: "34641130765", hora: "9:40", numero: 38 },
-        { id: "DM-DISCURSANTE-BENJAMIN-FERRER", rol: "Discursante", nombre: "Benjamín Ferrer", congregacion: "Barcelona- Verneda", telefono: "34669407731", hora: "9:55", numero: 39 },
-        { id: "DM-DISCURSANTE-FRANCISCO-JAVIER-VILA", rol: "Discursante", nombre: "Francisco Javier Vila", congregacion: "Prat de Llobregat- Centric", telefono: "34670222691", hora: "10:07", numero: 40 },
-        { id: "DM-DISCURSANTE-JOSEPH-SALAZAR", rol: "Discursante", nombre: "Joseph Salazar", congregacion: "Barcelona- Horta", telefono: "34644611770", hora: "10:21", numero: 41 },
-        { id: "DM-DISCURSANTE-FERNANDO-TERUEL", rol: "Discursante", nombre: "Fernando Teruel", congregacion: "Hospitalet de Llobregat- Este", telefono: "34610520042", hora: "10:35", numero: 42 },
-        { id: "DM-VIDEO-PRODUCCION-AUDIOVISUAL-4", rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Los campos están Blacos, listos para la cosecha", hora: "10:49", numero: 43 },
-        { id: "DM-DISCURSANTE-JOSE-MANUEL-LARA", rol: "Discursante", nombre: "José Manuel Lara", congregacion: "Circuito ESP-B-10", telefono: "34647905979", hora: "11:15", numero: 44 },
-        { id: "DM-DISCURSANTE-NINO-LLOPIS", rol: "Discursante", nombre: "Nino Llopis", congregacion: "Ripoll", telefono: "34676977747", hora: "11:45", numero: 45 }
+        { id: "DM-DISCURSANTE-ISAAC-DIAZ", rol: "Discursante", nombre: "Isaac Díaz", congregacion: "Tona", telefono: "34641130765", hora: "9:40", numero: 38, titulo: "Nacer \"del agua y del espíritu\"", duracion: "0:14" },
+        { id: "DM-DISCURSANTE-BENJAMIN-FERRER", rol: "Discursante", nombre: "Benjamín Ferrer", congregacion: "Barcelona- Verneda", telefono: "34669407731", hora: "9:55", numero: 39, titulo: "\"Ningún hombre ha subido al cielo\"", duracion: "0:12" },
+        { id: "DM-DISCURSANTE-FRANCISCO-JAVIER-VILA", rol: "Discursante", nombre: "Francisco Javier Vila", congregacion: "Prat de Llobregat- Centric", telefono: "34670222691", hora: "10:07", numero: 40, titulo: "Ir \"a la luz\"", duracion: "0:13" },
+        { id: "DM-DISCURSANTE-JOSEPH-SALAZAR", rol: "Discursante", nombre: "Joseph Salazar", congregacion: "Barcelona- Horta", telefono: "34644611770", hora: "10:21", numero: 41, titulo: "\"Ese soy yo\"", duracion: "0:13" },
+        { id: "DM-DISCURSANTE-FERNANDO-TERUEL", rol: "Discursante", nombre: "Fernando Teruel", congregacion: "Hospitalet de Llobregat- Este", telefono: "34610520042", hora: "10:35", numero: 42, titulo: "\"Mi alimento\"", duracion: "0:13" },
+        { id: "DM-VIDEO-PRODUCCION-AUDIOVISUAL-4", rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Los campos están Blancos, listos para la cosecha", hora: "10:49", numero: 43, duracion: "0:15" },
+        { id: "DM-DISCURSANTE-JOSE-MANUEL-LARA", rol: "Discursante", nombre: "José Manuel Lara", congregacion: "Circuito ESP-B-10", telefono: "34647905979", hora: "11:15", numero: 44, titulo: "¿Sabe en qué se basan sus creencias?", duracion: "0:29" },
+        { id: "DM-DISCURSANTE-NINO-LLOPIS", rol: "Discursante", nombre: "Nino Llopis", congregacion: "Ripoll", telefono: "34676977747", hora: "11:45", numero: 45, titulo: "Resumen de La Atalaya", duracion: "0:29" }
     ]},
     { sesion: "Domingo Tarde", dia: "Domingo", participantes: [
-        { id: "DT-PRESIDENTE-JULIAN-LASHERAS", rol: "Presidente", nombre: "Julian Lasheras", congregacion: "ESP-B-03", telefono: "609919464", hora: "1:35" },
-        { id: "DT-VIDEO-PRODUCCION-AUDIOVISUAL-5", rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL", hora: "13:50", numero: 46 },
-        { id: "DT-DISCURSANTE-JULIAN-LASHERAS-2", rol: "Discursante", nombre: "Julian Lasheras", congregacion: "ESP-B-03", telefono: "609919464", hora: "14:45", numero: 47 },
-        { id: "DT-DISCURSANTE-ANDRES-MAYOR-BETEL-2", rol: "Discursante", nombre: "Andres Mayor (Betel)", congregacion: "Alcalá de Henares- Inglesa", telefono: "34657107524", hora: "14:54", numero: 48 },
-        { id: "DT-ORACION-FINAL-ANDRES-MAYOR-BETEL", rol: "Oración Final", nombre: "Andres Mayor (Betel)", congregacion: "Alcalá de Henares- Inglesa", telefono: "34657107524", hora: "4:45" }
+        { id: "DT-PRESIDENTE-JULIAN-LASHERAS", rol: "Presidente", nombre: "Julian Lasheras", congregacion: "ESP-B-03", telefono: "609919464", hora: "13:35" },
+        { id: "DT-VIDEO-PRODUCCION-AUDIOVISUAL-5", rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús: Episodio 3. \"Ese soy yo\"", hora: "13:50", numero: 46, duracion: "0:45" },
+        { id: "DT-DISCURSANTE-JULIAN-LASHERAS-2", rol: "Discursante", nombre: "Julian Lasheras", congregacion: "ESP-B-03", telefono: "609919464", hora: "14:45", numero: 47, titulo: "¿Qué hemos aprendido?", duracion: "0:10" },
+        { id: "DT-DISCURSANTE-ANDRES-MAYOR-BETEL-2", rol: "Discursante", nombre: "Andres Mayor (Betel)", congregacion: "Alcalá de Henares- Inglesa", telefono: "34657107524", hora: "14:55", numero: 48, titulo: "Permanezcamos en el gran templo espiritual de Jehová", duracion: "0:49" },
+        { id: "DT-ORACION-FINAL-ANDRES-MAYOR-BETEL", rol: "Oración Final", nombre: "Andres Mayor (Betel)", congregacion: "Alcalá de Henares- Inglesa", telefono: "34657107524", hora: "15:45" }
     ]}
 ];
 
@@ -104,7 +104,7 @@ const itemsChecklist = [
     { id: 'discursado', texto: 'Participación completada', tipo: 'checkbox', icon: 'fa-solid fa-microphone-slash', indicator: true }
 ];
 
-// --- ELEMENTOS DEL DOM (se obtienen después de que el usuario se autentica) ---
+// --- ELEMENTOS DEL DOM (se obtienen después de que el usuario se autentica o al cargar el DOM para el login) ---
 let loginScreen;
 let loginForm;
 let emailInput;
@@ -112,17 +112,19 @@ let passwordInput;
 let loginError;
 let appContainer;
 let logoutButton;
-let navContainer;
+let navContainer; // Ahora es el <ul> dentro de nav-menu
 let programContainer;
 let summaryPanel;
 let body;
 
-// --- Nueva funcionalidad de tabla del programa ---
+// Nueva funcionalidad de tabla del programa
 let openProgramTableBtn;
 let closeProgramTableBtn;
 let programTableOverlay;
 let tabButtons;
 let tabContents;
+let hamburgerMenu; // Elemento del menú hamburguesa
+let navMenu;       // Menú de navegación (UL)
 
 // Función para obtener los elementos del DOM una vez que la estructura HTML esté visible
 function getDOMElements() {
@@ -133,7 +135,7 @@ function getDOMElements() {
     loginError = document.getElementById('login-error');
     appContainer = document.getElementById('app-container');
     logoutButton = document.getElementById('logout-button');
-    navContainer = document.getElementById('day-nav');
+    navContainer = document.getElementById('day-nav'); // El UL que contiene los botones de día
     programContainer = document.getElementById('program-container');
     summaryPanel = document.getElementById('summary-panel');
     body = document.body;
@@ -144,6 +146,8 @@ function getDOMElements() {
     programTableOverlay = document.getElementById('programTableOverlay');
     tabButtons = document.querySelectorAll('.tab-navigation .tab-button');
     tabContents = document.querySelectorAll('.tab-content');
+    hamburgerMenu = document.getElementById('hamburger-menu');
+    navMenu = document.getElementById('nav-menu');
 }
 
 // --- FUNCIONES DE LA APLICACIÓN ---
@@ -199,6 +203,7 @@ function crearAcordeon(participante) {
             .map(it => `<span class="indicator" data-indicator-for="${it.id}"></span>`).join('');
     }
 
+    // Ocultar el número de teléfono en la UI principal
     const whatsappLink = participante.telefono ? 
         `<a href="https://wa.me/${participante.telefono.replace(/\D/g,'')}" target="_blank" class="whatsapp-icon-container" title="Enviar WhatsApp a ${participante.nombre}">
             <i class="fa-brands fa-whatsapp whatsapp-icon"></i>
@@ -229,7 +234,6 @@ function crearAcordeon(participante) {
             // Condición para ocultar/deshabilitar elementos del checklist
             if ((esOra && ocOra.includes(item.id)) || (esBetel && ocBet.includes(item.id))) {
                 // Si el elemento debe ser ocultado por estas reglas, simplemente no lo creamos.
-                // Opcionalmente, podrías crearlo con 'display: none' si necesitas que esté en el DOM por alguna razón.
                 return;
             }
 
@@ -283,30 +287,35 @@ function crearAcordeon(participante) {
 }
 
 /**
- * Genera el HTML inicial para todos los días y sesiones del programa.
+ * Genera el HTML inicial para todos los días y sesiones del programa en el contenedor principal.
  */
 function generarProgramaHTML() {
     programContainer.innerHTML = '';
     ['Viernes', 'Sábado', 'Domingo'].forEach(dia => {
-        const dayContent = document.createElement('div');
-        dayContent.id = `content-${dia}`;
-        dayContent.className = 'day-content hidden';
+        const daySection = document.createElement('section');
+        daySection.id = `content-${dia}`; // ID para la sección del día
+        daySection.className = 'day-content hidden'; // Clase para ocultar por defecto
+
+        const dayTitle = document.createElement('h2');
+        dayTitle.textContent = dia;
+        daySection.appendChild(dayTitle);
 
         programa.filter(s => s.dia === dia).forEach(sesion => {
             const sessionBlock = document.createElement('div');
             sessionBlock.className = 'session-block';
-            sessionBlock.innerHTML = `<h2>${sesion.sesion}</h2>`;
+            sessionBlock.innerHTML = `<h3>${sesion.sesion}</h3>`; // Usar h3 para sesiones internas
             sesion.participantes.forEach(p => {
                 sessionBlock.appendChild(crearAcordeon(p));
             });
-            dayContent.appendChild(sessionBlock);
+            daySection.appendChild(sessionBlock);
         });
-        programContainer.appendChild(dayContent);
+        programContainer.appendChild(daySection);
     });
     
-    // Muestra el primer día por defecto
+    // Muestra el primer día por defecto (Viernes)
     document.getElementById('content-Viernes').classList.remove('hidden');
 }
+
 
 /**
  * Actualiza la UI de un acordeón individual (barra de progreso, indicadores, estado completo).
@@ -339,8 +348,8 @@ function actualizarEstadoUI(accordion) {
     const esOra = rol.includes('Oración');
     const ocOra = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
     const ocBet = ['orientacion', 'recordatorios'];
-    const maquillajeRadio = accordion.querySelector('input[data-item-id="maquillaje"][value="N/A"]'); // Check specifically for N/A radio
-    const esNA = maquillajeRadio && maquillajeRadio.checked;
+    const maquillajeRadioNA = accordion.querySelector('input[data-item-id="maquillaje"][value="N/A"]'); 
+    const esNA = maquillajeRadioNA && maquillajeRadioNA.checked;
     
     // Deshabilitar repaso de maquillaje si se selecciona N/A
     const repasoContainer = accordion.querySelector('[data-container-for="repaso_maquillaje"]');
@@ -358,15 +367,9 @@ function actualizarEstadoUI(accordion) {
 
     // Calcular progreso
     const itemsAplicables = itemsChecklist.filter(item => {
-        // Excluir elementos si el rol es 'Oración' y están en ocOra
-        if (esOra && ocOra.includes(item.id)) {
+        if ((esOra && ocOra.includes(item.id)) || (esBetel && ocBet.includes(item.id))) {
             return false;
         }
-        // Excluir elementos si el nombre contiene 'Betel'/'BTL' y están en ocBet
-        if (esBetel && ocBet.includes(item.id)) {
-            return false;
-        }
-        // Excluir 'repaso_maquillaje' si 'maquillaje' es 'N/A'
         if (esNA && item.id === 'repaso_maquillaje') {
             return false;
         }
@@ -376,7 +379,6 @@ function actualizarEstadoUI(accordion) {
     const totalTasks = itemsAplicables.length;
     let completedTasks = 0;
     
-    // Usar un Set para rastrear IDs de items completados y evitar duplicados por radios
     const completedItemIds = new Set(); 
 
     itemsAplicables.forEach(item => {
@@ -403,7 +405,6 @@ function actualizarEstadoUI(accordion) {
         indicator.className = 'indicator'; // Reset class
         const itemId = indicator.dataset.indicatorFor;
 
-        // Check if this indicator's item should be hidden/disabled based on participant rules
         const itemConfig = itemsChecklist.find(it => it.id === itemId);
         let shouldHideIndicator = false;
         if (itemConfig) {
@@ -423,11 +424,17 @@ function actualizarEstadoUI(accordion) {
             
             if (input && !input.disabled) { 
                 if (input.type === 'checkbox' && input.checked) {
-                    indicator.classList.add(itemId);
+                    // Normalize the itemId for class name (e.g., "repaso_maquillaje" -> "repasofinaldemaquillaje")
+                    const className = itemId.replace(/_|-|\s/g, ''); // Remove underscores, hyphens, spaces
+                    if (itemId === 'repaso_maquillaje') { // Specific fix for this one
+                         indicator.classList.add('repasofinaldemaquillaje');
+                    } else {
+                        indicator.classList.add(className);
+                    }
                 } else if (input.type === 'radio') {
                     const checkedRadio = accordion.querySelector(`input[name="${input.name}"]:checked`);
                     if (checkedRadio) {
-                        const valueClass = `maquillaje-${checkedRadio.value.toLowerCase().replace(/\s|\//g, '')}`; // Fix regex for N/A
+                        const valueClass = `maquillaje${checkedRadio.value.toLowerCase().replace(/\s|\//g, '')}`; 
                         indicator.classList.add(valueClass);
                     }
                 }
@@ -511,7 +518,6 @@ function syncStateFromFirebase() {
                         if (checkbox) {
                             checkbox.checked = value;
                         } else { // Radios
-                            // Ensure to check if radio element exists before trying to access properties
                             const radioElements = accordion.querySelectorAll(`input[data-item-id="${key}"]`);
                             radioElements.forEach(radio => {
                                 radio.checked = (radio.value === value);
@@ -528,7 +534,7 @@ function syncStateFromFirebase() {
 }
 
 /**
- * Genera el contenido de las tablas del programa.
+ * Genera el contenido de las tablas del programa para el overlay.
  */
 function generateProgramTables() {
     const dayMap = {
@@ -548,49 +554,47 @@ function generateProgramTables() {
             if (!sessionData) return;
 
             const sessionTableHTML = `
-                <h2>${sessionName}</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nº</th>
-                            <th>Hora</th>
-                            <th>Discurso</th>
-                            <th>T</th>
-                            <th>Orador</th>
-                            <th>Congregación</th>
-                            <th>Teléfono</th>
-                            <th>PD</th>
-                            <th>DA</th>
-                            <th>AA</th>
-                            <th>REAL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${sessionData.participantes.map(p => {
-                            const isPresident = p.rol.includes('Presidente');
-                            const isPrayer = p.rol.includes('Oración');
-                            const isVideo = p.rol.includes('Video');
-                            
-                            const rowClass = isPresident ? 'table-president-row' : '';
+                <h3>${sessionName}</h3> <div class="speech-table"> <table>
+                        <thead>
+                            <tr>
+                                <th>Nº</th>
+                                <th>Hora</th>
+                                <th>Min</th>
+                                <th>Función/Título del Discurso</th>
+                                <th>Orador/Presidente</th>
+                                <th>Congregación</th>
+                                <th>PD</th>
+                                <th>DA</th>
+                                <th>AA</th>
+                                <th>REAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${sessionData.participantes.map(p => {
+                                const isPresident = p.rol.includes('Presidente');
+                                const isPrayer = p.rol.includes('Oración');
+                                const isVideo = p.rol.includes('Video');
+                                
+                                const rowClass = isPresident ? 'table-president-row' : '';
 
-                            return `
-                                <tr class="${rowClass}">
-                                    <td>${p.numero || ''}</td>
-                                    <td>${p.hora || ''}</td>
-                                    <td>${p.titulo || (isPresident ? 'PRESIDENTE DE LA SESIÓN' : (isPrayer ? `Canción y oración` : ''))}</td>
-                                    <td>${p.duracion || ''}</td>
-                                    <td>${p.nombre || ''}</td>
-                                    <td>${p.congregacion || ''}</td>
-                                    <td>${p.telefono ? p.telefono.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3') : ''}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            `;
-                        }).join('')}
-                    </tbody>
-                </table>
+                                return `
+                                    <tr class="${rowClass}">
+                                        <td>${p.numero || ''}</td>
+                                        <td>${p.hora || ''}</td>
+                                        <td>${p.duracion || ''}</td>
+                                        <td>${p.titulo || (isPresident ? 'PRESIDENTE DE LA SESIÓN' : (isPrayer ? `Canción y oración` : (isVideo ? p.nombre : '')))}</td>
+                                        <td>${p.nombre || ''}</td>
+                                        <td>${p.congregacion || ''}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
             `;
             tableContentDiv.insertAdjacentHTML('beforeend', sessionTableHTML);
         });
@@ -602,52 +606,77 @@ function generateProgramTables() {
  * Configura todos los event listeners de la aplicación.
  */
 function setupEventListeners() {
-    // Listener para abrir/cerrar acordeones
-    programContainer.addEventListener('click', (e) => {
-        const header = e.target.closest('.accordion-header');
-        if (!header) return;
-        const accordion = header.closest('.participant-accordion');
-        if (accordion.classList.contains('is-audiovisual')) return;
-        
-        header.classList.toggle('active');
-        header.nextElementSibling.classList.toggle('active');
-    });
+    // Listener para el menú hamburguesa
+    if (hamburgerMenu) {
+        hamburgerMenu.addEventListener('click', () => {
+            hamburgerMenu.classList.toggle('active');
+            navMenu.classList.toggle('show');
+        });
+    }
+
+    // Listener para los botones de navegación de días (menú hamburguesa)
+    if (navContainer) {
+        navContainer.addEventListener('click', (e) => {
+            const button = e.target.closest('.nav-button');
+            if (!button || button.classList.contains('active')) return;
+
+            // Remover la clase 'active' del botón de navegación previamente activo
+            const currentActiveNavButton = navContainer.querySelector('.nav-button.active');
+            if (currentActiveNavButton) {
+                currentActiveNavButton.classList.remove('active');
+            }
+            button.classList.add('active');
+
+            // Ocultar todas las secciones de día y mostrar la seleccionada
+            document.querySelectorAll('.day-content').forEach(d => d.classList.add('hidden'));
+            document.getElementById(`content-${button.dataset.day}`).classList.remove('hidden');
+
+            // Cerrar el menú hamburguesa después de la selección
+            if (hamburgerMenu) hamburgerMenu.classList.remove('active');
+            if (navMenu) navMenu.classList.remove('show');
+
+            // Aplicar el tema de iluminación y actualizar el resumen
+            setDayTheme(button.dataset.day);
+            updateSummary();
+        });
+    }
+
+    // Listener para abrir/cerrar acordeones de participantes
+    if (programContainer) {
+        programContainer.addEventListener('click', (e) => {
+            const header = e.target.closest('.accordion-header');
+            if (!header) return;
+            const accordion = header.closest('.participant-accordion');
+            if (accordion.classList.contains('is-audiovisual')) return; // No abrir si es audiovisual
+            
+            header.classList.toggle('active');
+            header.nextElementSibling.classList.toggle('active'); // Muestra/oculta el contenido
+        });
+    }
 
     // Listener para cambios en el checklist (checkbox y radios)
-    programContainer.addEventListener('change', (e) => {
-        const input = e.target.closest('input[data-item-id]');
-        if (!input) return;
-        const accordion = input.closest('.participant-accordion');
-        const value = input.type === 'checkbox' ? input.checked : (accordion.querySelector(`input[name="${input.name}"]:checked`)?.value || null);
-        saveStateToFirebase(accordion.dataset.id, input.dataset.itemId, value);
-    });
-
-    // Listener para la navegación de días
-    navContainer.addEventListener('click', (e) => {
-        const button = e.target.closest('.nav-button');
-        if (!button || button.classList.contains('active')) return;
-
-        navContainer.querySelector('.active').classList.remove('active');
-        button.classList.add('active');
-
-        document.querySelectorAll('.day-content').forEach(d => d.classList.add('hidden'));
-        document.getElementById(`content-${button.dataset.day}`).classList.remove('hidden');
-
-        // Aplicar el tema de iluminación y actualizar el resumen
-        setDayTheme(button.dataset.day);
-        updateSummary();
-    });
+    if (programContainer) {
+        programContainer.addEventListener('change', (e) => {
+            const input = e.target.closest('input[data-item-id]');
+            if (!input) return;
+            const accordion = input.closest('.participant-accordion');
+            const value = input.type === 'checkbox' ? input.checked : (accordion.querySelector(`input[name="${input.name}"]:checked`)?.value || null);
+            saveStateToFirebase(accordion.dataset.id, input.dataset.itemId, value);
+        });
+    }
 
     // Listener para el botón de logout
-    logoutButton.addEventListener('click', async () => {
-        try {
-            await signOut(auth);
-        } catch (error) {
-            console.error("Error al cerrar sesión: ", error);
-        }
-    });
+    if (logoutButton) {
+        logoutButton.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.error("Error al cerrar sesión: ", error);
+            }
+        });
+    }
 
-    // --- Lógica de la nueva tabla de programa ---
+    // --- Lógica de la nueva tabla de programa (overlay) ---
     if (openProgramTableBtn) {
         openProgramTableBtn.addEventListener('click', () => {
             if (programTableOverlay) {
@@ -664,26 +693,28 @@ function setupEventListeners() {
         });
     }
 
-    // Función para cambiar de pestaña (día) en la tabla
-    tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const day = button.dataset.day;
+    // Función para cambiar de pestaña (día) en la tabla del programa
+    if (tabButtons) {
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const day = button.dataset.day;
 
-            // Remover la clase 'active' de todos los botones y ocultar todos los contenidos
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(content => content.style.display = 'none');
+                // Remover la clase 'active' de todos los botones y ocultar todos los contenidos
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.style.display = 'none');
 
-            // Añadir la clase 'active' al botón clickeado y mostrar el contenido correspondiente
-            button.classList.add('active');
-            const targetContent = document.getElementById(`${day}TableContent`);
-            if (targetContent) {
-                targetContent.style.display = 'block';
-            }
+                // Añadir la clase 'active' al botón clickeado y mostrar el contenido correspondiente
+                button.classList.add('active');
+                const targetContent = document.getElementById(`${day}TableContent`);
+                if (targetContent) {
+                    targetContent.style.display = 'block';
+                }
+            });
         });
-    });
+    }
 
     // Set initial active tab for the program table
-    if (tabButtons.length > 0) {
+    if (tabButtons && tabButtons.length > 0) {
         tabButtons[0].click(); // Simulate click on the first tab button
     }
 }
@@ -699,22 +730,31 @@ function showLoginScreen() {
 }
 
 function startApp() {
-    // Get DOM elements here, after appContainer is shown
+    // Get DOM elements here, after appContainer is shown and structure is built
     getDOMElements(); 
 
     loginScreen.classList.add('hidden');
     appContainer.classList.remove('hidden');
     
+    // Generar la UI principal (acordeones)
     generarProgramaHTML();
-    generateProgramTables(); // Generate the table content
+    // Generar las tablas completas para el overlay
+    generateProgramTables(); 
+    // Configurar todos los listeners (importante que DOM esté ya construido)
     setupEventListeners();
+    // Sincronizar con Firebase
     syncStateFromFirebase();
     
-    // Establecer el tema inicial al cargar la app
-    const initialDay = navContainer.querySelector('.nav-button.active').dataset.day;
-    setDayTheme(initialDay);
+    // Establecer el tema inicial al cargar la app (el primer botón activo del navContainer)
+    const initialDayButton = navContainer.querySelector('.nav-button.active');
+    if (initialDayButton) {
+        setDayTheme(initialDayButton.dataset.day);
+    } else {
+        // Fallback si no hay botón activo, aunque debería haberlo por defecto en HTML
+        setDayTheme('Viernes'); 
+    }
 
-    updateAllUI();
+    updateAllUI(); // Actualizar el estado inicial de todos los acordeones y el resumen
 }
 
 // Observador del estado de autenticación
