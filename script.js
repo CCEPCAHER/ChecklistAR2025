@@ -19,79 +19,89 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 // --- ESTRUCTURA DEL PROGRAMA Y CHECKLIST (Datos de la aplicación) ---
+// NOTA: Esta estructura 'programa' se usa para el checklist.
+// Si deseas poblar dinámicamente 'programa' desde 'horarioProgramaCompleto',
+// deberás implementar esa lógica de mapeo. Por ahora, se mantienen separadas
+// para no alterar el funcionamiento del checklist existente.
 const programa = [
-    { sesion: "Viernes Mañana", dia: "Viernes", participantes: [
-        { id: "VM-PRESIDENTE-DAVID-CASTRO", rol: "Presidente", nombre: "David Castro", congregacion: "Manresa-Este", telefono: "618200006", hora: "9:20" },
-        { id: "VM-ORACION-FRANCISCO-JOSE-SANCHEZ", rol: "Oración", nombre: "Francisco José Sánchez", congregacion: "Sant Feliu de Llobregat- Norte", telefono: "697818981", hora: "9:30" },
-        { id: "VM-DISCURSANTE-JULIAN-LASHERAS", rol: "Discursante", nombre: "Julián Lasheras", congregacion: "Circuito ESP-B-03", telefono: "609919464", hora: "9:40", numero: 1, titulo: "¿Qué es la adoración pura?", duracion: "0:30" },
-        { id: "VM-VIDEO-PRODUCCION-AUDIOVISUAL-1", rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús: Episodio 2.", hora: "10:10", numero: 2, titulo: "\"Este es mi Hijo\"(Parte 1).", duracion: "0:30" },
-        { id: "VM-DISCURSANTE-DOMINGO-TARRASON", rol: "Discursante", nombre: "Domingo Tarrasón", congregacion: "Barcelona- Artesania", telefono: "34649455497", hora: "10:50", numero: 3, titulo: "Reconocido por Días", duracion: "0:20" },
-        { id: "VM-DISCURSANTE-PEDRO-MEDINA", rol: "Discursante", nombre: "Pedro Medina", congregacion: "Circuito ESP-B-09", telefono: "34675734270", hora: "11:11", numero: 4, titulo: "Descendiente del rey David", duracion: "0:16" },
-        { id: "VM-DISCURSANTE-DANIEL-VELASCO", rol: "Discursante", nombre: "Daniel Velasco", congregacion: "Barcelona- Gracia", telefono: "34622033449", hora: "11:28", numero: 5, titulo: "Ungido para ser \"el Mesías, el Líder\"", duracion: "0:16" },
-        { id: "VM-DISCURSANTE-ALEX-BOTELLA", rol: "Discursante", nombre: "Álex Botella", congregacion: "Barcelona- Pueblo Nuevo", telefono: "34691556419", hora: "11:45", numero: 6, titulo: "¿Quién es realmente el gobernante del mundo?", duracion: "0:29" }
-    ]},
-    { sesion: "Viernes Tarde", dia: "Viernes", participantes: [
-        { id: "VT-PRESIDENTE-EDUARDO-AYALA", rol: "Presidente", nombre: "Eduardo Ayala", congregacion: "Hospitalet- Can Serra", telefono: "669380176", hora: "13:35" },
-        { id: "VT-DISCURSANTE-MIGUEL-SOLE", rol: "Discursante", nombre: "Miguel Solé", congregacion: "Circuito ESP-B-12", telefono: "34656331939", hora: "13:50", numero: 7, titulo: "Apoyémonos en la Palabra de Dios", duracion: "0:15" },
-        { id: "VT-DISCURSANTE-DAVID-ALEIXANDRI", rol: "Discursante", nombre: "David Aleixandri", congregacion: "Badalona- Llefia", telefono: "34610455277", hora: "14:05", numero: 8, titulo: "No pongamos a prueba a Jehová", duracion: "0:15" },
-        { id: "VT-DISCURSANTE-DAVID-MALDONADO", rol: "Discursante", nombre: "David Maldonado", congregacion: "Sant Vicenç de Castellet- Centro", telefono: "34676607301", hora: "14:22", numero: 9, titulo: "Adoremos solo a Jehová", duracion: "0:14" },
-        { id: "VT-DISCURSANTE-JUAN-MARTIN-PRIOR", rol: "Discursante", nombre: "Juan Martín Prior", congregacion: "Badalona- Oeste", telefono: "34645573306", hora: "14:36", numero: 10, titulo: "Defendamos la verdad", duracion: "0:13" },
-        { id: "VT-DISCURSANTE-ELLIOT-MIGUEL", rol: "Discursante", nombre: "Elliot Miguel", congregacion: "Barcelona- Guinardó", telefono: "667250970", hora: "15:00", numero: 11, titulo: "El desierto de Judea", duracion: "0:11" },
-        { id: "VT-DISCURSANTE-JOSE-BONET", rol: "Discursante", nombre: "José Bonet", congregacion: "Barcelona- Triunfo", telefono: "34695354568", hora: "15:12", numero: 12, titulo: "El valle del Jordán", duracion: "0:09" },
-        { id: "VT-DISCURSANTE-SANTIAGO-CARDONA", rol: "Discursante", nombre: "Santiago Cardona", congregacion: "Barcelona- Horta", telefono: "34671181894", hora: "15:21", numero: 13, titulo: "Jerusalén", duracion: "0:09" },
-        { id: "VT-DISCURSANTE-ISRAEL-MALLA", rol: "Discursante", nombre: "Israel Malla", congregacion: "Manresa- Guinardó", telefono: "34658609587", hora: "15:30", numero: 14, titulo: "Samaria", duracion: "0:09" },
-        { id: "VT-DISCURSANTE-BARBARO-YULIEXI-TEJERA-RIOS", rol: "Discursante", nombre: "Bárbaro Yuliexi Tejera Rios", congregacion: "Manresa- Norte", telefono: "34688586628", hora: "15:39", numero: 15, titulo: "Galilea", duracion: "0:09" },
-        { id: "VT-DISCURSANTE-RAFAEL-CORRAL", rol: "Discursante", nombre: "Rafael Corral", congregacion: "San Feliu de Llobregat- Norte", telefono: "34616329783", hora: "15:48", numero: 16, titulo: "Fenicia", duracion: "0:09" },
-        { id: "VT-DISCURSANTE-MICHEL-GOTTARDO", rol: "Discursante", nombre: "Michel Gottardo", congregacion: "Cornellá- Centro", telefono: "34697578921", hora: "15:58", numero: 17, titulo: "Siria", duracion: "0:11" },
-        { id: "VT-DISCURSANTE-ANDRES-MAYOR-BETEL", rol: "Discursante", nombre: "Andres Mayor (Betel)", congregacion: "Alcalá de Henares- Inglesa", telefono: "34657107524", hora: "16:10", numero: 18, titulo: "¿Qué ve Jesús en cada uno de nosotros?", duracion: "0:34" },
-        { id: "VT-ORACION-FINAL-PEDRO-MORA", rol: "Oración Final", nombre: "Pedro Mora", congregacion: "Cornellá- Linda Vista", telefono: "627584967", hora: "16:45" }
-    ]},
-    { sesion: "Sábado Mañana", dia: "Sábado", participantes: [
-        { id: "SM-PRESIDENTE-ABEL-REGUANT", rol: "Presidente", nombre: "Abel Reguant", congregacion: "Manresa- Oeste", telefono: "619785527", hora: "9:20" },
-        { id: "SM-ORACION-RICARDO-CORDOVILLA", rol: "Oración", nombre: "Ricardo Cordovilla", congregacion: "Hospitalet- Bellvitge", telefono: "609831085", hora: "9:30" },
-        { id: "SM-VIDEO-PRODUCCION-AUDIOVISUAL-2", rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: ¿Qué buscan?", hora: "9:40", numero: 19, duracion: "0:10" },
-        { id: "SM-VIDEO-PRODUCCION-AUDIOVISUAL-3", rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús (Episodio 2).", hora: "9:50", numero: 20, titulo: "\"Este es mi Hijo\"(Parte 2).", duracion: "0:35" },
-        { id: "SM-DISCURSANTE-GABRIEL-QUINTANA", rol: "Discursante", nombre: "Gabriel Quintana", congregacion: "Berga", telefono: "34627750431", hora: "10:30", numero: 21, titulo: "Juan el Bautista", duracion: "0:09" },
-        { id: "SM-DISCURSANTE-MANUEL-CASINO", rol: "Discursante", nombre: "Manuel Casino", congregacion: "Barcelona- Industria", telefono: "34684041108", hora: "10:40", numero: 22, titulo: "Andrés", duracion: "0:09" },
-        { id: "SM-DISCURSANTE-ESTEBAN-MARTIN", rol: "Discursante", nombre: "Esteban Martín", congregacion: "Barcelona- Correos", telefono: "34647418124", hora: "10:49", numero: 23, titulo: "Pedro", duracion: "0:09" },
-        { id: "SM-DISCURSANTE-KEVIN-ADIEL-COBO", rol: "Discursante", nombre: "Kevin Adiel Cobo (BTL)", congregacion: "Madrid- Moratalaz", telefono: "34622026474", hora: "10:59", numero: 24, titulo: "Juan", duracion: "0:09" },
-        { id: "SM-DISCURSANTE-RUBEN-VERDES", rol: "Discursante", nombre: "Rubén Verdés", congregacion: "Barcelona- Ramblas", telefono: "34613777095", hora: "11:09", numero: 25, titulo: "Santiago", duracion: "0:08" },
-        { id: "SM-DISCURSANTE-DAVID-MERCADER", rol: "Discursante", nombre: "David Mercader", congregacion: "Prat de Llobregat- Centric", telefono: "34603299172", hora: "11:17", numero: 26, titulo: "Felipe", duracion: "0:08" },
-        { id: "SM-DISCURSANTE-DANIEL-SELLLARES", rol: "Discursante", nombre: "Daniel Sellares", congregacion: "Manresa- Sur", telefono: "34635670682", hora: "11:25", numero: 27, titulo: "Natanael", duracion: "0:09" },
-        { id: "SM-DISCURSANTE-NATAN-BECERRIL", rol: "Discursante", nombre: "Natán Becerril", congregacion: "Hospitalet de Llobregat- Can Serra", telefono: "34650677392", hora: "11:34", numero: 28, titulo: "El significado de su bautismo", duracion: "0:29" }
-    ]},
-    { sesion: "Sábado Tarde", dia: "Sábado", participantes: [
-        { id: "ST-PRESIDENTE-CLIMENT-AMBROS", rol: "Presidente", nombre: "Climent Ambrós", congregacion: "Barcelona- Gracia", telefono: "670227872", hora: "13:35" },
-        { id: "ST-DISCURSANTE-JONATAN-VICENTE", rol: "Discursante", nombre: "Jonatán Vicente", congregacion: "Santa Coloma de Gramanet- Sur", telefono: "34696683559", hora: "13:50", numero: 29, titulo: "a ser compasivos", duracion: "0:09" },
-        { id: "ST-DISCURSANTE-SANTIAGO-SAEZ", rol: "Discursante", nombre: "Santiago Sáez", congregacion: "Sant Feliu de Llobregat- Norte", telefono: "34665817304", hora: "14:00", numero: 30, titulo: "a ser humildes", duracion: "0:09" },
-        { id: "ST-DISCURSANTE-RICARDO-ANGUITA", rol: "Discursante", nombre: "Ricardo Anguita", congregacion: "Barcelona- Horts", telefono: "34630830486", hora: "14:09", numero: 31, titulo: "a ser generosos", duracion: "0:10" },
-        { id: "ST-DISCURSANTE-JOSUE-RABANEDA", rol: "Discursante", nombre: "Josué Rabaneda", congregacion: "Barcelona- Ronda", telefono: "34627977232", hora: "14:20", numero: 32, titulo: "¿Cómo quita el pecado \"el Cordero de Dios\"?", duracion: "0:24" },
-        { id: "ST-DISCURSANTE-EDGAR-TERUEL-BTL", rol: "Discursante", nombre: "Edgar Teruel (BTL)", congregacion: "Alcalá de Henares- Inglesa", telefono: "34627732231", hora: "14:45", numero: 33, titulo: "La devoción por la casa de Jehová ardió en su interior", duracion: "0:10" },
-        { id: "ST-DISCURSANTE-ALVARO-PANIAGUA", rol: "Discursante", nombre: "Álvaro Paniagua", congregacion: "Manresa- Norte", telefono: "609325570", hora: "14:56", numero: 34, titulo: "Anunció \"buenas noticias a los mansos\"", duracion: "0:10" },
-        { id: "ST-DISCURSANTE-ADOLFO-FORNIELES", rol: "Discursante", nombre: "Adolfo Fornieles", congregacion: "Circuito ESP-B-04", telefono: "34676716403", hora: "15:06", numero: 35, titulo: "\"Una gran luz brilló en Galilea\"", duracion: "0:13" },
-        { id: "ST-DISCURSANTE-ALFONSO-GUERRERO", rol: "Discursante", nombre: "Alfonso Guerrero", congregacion: "Alcalá de Henares- Pueblo Nuevo", telefono: "34693931362", hora: "15:30", numero: 36, titulo: "¡Quiten todo esto de aquí!", duracion: "0:29" },
-        { id: "ST-DISCURSANTE-ANDRES-MAYOR-BETEL", rol: "Discursante", nombre: "Andres Mayor (Betel)", congregacion: "Alcalá de Henares- Inglesa", telefono: "34657107524", hora: "16:00", numero: 37, titulo: "\"Lo levantaré\"", duracion: "0:34" },
-        { id: "ST-ORACION-FINAL-JAIRO-JOSE-GALAN", rol: "Oración Final", nombre: "Jairo José Galán", congregacion: "Berga", telefono: "649031832", hora: "16:45" }
-    ]},
-    { sesion: "Domingo Mañana", dia: "Domingo", participantes: [
-        { id: "DM-PRESIDENTE-JUAN-ALCARAZ", rol: "Presidente", nombre: "Juan Alcaraz", congregacion: "Barcelona- Rondas", telefono: "600460360", hora: "9:20" },
-        { id: "DM-ORACION-JOSE-DIEGO", rol: "Oración", nombre: "José Diego", congregacion: "Tona", telefono: "34624254650", hora: "9:30" },
-        { id: "DM-DISCURSANTE-ISAAC-DIAZ", rol: "Discursante", nombre: "Isaac Díaz", congregacion: "Tona", telefono: "34641130765", hora: "9:40", numero: 38, titulo: "Nacer \"del agua y del espíritu\"", duracion: "0:14" },
-        { id: "DM-DISCURSANTE-BENJAMIN-FERRER", rol: "Discursante", nombre: "Benjamín Ferrer", congregacion: "Barcelona- Verneda", telefono: "34669407731", hora: "9:55", numero: 39, titulo: "\"Ningún hombre ha subido al cielo\"", duracion: "0:12" },
-        { id: "DM-DISCURSANTE-FRANCISCO-JAVIER-VILA", rol: "Discursante", nombre: "Francisco Javier Vila", congregacion: "Prat de Llobregat- Centric", telefono: "34670222691", hora: "10:07", numero: 40, titulo: "Ir \"a la luz\"", duracion: "0:13" },
-        { id: "DM-DISCURSANTE-JOSEPH-SALAZAR", rol: "Discursante", nombre: "Joseph Salazar", congregacion: "Barcelona- Horta", telefono: "34644611770", hora: "10:21", numero: 41, titulo: "\"Ese soy yo\"", duracion: "0:13" },
-        { id: "DM-DISCURSANTE-FERNANDO-TERUEL", rol: "Discursante", nombre: "Fernando Teruel", congregacion: "Hospitalet de Llobregat- Este", telefono: "34610520042", hora: "10:35", numero: 42, titulo: "\"Mi alimento\"", duracion: "0:13" },
-        { id: "DM-VIDEO-PRODUCCION-AUDIOVISUAL-4", rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Los campos están Blancos, listos para la cosecha", hora: "10:49", numero: 43, duracion: "0:15" },
-        { id: "DM-DISCURSANTE-JOSE-MANUEL-LARA", rol: "Discursante", nombre: "José Manuel Lara", congregacion: "Circuito ESP-B-10", telefono: "34647905979", hora: "11:15", numero: 44, titulo: "¿Sabe en qué se basan sus creencias?", duracion: "0:29" },
-        { id: "DM-DISCURSANTE-NINO-LLOPIS", rol: "Discursante", nombre: "Nino Llopis", congregacion: "Ripoll", telefono: "34676977747", hora: "11:45", numero: 45, titulo: "Resumen de La Atalaya", duracion: "0:29" }
-    ]},
-    { sesion: "Domingo Tarde", dia: "Domingo", participantes: [
-        { id: "DT-PRESIDENTE-JULIAN-LASHERAS", rol: "Presidente", nombre: "Julian Lasheras", congregacion: "ESP-B-03", telefono: "609919464", hora: "13:35" },
-        { id: "DT-VIDEO-PRODUCCION-AUDIOVISUAL-5", rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús: Episodio 3. \"Ese soy yo\"", hora: "13:50", numero: 46, duracion: "0:45" },
-        { id: "DT-DISCURSANTE-JULIAN-LASHERAS-2", rol: "Discursante", nombre: "Julian Lasheras", congregacion: "ESP-B-03", telefono: "609919464", hora: "14:45", numero: 47, titulo: "¿Qué hemos aprendido?", duracion: "0:10" },
-        { id: "DT-DISCURSANTE-ANDRES-MAYOR-BETEL-2", rol: "Discursante", nombre: "Andres Mayor (Betel)", congregacion: "Alcalá de Henares- Inglesa", telefono: "34657107524", hora: "14:55", numero: 48, titulo: "Permanezcamos en el gran templo espiritual de Jehová", duracion: "0:49" },
-        { id: "DT-ORACION-FINAL-ANDRES-MAYOR-BETEL", rol: "Oración Final", nombre: "Andres Mayor (Betel)", congregacion: "Alcalá de Henares- Inglesa", telefono: "34657107524", hora: "15:45" }
-    ]}
+    { sesion: "Viernes Mañana", participantes: [
+        { rol: "Presidente", nombre: "David Castro", hora: "9:30" },
+        { rol: "Oración", nombre: "Francisco José Sánchez" },
+        { rol: "Discursante", nombre: "Julián Lasheras ¿Qué es la adoración pura?", hora: "9:40", numero: 1 },
+        { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús (Episodio 1).", hora: "10:10", numero: 2 },
+        { rol: "Discursante", nombre: "Domingo Tarrasón", hora: "10:50", numero: 3 },
+        { rol: "Discursante", nombre: "Pedro Medina", hora: "11:11", numero: 4 },
+        { rol: "Discursante", nombre: "Daniel Velasco", hora: "11:28", numero: 5 },
+        { rol: "Discursante", nombre: "Álex Botella", hora: "11:45", numero: 6 }
+      ]
+    },
+    { sesion: "Viernes Tarde", participantes: [
+        { rol: "Presidente", nombre: "Eduardo Ayala" },
+        { rol: "Discursante", nombre: "Miguel Solé", hora: "13:50", numero: 7 },
+        { rol: "Discursante", nombre: "David Aleixandri", hora: "14:06", numero: 8 },
+        { rol: "Discursante", nombre: "David Maldonado", hora: "14:22", numero: 9 },
+        { rol: "Discursante", nombre: "Juan Martín Prior", hora: "14:36", numero: 10 },
+        { rol: "Discursante", nombre: "Elliot Miguel", hora: "15:00", numero: 11 },
+        { rol: "Discursante", nombre: "José Bonet", hora: "15:12", numero: 12 },
+        { rol: "Discursante", nombre: "Santiago Cardona", hora: "15:21", numero: 13 },
+        { rol: "Discursante", nombre: "Israel Malla", hora: "15:30", numero: 14 },
+        { rol: "Discursante", nombre: "Bárbaro Yuliexi Tejera Rios", hora: "15:39", numero: 15 },
+        { rol: "Discursante", nombre: "Rafael Corral", hora: "15:48", numero: 16 },
+        { rol: "Discursante", nombre: "Michel Gottardo", hora: "15:58", numero: 17 },
+        { rol: "Discursante", nombre: "Andres Mayor (Betel)", hora: "16:10", numero: 18 },
+        { rol: "Oración Final", nombre: "Pedro Mora" }
+      ]
+    },
+    { sesion: "Sábado Mañana", participantes: [
+        { rol: "Presidente", nombre: "Abel Reguant" },
+        { rol: "Oración", nombre: "Ricardo Cordovilla" },
+        { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL:¿Qué buscan?", hora: "9:40", numero: 19 },
+        { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL:Las buenas noticias según Jesús (Episodio 2).", hora: "9:50", numero: 20 },
+        { rol: "Discursante", nombre: "Gabriel Quintana", hora: "10:30", numero: 21 },
+        { rol: "Discursante", nombre: "Manuel Casino", hora: "10:40", numero: 22 },
+        { rol: "Discursante", nombre: "Esteban Martín", hora: "10:49", numero: 23 },
+        { rol: "Discursante", nombre: "Kevin Adiel Cobo (BTL)", hora: "10:59", numero: 24 },
+        { rol: "Discursante", nombre: "Rubén Verdés", hora: "11:09", numero: 25 },
+        { rol: "Discursante", nombre: "David Mercader", hora: "11:17", numero: 26 },
+        { rol: "Discursante", nombre: "Daniel Sellares", hora: "11:25", numero: 27 },
+        { rol: "Discursante", nombre: "Natán Becerril", hora: "11:34", numero: 28 }
+      ]
+    },
+    { sesion: "Sábado Tarde", participantes: [
+        { rol: "Presidente", nombre: "Climent Ambrós" },
+        { rol: "Discursante", nombre: "Jonatán Vicente", hora: "13:50", numero: 29 },
+        { rol: "Discursante", nombre: "Santiago Sáez", hora: "14:00", numero: 30 },
+        { rol: "Discursante", nombre: "Ricardo Anguita", hora: "14:09", numero: 31 },
+        { rol: "Discursante", nombre: "Josué Rabaneda", hora: "14:20", numero: 32 },
+        { rol: "Discursante", nombre: "Edgar Teruel (BTL)", hora: "14:45", numero: 33 },
+        { rol: "Discursante", nombre: "Álvaro Paniagua", hora: "14:56", numero: 34 },
+        { rol: "Discursante", nombre: "Adolfo Forniels", hora: "15:06", numero: 35 },
+        { rol: "Discursante", nombre: "Alfonso Guerrero", hora: "15:30", numero: 36 },
+        { rol: "Discursante", nombre: "Andres Mayor (Betel)", hora: "16:00", numero: 37 },
+        { rol: "Oración Final", nombre: "Jairo José Galán" }
+      ]
+    },
+    { sesion: "Domingo Mañana", participantes: [
+        { rol: "Presidente", nombre: "Juan Alcaraz" },
+        { rol: "Oración", nombre: "José Diego" },
+        { rol: "Discursante", nombre: "Isaac Díaz", hora: "9:40", numero: 38 },
+        { rol: "Discursante", nombre: "Benjamín Ferrer", hora: "9:55", numero: 39 },
+        { rol: "Discursante", nombre: "Francisco Javier Vila", hora: "10:07", numero: 40 },
+        { rol: "Discursante", nombre: "Joseph Salazar", hora: "10:21", numero: 41 },
+        { rol: "Discursante", nombre: "Fernando Teruel", hora: "10:35", numero: 42 },
+        { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Los campos están Blacos, listos para la cosecha", hora: "10:49", numero: 43 },
+        { rol: "Discursante", nombre: "José Manuel Lara", hora: "11:15", numero: 44 },
+        { rol: "Discursante", nombre: "Nino Llopis", hora: "11:45", numero: 45 }
+      ]
+    },
+    { sesion: "Domingo Tarde", participantes: [
+        { rol: "Presidente", nombre: "Julian Lasheras" },
+        { rol: "Discursante", nombre: "PRODUCCIÓN AUDIOVISUAL", hora: "13:50", numero: 46 },
+        { rol: "Discursante", nombre: "Julian Lasheras", hora: "14:45", numero: 47 },
+        { rol: "Discursante", nombre: "Andres Mayor (Betel)", hora: "14:54", numero: 48 },
+        { rol: "Oración Final", nombre: "Andres Mayor (Betel)" }
+      ]
+    }
 ];
 
 const itemsChecklist = [
@@ -104,51 +114,233 @@ const itemsChecklist = [
     { id: 'discursado', texto: 'Participación completada', tipo: 'checkbox', icon: 'fa-solid fa-microphone-slash', indicator: true }
 ];
 
-// --- ELEMENTOS DEL DOM (se obtienen después de que el usuario se autentica o al cargar el DOM para el login) ---
-let loginScreen;
-let loginForm;
-let emailInput;
-let passwordInput;
-let loginError;
-let appContainer;
-let logoutButton;
-let navContainer; // Ahora es el <ul> dentro de nav-menu
-let programContainer;
-let summaryPanel;
-let body;
+// --- NUEVA DATA: HORARIO COMPLETO DEL PROGRAMA (basado en el PDF) ---
+// ¡IMPORTANTE! Debes completar y verificar esta data con la información exacta de tu PDF.
+const horarioProgramaCompleto = [
+    // VIERNES MAÑANA
+    {
+        dia: "Viernes", sesion: "Mañana", hora: "8:00", numero_programa: null, duracion: "1:14",
+        descripcion: "Mostrar el tema del día de la asamblea regional: \"Adora a Jehová tu Dios\" (Mateo 4:10)",
+        orador_o_titulo: "(Video en bucle. Sin sonido.)", multimedia: "CO-v25 5 001"
+    },
+    {
+        dia: "Viernes", sesion: "Mañana", hora: "9:14", numero_programa: null, duracion: null,
+        descripcion: "Desde el atril, el presidente de sesión invita al público a sentarse",
+        orador_o_titulo: "David Castro", multimedia: null
+    },
+    {
+        dia: "Viernes", sesion: "Mañana", hora: "9:15", numero_programa: null, duracion: "0:05",
+        descripcion: "Comienza la cuenta regresiva del video",
+        orador_o_titulo: "(5 mins. Sin sonido)", multimedia: "CO-v25_5_002"
+    },
+    {
+        dia: "Viernes", sesion: "Mañana", hora: "9:19", numero_programa: null, duracion: null,
+        descripcion: "Desde el atril, el presidente de sesión presenta el video musical. Permanece sentado en plataforma.",
+        orador_o_titulo: "David Castro", multimedia: null
+    },
+    {
+        dia: "Viernes", sesion: "Mañana", hora: "9:20", numero_programa: null, duracion: "0:10",
+        descripcion: null,
+        orador_o_titulo: "VIDEO MUSICAL (10: 107 min)", multimedia: "CO-v25_5_003"
+    },
+    {
+        dia: "Viernes", sesion: "Mañana", hora: "9:30", numero_programa: 74, duracion: null,
+        descripcion: "Desde el atril, el presidente de sesión presenta la canción 74 y la oración de",
+        orador_o_titulo: "Canción 74", multimedia: null
+    },
+    {
+        dia: "Viernes", sesion: "Mañana", hora: "9:35", numero_programa: null, duracion: null,
+        descripcion: "Oración",
+        orador_o_titulo: "Francisco José Sánchez", multimedia: null
+    },
+    {
+        dia: "Viernes", sesion: "Mañana", hora: "9:40", numero_programa: 1, duracion: "0:45",
+        descripcion: "Discurso",
+        orador_o_titulo: "Julián Lasheras ¿Qué es la adoración pura?", multimedia: null
+    },
+    {
+        dia: "Viernes", sesion: "Mañana", hora: "10:25", numero_programa: 75, duracion: null,
+        descripcion: "Canción 75",
+        orador_o_titulo: "Canción 75", multimedia: null
+    },
+    {
+        dia: "Viernes", sesion: "Mañana", hora: "10:30", numero_programa: null, duracion: null,
+        descripcion: "Anuncios",
+        orador_o_titulo: "David Castro", multimedia: null
+    },
+    {
+        dia: "Viernes", sesion: "Mañana", hora: "10:35", numero_programa: 2, duracion: "0:35",
+        descripcion: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús (Episodio 1).",
+        orador_o_titulo: "PRODUCCIÓN AUDIOVISUAL", multimedia: "CO-v255_451" // Ejemplo ID multimedia
+    },
+    {
+        dia: "Viernes", sesion: "Mañana", hora: "11:10", numero_programa: 76, duracion: null,
+        descripcion: "Canción 76",
+        orador_o_titulo: "Canción 76", multimedia: null
+    },
+    // ... Añade aquí el resto del Viernes Mañana y Tarde, Sábado y Domingo ...
+    // VIERNES TARDE (Ejemplos basados en tu snippet)
+    {
+        dia: "Viernes", sesion: "Tarde", hora: "13:45", numero_programa: 77, duracion: null,
+        descripcion: "Desde el atril, el presidente de sesión presenta la canción 77",
+        orador_o_titulo: "Canción 77", multimedia: "CO-V25 5 454"
+    },
+    {
+        dia: "Viernes", sesion: "Tarde", hora: "13:50", numero_programa: 46, duracion: "0:45",
+        descripcion: "PRODUCCIÓN AUDIOVISUAL",
+        orador_o_titulo: "Las buenas noticias según Jesús: Episodio 3. \"Ese soy yo\"",
+        multimedia: "CO-v255_461"
+    },
+    {
+        dia: "Viernes", sesion: "Tarde", hora: "14:35", numero_programa: 20, duracion: "3:59",
+        descripcion: "El presidente de sesión presenta la canción 20",
+        orador_o_titulo: "Canción 20",
+        multimedia: "CD-25 5 462"
+    },
+    {
+        dia: "Viernes", sesion: "Tarde", hora: "14:45", numero_programa: 47, duracion: "0:10",
+        descripcion: "¿Qué hemos aprendido?",
+        orador_o_titulo: "VIDEO: 11:38 min",
+        multimedia: "CO 25 5 471"
+    },
+    // ... Más entradas para el viernes tarde, sábado, y domingo...
+    // Puedes rellenar todo el horario aquí con la misma estructura.
+];
 
-// Nueva funcionalidad de tabla del programa
-let openProgramTableBtn;
-let closeProgramTableBtn;
-let programTableOverlay;
-let tabButtons;
-let tabContents;
-let hamburgerMenu; // Elemento del menú hamburguesa
-let navMenu;       // Menú de navegación (UL)
+// --- NUEVA DATA: RESPONSABLES DE TURNO ---
+const dataResponsables = {
+  "distribucion_tareas": {
+    "COMUNICACION_AV": [
+      "Manel Casino",
+      "Rafael Monje"
+    ],
+    "ATREZZO_CRONO": [
+      "Rubén Gomez",
+      "Adriá Rivera"
+    ],
+    "ATRIL": [
+      "Alejandro Hernandez",
+      "Javier Bolivar",
+      "Mario Martín"
+    ],
+    "MAQUILLAJE": [
+      "Inma Casino",
+      "Vanessa Intriago",
+      "Raquel Pállares",
+      "Ana Marañon",
+      "Sandra Ortega",
+      "Gemma Monje"
+    ],
+    "RECEPCION_ENLACE": [
+      "Juan Carlos Marín",
+      "Luis Fernando Paz"
+    ]
+  },
 
-// Función para obtener los elementos del DOM una vez que la estructura HTML esté visible
-function getDOMElements() {
-    loginScreen = document.getElementById('login-screen');
-    loginForm = document.getElementById('login-form');
-    emailInput = document.getElementById('email-input');
-    passwordInput = document.getElementById('password-input');
-    loginError = document.getElementById('login-error');
-    appContainer = document.getElementById('app-container');
-    logoutButton = document.getElementById('logout-button');
-    navContainer = document.getElementById('day-nav'); // El UL que contiene los botones de día
-    programContainer = document.getElementById('program-container');
-    summaryPanel = document.getElementById('summary-panel');
-    body = document.body;
+  "turnos": {
+    "viernes": {
+      "mañana": {
+        "COMUNICACION_AV": "Manel Casino",
+        "ATREZZO_CRONO": "Rubén Gomez",
+        "ATRIL": "Javier Bolivar",
+        "RECEPCION_ENLACE": "Juan Carlos Marín",
+        "MAQUILLAJE": [
+          "Inma Casino",
+          "Vanessa Intriago",
+          "Raquel Pállares"
+        ],
+        "MAQUILLAJE_PLATAFORMA": "Gemma Monje"
+      },
+      "tarde": {
+        "COMUNICACION_AV": "Rafael Monje",
+        "ATREZZO_CRONO": "Adriá Rivera",
+        "ATRIL": "Alejandro Hernandez",
+        "RECEPCION_ENLACE": "Luis Fernando Paz",
+        "MAQUILLAJE": [
+          "Ana Marañon",
+          "Sandra Ortega",
+          "Gemma Monje"
+        ],
+        "MAQUILLAJE_PLATAFORMA": "Raquel Pállares"
+      }
+    },
 
-    // Elementos de la nueva tabla
-    openProgramTableBtn = document.getElementById('openProgramTable');
-    closeProgramTableBtn = document.getElementById('closeProgramTable');
-    programTableOverlay = document.getElementById('programTableOverlay');
-    tabButtons = document.querySelectorAll('.tab-navigation .tab-button');
-    tabContents = document.querySelectorAll('.tab-content');
-    hamburgerMenu = document.getElementById('hamburger-menu');
-    navMenu = document.getElementById('nav-menu');
-}
+    "sabado": {
+      "mañana": {
+        "COMUNICACION_AV": "Rafael Monje",
+        "ATREZZO_CRONO": "Adriá Rivera",
+        "ATRIL": "Mario Martín",
+        "RECEPCION_ENLACE": "Luis Fernando Paz",
+        "MAQUILLAJE": [
+          "Gemma Monje",
+          "Inma Casino",
+          "Sandra Ortega"
+        ],
+        "MAQUILLAJE_PLATAFORMA": "Ana Marañon"
+      },
+      "tarde": {
+        "COMUNICACION_AV": "Manel Casino",
+        "ATREZZO_CRONO": "Rubén Gomez",
+        "ATRIL": "Javier Bolivar",
+        "RECEPCION_ENLACE": "Juan Carlos Marín",
+        "MAQUILLAJE": [
+          "Vanessa Intriago",
+          "Raquel Pállares",
+          "Ana Marañon"
+        ],
+        "MAQUILLAJE_PLATAFORMA": "Sandra Ortega"
+      }
+    },
+
+    "domingo": {
+      "mañana": {
+        "COMUNICACION_AV": "Manel Casino",
+        "ATREZZO_CRONO": "Rubén Gomez",
+        "ATRIL": "Alejandro Hernandez",
+        "RECEPCION_ENLACE": "Juan Carlos Marín",
+        "MAQUILLAJE": [
+          "Ana Marañon",
+          "Sandra Ortega",
+          "Vanessa Intriago"
+        ],
+        "MAQUILLAJE_PLATAFORMA": "Inma Casino"
+      },
+      "tarde": {
+        "COMUNICACION_AV": "Rafael Monje",
+        "ATREZZO_CRONO": "Adriá Rivera",
+        "ATRIL": "Mario Martín",
+        "RECEPCION_ENLACE": "Luis Fernando Paz",
+        "MAQUILLAJE": [
+          "Gemma Monje",
+          "Ana Marañon",
+          "Raquel Pállares"
+        ],
+        "MAQUILLAJE_PLATAFORMA": "Vanessa Intriago"
+      }
+    }
+  }
+};
+
+
+// --- ELEMENTOS DEL DOM ---
+const loginScreen = document.getElementById('login-screen');
+const loginForm = document.getElementById('login-form');
+const emailInput = document.getElementById('email-input');
+const passwordInput = document.getElementById('password-input');
+const loginError = document.getElementById('login-error');
+const appContainer = document.getElementById('app-container');
+const logoutButton = document.getElementById('logout-button');
+const navContainer = document.getElementById('day-nav');
+const programContainer = document.getElementById('program-container');
+const summaryPanel = document.getElementById('summary-panel');
+const horariosContainer = document.getElementById('horarios-container'); // Nuevo
+const responsablesContainer = document.getElementById('responsables-container'); // Nuevo
+const responsablesContent = document.getElementById('responsables-content'); // Nuevo
+const body = document.body;
+
+// Estado actual de la vista (checklist, horarios, responsables)
+let currentView = 'checklist';
+let currentDay = 'Viernes'; // Día seleccionado para checklist/horarios
 
 // --- FUNCIONES DE LA APLICACIÓN ---
 
@@ -178,19 +370,20 @@ function setDayTheme(day) {
 /**
  * Crea el HTML para el acordeón de un participante.
  * @param {object} participante - El objeto del participante.
+ * @param {string} idUnico - Un ID único para el DOM.
  * @returns {HTMLElement} - El elemento del acordeón.
  */
-function crearAcordeon(participante) {
+function crearAcordeon(participante, idUnico) {
     const accordionItem = document.createElement('div');
     accordionItem.className = 'participant-accordion';
-    accordionItem.dataset.id = participante.id;
+    accordionItem.dataset.id = idUnico;
     accordionItem.dataset.rol = participante.rol;
     accordionItem.dataset.nombre = participante.nombre;
 
     const header = document.createElement('button');
     header.className = 'accordion-header';
 
-    const esProd = participante.rol.includes('Video') && participante.nombre.includes('PRODUCCIÓN AUDIOVISUAL');
+    const esProd = participante.nombre.includes('PRODUCCIÓN AUDIOVISUAL');
     const esBetel = participante.nombre.includes('(Betel)') || participante.nombre.includes('(BTL)');
     const esOra = participante.rol.includes('Oración');
     const ocOra = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
@@ -203,23 +396,15 @@ function crearAcordeon(participante) {
             .map(it => `<span class="indicator" data-indicator-for="${it.id}"></span>`).join('');
     }
 
-    // Ocultar el número de teléfono en la UI principal
-    const whatsappLink = participante.telefono ? 
-        `<a href="https://wa.me/${participante.telefono.replace(/\D/g,'')}" target="_blank" class="whatsapp-icon-container" title="Enviar WhatsApp a ${participante.nombre}">
-            <i class="fa-brands fa-whatsapp whatsapp-icon"></i>
-        </a>` : '';
-
     header.innerHTML = `
         <div class="participant-info">
             <div class="participant-name">${participante.nombre}</div>
             <div class="participant-role">${participante.rol}</div>
-            ${participante.congregacion ? `<div class="participant-congregation">${participante.congregacion}</div>` : ''}
         </div>
         <div class="participant-details">
             <div class="status-indicators">${indicatorsHTML}</div>
             ${participante.hora ? `<span class="details-time">${participante.hora}</span>` : ''}
             ${participante.numero ? `<span class="details-number">#${participante.numero}</span>` : ''}
-            ${whatsappLink}
             ${!esProd ? '<i class="fas fa-chevron-down accordion-icon"></i>' : ''}
         </div>`;
 
@@ -231,22 +416,18 @@ function crearAcordeon(participante) {
         checklistContainer.className = 'checklist-container';
 
         itemsChecklist.forEach(item => {
-            // Condición para ocultar/deshabilitar elementos del checklist
-            if ((esOra && ocOra.includes(item.id)) || (esBetel && ocBet.includes(item.id))) {
-                // Si el elemento debe ser ocultado por estas reglas, simplemente no lo creamos.
-                return;
-            }
+            if ((esOra && ocOra.includes(item.id)) || (esBetel && ocBet.includes(item.id))) return;
 
             const itemDiv = document.createElement('div');
             itemDiv.className = 'checklist-item';
             itemDiv.dataset.containerFor = item.id;
-            itemDiv.innerHTML = `<i class="icon ${item.icon}"></i><label for="check-${participante.id}-${item.id}">${item.texto}</label>`;
+            itemDiv.innerHTML = `<i class="icon ${item.icon}"></i><label for="check-${idUnico}-${item.id}">${item.texto}</label>`;
 
             if (item.tipo === 'checkbox') {
                 const input = document.createElement('input');
                 input.type = 'checkbox';
                 input.dataset.itemId = item.id;
-                input.id = `check-${participante.id}-${item.id}`;
+                input.id = `check-${idUnico}-${item.id}`;
                 itemDiv.appendChild(input);
             } else { // tipo 'radio'
                 const radioGroup = document.createElement('div');
@@ -254,10 +435,10 @@ function crearAcordeon(participante) {
                 item.opciones.forEach(opt => {
                     const radio = document.createElement('input');
                     radio.type = 'radio';
-                    radio.name = `radio-${participante.id}-${item.id}`;
+                    radio.name = `radio-${idUnico}-${item.id}`;
                     radio.value = opt;
                     radio.dataset.itemId = item.id;
-                    radio.id = `radio-${participante.id}-${item.id}-${opt}`;
+                    radio.id = `radio-${idUnico}-${item.id}-${opt}`;
                     const label = document.createElement('label');
                     label.setAttribute('for', radio.id);
                     label.textContent = opt;
@@ -287,35 +468,33 @@ function crearAcordeon(participante) {
 }
 
 /**
- * Genera el HTML inicial para todos los días y sesiones del programa en el contenedor principal.
+ * Genera el HTML inicial para todos los días y sesiones del programa.
  */
 function generarProgramaHTML() {
     programContainer.innerHTML = '';
     ['Viernes', 'Sábado', 'Domingo'].forEach(dia => {
-        const daySection = document.createElement('section');
-        daySection.id = `content-${dia}`; // ID para la sección del día
-        daySection.className = 'day-content hidden'; // Clase para ocultar por defecto
+        const dayContent = document.createElement('div');
+        dayContent.id = `content-${dia}`;
+        dayContent.className = 'day-content hidden';
 
-        const dayTitle = document.createElement('h2');
-        dayTitle.textContent = dia;
-        daySection.appendChild(dayTitle);
-
-        programa.filter(s => s.dia === dia).forEach(sesion => {
+        programa.filter(s => s.sesion.startsWith(dia)).forEach(sesion => {
             const sessionBlock = document.createElement('div');
             sessionBlock.className = 'session-block';
-            sessionBlock.innerHTML = `<h3>${sesion.sesion}</h3>`; // Usar h3 para sesiones internas
+            sessionBlock.innerHTML = `<h2>${sesion.sesion}</h2>`;
             sesion.participantes.forEach(p => {
-                sessionBlock.appendChild(crearAcordeon(p));
+                const idUnico = `${sesion.sesion.replace(/\s+/g, '-')}-${p.nombre.replace(/\s+/g, '-')}-${p.rol.replace(/\s+/g, '-')}`;
+                sessionBlock.appendChild(crearAcordeon(p, idUnico));
             });
-            daySection.appendChild(sessionBlock);
+            dayContent.appendChild(sessionBlock);
         });
-        programContainer.appendChild(daySection);
+        programContainer.appendChild(dayContent);
     });
     
-    // Muestra el primer día por defecto (Viernes)
-    document.getElementById('content-Viernes').classList.remove('hidden');
+    // Muestra el primer día por defecto si la vista es checklist
+    if (currentView === 'checklist') {
+        document.getElementById(`content-${currentDay}`).classList.remove('hidden');
+    }
 }
-
 
 /**
  * Actualiza la UI de un acordeón individual (barra de progreso, indicadores, estado completo).
@@ -324,32 +503,21 @@ function generarProgramaHTML() {
 function actualizarEstadoUI(accordion) {
     if (!accordion) return;
 
-    const rol = accordion.dataset.rol;
     const nombre = accordion.dataset.nombre;
-
-    // Identificar si es una producción audiovisual
-    const esProd = rol.includes('Video') && nombre.includes('PRODUCCIÓN AUDIOVISUAL');
-
-    if (esProd) {
+    if (nombre.includes('PRODUCCIÓN AUDIOVISUAL')) {
         accordion.classList.add('is-audiovisual');
         accordion.style.setProperty('--progress-percent', '0%');
         accordion.classList.remove('is-complete');
-        // Asegurarse de que el icono del acordeón no se muestre o se comporte como un desplegable
-        const accordionIcon = accordion.querySelector('.accordion-icon');
-        if (accordionIcon) accordionIcon.style.display = 'none';
         return;
-    } else {
-        accordion.classList.remove('is-audiovisual');
-        const accordionIcon = accordion.querySelector('.accordion-icon');
-        if (accordionIcon) accordionIcon.style.display = ''; // Mostrar el icono si no es prod
     }
 
-    const esBetel = nombre.includes('(Betel)') || nombre.includes('(BTL)');
+    const rol = accordion.dataset.rol;
     const esOra = rol.includes('Oración');
+    const esBetel = nombre.includes('(Betel)') || nombre.includes('(BTL)');
     const ocOra = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
     const ocBet = ['orientacion', 'recordatorios'];
-    const maquillajeRadioNA = accordion.querySelector('input[data-item-id="maquillaje"][value="N/A"]'); 
-    const esNA = maquillajeRadioNA && maquillajeRadioNA.checked;
+    const maquillajeRadio = accordion.querySelector('input[data-item-id="maquillaje"]:checked');
+    const esNA = maquillajeRadio && maquillajeRadio.value === 'N/A';
     
     // Deshabilitar repaso de maquillaje si se selecciona N/A
     const repasoContainer = accordion.querySelector('[data-container-for="repaso_maquillaje"]');
@@ -359,42 +527,24 @@ function actualizarEstadoUI(accordion) {
             inputRepaso.disabled = esNA;
             if (esNA && inputRepaso.checked) {
                 inputRepaso.checked = false;
-                inputRepaso.dispatchEvent(new Event('change', { bubbles: true })); // Trigger change to save to Firebase
+                inputRepaso.dispatchEvent(new Event('change', { bubbles: true }));
             }
         }
-        repasoContainer.classList.toggle('disabled', esNA);
     }
 
     // Calcular progreso
-    const itemsAplicables = itemsChecklist.filter(item => {
-        if ((esOra && ocOra.includes(item.id)) || (esBetel && ocBet.includes(item.id))) {
-            return false;
-        }
-        if (esNA && item.id === 'repaso_maquillaje') {
-            return false;
-        }
-        return true;
-    });
-
+    const itemsAplicables = itemsChecklist.filter(it => !(esOra && ocOra.includes(it.id)) && !(esBetel && ocBet.includes(it.id)) && !(esNA && it.id === 'repaso_maquillaje'));
     const totalTasks = itemsAplicables.length;
     let completedTasks = 0;
-    
-    const completedItemIds = new Set(); 
+    const seen = {};
 
-    itemsAplicables.forEach(item => {
-        if (item.tipo === 'checkbox') {
-            const checkbox = accordion.querySelector(`input[data-item-id="${item.id}"][type="checkbox"]`);
-            if (checkbox && checkbox.checked) {
-                completedItemIds.add(item.id);
-            }
-        } else if (item.tipo === 'radio') {
-            const checkedRadio = accordion.querySelector(`input[data-item-id="${item.id}"]:checked`);
-            if (checkedRadio) {
-                completedItemIds.add(item.id);
-            }
+    accordion.querySelectorAll('input[data-item-id]').forEach(input => {
+        if (input.disabled || seen[input.dataset.itemId]) return;
+        if ((input.type === 'checkbox' && input.checked) || (input.type === 'radio' && accordion.querySelector(`input[name="${input.name}"]:checked`))) {
+            completedTasks++;
         }
+        seen[input.dataset.itemId] = true;
     });
-    completedTasks = completedItemIds.size;
     
     const percent = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
     accordion.style.setProperty('--progress-percent', `${percent}%`);
@@ -404,40 +554,14 @@ function actualizarEstadoUI(accordion) {
     accordion.querySelectorAll('.indicator').forEach(indicator => {
         indicator.className = 'indicator'; // Reset class
         const itemId = indicator.dataset.indicatorFor;
-
-        const itemConfig = itemsChecklist.find(it => it.id === itemId);
-        let shouldHideIndicator = false;
-        if (itemConfig) {
-            if ((esOra && ocOra.includes(itemConfig.id)) || (esBetel && ocBet.includes(itemConfig.id))) {
-                shouldHideIndicator = true;
-            }
-            if (esNA && itemConfig.id === 'repaso_maquillaje') {
-                shouldHideIndicator = true;
-            }
-        }
-
-        if (shouldHideIndicator) {
-            indicator.style.display = 'none'; // Hide the indicator if not applicable
-        } else {
-            indicator.style.display = ''; // Ensure it's visible if applicable
-            const input = accordion.querySelector(`input[data-item-id="${itemId}"]`);
-            
-            if (input && !input.disabled) { 
-                if (input.type === 'checkbox' && input.checked) {
-                    // Normalize the itemId for class name (e.g., "repaso_maquillaje" -> "repasofinaldemaquillaje")
-                    const className = itemId.replace(/_|-|\s/g, ''); // Remove underscores, hyphens, spaces
-                    if (itemId === 'repaso_maquillaje') { // Specific fix for this one
-                         indicator.classList.add('repasofinaldemaquillaje');
-                    } else {
-                        indicator.classList.add(className);
-                    }
-                } else if (input.type === 'radio') {
-                    const checkedRadio = accordion.querySelector(`input[name="${input.name}"]:checked`);
-                    if (checkedRadio) {
-                        const valueClass = `maquillaje${checkedRadio.value.toLowerCase().replace(/\s|\//g, '')}`; 
-                        indicator.classList.add(valueClass);
-                    }
-                }
+        const input = accordion.querySelector(`input[data-item-id="${itemId}"]`);
+        if (input && input.type === 'checkbox' && input.checked) {
+            indicator.classList.add(itemId);
+        } else if (input && input.type === 'radio') {
+            const checkedRadio = accordion.querySelector(`input[name="${input.name}"]:checked`);
+            if (checkedRadio) {
+                const valueClass = `maquillaje-${checkedRadio.value.toLowerCase().replace('/', '')}`;
+                indicator.classList.add(valueClass);
             }
         }
     });
@@ -447,31 +571,28 @@ function actualizarEstadoUI(accordion) {
  * Actualiza el panel de resumen con las estadísticas del día activo.
  */
 function updateSummary() {
-    const activeButton = navContainer.querySelector('.nav-button.active');
-    if (!activeButton) return;
+    // El panel de resumen solo se muestra en la vista de checklist
+    if (currentView !== 'checklist') {
+        summaryPanel.classList.add('hidden');
+        document.title = "Checklist del Programa"; // Título genérico si no es checklist
+        return;
+    } else {
+        summaryPanel.classList.remove('hidden');
+    }
 
-    const day = activeButton.dataset.day;
-    const dayContent = document.getElementById(`content-${day}`);
+    const dayContent = document.getElementById(`content-${currentDay}`);
     if (!dayContent) return;
 
     const totalParticipantes = dayContent.querySelectorAll('.participant-accordion:not(.is-audiovisual)').length;
     const completos = dayContent.querySelectorAll('.participant-accordion.is-complete').length;
-    
-    // Count 'Maquillaje: Sí' explicitly
-    let conMaquillaje = 0;
-    dayContent.querySelectorAll('.participant-accordion').forEach(accordion => {
-        const maquillajeSiRadio = accordion.querySelector('input[data-item-id="maquillaje"][value="Sí"]');
-        if (maquillajeSiRadio && maquillajeSiRadio.checked) {
-            conMaquillaje++;
-        }
-    });
+    const conMaquillaje = dayContent.querySelectorAll('input[data-item-id="maquillaje"][value="Sí"]:checked').length;
 
     summaryPanel.innerHTML = `
         <div class="summary-item"><div class="count">${totalParticipantes}</div><div class="label">Participantes</div></div>
         <div class="summary-item"><div class="count">${completos}</div><div class="label">Completos</div></div>
         <div class="summary-item"><div class="count">${conMaquillaje}</div><div class="label">Maquillaje</div></div>`;
     
-    document.title = `(${completos}/${totalParticipantes}) Checklist ${day}`;
+    document.title = `(${completos}/${totalParticipantes}) Checklist ${currentDay}`;
 }
 
 /**
@@ -501,14 +622,13 @@ async function saveStateToFirebase(id, item, value) {
  * Configura los listeners de Firebase para sincronizar el estado en tiempo real.
  */
 function syncStateFromFirebase() {
-    // Recorre todos los participantes para configurar listeners individuales
     programa.forEach(sesion => {
         sesion.participantes.forEach(p => {
-            // Solo sincroniza si no es una producción audiovisual
-            if (p.rol.includes('Video') && p.nombre.includes('PRODUCCIÓN AUDIOVISUAL')) return;
+            const idUnico = `${sesion.sesion.replace(/\s+/g, '-')}-${p.nombre.replace(/\s+/g, '-')}-${p.rol.replace(/\s+/g, '-')}`;
+            if (p.nombre.includes('PRODUCCIÓN AUDIOVISUAL')) return;
 
-            onSnapshot(doc(db, 'tareas', p.id), (docSnapshot) => {
-                const accordion = document.querySelector(`.participant-accordion[data-id="${p.id}"]`);
+            onSnapshot(doc(db, 'tareas', idUnico), (docSnapshot) => {
+                const accordion = document.querySelector(`.participant-accordion[data-id="${idUnico}"]`);
                 if (!accordion) return;
 
                 if (docSnapshot.exists()) {
@@ -518,10 +638,9 @@ function syncStateFromFirebase() {
                         if (checkbox) {
                             checkbox.checked = value;
                         } else { // Radios
-                            const radioElements = accordion.querySelectorAll(`input[data-item-id="${key}"]`);
-                            radioElements.forEach(radio => {
+                            accordion.querySelectorAll(`input[data-item-id="${key}"]`).forEach(radio => {
                                 radio.checked = (radio.value === value);
-                                radio.dataset.wasChecked = radio.checked; // Mantener el estado para deselección
+                                radio.dataset.wasChecked = radio.checked;
                             });
                         }
                     });
@@ -534,70 +653,177 @@ function syncStateFromFirebase() {
 }
 
 /**
- * Genera el contenido de las tablas del programa para el overlay.
+ * Genera y muestra el horario completo del programa.
  */
-function generateProgramTables() {
-    const dayMap = {
-        'Viernes': ['Viernes Mañana', 'Viernes Tarde'],
-        'Sábado': ['Sábado Mañana', 'Sábado Tarde'],
-        'Domingo': ['Domingo Mañana', 'Domingo Tarde']
-    };
+function mostrarHorarioCompleto() {
+    horariosContainer.innerHTML = ''; // Limpiar contenido anterior
+    let currentDayHeader = '';
+    let currentSessionHeader = '';
 
-    for (const day in dayMap) {
-        const tableContentDiv = document.getElementById(`${day}TableContent`);
-        if (!tableContentDiv) continue;
+    const diasOrden = ['Viernes', 'Sábado', 'Domingo'];
 
-        tableContentDiv.innerHTML = ''; // Clear previous content
+    diasOrden.forEach(dia => {
+        const horarioDia = horarioProgramaCompleto.filter(item => item.dia === dia);
+        if (horarioDia.length > 0) {
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'horario-day-section';
+            dayDiv.id = `horario-${dia.toLowerCase()}`;
+            dayDiv.innerHTML = `<h2>${dia}</h2>`;
 
-        dayMap[day].forEach(sessionName => {
-            const sessionData = programa.find(s => s.sesion === sessionName);
-            if (!sessionData) return;
+            const sesionesDia = {};
+            horarioDia.forEach(item => {
+                const sesionKey = item.sesion || 'General'; // Agrupar por sesión o un genérico
+                if (!sesionesDia[sesionKey]) {
+                    sesionesDia[sesionKey] = [];
+                }
+                sesionesDia[sesionKey].push(item);
+            });
 
-            const sessionTableHTML = `
-                <h3>${sessionName}</h3> <div class="speech-table"> <table>
-                        <thead>
-                            <tr>
-                                <th>Nº</th>
-                                <th>Hora</th>
-                                <th>Min</th>
-                                <th>Función/Título del Discurso</th>
-                                <th>Orador/Presidente</th>
-                                <th>Congregación</th>
-                                <th>PD</th>
-                                <th>DA</th>
-                                <th>AA</th>
-                                <th>REAL</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${sessionData.participantes.map(p => {
-                                const isPresident = p.rol.includes('Presidente');
-                                const isPrayer = p.rol.includes('Oración');
-                                const isVideo = p.rol.includes('Video');
-                                
-                                const rowClass = isPresident ? 'table-president-row' : '';
+            for (const sesion in sesionesDia) {
+                const sessionDiv = document.createElement('div');
+                sessionDiv.className = 'horario-session-block';
+                sessionDiv.innerHTML = `<h3>${sesion}</h3>`;
 
-                                return `
-                                    <tr class="${rowClass}">
-                                        <td>${p.numero || ''}</td>
-                                        <td>${p.hora || ''}</td>
-                                        <td>${p.duracion || ''}</td>
-                                        <td>${p.titulo || (isPresident ? 'PRESIDENTE DE LA SESIÓN' : (isPrayer ? `Canción y oración` : (isVideo ? p.nombre : '')))}</td>
-                                        <td>${p.nombre || ''}</td>
-                                        <td>${p.congregacion || ''}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                `;
-                            }).join('')}
-                        </tbody>
-                    </table>
-                </div>
-            `;
-            tableContentDiv.insertAdjacentHTML('beforeend', sessionTableHTML);
+                const table = document.createElement('table');
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>Hora</th>
+                            <th>Nº</th>
+                            <th>Duración</th>
+                            <th>Descripción</th>
+                            <th>Orador / Título</th>
+                            <th>Multimedia</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                `;
+                const tbody = table.querySelector('tbody');
+
+                sesionesDia[sesion].forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.hora || ''}</td>
+                        <td>${item.numero_programa !== null ? item.numero_programa : ''}</td>
+                        <td>${item.duracion || ''}</td>
+                        <td>${item.descripcion || ''}</td>
+                        <td>${item.orador_o_titulo || ''}</td>
+                        <td>${item.multimedia || ''}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+                sessionDiv.appendChild(table);
+                dayDiv.appendChild(sessionDiv);
+            }
+            horariosContainer.appendChild(dayDiv);
+        }
+    });
+}
+
+/**
+ * Genera y muestra la tabla de responsables de turno.
+ */
+function mostrarResponsablesDeTurno() {
+    responsablesContent.innerHTML = ''; // Limpiar contenido anterior
+
+    // Sección de Distribución de Tareas
+    const distribucionDiv = document.createElement('div');
+    distribucionDiv.className = 'responsables-section';
+    distribucionDiv.innerHTML = `<h3>Distribución de Tareas</h3>`;
+    for (const tarea in dataResponsables.distribucion_tareas) {
+        const ul = document.createElement('ul');
+        ul.innerHTML = `<strong>${tarea.replace(/_/g, ' ')}:</strong>`;
+        dataResponsables.distribucion_tareas[tarea].forEach(persona => {
+            const li = document.createElement('li');
+            li.textContent = persona;
+            ul.appendChild(li);
         });
+        distribucionDiv.appendChild(ul);
+    }
+    responsablesContent.appendChild(distribucionDiv);
+
+    // Secciones por día y sesión
+    const diasTurnoOrden = ['viernes', 'sabado', 'domingo'];
+    diasTurnoOrden.forEach(diaKey => {
+        const diaData = dataResponsables.turnos[diaKey];
+        if (diaData) {
+            const diaDiv = document.createElement('div');
+            diaDiv.className = 'responsables-day-section';
+            diaDiv.innerHTML = `<h2>${diaKey.charAt(0).toUpperCase() + diaKey.slice(1)}</h2>`; // Capitalizar día
+
+            const sesiones = ['mañana', 'tarde']; // Asumiendo mañana y tarde
+            sesiones.forEach(sesionKey => {
+                const sesionData = diaData[sesionKey];
+                if (sesionData) {
+                    const sesionDiv = document.createElement('div');
+                    sesionDiv.className = 'responsables-session-block';
+                    sesionDiv.innerHTML = `<h3>${sesionKey.charAt(0).toUpperCase() + sesionKey.slice(1)}</h3>`; // Capitalizar sesión
+
+                    const ul = document.createElement('ul');
+                    for (const rol in sesionData) {
+                        const li = document.createElement('li');
+                        let personas = sesionData[rol];
+                        if (Array.isArray(personas)) {
+                            personas = personas.join(', ');
+                        }
+                        li.innerHTML = `<strong>${rol.replace(/_/g, ' ')}:</strong> ${personas}`;
+                        ul.appendChild(li);
+                    }
+                    sesionDiv.appendChild(ul);
+                    diaDiv.appendChild(sesionDiv);
+                }
+            });
+            responsablesContent.appendChild(diaDiv);
+        }
+    });
+}
+
+
+/**
+ * Maneja el cambio de vista de la aplicación (checklist, horarios, responsables).
+ * @param {string} view - La vista a mostrar ('checklist', 'horarios', 'responsables').
+ * @param {string|null} day - El día a mostrar para checklist/horarios.
+ */
+function changeAppView(view, day = null) {
+    currentView = view;
+    if (day) {
+        currentDay = day;
+    }
+
+    // Ocultar todas las secciones de contenido
+    programContainer.classList.add('hidden');
+    horariosContainer.classList.add('hidden');
+    responsablesContainer.classList.add('hidden');
+    summaryPanel.classList.add('hidden'); // Ocultar panel de resumen por defecto
+
+    // Desactivar todos los botones de navegación
+    navContainer.querySelectorAll('.nav-button').forEach(button => button.classList.remove('active'));
+
+    // Mostrar la vista y activar el botón correspondiente
+    if (view === 'checklist') {
+        programContainer.classList.remove('hidden');
+        summaryPanel.classList.remove('hidden'); // Mostrar panel de resumen solo para checklist
+        // Activar botones de día para checklist
+        navContainer.querySelector(`.nav-button[data-view="checklist"][data-day="${currentDay}"]`).classList.add('active');
+        document.querySelectorAll('.day-content').forEach(d => d.classList.add('hidden'));
+        document.getElementById(`content-${currentDay}`).classList.remove('hidden');
+        setDayTheme(currentDay);
+        updateSummary(); // Asegurarse de que el resumen se actualice al cambiar de día en checklist
+    } else if (view === 'horarios') {
+        horariosContainer.classList.remove('hidden');
+        navContainer.querySelector('.nav-button[data-view="horarios"]').classList.add('active');
+        mostrarHorarioCompleto();
+        // Para la vista de horarios, también aplicamos un tema de día si hay uno activo,
+        // o un tema por defecto si no lo hay (ej. Viernes).
+        setDayTheme(currentDay || 'Viernes');
+        document.title = `Horario del Programa`; // Título para la vista de horarios
+    } else if (view === 'responsables') {
+        responsablesContainer.classList.remove('hidden');
+        navContainer.querySelector('.nav-button[data-view="responsables"]').classList.add('active');
+        mostrarResponsablesDeTurno();
+        // Aplicar un tema de día por defecto o neutral para la vista de responsables
+        setDayTheme('Viernes'); // O puedes elegir un color neutral como 'day-neutral'
+        document.title = `Responsables de Turno`; // Título para la vista de responsables
     }
 }
 
@@ -606,117 +832,75 @@ function generateProgramTables() {
  * Configura todos los event listeners de la aplicación.
  */
 function setupEventListeners() {
-    // Listener para el menú hamburguesa
-    if (hamburgerMenu) {
-        hamburgerMenu.addEventListener('click', () => {
-            hamburgerMenu.classList.toggle('active');
-            navMenu.classList.toggle('show');
-        });
-    }
+    // Listener para abrir/cerrar acordeones (solo en la vista de checklist)
+    programContainer.addEventListener('click', (e) => {
+        if (currentView !== 'checklist') return; // Solo funciona en vista de checklist
+        const header = e.target.closest('.accordion-header');
+        if (!header) return;
+        const accordion = header.closest('.participant-accordion');
+        if (accordion.classList.contains('is-audiovisual')) return;
+        
+        header.classList.toggle('active');
+        header.nextElementSibling.classList.toggle('active');
+    });
 
-    // Listener para los botones de navegación de días (menú hamburguesa)
-    if (navContainer) {
-        navContainer.addEventListener('click', (e) => {
-            const button = e.target.closest('.nav-button');
-            if (!button || button.classList.contains('active')) return;
+    // Listener para cambios en el checklist (checkbox y radios) (solo en la vista de checklist)
+    programContainer.addEventListener('change', (e) => {
+        if (currentView !== 'checklist') return; // Solo funciona en vista de checklist
+        const input = e.target.closest('input[data-item-id]');
+        if (!input) return;
+        const accordion = input.closest('.participant-accordion');
+        const value = input.type === 'checkbox' ? input.checked : (accordion.querySelector(`input[name="${input.name}"]:checked`)?.value || null);
+        saveStateToFirebase(accordion.dataset.id, input.dataset.itemId, value);
+    });
 
-            // Remover la clase 'active' del botón de navegación previamente activo
-            const currentActiveNavButton = navContainer.querySelector('.nav-button.active');
-            if (currentActiveNavButton) {
-                currentActiveNavButton.classList.remove('active');
+    // Listener para la navegación de vistas y días
+    navContainer.addEventListener('click', (e) => {
+        const button = e.target.closest('.nav-button');
+        if (!button) return;
+
+        const newView = button.dataset.view;
+        const newDay = button.dataset.day; // Podría ser undefined para responsables
+
+        if (newView === currentView && newDay === currentDay) {
+            // No hacer nada si ya está en la misma vista y día
+            return;
+        }
+
+        // Si se hace clic en un botón de día (checklist/horarios)
+        if (newDay) {
+            // Si el botón es de "checklist" o "horarios", cambiamos el día y mantenemos la vista
+            if (newView === 'checklist') {
+                navContainer.querySelector('.nav-button.active[data-view="checklist"]').classList.remove('active');
+                button.classList.add('active');
+                document.querySelectorAll('.day-content').forEach(d => d.classList.add('hidden'));
+                document.getElementById(`content-${newDay}`).classList.remove('hidden');
+                currentDay = newDay;
+                setDayTheme(currentDay);
+                updateSummary();
+            } else if (newView === 'horarios') {
+                 // Si ya estamos en la vista de horarios, no hacemos nada con los botones de día del checklist.
+                 // Si venimos de la vista de checklist, cambiamos a la vista de horarios y mantenemos el día.
+                if (currentView !== 'horarios') {
+                    changeAppView('horarios', newDay);
+                } else {
+                     // Si ya estamos en horarios, podemos ignorar clics en los botones de día
+                     // que originalmente eran para checklist.
+                }
             }
-            button.classList.add('active');
-
-            // Ocultar todas las secciones de día y mostrar la seleccionada
-            document.querySelectorAll('.day-content').forEach(d => d.classList.add('hidden'));
-            document.getElementById(`content-${button.dataset.day}`).classList.remove('hidden');
-
-            // Cerrar el menú hamburguesa después de la selección
-            if (hamburgerMenu) hamburgerMenu.classList.remove('active');
-            if (navMenu) navMenu.classList.remove('show');
-
-            // Aplicar el tema de iluminación y actualizar el resumen
-            setDayTheme(button.dataset.day);
-            updateSummary();
-        });
-    }
-
-    // Listener para abrir/cerrar acordeones de participantes
-    if (programContainer) {
-        programContainer.addEventListener('click', (e) => {
-            const header = e.target.closest('.accordion-header');
-            if (!header) return;
-            const accordion = header.closest('.participant-accordion');
-            if (accordion.classList.contains('is-audiovisual')) return; // No abrir si es audiovisual
-            
-            header.classList.toggle('active');
-            header.nextElementSibling.classList.toggle('active'); // Muestra/oculta el contenido
-        });
-    }
-
-    // Listener para cambios en el checklist (checkbox y radios)
-    if (programContainer) {
-        programContainer.addEventListener('change', (e) => {
-            const input = e.target.closest('input[data-item-id]');
-            if (!input) return;
-            const accordion = input.closest('.participant-accordion');
-            const value = input.type === 'checkbox' ? input.checked : (accordion.querySelector(`input[name="${input.name}"]:checked`)?.value || null);
-            saveStateToFirebase(accordion.dataset.id, input.dataset.itemId, value);
-        });
-    }
+        } else { // Si se hace clic en un botón de vista (Responsables, o el botón principal de Checklist/Horarios)
+             changeAppView(newView);
+        }
+    });
 
     // Listener para el botón de logout
-    if (logoutButton) {
-        logoutButton.addEventListener('click', async () => {
-            try {
-                await signOut(auth);
-            } catch (error) {
-                console.error("Error al cerrar sesión: ", error);
-            }
-        });
-    }
-
-    // --- Lógica de la nueva tabla de programa (overlay) ---
-    if (openProgramTableBtn) {
-        openProgramTableBtn.addEventListener('click', () => {
-            if (programTableOverlay) {
-                programTableOverlay.classList.add('show');
-            }
-        });
-    }
-
-    if (closeProgramTableBtn) {
-        closeProgramTableBtn.addEventListener('click', () => {
-            if (programTableOverlay) {
-                programTableOverlay.classList.remove('show');
-            }
-        });
-    }
-
-    // Función para cambiar de pestaña (día) en la tabla del programa
-    if (tabButtons) {
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const day = button.dataset.day;
-
-                // Remover la clase 'active' de todos los botones y ocultar todos los contenidos
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => content.style.display = 'none');
-
-                // Añadir la clase 'active' al botón clickeado y mostrar el contenido correspondiente
-                button.classList.add('active');
-                const targetContent = document.getElementById(`${day}TableContent`);
-                if (targetContent) {
-                    targetContent.style.display = 'block';
-                }
-            });
-        });
-    }
-
-    // Set initial active tab for the program table
-    if (tabButtons && tabButtons.length > 0) {
-        tabButtons[0].click(); // Simulate click on the first tab button
-    }
+    logoutButton.addEventListener('click', async () => {
+        try {
+            await signOut(auth);
+        } catch (error) {
+            console.error("Error al cerrar sesión: ", error);
+        }
+    });
 }
 
 // --- LÓGICA DE INICIO Y AUTENTICACIÓN ---
@@ -730,31 +914,21 @@ function showLoginScreen() {
 }
 
 function startApp() {
-    // Get DOM elements here, after appContainer is shown and structure is built
-    getDOMElements(); 
-
     loginScreen.classList.add('hidden');
     appContainer.classList.remove('hidden');
     
-    // Generar la UI principal (acordeones)
+    // Generar el HTML de los acordeones del checklist
     generarProgramaHTML();
-    // Generar las tablas completas para el overlay
-    generateProgramTables(); 
-    // Configurar todos los listeners (importante que DOM esté ya construido)
+    // Generar el HTML de la vista de horarios
+    mostrarHorarioCompleto();
+    // Generar el HTML de la vista de responsables
+    mostrarResponsablesDeTurno();
+
     setupEventListeners();
-    // Sincronizar con Firebase
     syncStateFromFirebase();
     
-    // Establecer el tema inicial al cargar la app (el primer botón activo del navContainer)
-    const initialDayButton = navContainer.querySelector('.nav-button.active');
-    if (initialDayButton) {
-        setDayTheme(initialDayButton.dataset.day);
-    } else {
-        // Fallback si no hay botón activo, aunque debería haberlo por defecto en HTML
-        setDayTheme('Viernes'); 
-    }
-
-    updateAllUI(); // Actualizar el estado inicial de todos los acordeones y el resumen
+    // Establecer la vista y el tema inicial al cargar la app
+    changeAppView('checklist', 'Viernes'); // Inicia en la vista de checklist, día Viernes
 }
 
 // Observador del estado de autenticación
@@ -762,34 +936,27 @@ onAuthStateChanged(auth, user => {
     if (user) {
         startApp();
     } else {
-        // Ensure DOM elements are available for the login screen
-        getDOMElements(); 
         showLoginScreen();
     }
 });
 
-// Listener para el formulario de login (ensure this listener is set up early)
-document.addEventListener('DOMContentLoaded', () => {
-    getDOMElements(); // Get DOM elements as soon as the DOM is ready for the login form
-
-    if (loginForm) { // Check if loginForm exists before adding listener
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            loginError.classList.add('hidden');
-            try {
-                await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
-            } catch (err) {
-                console.error("Error de autenticación:", err.code);
-                const errorMessages = {
-                    'auth/invalid-email': 'El formato del correo es inválido.',
-                    'auth/user-disabled': 'Esta cuenta ha sido deshabilitada.',
-                    'auth/user-not-found': 'No se encontró un usuario con ese correo.',
-                    'auth/wrong-password': 'La contraseña es incorrecta.',
-                    'auth/too-many-requests': 'Demasiados intentos fallidos. Inténtalo más tarde.'
-                };
-                loginError.textContent = errorMessages[err.code] || 'Ocurrió un error al iniciar sesión.';
-                loginError.classList.remove('hidden');
-            }
-        });
+// Listener para el formulario de login
+loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    loginError.classList.add('hidden');
+    try {
+        await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
+    } catch (err) {
+        console.error("Error de autenticación:", err.code);
+        const errorMessages = {
+            'auth/invalid-email': 'El formato del correo es inválido.',
+            'auth/user-disabled': 'Esta cuenta ha sido deshabilitada.',
+            'auth/user-not-found': 'No se encontró un usuario con ese correo.',
+            'auth/wrong-password': 'La contraseña es incorrecta.',
+            'auth/too-many-requests': 'Demasiados intentos fallidos. Inténtalo más tarde.'
+        };
+        loginError.textContent = errorMessages[err.code] || 'Ocurrió un error al iniciar sesión.';
+        loginError.classList.remove('hidden');
     }
 });
+
