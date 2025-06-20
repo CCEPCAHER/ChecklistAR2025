@@ -205,8 +205,8 @@ header p {
     background-color: var(--day-color-primary);
     color: white;
 }
-/* El botón "Responsables" tiene su propio color */
-.nav-button.main-view-button[data-view="responsables"].active {
+/* El botón "Turnos y Responsabilidades" tiene su propio color */
+.nav-button.main-view-button[data-view="turnosYResponsabilidades"].active {
     background-color: #6c757d; /* Un gris neutro o el color que prefieras */
     color: white;
 }
@@ -258,17 +258,17 @@ main {
 
 /* --- CONTENEDORES DE DÍA TEMATIZADOS --- */
 /* Estas variables se usarán para colorear los elementos dentro de cada día */
-#content-Viernes, #horarios-container #horario-viernes, #responsables-container #responsables-viernes {
+#content-Viernes, #horarios-container #horario-viernes, #turnosYResponsabilidades-container #responsables-viernes {
     --day-color-primary: var(--viernes-primary);
     --day-color-progress: var(--viernes-progress);
     --day-color-bg-light: var(--viernes-bg-light);
 }
-#content-Sábado, #horarios-container #horario-sabado, #responsables-container #responsables-sabado {
+#content-Sábado, #horarios-container #horario-sabado, #turnosYResponsabilidades-container #responsables-sabado {
     --day-color-primary: var(--sabado-primary);
     --day-color-progress: var(--sabado-progress);
     --day-color-bg-light: var(--sabado-bg-light);
 }
-#content-Domingo, #horarios-container #horario-domingo, #responsables-container #responsables-domingo {
+#content-Domingo, #horarios-container #horario-domingo, #turnosYResponsabilidades-container #responsables-domingo {
     --day-color-primary: var(--domingo-primary);
     --day-color-progress: var(--domingo-progress);
     --day-color-bg-light: var(--domingo-bg-light);
@@ -276,7 +276,7 @@ main {
 
 
 /* --- TÍTULOS DE SECCIÓN TEMATIZADOS --- */
-.session-block h2, #horarios-container h2, #horarios-container h3, #responsables-container h2, #responsables-container h3 {
+.session-block h2, #horarios-container h2, #horarios-container h3, #turnosYResponsabilidades-container h2, #turnosYResponsabilidades-container h3 {
     font-size: 1.5em;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
@@ -284,7 +284,7 @@ main {
     border-bottom: 2px solid var(--day-color-primary);
     margin-top: 1.5rem;
 }
-#horarios-container h3, #responsables-container h3 {
+#horarios-container h3, #turnosYResponsabilidades-container h3 {
     font-size: 1.2em;
     border-bottom: 1px solid var(--day-color-primary);
     margin-top: 1rem;
@@ -508,7 +508,7 @@ body.day-viernes #day-nav,
 body.day-viernes #summary-panel,
 body.day-viernes .participant-accordion:hover,
 body.day-viernes #horarios-container,
-body.day-viernes #responsables-container {
+body.day-viernes #turnosYResponsabilidades-container {
     box-shadow: 0 5px 15px rgba(0, 95, 115, 0.12), 0 2px 6px rgba(0, 95, 115, 0.1);
 }
 
@@ -516,7 +516,7 @@ body.day-sabado #day-nav,
 body.day-sabado #summary-panel,
 body.day-sabado .participant-accordion:hover,
 body.day-sabado #horarios-container,
-body.day-sabado #responsables-container {
+body.day-sabado #turnosYResponsabilidades-container {
     box-shadow: 0 5px 15px rgba(174, 32, 18, 0.12), 0 2px 6px rgba(174, 32, 18, 0.1);
 }
 
@@ -524,7 +524,7 @@ body.day-domingo #day-nav,
 body.day-domingo #summary-panel,
 body.day-domingo .participant-accordion:hover,
 body.day-domingo #horarios-container,
-body.day-domingo #responsables-container {
+body.day-domingo #turnosYResponsabilidades-container {
     box-shadow: 0 5px 15px rgba(112, 40, 107, 0.12), 0 2px 6px rgba(112, 40, 107, 0.1);
 }
 
@@ -571,8 +571,8 @@ body.day-domingo #responsables-container {
     background-color: #f9f9f9; /* Ligeramente más oscuro para filas pares */
 }
 
-/* --- ESTILOS ESPECÍFICOS PARA LA SECCIÓN DE RESPONSABLES --- */
-#responsables-container {
+/* --- ESTILOS ESPECÍFICOS PARA LA SECCIÓN DE TURNOS Y RESPONSABILIDADES --- */
+#turnosYResponsabilidades-container {
     max-width: 800px;
     margin: 0 auto 2rem auto;
     background-color: var(--card-bg);
@@ -581,20 +581,20 @@ body.day-domingo #responsables-container {
     box-shadow: var(--shadow);
 }
 
-.responsables-section, .responsables-day-section {
+.turnosYResponsabilidades-section, .turnosYResponsabilidades-day-section {
     margin-bottom: 2rem;
 }
 
-.responsables-section ul, .responsables-session-block ul {
+.turnosYResponsabilidades-section ul, .turnosYResponsabilidades-session-block ul {
     list-style: none;
     padding: 0;
     margin-top: 0.5rem;
 }
 
-.responsables-section li, .responsables-session-block li {
+.turnosYResponsabilidades-section li, .turnosYResponsabilidades-session-block li {
     padding: 0.4rem 0;
     border-bottom: 1px dashed #e0e0e0;
 }
-.responsables-section li:last-child, .responsables-session-block li:last-child {
+.turnosYResponsabilidades-section li:last-child, .turnosYResponsabilidades-session-block li:last-child {
     border-bottom: none;
 }
