@@ -110,74 +110,77 @@ const itemsChecklist = [
     { id: 'discursado', texto: 'Participación completada', tipo: 'checkbox', icon: 'fa-solid fa-microphone-slash', indicator: true }
 ];
 
-// --- HORARIO COMPLETO DEL PROGRAMA ---
+// --- NUEVO HORARIO COMPLETO DEL PROGRAMA (basado en tu JSON) ---
 const horarioProgramaCompleto = [
-  { "Día": "VIERNES MAÑANA", "Hora": "09:30:00", "Título": "Música y Canción 74", "Orador": "David Castro (Presidente)" },
-  { "Día": "VIERNES MAÑANA", "Hora": "09:40:00", "Título": "¿Qué es la adoración pura?", "Orador": "Julián Lasheras", "Atril": "Desde el atril, el presidente de sesión invita al público a sentarse" },
-  { "Día": "VIERNES MAÑANA", "Hora": "10:10:00", "Título": "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús: Episodio 1. \"Este es mi Hijo\" (parte 1)", "Orador": null, "Atril": "Comienza la cuenta regresiva del video" },
-  { "Día": "VIERNES MAÑANA", "Hora": "10:40:00", "Título": "Música y Canción 122", "Orador": null, "Atril": "Desde el atril, el presidente de sesión presenta el video musical." },
-  { "Día": "VIERNES MAÑANA", "Hora": "10:50:00", "Título": "Descendiente del rey David", "Orador": "Domingo Tarrasón" },
-  { "Día": "VIERNES MAÑANA", "Hora": "11:11:00", "Título": "El Mesías, el Líder", "Orador": "Pedro Medina" },
-  { "Día": "VIERNES MAÑANA", "Hora": "11:28:00", "Título": "Ungido para ser \"el Mesías, el Líder\"", "Orador": "Daniel Velasco" },
-  { "Día": "VIERNES MAÑANA", "Hora": "11:45:00", "Título": "¿Quién es realmente el gobernante del mundo?", "Orador": "Álex Botella" },
-  { "Día": "VIERNES MAÑANA", "Hora": "12:15:00", "Título": "Música y Canción 22 e Intermedio", "Orador": null },
-  { "Día": "VIERNES TARDE", "Hora": "13:45:00", "Título": "Música y Canción 121", "Orador": "Eduardo Ayala (Presidente)" },
-  { "Día": "VIERNES TARDE", "Hora": "13:50:00", "Título": "Apoyémonos en la Palabra de Dios", "Orador": "Miguel Solé" },
-  { "Día": "VIERNES TARDE", "Hora": "14:06:00", "Título": "No pongamos a prueba a Jehová", "Orador": "David Aleixandri" },
-  { "Día": "VIERNES TARDE", "Hora": "14:22:00", "Título": "Adoremos solo a Jehová", "Orador": "David Maldonado" },
-  { "Día": "VIERNES TARDE", "Hora": "14:36:00", "Título": "Defendamos la verdad", "Orador": "Juan Martín Prior" },
-  { "Día": "VIERNES TARDE", "Hora": "14:50:00", "Título": "Música y Canción 97", "Orador": null },
-  { "Día": "VIERNES TARDE", "Hora": "15:00:00", "Título": "SERIE: ¡Profecías cumplidas! - El desierto de Judea", "Orador": "Elliot Miguel" },
-  { "Día": "VIERNES TARDE", "Hora": "15:12:00", "Título": "SERIE: ¡Profecías cumplidas! - El valle del Jordán", "Orador": "José Bonet" },
-  { "Día": "VIERNES TARDE", "Hora": "15:21:00", "Título": "SERIE: ¡Profecías cumplidas! - Jerusalén", "Orador": "Santiago Cardona" },
-  { "Día": "VIERNES TARDE", "Hora": "15:30:00", "Título": "SERIE: ¡Profecías cumplidas! - Samaria", "Orador": "Israel Malla" },
-  { "Día": "VIERNES TARDE", "Hora": "15:39:00", "Título": "SERIE: ¡Profecías cumplidas! - Galilea", "Orador": "Bárbaro Yuliexi Tejera Ríos" },
-  { "Día": "VIERNES TARDE", "Hora": "15:48:00", "Título": "SERIE: ¡Profecías cumplidas! - Fenicia", "Orador": "Rafael Corral" },
-  { "Día": "VIERNES TARDE", "Hora": "15:58:00", "Título": "SERIE: ¡Profecías cumplidas! - Siria", "Orador": "Míchel Gottardo" },
-  { "Día": "VIERNES TARDE", "Hora": "16:10:00", "Título": "¿Qué ve Jesús en cada uno de nosotros?", "Orador": "Andrés Mayor (Betel)" },
-  { "Día": "VIERNES TARDE", "Hora": "16:45:00", "Título": "Música, Canción 34 y Oración final", "Orador": "Pedro Mora" },
-  { "Día": "SÁBADO MAÑANA", "Hora": "09:30:00", "Título": "Música y Canción 93", "Orador": "Abel Reguant (Presidente)" },
-  { "Día": "SÁBADO MAÑANA", "Hora": "09:40:00", "Título": "PRODUCCIÓN AUDIOVISUAL: \"¿Qué buscan?\"", "Orador": null },
-  { "Día": "SÁBADO MAÑANA", "Hora": "09:50:00", "Título": "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús: Episodio 2. \"Este es mi Hijo\" (parte 2)", "Orador": null },
-  { "Día": "SÁBADO MAÑANA", "Hora": "10:20:00", "Título": "Música y Canción 54", "Orador": null },
-  { "Día": "SÁBADO MAÑANA", "Hora": "10:30:00", "Título": "SERIE: Siguieron a Jesús - Juan el Bautista", "Orador": "Gabriel Quintana" },
-  { "Día": "SÁBADO MAÑANA", "Hora": "10:40:00", "Título": "SERIE: Siguieron a Jesús - Andrés", "Orador": "Manuel Casino" },
-  { "Día": "SÁBADO MAÑANA", "Hora": "10:49:00", "Título": "SERIE: Siguieron a Jesús - Pedro", "Orador": "Esteban Martín" },
-  { "Día": "SÁBADO MAÑANA", "Hora": "10:59:00", "Título": "SERIE: Siguieron a Jesús - Juan", "Orador": "Kevin Adiel Cobo (BTL)" },
-  { "Día": "SÁBADO MAÑANA", "Hora": "11:09:00", "Título": "SERIE: Siguieron a Jesús - Santiago", "Orador": "Rubén Verdés" },
-  { "Día": "SÁBADO MAÑANA", "Hora": "11:17:00", "Título": "SERIE: Siguieron a Jesús - Felipe", "Orador": "David Mercader" },
-  { "Día": "SÁBADO MAÑANA", "Hora": "11:25:00", "Título": "SERIE: Siguieron a Jesús - Natanael", "Orador": "Daniel Sellares" },
-  { "Día": "SÁBADO MAÑANA", "Hora": "11:34:00", "Título": "DISCURSO DE BAUTISMO: El significado de su bautismo", "Orador": "Natán Becerril" },
-  { "Día": "SÁBADO MAÑANA", "Hora": "12:05:00", "Título": "Música y Canción 52 e Intermedio", "Orador": null },
-  { "Día": "SÁBADO TARDE", "Hora": "13:45:00", "Título": "Música y Canción 36", "Orador": "Climent Ambrós (Presidente)" },
-  { "Día": "SÁBADO TARDE", "Hora": "13:50:00", "Título": "SERIE: Aprendamos de Jesús a ser... compasivos", "Orador": "Jonatán Vicente" },
-  { "Día": "SÁBADO TARDE", "Hora": "14:00:00", "Título": "SERIE: Aprendamos de Jesús a ser... humildes", "Orador": "Santiago Sáez" },
-  { "Día": "SÁBADO TARDE", "Hora": "14:09:00", "Título": "SERIE: Aprendamos de Jesús a ser... generosos", "Orador": "Ricardo Anguita" },
-  { "Día": "SÁBADO TARDE", "Hora": "14:20:00", "Título": "¿Cómo quita el pecado \"el Cordero de Dios\"?", "Orador": "Josué Rabaneda" },
-  { "Día": "SÁBADO TARDE", "Hora": "14:45:00", "Título": "La devoción por la casa de Jehová ardió en su interior", "Orador": "Edgar Teruel (BTL)" },
-  { "Día": "SÁBADO TARDE", "Hora": "14:56:00", "Título": "Anunció \"buenas noticias a los mansos\"", "Orador": "Álvaro Paniagua" },
-  { "Día": "SÁBADO TARDE", "Hora": "15:06:00", "Título": "\"Una gran luz\" brilló en Galilea", "Orador": "Adolfo Fornieles" },
-  { "Día": "SÁBADO TARDE", "Hora": "15:20:00", "Título": "Música y Canción 117", "Orador": null },
-  { "Día": "SÁBADO TARDE", "Hora": "15:30:00", "Título": "\"¡Quiten todo esto de aquí!\"", "Orador": "Alfonso Guerrero" },
-  { "Día": "SÁBADO TARDE", "Hora": "16:00:00", "Título": "\"Lo levantaré\"", "Orador": "Andrés Mayor (Betel)" },
-  { "Día": "SÁBADO TARDE", "Hora": "16:35:00", "Título": "Música, Canción 35 y Oración final", "Orador": "Jairo José Galán" },
-  { "Día": "DOMINGO MAÑANA", "Hora": "09:30:00", "Título": "Música y Canción 140", "Orador": "Juan Alcaraz (Presidente)" },
-  { "Día": "DOMINGO MAÑANA", "Hora": "09:40:00", "Título": "SERIE: Lecciones del encuentro de Jesús con Nicodemo - Nacer \"del agua y del espíritu\"", "Orador": "Isaac Díaz" },
-  { "Día": "DOMINGO MAÑANA", "Hora": "09:55:00", "Título": "SERIE: Lecciones del encuentro de Jesús con Nicodemo - \"Ningún hombre ha subido al cielo\"", "Orador": "Benjamín Ferrer" },
-  { "Día": "DOMINGO MAÑANA", "Hora": "10:07:00", "Título": "SERIE: Lecciones del encuentro de Jesús con Nicodemo - Ir \"a la luz\"", "Orador": "Francisco Javier Vila" },
-  { "Día": "DOMINGO MAÑANA", "Hora": "10:21:00", "Título": "SERIE: Lecciones del encuentro de Jesús con la samaritana - \"Ese soy yo\"", "Orador": "Joseph Salazar" },
-  { "Día": "DOMINGO MAÑANA", "Hora": "10:35:00", "Título": "SERIE: Lecciones del encuentro de Jesús con la samaritana - \"Mi alimento\"", "Orador": "Fernando Teruel" },
-  { "Día": "DOMINGO MAÑANA", "Hora": "10:49:00", "Título": "PRODUCCIÓN AUDIOVISUAL: \"Los campos están blancos, listos para la cosecha\"", "Orador": null },
-  { "Día": "DOMINGO MAÑANA", "Hora": "11:05:00", "Título": "Música y Canción 37", "Orador": null },
-  { "Día": "DOMINGO MAÑANA", "Hora": "11:15:00", "Título": "DISCURSO PÚBLICO: ¿Sabe en qué se basan sus creencias?", "Orador": "José Manuel Lara" },
-  { "Día": "DOMINGO MAÑANA", "Hora": "11:45:00", "Título": "Resumen de La Atalaya ", "Orador": "Nino Llopis" },
-  { "Día": "DOMINGO MAÑANA", "Hora": "12:15:00", "Título": "Música y Canción 61 e Intermedio", "Orador": null },
-  { "Día": "DOMINGO TARDE", "Hora": "13:35:00", "Título": "Música y Canción 77", "Orador": "Julián Lasheras (Presidente)" },
-  { "Día": "DOMINGO TARDE", "Hora": "13:50:00", "Título": "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús: Episodio 3. \"Ese soy yo\"", "Orador": null },
-  { "Día": "DOMINGO TARDE", "Hora": "14:35:00", "Título": "Música y Canción 20", "Orador": null },
-  { "Día": "DOMINGO TARDE", "Hora": "14:45:00", "Título": "¿Qué hemos aprendido?", "Orador": "Julián Lasheras" },
-  { "Día": "DOMINGO TARDE", "Hora": "14:55:00", "Título": "¡Permanezcamos en el gran templo espiritual de Jehová!", "Orador": "Andrés Mayor (Betel)" },
-  { "Día": "DOMINGO TARDE", "Hora": "15:45:00", "Título": "Canción de conclusión y Oración final", "Orador": "Andrés Mayor (Betel)" }
+    { "Día": "VIERNES MAÑANA", "Hora": "08:00:00", "Título": "Tema del día: “Adora a Jehová tu Dios” (Mateo 4:10).", "Orador": null, "Micrófono pie derecho": "Microfono  de pie derecha", "Atril": "Atril" },
+    { "Día": "VIERNES MAÑANA", "Hora": "09:30:00", "Título": "Canción 74", "Orador": null, "Micrófono pie derecho": null, "Atril": null },
+    { "Día": "VIERNES MAÑANA", "Hora": "09:40:00", "Título": "¿Qué es la adoración pura?", "Orador": "Julián Lasheras", "Micrófono pie derecho": null, "Atril": "Desde el atril, el presidente de sesión invita al público a sentarse" },
+    { "Día": "VIERNES MAÑANA", "Hora": "10:10:00", "Título": "Las buenas noticias según Jesús: Episodio 1. \"Este es mi Hijo\" (parte 1)", "Orador": "Video", "Micrófono pie derecho": null, "Atril": "Comienza la cuenta regresiva del video" },
+    { "Día": "VIERNES MAÑANA", "Hora": "10:40:00", "Título": "Canción 122", "Orador": null, "Micrófono pie derecho": null, "Atril": "Desde el atril, el presidente de sesión presenta el video musical. Permanece sentado en plataforma." },
+    { "Día": "VIERNES MAÑANA", "Hora": "11:11:00", "Título": "Descendiente del rey David", "Orador": "Pedro Medina", "Micrófono pie derecho": null, "Atril": null },
+    { "Día": "VIERNES MAÑANA", "Hora": "11:28:00", "Título": "Ungido para ser \"el Mesías, el Líder\"", "Orador": "Daniel Velasco", "Micrófono pie derecho": null, "Atril": "Desde el atril, el presidente de sesión presenta la canción 74 y la oración de apertura" },
+    { "Día": "VIERNES MAÑANA", "Hora": "11:45:00", "Título": "¿Quién es realmente el gobernante del mundo?", "Orador": "Álex Botella", "Micrófono pie derecho": null, "Atril": "Desde el atril, oración por: " },
+    { "Día": "VIERNES MAÑANA", "Hora": "12:15:00", "Título": "Canción 22", "Orador": null, "Micrófono pie derecho": null, "Atril": "Desde el atril, el presidente de sesión presenta el discurso núm.1" },
+    { "Día": "VIERNES TARDE", "Hora": "13:45:00", "Título": "Canción 121", "Orador": null, "Micrófono pie derecho": null, "Atril": "Al salir el orador, pongan la imagen con el título del discurso. Cuando el aplauso disminuya, pongan el video de 30 mins. (Discurso núm. 2). El presidente de sesión no sale a la plataforma." },
+    { "Día": "VIERNES TARDE", "Hora": "13:50:00", "Título": "Apoyémonos en la Palabra de Dios", "Orador": "Miguel Solé", "Micrófono pie derecho": null, "Atril": "PRODUCCIÓN AUDIOVISUAL: " },
+    { "Día": "VIERNES TARDE", "Hora": "14:06:00", "Título": "No pongamos a prueba a Jehová", "Orador": "David Aleixandri", "Micrófono pie derecho": "Desde el micrófono de pie a la derecha de la plataforma, el presidente de sesión presenta la canción 122", "Atril": null },
+    { "Día": "VIERNES TARDE", "Hora": "14:22:00", "Título": "Adoremos solo a Jehová", "Orador": "David Maldonado", "Micrófono pie derecho": "El presidente de sesión hace los anuncios y presenta el video ¿Qué tienes que hacer para servir en Betel? (fragmento)", "Atril": null },
+    { "Día": "VIERNES TARDE", "Hora": "14:36:00", "Título": "Defendamos la verdad", "Orador": "Juan Martín Prior", "Micrófono pie derecho": "El presidente de sesión presenta el discurso núm. 3", "Atril": null },
+    { "Día": "VIERNES TARDE", "Hora": "14:50:00", "Título": "Canción 97", "Orador": null, "Micrófono pie derecho": null, "Atril": "SERIE DE DISCURSOS: “¡Las profecías sobre el Mesías se cumplieron! (Parte 1)”" },
+    { "Día": "VIERNES TARDE", "Hora": "15:00:00", "Título": "El desierto de Judea", "Orador": "Elliot Miguel", "Micrófono pie derecho": null, "Atril": "El orador presenta el discurso núm. 4." },
+    { "Día": "VIERNES TARDE", "Hora": "15:12:00", "Título": "El valle del Jordán", "Orador": "José Bonet", "Micrófono pie derecho": null, "Atril": "SERIE DE DISCURSOS: “¡Las profecías sobre el Mesías se cumplieron! (Parte 1)”" },
+    { "Día": "VIERNES TARDE", "Hora": "15:21:00", "Título": "Jerusalén", "Orador": "Santiago Cardona", "Micrófono pie derecho": null, "Atril": "El orador presenta el discurso núm. 5" },
+    { "Día": "VIERNES TARDE", "Hora": "15:30:00", "Título": "Samaria", "Orador": "Israel Malla", "Micrófono pie derecho": null, "Atril": "SERIE DE DISCURSOS: “¡Las profecías sobre el Mesías se cumplieron! (Parte 1)”" },
+    { "Día": "VIERNES TARDE", "Hora": "15:39:00", "Título": "Galilea", "Orador": "Bárbaro Yuliexi Tejera Ríos", "Micrófono pie derecho": "El presidente de sesión presenta el discurso núm. 6", "Atril": null },
+    { "Día": "VIERNES TARDE", "Hora": "15:48:00", "Título": "Fenicia", "Orador": "Rafael Corral", "Micrófono pie derecho": null, "Atril": null },
+    { "Día": "VIERNES TARDE", "Hora": "15:58:00", "Título": "Siria", "Orador": "Míchel Gottardo", "Micrófono pie derecho": "El presidente de sesión presenta la canción 22", "Atril": null },
+    { "Día": "VIERNES TARDE", "Hora": "16:10:00", "Título": "¿Qué ve Jesús en cada uno de nosotros?", "Orador": "Andrés Mayor (Betel)", "Micrófono pie derecho": null, "Atril": null },
+    { "Día": "VIERNES TARDE", "Hora": "16:45:00", "Título": "Canción 34 y Oración final", "Orador": null, "Micrófono pie derecho": null, "Atril": null },
+    { "Día": "SÁBADO MAÑANA", "Hora": "08:00:00", "Título": "Tema del día: “La devoción que siento por tu casa arderá en mi interior\" (Juan 2:17)", "Orador": null, "Micrófono pie derecho": null, "Atril": "Desde el atril, el presidente de sesión invita al público a sentarse" },
+    { "Día": "SÁBADO MAÑANA", "Hora": "09:30:00", "Título": "Canción 93", "Orador": null, "Micrófono pie derecho": null, "Atril": "Comienza la cuenta regresiva del video" },
+    { "Día": "SÁBADO MAÑANA", "Hora": "09:40:00", "Título": "\"¿Qué buscan?\"", "Orador": "Video", "Micrófono pie derecho": null, "Atril": "Desde el atril, el presidente de sesión presenta el video musical. Permanece sentado en plataforma." },
+    { "Día": "SÁBADO MAÑANA", "Hora": "09:50:00", "Título": "Las buenas noticias según Jesús: Episodio 2. \"Este es mi Hijo\" (parte 2)", "Orador": "Video", "Micrófono pie derecho": null, "Atril": null },
+    { "Día": "SÁBADO MAÑANA", "Hora": "10:20:00", "Título": "Canción 54", "Orador": null, "Micrófono pie derecho": null, "Atril": "Desde el atril, el presidente de sesión presenta la canción 121." },
+    { "Día": "SÁBADO MAÑANA", "Hora": "10:30:00", "Título": "Juan el Bautista", "Orador": "Gabriel Quintana", "Micrófono pie derecho": null, "Atril": "Desde el atril, el presidente de sesión presenta el discurso núm. 7." },
+    { "Día": "SÁBADO MAÑANA", "Hora": "10:40:00", "Título": "Andrés", "Orador": "Manuel Casino", "Micrófono pie derecho": null, "Atril": "SERIE DE DISCURSOS: Imitemos a Jesús cuando Satanás nos tiente." },
+    { "Día": "SÁBADO MAÑANA", "Hora": "10:49:00", "Título": "Pedro", "Orador": "Esteban Martín", "Micrófono pie derecho": null, "Atril": "El orador presenta el discurso núm. 8" },
+    { "Día": "SÁBADO MAÑANA", "Hora": "10:59:00", "Título": "Juan", "Orador": "Kevin Adiel Cobo (Betel)", "Micrófono pie derecho": null, "Atril": "SERIE DE DISCURSOS: Imitemos a Jesús cuando Satanás nos tiente." },
+    { "Día": "SÁBADO MAÑANA", "Hora": "11:09:00", "Título": "Santiago", "Orador": "Rubén Verdés", "Micrófono pie derecho": null, "Atril": "El orador presenta el discurso núm. 9" },
+    { "Día": "SÁBADO MAÑANA", "Hora": "11:17:00", "Título": "Felipe", "Orador": "David Mercader", "Micrófono pie derecho": null, "Atril": "SERIE DE DISCURSOS: Imitemos a Jesús cuando Satanás nos tiente." },
+    { "Día": "SÁBADO MAÑANA", "Hora": "11:25:00", "Título": "Natanael", "Orador": "Daniel Sellares", "Micrófono pie derecho": null, "Atril": "El orador presenta el discurso núm. 10" },
+    { "Día": "SÁBADO MAÑANA", "Hora": "11:34:00", "Título": "DISCURSO DE BAUTISMO: El significado de su bautismo”", "Orador": "Natán Becerril", "Micrófono pie derecho": null, "Atril": "SERIE DE DISCURSOS: Imitemos a Jesús cuando Satanás nos tiente." },
+    { "Día": "SÁBADO MAÑANA", "Hora": "12:05:00", "Título": "Canción 52 e Intermedio", "Orador": null, "Micrófono pie derecho": "El presidente de sesión presenta la canción 97", "Atril": null },
+    { "Día": "SÁBADO TARDE", "Hora": "13:45:00", "Título": "Canción 36", "Orador": null, "Micrófono pie derecho": "el presidente de sesión hace los anuncios y presenta el discurso núm. 11.", "Atril": "SERIE DE DISCURSOS: Lecciones sobre la tierra en la que vivió Jesús. " },
+    { "Día": "SÁBADO TARDE", "Hora": "13:50:00", "Título": "... a ser compasivos", "Orador": "Jonatán Vicente", "Micrófono pie derecho": null, "Atril": "El orador presenta el discurso núm. 12" },
+    { "Día": "SÁBADO TARDE", "Hora": "14:00:00", "Título": "... a ser humildes", "Orador": "Santiago Sáez", "Micrófono pie derecho": null, "Atril": "SERIE DE DISCURSOS: Lecciones sobre la tierra en la que vivió Jesús. " },
+    { "Día": "SÁBADO TARDE", "Hora": "14:09:00", "Título": "... a ser generosos", "Orador": "Ricardo Anguita", "Micrófono pie derecho": null, "Atril": "El orador presenta el discurso núm. 13" },
+    { "Día": "SÁBADO TARDE", "Hora": "14:20:00", "Título": "¿Cómo quita el pecado \"el Cordero de Dios\"?", "Orador": "Josué Rabaneda", "Micrófono pie derecho": null, "Atril": "SERIE DE DISCURSOS: Lecciones sobre la tierra en la que vivió Jesús. " },
+    { "Día": "SÁBADO TARDE", "Hora": "14:45:00", "Título": "La devoción por la casa de Jehová ardió en su interior", "Orador": "Edgar Teruel (Betel)", "Micrófono pie derecho": null, "Atril": "El orador presenta el discurso núm. 14" },
+    { "Día": "SÁBADO TARDE", "Hora": "14:56:00", "Título": "Anunció \"buenas noticias a los mansos\"", "Orador": "Álvaro Paniagua", "Micrófono pie derecho": null, "Atril": "SERIE DE DISCURSOS: Lecciones sobre la tierra en la que vivió Jesús. " },
+    { "Día": "SÁBADO TARDE", "Hora": "15:06:00", "Título": "\"Una gran luz\" brilló en Galilea", "Orador": "Adolfo Fornieles", "Micrófono pie derecho": null, "Atril": "El orador presenta el discurso núm. 15" },
+    { "Día": "SÁBADO TARDE", "Hora": "15:20:00", "Título": "Canción 117", "Orador": null, "Micrófono pie derecho": null, "Atril": "SERIE DE DISCURSOS: Lecciones sobre la tierra en la que vivió Jesús. " },
+    { "Día": "SÁBADO TARDE", "Hora": "15:30:00", "Título": "\"¡Quiten todo esto de aquí!\"", "Orador": "Alfonso Guerrero", "Micrófono pie derecho": null, "Atril": "El orador presenta el discurso núm. 16" },
+    { "Día": "SÁBADO TARDE", "Hora": "16:00:00", "Título": "\"Lo levantaré\"", "Orador": "Andrés Mayor (Betel)", "Micrófono pie derecho": null, "Atril": "SERIE DE DISCURSOS: Lecciones sobre la tierra en la que vivió Jesús. " },
+    { "Día": "SÁBADO TARDE", "Hora": "16:35:00", "Título": "Canción 35 y Oración final", "Orador": null, "Micrófono pie derecho": null, "Atril": "El orador presenta el discurso núm. 17" },
+    { "Día": "DOMINGO MAÑANA", "Hora": "08:00:00", "Título": "Tema del día: “Lo adorarán con espíritu y con verdad” (Juan 4:23)", "Orador": null, "Micrófono pie derecho": "Desde el micrófono de pie a la derecha de la plataforma, el presidente de sesión presenta el discurso núm. 18.", "Atril": "SERIE DE DISCURSOS: Lecciones sobre la tierra en la que vivió Jesús. " },
+    { "Día": "DOMINGO MAÑANA", "Hora": "09:30:00", "Título": "Canción 140", "Orador": null, "Micrófono pie derecho": null, "Atril": null },
+    { "Día": "DOMINGO MAÑANA", "Hora": "09:40:00", "Título": "Nacer \"del agua y del espíritu\"", "Orador": "Isaac Díaz", "Micrófono pie derecho": "el presidente de sesión presenta la canción 34 y la oración de conclusión", "Atril": null },
+    { "Día": "DOMINGO MAÑANA", "Hora": "09:55:00", "Título": "\"Ningún hombre ha subido al cielo\"", "Orador": "Benjamín Ferrer", "Micrófono pie derecho": null, "Atril": "Desde el atril, oración por: " },
+    { "Día": "DOMINGO MAÑANA", "Hora": "10:07:00", "Título": "Ir \"a la luz\"", "Orador": "Francisco Javier Vila", "Micrófono pie derecho": null, "Atril": null },
+    { "Día": "DOMINGO MAÑANA", "Hora": "10:21:00", "Título": "\"Ese soy yo\"", "Orador": "Joseph Salazar", "Micrófono pie derecho": null, "Atril": null },
+    { "Día": "DOMINGO MAÑANA", "Hora": "10:35:00", "Título": "\"Mi alimento\"", "Orador": "Fernando Teruel", "Micrófono pie derecho": "Microfono  de pie derecha", "Atril": "Atril" },
+    { "Día": "DOMINGO MAÑANA", "Hora": "10:49:00", "Título": "\"Los campos están blancos, listos para la cosecha\"", "Orador": "Video", "Micrófono pie derecho": null, "Atril": null },
+    { "Día": "DOMINGO MAÑANA", "Hora": "11:05:00", "Título": "Canción 37", "Orador": null, "Micrófono pie derecho": null, "Atril": "Desde el atril, el presidente de sesión invita al público a sentarse" },
+    { "Día": "DOMINGO MAÑANA", "Hora": "11:15:00", "Título": "DISCURSO PÚBLICO: ¿Sabe en qué se basan sus creencias?", "Orador": "José Manuel Lara", "Micrófono pie derecho": null, "Atril": "Comienza la cuenta regresiva del video" },
+    { "Día": "DOMINGO MAÑANA", "Hora": "11:45:00", "Título": "Resumen de La Atalaya ", "Orador": "Nino Llopis", "Micrófono pie derecho": null, "Atril": "Desde el atril, el presidente de sesión presenta el video musical. Permanece sentado en plataforma." },
+    { "Día": "DOMINGO MAÑANA", "Hora": "12:15:00", "Título": "Canción 61 e Intermedio", "Orador": null, "Micrófono pie derecho": null, "Atril": null },
+    { "Día": "DOMINGO TARDE", "Hora": "13:34:00", "Título": " ", "Orador": "Julián Lasheras", "Micrófono pie derecho": null, "Atril": "Desde el atril, oración por: " },
+    { "Día": "DOMINGO TARDE", "Hora": "13:45:00", "Título": "Canción 77", "Orador": null, "Micrófono pie derecho": null, "Atril": "Desde el atril, el presidente de sesión presenta el discurso núm.19." },
+    { "Día": "DOMINGO TARDE", "Hora": "13:50:00", "Título": "Las buenas noticias según Jesús: Episodio 3. \"Ese soy yo\"", "Orador": "Video", "Micrófono pie derecho": null, "Atril": null },
+    { "Día": "DOMINGO TARDE", "Hora": "14:35:00", "Título": "Canción 20", "Orador": null, "Micrófono pie derecho": null, "Atril": null },
+    { "Día": "DOMINGO TARDE", "Hora": "14:45:00", "Título": "¿Qué hemos aprendido? ", "Orador": "PRODUCCIÓN AUDIOVISUAL", "Micrófono pie derecho": null, "Atril": "PRODUCCIÓN AUDIOVISUAL: " },
+    { "Día": "DOMINGO TARDE", "Hora": "14:55:00", "Título": "¡Permanezcamos en el gran templo espiritual de Jehová!", "Orador": "Andrés Mayor (Betel)", "Micrófono pie derecho": "El presidente de sesión presenta la canción 54", "Atril": null },
+    { "Día": "DOMINGO TARDE", "Hora": "15:45:00", "Título": "Canción de conclusión y Oración final", "Orador": null, "Micrófono pie derecho": "El presidente de sesión hace anuncios y presenta el video Solicite ir a la Escuela para Evangelizadores del Reino (fragmento)", "Atril": null }
 ];
 
 // --- RESPONSABLES DE TURNO ---
@@ -454,6 +457,9 @@ function syncStateFromFirebase() {
     });
 }
 
+/**
+ * Genera y muestra el horario completo del programa con todas las notas.
+ */
 function mostrarHorarioCompleto() {
     horariosContent.innerHTML = '';
     const diasOrden = ['Viernes', 'Sábado', 'Domingo'];
@@ -478,17 +484,22 @@ function mostrarHorarioCompleto() {
                 sessionDiv.className = 'horario-session-block';
                 sessionDiv.innerHTML = `<h3>${sesionName}</h3>`;
                 const table = document.createElement('table');
-                table.innerHTML = `<thead><tr><th>Hora</th><th>Título / Canción</th><th>Orador</th><th>Notas</th></tr></thead><tbody></tbody>`;
+                table.innerHTML = `<thead><tr><th>Hora</th><th>Título/Evento</th><th>Orador</th><th>Micrófono</th><th>Notas Atril</th></tr></thead><tbody></tbody>`;
                 const tbody = table.querySelector('tbody');
+
                 sesionesDia[sesionName].forEach(item => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${item['Hora'] ? item['Hora'].substring(0, 5) : ''}</td>
-                        <td>${item['Título'] || ''}</td>
-                        <td>${item['Orador'] || ''}</td>
-                        <td>${item['Atril'] || ''}</td>
-                    `;
-                    tbody.appendChild(row);
+                    // No renderizar las filas que son solo cabeceras en el JSON
+                    if (item['Hora'] && item['Hora'].toLowerCase() !== 'hora') {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${String(item['Hora'] || '').substring(0, 5)}</td>
+                            <td>${item['Título'] || ''}</td>
+                            <td>${item['Orador'] || ''}</td>
+                            <td>${item['Micrófono pie derecho'] || ''}</td>
+                            <td>${item['Atril'] || ''}</td>
+                        `;
+                        tbody.appendChild(row);
+                    }
                 });
                 sessionDiv.appendChild(table);
                 dayDiv.appendChild(sessionDiv);
