@@ -27,6 +27,17 @@
     /* Color de estado completado (global) */
     --success: #198754;
     --success-light: #e8f3ee;
+
+    /* Nuevas variables para la tabla, usando colores de la paleta principal */
+    --primary-color: var(--viernes-primary); /* Default for table buttons/headers */
+    --primary-dark-color: #004c5c; /* Darker shade of default primary */
+    --secondary-color: #e9ecef;
+    --secondary-dark-color: #d6d8db;
+    --accent-color: #dc3545; /* For close button hover */
+    --table-border-color: #ddd;
+    --table-header-bg: #f2f2f2;
+    --table-even-row-bg: #f9f9f9;
+    --table-hover-bg: #f1f1f1;
 }
 
 body {
@@ -111,6 +122,11 @@ body {
 /* --- ESTILOS GENERALES APP --- */
 .hidden { 
     display: none !important; 
+}
+
+#app-container {
+    position: relative; /* Needed for positioning the hamburger menu and logout button */
+    padding-top: 50px; /* Space for the hamburger menu */
 }
 
 header { 
@@ -416,7 +432,7 @@ main {
     transition: max-height 0.4s ease-out; 
 }
 .accordion-content.active { 
-    max-height: 500px;
+    max-height: 500px; /* Adjust as needed for content height */
 }
 .checklist-container { 
     padding: 0.5rem 1rem 1rem 1rem; 
@@ -474,9 +490,10 @@ main {
   .details-time, .details-number {
     font-size: 1.1em;
   }
+  /* Adjusted logout button for smaller screens */
   #logout-button {
-    position: static;
-    margin: 0.5rem auto 0;
+    position: static; /* Make it flow with content */
+    margin: 0.5rem auto 0; /* Center it below header */
     display: block;
     width: auto;
     border-radius: 8px;
@@ -496,7 +513,7 @@ main {
       margin-bottom: 0.5rem;
   }
   .whatsapp-icon-container {
-      margin-left: auto; /* Empuja el icono a la derecha en móvil */
+      margin-left: auto; /* Push the icon to the right on mobile */
   }
 }
 
@@ -541,11 +558,11 @@ body.day-domingo .participant-accordion:hover {
 
 /* Estilos para el botón de hamburguesa */
 .hamburger-menu-button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1001; /* Asegura que esté por encima de todo */
-    background-color: var(--primary-color, #007bff); /* Color primario de tu app */
+    position: absolute; /* Changed to absolute to be relative to #app-container */
+    top: 10px;
+    left: 10px;
+    z-index: 1; /* Within the app-container, it should be above content */
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 50%;
@@ -561,7 +578,7 @@ body.day-domingo .participant-accordion:hover {
 }
 
 .hamburger-menu-button:hover {
-    background-color: var(--primary-dark-color, #0056b3); /* Tono más oscuro al pasar el ratón */
+    background-color: var(--primary-dark-color);
 }
 
 /* Estilos para el overlay de la tabla */
@@ -575,7 +592,7 @@ body.day-domingo .participant-accordion:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Por encima del contenido normal, pero debajo del botón */
+    z-index: 1000; /* Ensures it's above everything else when active */
     backdrop-filter: blur(5px); /* Efecto de desenfoque */
     -webkit-backdrop-filter: blur(5px); /* Para compatibilidad con Safari */
     opacity: 0;
@@ -604,7 +621,7 @@ body.day-domingo .participant-accordion:hover {
 
 .program-table-container h1 {
     text-align: center;
-    color: var(--text-primary, #333);
+    color: var(--text-primary);
     margin-bottom: 20px;
 }
 
@@ -615,13 +632,13 @@ body.day-domingo .participant-accordion:hover {
     background: none;
     border: none;
     font-size: 2em;
-    color: var(--text-secondary, #666);
+    color: var(--text-secondary);
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
 .close-table-button:hover {
-    color: var(--accent-color, #dc3545);
+    color: var(--accent-color);
 }
 
 /* Navegación de pestañas */
@@ -634,22 +651,22 @@ body.day-domingo .participant-accordion:hover {
 }
 
 .tab-button {
-    background-color: var(--secondary-color, #e9ecef);
+    background-color: var(--secondary-color);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1.1em;
-    color: var(--text-primary, #333);
+    color: var(--text-primary);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .tab-button:hover {
-    background-color: var(--secondary-dark-color, #d6d8db);
+    background-color: var(--secondary-dark-color);
 }
 
 .tab-button.active {
-    background-color: var(--primary-color, #007bff);
+    background-color: var(--primary-color);
     color: white;
     font-weight: bold;
 }
@@ -662,10 +679,10 @@ body.day-domingo .participant-accordion:hover {
 }
 
 .tab-content h2 {
-    color: var(--text-primary, #333);
+    color: var(--text-primary);
     margin-top: 20px;
     margin-bottom: 10px;
-    border-bottom: 2px solid var(--border-color, #eee);
+    border-bottom: 2px solid var(--border-color);
     padding-bottom: 5px;
 }
 
@@ -679,14 +696,14 @@ body.day-domingo .participant-accordion:hover {
 
 .program-table-container th,
 .program-table-container td {
-    border: 1px solid var(--table-border-color, #ddd);
+    border: 1px solid var(--table-border-color);
     padding: 8px;
     text-align: left;
     vertical-align: top; /* Alinea el contenido superiormente */
 }
 
 .program-table-container thead {
-    background-color: var(--table-header-bg, #f2f2f2);
+    background-color: var(--table-header-bg);
     position: sticky; /* Encabezado pegajoso al hacer scroll */
     top: 0;
     z-index: 1; /* Asegura que el encabezado esté por encima del contenido */
@@ -694,15 +711,15 @@ body.day-domingo .participant-accordion:hover {
 
 .program-table-container th {
     font-weight: bold;
-    color: var(--text-primary, #333);
+    color: var(--text-primary);
 }
 
 .program-table-container tbody tr:nth-child(even) {
-    background-color: var(--table-even-row-bg, #f9f9f9);
+    background-color: var(--table-even-row-bg);
 }
 
 .program-table-container tbody tr:hover {
-    background-color: var(--table-hover-bg, #f1f1f1);
+    background-color: var(--table-hover-bg);
 }
 
 /* Estilos específicos para celdas vacías o con info mínima */
@@ -726,7 +743,6 @@ body.day-domingo .participant-accordion:hover {
 .program-table-container td:nth-child(7) {
     white-space: nowrap;
 }
-
 
 /* Media Queries para responsividad (opcional, pero recomendado) */
 @media (max-width: 768px) {
@@ -762,12 +778,11 @@ body.day-domingo .participant-accordion:hover {
     }
 }
 
-/* Estilos específicos para filas de "PRESIDENTE DE LA SESIÓN" */
-.program-table-container tbody tr:has(td:nth-child(2):contains("PRESIDENTE DE LA SESIÓN")) {
-    background-color: #e0f2f7; /* Un color de fondo diferente */
+/* New: Class to apply to specific table rows instead of :has() selector */
+.table-president-row {
+    background-color: #e0f2f7; /* A different background color */
     font-weight: bold;
 }
-
 /* ****************************************************** */
 /* FIN: CSS para la nueva funcionalidad de tabla          */
 /* ****************************************************** */
