@@ -114,212 +114,674 @@ const itemsChecklist = [
     { id: 'discursado', texto: 'Participación completada', tipo: 'checkbox', icon: 'fa-solid fa-microphone-slash', indicator: true }
 ];
 
-// --- NUEVA DATA: HORARIO COMPLETO DEL PROGRAMA (basado en el PDF) ---
-// ¡IMPORTANTE! Debes completar y verificar esta data con la información exacta de tu PDF.
+// --- NUEVA DATA: HORARIO COMPLETO DEL PROGRAMA (basado en tu JSON) ---
 const horarioProgramaCompleto = [
-    // VIERNES MAÑANA
-    {
-        dia: "Viernes", sesion: "Mañana", hora: "8:00", numero_programa: null, duracion: "1:14",
-        descripcion: "Mostrar el tema del día de la asamblea regional: \"Adora a Jehová tu Dios\" (Mateo 4:10)",
-        orador_o_titulo: "(Video en bucle. Sin sonido.)", multimedia: "CO-v25 5 001"
-    },
-    {
-        dia: "Viernes", sesion: "Mañana", hora: "9:14", numero_programa: null, duracion: null,
-        descripcion: "Desde el atril, el presidente de sesión invita al público a sentarse",
-        orador_o_titulo: "David Castro", multimedia: null
-    },
-    {
-        dia: "Viernes", sesion: "Mañana", hora: "9:15", numero_programa: null, duracion: "0:05",
-        descripcion: "Comienza la cuenta regresiva del video",
-        orador_o_titulo: "(5 mins. Sin sonido)", multimedia: "CO-v25_5_002"
-    },
-    {
-        dia: "Viernes", sesion: "Mañana", hora: "9:19", numero_programa: null, duracion: null,
-        descripcion: "Desde el atril, el presidente de sesión presenta el video musical. Permanece sentado en plataforma.",
-        orador_o_titulo: "David Castro", multimedia: null
-    },
-    {
-        dia: "Viernes", sesion: "Mañana", hora: "9:20", numero_programa: null, duracion: "0:10",
-        descripcion: null,
-        orador_o_titulo: "VIDEO MUSICAL (10: 107 min)", multimedia: "CO-v25_5_003"
-    },
-    {
-        dia: "Viernes", sesion: "Mañana", hora: "9:30", numero_programa: 74, duracion: null,
-        descripcion: "Desde el atril, el presidente de sesión presenta la canción 74 y la oración de",
-        orador_o_titulo: "Canción 74", multimedia: null
-    },
-    {
-        dia: "Viernes", sesion: "Mañana", hora: "9:35", numero_programa: null, duracion: null,
-        descripcion: "Oración",
-        orador_o_titulo: "Francisco José Sánchez", multimedia: null
-    },
-    {
-        dia: "Viernes", sesion: "Mañana", hora: "9:40", numero_programa: 1, duracion: "0:45",
-        descripcion: "Discurso",
-        orador_o_titulo: "Julián Lasheras ¿Qué es la adoración pura?", multimedia: null
-    },
-    {
-        dia: "Viernes", sesion: "Mañana", hora: "10:25", numero_programa: 75, duracion: null,
-        descripcion: "Canción 75",
-        orador_o_titulo: "Canción 75", multimedia: null
-    },
-    {
-        dia: "Viernes", sesion: "Mañana", hora: "10:30", numero_programa: null, duracion: null,
-        descripcion: "Anuncios",
-        orador_o_titulo: "David Castro", multimedia: null
-    },
-    {
-        dia: "Viernes", sesion: "Mañana", hora: "10:35", numero_programa: 2, duracion: "0:35",
-        descripcion: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús (Episodio 1).",
-        orador_o_titulo: "PRODUCCIÓN AUDIOVISUAL", multimedia: "CO-v255_451" // Ejemplo ID multimedia
-    },
-    {
-        dia: "Viernes", sesion: "Mañana", hora: "11:10", numero_programa: 76, duracion: null,
-        descripcion: "Canción 76",
-        orador_o_titulo: "Canción 76", multimedia: null
-    },
-    // ... Añade aquí el resto del Viernes Mañana y Tarde, Sábado y Domingo ...
-    // VIERNES TARDE (Ejemplos basados en tu snippet)
-    {
-        dia: "Viernes", sesion: "Tarde", hora: "13:45", numero_programa: 77, duracion: null,
-        descripcion: "Desde el atril, el presidente de sesión presenta la canción 77",
-        orador_o_titulo: "Canción 77", multimedia: "CO-V25 5 454"
-    },
-    {
-        dia: "Viernes", sesion: "Tarde", hora: "13:50", numero_programa: 46, duracion: "0:45",
-        descripcion: "PRODUCCIÓN AUDIOVISUAL",
-        orador_o_titulo: "Las buenas noticias según Jesús: Episodio 3. \"Ese soy yo\"",
-        multimedia: "CO-v255_461"
-    },
-    {
-        dia: "Viernes", sesion: "Tarde", hora: "14:35", numero_programa: 20, duracion: "3:59",
-        descripcion: "El presidente de sesión presenta la canción 20",
-        orador_o_titulo: "Canción 20",
-        multimedia: "CD-25 5 462"
-    },
-    {
-        dia: "Viernes", sesion: "Tarde", hora: "14:45", numero_programa: 47, duracion: "0:10",
-        descripcion: "¿Qué hemos aprendido?",
-        orador_o_titulo: "VIDEO: 11:38 min",
-        multimedia: "CO 25 5 471"
-    },
-    // ... Más entradas para el viernes tarde, sábado, y domingo...
-    // Puedes rellenar todo el horario aquí con la misma estructura.
+  {
+    "Día": "VIERNES MAÑANA",
+    "Hora": "Hora",
+    "Título": "Título del discurso - Canción",
+    "Orador": "Presidente/Orador",
+    "Micrófono pie derecho": null,
+    "Atril": null
+  },
+  {
+    "Día": "VIERNES MAÑANA",
+    "Hora": "08:00:00",
+    "Título": "Mostrar el tema del día de la asamblea regional: “Adora a Jehová tu Dios” (Mateo 4:10).",
+    "Orador": null,
+    "Micrófono pie derecho": "Microfono  de pie derecha",
+    "Atril": "Atril"
+  },
+  {
+    "Día": "VIERNES MAÑANA",
+    "Hora": "09:30:00",
+    "Título": "Canción 74",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": null
+  },
+  {
+    "Día": "VIERNES MAÑANA",
+    "Hora": "09:40:00",
+    "Título": "¿Qué es la adoración pura?",
+    "Orador": "Julián Lasheras",
+    "Micrófono pie derecho": null,
+    "Atril": "Desde el atril, el presidente de sesión invita al público a sentarse"
+  },
+  {
+    "Día": "VIERNES MAÑANA",
+    "Hora": "10:10:00",
+    "Título": "Las buenas noticias según Jesús: Episodio 2. \"Este es mi Hijo\" (parte 1)",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": "Comienza la cuenta regresiva del video"
+  },
+  {
+    "Día": "VIERNES MAÑANA",
+    "Hora": "10:40:00",
+    "Título": "Canción 122",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": "Desde el atril, el presidente de sesión presenta el video musical. Permanece sentado en plataforma."
+  },
+  {
+    "Día": "VIERNES MAÑANA",
+    "Hora": "11:11:00",
+    "Título": "Descendiente del rey David",
+    "Orador": "Pedro Medina",
+    "Micrófono pie derecho": null,
+    "Atril": null
+  },
+  {
+    "Día": "VIERNES MAÑANA",
+    "Hora": "11:28:00",
+    "Título": "Ungido para ser \"el Mesías, el Líder\"",
+    "Orador": "Daniel Velasco",
+    "Micrófono pie derecho": null,
+    "Atril": "Desde el atril, el presidente de sesión presenta la canción 74 y la oración de apertura"
+  },
+  {
+    "Día": "VIERNES MAÑANA",
+    "Hora": "11:45:00",
+    "Título": "¿Quién es realmente el gobernante del mundo?",
+    "Orador": "Álex Botella",
+    "Micrófono pie derecho": null,
+    "Atril": "Desde el atril, oración por: "
+  },
+  {
+    "Día": "VIERNES MAÑANA",
+    "Hora": "12:15:00",
+    "Título": "Canción 22",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": "Desde el atril, el presidente de sesión presenta el discurso núm.1"
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "Hora",
+    "Título": "Título del discurso - Canción",
+    "Orador": "Presidente/Orador",
+    "Micrófono pie derecho": null,
+    "Atril": "DISCURSO DEL PRESIDENTE: DE LA ASAMBLEA: "
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "13:45:00",
+    "Título": "Canción 121",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": "Al salir el orador, pongan la imagen con el título del discurso. Cuando el aplauso disminuya, pongan el video de 30 mins. (Discurso núm. 2). El presidente de sesión no sale a la plataforma."
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "13:50:00",
+    "Título": "Apoyémonos en la Palabra de Dios",
+    "Orador": "Miguel Solé",
+    "Micrófono pie derecho": null,
+    "Atril": "PRODUCCIÓN AUDIOVISUAL: "
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "14:06:00",
+    "Título": "No pongamos a prueba a Jehová",
+    "Orador": "David Aleixandri",
+    "Micrófono pie derecho": "Desde el micrófono de pie a la derecha de la plataforma, el presidente de sesión presenta la canción 122",
+    "Atril": null
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "14:22:00",
+    "Título": "Adoremos solo a Jehová",
+    "Orador": "David Maldonado",
+    "Micrófono pie derecho": "El presidente de sesión hace los anuncios y presenta el video ¿Qué tienes que hacer para servir en Betel? (fragmento)",
+    "Atril": null
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "14:36:00",
+    "Título": "Defendamos la verdad",
+    "Orador": "Juan Martín Prior",
+    "Micrófono pie derecho": "El presidente de sesión presenta el discurso núm. 3",
+    "Atril": null
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "14:50:00",
+    "Título": "Canción 97",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": "SERIE DE DISCURSOS: “¡Las profecías sobre el Mesías se cumplieron! (Parte 1)”"
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "15:00:00",
+    "Título": "El desierto de Judea",
+    "Orador": "Elliot Miguel",
+    "Micrófono pie derecho": null,
+    "Atril": "El orador presenta el discurso núm. 4."
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "15:12:00",
+    "Título": "El valle del Jordán",
+    "Orador": "José Bonet",
+    "Micrófono pie derecho": null,
+    "Atril": "SERIE DE DISCURSOS: “¡Las profecías sobre el Mesías se cumplieron! (Parte 1)”"
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "15:21:00",
+    "Título": "Jerusalén",
+    "Orador": "Santiago Cardona",
+    "Micrófono pie derecho": null,
+    "Atril": "El orador presenta el discurso núm. 5"
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "15:30:00",
+    "Título": "Samaria",
+    "Orador": "Israel Malla",
+    "Micrófono pie derecho": null,
+    "Atril": "SERIE DE DISCURSOS: “¡Las profecías sobre el Mesías se cumplieron! (Parte 1)”"
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "15:39:00",
+    "Título": "Galilea",
+    "Orador": "Bárbaro Yuliexi Tejera Ríos",
+    "Micrófono pie derecho": "El presidente de sesión presenta el discurso núm. 6",
+    "Atril": null
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "15:48:00",
+    "Título": "Fenicia",
+    "Orador": "Rafael Corral",
+    "Micrófono pie derecho": null,
+    "Atril": null
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "15:58:00",
+    "Título": "Siria",
+    "Orador": "Míchel Gottardo",
+    "Micrófono pie derecho": "El presidente de sesión presenta la canción 22",
+    "Atril": null
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "16:10:00",
+    "Título": "¿Qué ve Jesús en cada uno de nosotros?",
+    "Orador": "Ándres Mayor (Betel)",
+    "Micrófono pie derecho": null,
+    "Atril": null
+  },
+  {
+    "Día": "VIERNES TARDE",
+    "Hora": "16:45:00",
+    "Título": "Canción 34",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": null
+  },
+  {
+    "Día": "SÁBADO MAÑANA",
+    "Hora": "Hora",
+    "Título": "Título del discurso - Canción",
+    "Orador": "Presidente/Orador",
+    "Micrófono pie derecho": "Microfono  de pie derecha",
+    "Atril": "Atril"
+  },
+  {
+    "Día": "SÁBADO MAÑANA",
+    "Hora": "08:00:00",
+    "Título": "Mostrar el tema del día de la asamblea regional: “La devoción que siento por tu casa arderá en mi interior\" (Juan 2:17)",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": "Desde el atril, el presidente de sesión invita al público a sentarse"
+  },
+  {
+    "Día": "SÁBADO MAÑANA",
+    "Hora": "09:30:00",
+    "Título": "Canción 93",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": "Comienza la cuenta regresiva del video"
+  },
+  {
+    "Día": "SÁBADO MAÑANA",
+    "Hora": "09:40:00",
+    "Título": "\"¿Qué buscan?\"",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": "Desde el atril, el presidente de sesión presenta el video musical. Permanece sentado en plataforma."
+  },
+  {
+    "Día": "SÁBADO MAÑANA",
+    "Hora": "09:50:00",
+    "Título": "Las buenas noticias según Jesús: Episodio 2. \"Este es mi Hijo\" (parte 2)",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": null
+  },
+  {
+    "Día": "SÁBADO MAÑANA",
+    "Hora": "10:20:00",
+    "Título": "Canción 54",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": "Desde el atril, el presidente de sesión presenta la canción 121."
+  },
+  {
+    "Día": "SÁBADO MAÑANA",
+    "Hora": "10:30:00",
+    "Título": "Juan el Bautista",
+    "Orador": "Gabriel Quintana",
+    "Micrófono pie derecho": null,
+    "Atril": "Desde el atril, el presidente de sesión presenta el discurso núm. 7."
+  },
+  {
+    "Día": "SÁBADO MAÑANA",
+    "Hora": "10:40:00",
+    "Título": "Andrés",
+    "Orador": "Manuel Casino",
+    "Micrófono pie derecho": null,
+    "Atril": "SERIE DE DISCURSOS: Imitemos a Jesús cuando Satanás nos tiente."
+  },
+  {
+    "Día": "SÁBADO MAÑANA",
+    "Hora": "10:49:00",
+    "Título": "Pedro",
+    "Orador": "Esteban Martín",
+    "Micrófono pie derecho": null,
+    "Atril": "El orador presenta el discurso núm. 8"
+  },
+  {
+    "Día": "SÁBADO MAÑANA",
+    "Hora": "10:59:00",
+    "Título": "Juan",
+    "Orador": "Kevin Adiel Cobo (Betel)",
+    "Micrófono pie derecho": null,
+    "Atril": "SERIE DE DISCURSOS: Imitemos a Jesús cuando Satanás nos tiente."
+  },
+  {
+    "Día": "SÁBADO MAÑANA",
+    "Hora": "11:09:00",
+    "Título": "Santiago",
+    "Orador": "Rubén Verdés",
+    "Micrófono pie derecho": null,
+    "Atril": "El orador presenta el discurso núm. 9"
+  },
+  {
+    "Día": "SÁBADO MAÑANA",
+    "Hora": "11:17:00",
+    "Título": "Felipe",
+    "Orador": "David Mercader",
+    "Micrófono pie derecho": null,
+    "Atril": "SERIE DE DISCURSOS: Imitemos a Jesús cuando Satanás nos tiente."
+  },
+  {
+    "Día": "SÁBADO MAÑANA",
+    "Hora": "11:25:00",
+    "Título": "Natanael",
+    "Orador": "Daniel Sellarés",
+    "Micrófono pie derecho": null,
+    "Atril": "El orador presenta el discurso núm. 10"
+  },
+  {
+    "Día": "SÁBADO MAÑANA",
+    "Hora": "11:34:00",
+    "Título": "DISCURSO DE BAUTISMO: El significado de su bautismo”",
+    "Orador": "Natán Becerril",
+    "Micrófono pie derecho": null,
+    "Atril": "SERIE DE DISCURSOS: Imitemos a Jesús cuando Satanás nos tiente."
+  },
+  {
+    "Día": "SÁBADO MAÑANA",
+    "Hora": "12:05:00",
+    "Título": "Canción 52",
+    "Orador": null,
+    "Micrófono pie derecho": "El presidente de sesión presenta la canción 97",
+    "Atril": null
+  },
+  {
+    "Día": "SÁBADO TARDE",
+    "Hora": "Hora",
+    "Título": "Título del discurso - Canción",
+    "Orador": "Presidente/Orador",
+    "Micrófono pie derecho": "el presidente de sesión hace los anuncios y presenta el discurso núm. 11.",
+    "Atril": null
+  },
+  {
+    "Día": "SÁBADO TARDE",
+    "Hora": "13:45:00",
+    "Título": "Canción 36",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": "SERIE DE DISCURSOS: Lecciones sobre la tierra en la que vivió Jesús. "
+  },
+  {
+    "Día": "SÁBADO TARDE",
+    "Hora": "13:50:00",
+    "Título": "... a ser compasivos",
+    "Orador": "Jonatán Vicente",
+    "Micrófono pie derecho": null,
+    "Atril": "El orador presenta el discurso núm. 12"
+  },
+  {
+    "Día": "SÁBADO TARDE",
+    "Hora": "14:00:00",
+    "Título": "... a ser humildes",
+    "Orador": "Santiago Sáez",
+    "Micrófono pie derecho": null,
+    "Atril": "SERIE DE DISCURSOS: Lecciones sobre la tierra en la que vivió Jesús. "
+  },
+  {
+    "Día": "SÁBADO TARDE",
+    "Hora": "14:09:00",
+    "Título": "... a ser generosos",
+    "Orador": "Ricardo Anguita",
+    "Micrófono pie derecho": null,
+    "Atril": "El orador presenta el discurso núm. 13"
+  },
+  {
+    "Día": "SÁBADO TARDE",
+    "Hora": "14:20:00",
+    "Título": "¿Cómo quita el pecado \"el Cordero de Dios\"?",
+    "Orador": "Josué Rabaneda",
+    "Micrófono pie derecho": null,
+    "Atril": "SERIE DE DISCURSOS: Lecciones sobre la tierra en la que vivió Jesús. "
+  },
+  {
+    "Día": "SÁBADO TARDE",
+    "Hora": "14:45:00",
+    "Título": "La devoción por la casa de Jehová ardió en su interior",
+    "Orador": "Edgar Teruel (Betel)",
+    "Micrófono pie derecho": null,
+    "Atril": "El orador presenta el discurso núm. 14"
+  },
+  {
+    "Día": "SÁBADO TARDE",
+    "Hora": "14:56:00",
+    "Título": "Anunció \"buenas noticias a los mansos\"",
+    "Orador": "Álvaro Paniagua",
+    "Micrófono pie derecho": null,
+    "Atril": "SERIE DE DISCURSOS: Lecciones sobre la tierra en la que vivió Jesús. "
+  },
+  {
+    "Día": "SÁBADO TARDE",
+    "Hora": "15:06:00",
+    "Título": "\"Una gran luz\" brilló en Galilea",
+    "Orador": "Adolfo Fornieles",
+    "Micrófono pie derecho": null,
+    "Atril": "El orador presenta el discurso núm. 15"
+  },
+  {
+    "Día": "SÁBADO TARDE",
+    "Hora": "15.20",
+    "Título": "Canción 117",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": "SERIE DE DISCURSOS: Lecciones sobre la tierra en la que vivió Jesús. "
+  },
+  {
+    "Día": "SÁBADO TARDE",
+    "Hora": "15.30",
+    "Título": "\"¡Quiten todo esto de aquí!\"",
+    "Orador": "Alfonso Guerrero",
+    "Micrófono pie derecho": null,
+    "Atril": "El orador presenta el discurso núm. 16"
+  },
+  {
+    "Día": "SÁBADO TARDE",
+    "Hora": "16:00:00",
+    "Título": "\"Lo levantaré\"",
+    "Orador": "Andrés Mayor (Betel)",
+    "Micrófono pie derecho": null,
+    "Atril": "SERIE DE DISCURSOS: Lecciones sobre la tierra en la que vivió Jesús. "
+  },
+  {
+    "Día": "SÁBADO TARDE",
+    "Hora": "16:35:00",
+    "Título": "Canción 35",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": "El orador presenta el discurso núm. 17"
+  },
+  {
+    "Día": "DOMINGO MAÑANA",
+    "Hora": "Hora",
+    "Título": "Título del discurso - Canción",
+    "Orador": "Presidente/Orador",
+    "Micrófono pie derecho": null,
+    "Atril": "SERIE DE DISCURSOS: Lecciones sobre la tierra en la que vivió Jesús. "
+  },
+  {
+    "Día": "DOMINGO MAÑANA",
+    "Hora": "08:00:00",
+    "Título": "Mostrar el tema del día de la asamblea regional: “Lo adorarán con espíritu y con verdad” (Juan 4:23)",
+    "Orador": null,
+    "Micrófono pie derecho": "Desde el micrófono de pie a la derecha de la plataforma, el presidente de sesión presenta el discurso núm. 18.",
+    "Atril": null
+  },
+  {
+    "Día": "DOMINGO MAÑANA",
+    "Hora": "09:30:00",
+    "Título": "Canción 140",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": null
+  },
+  {
+    "Día": "DOMINGO MAÑANA",
+    "Hora": "09:40:00",
+    "Título": "Nacer \"del agua y del espíritu\"",
+    "Orador": "Isaac Díaz",
+    "Micrófono pie derecho": "el presidente de sesión presenta la canción 34 y la oración de conclusión",
+    "Atril": null
+  },
+  {
+    "Día": "DOMINGO MAÑANA",
+    "Hora": "09:55:00",
+    "Título": "\"Ningún hombre ha subido al cielo\"",
+    "Orador": "Benjamín Ferrer",
+    "Micrófono pie derecho": null,
+    "Atril": "Desde el atril, oración por: "
+  },
+  {
+    "Día": "DOMINGO MAÑANA",
+    "Hora": "10:07:00",
+    "Título": "Ir \"a la luz\"",
+    "Orador": "Francisco Javier Villa",
+    "Micrófono pie derecho": null,
+    "Atril": null
+  },
+  {
+    "Día": "DOMINGO MAÑANA",
+    "Hora": "10:21:00",
+    "Título": "\"Ese soy yo\"",
+    "Orador": "Joseph Salazar",
+    "Micrófono pie derecho": null,
+    "Atril": null
+  },
+  {
+    "Día": "DOMINGO MAÑANA",
+    "Hora": "10:35:00",
+    "Título": "\"Mi alimento\"",
+    "Orador": "Fernando Teruel",
+    "Micrófono pie derecho": "Microfono  de pie derecha",
+    "Atril": "Atril"
+  },
+  {
+    "Día": "DOMINGO MAÑANA",
+    "Hora": "10:49:00",
+    "Título": "\"Los campos están blanos, listos para la cosecha\"",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": null
+  },
+  {
+    "Día": "DOMINGO MAÑANA",
+    "Hora": "11:05:00",
+    "Título": "Canción 37",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": "Desde el atril, el presidente de sesión invita al público a sentarse"
+  },
+  {
+    "Día": "DOMINGO MAÑANA",
+    "Hora": "11:15:00",
+    "Título": "DISCURSO PÚBLICO: ¿Sabe en qué se basan sus creencias?",
+    "Orador": "José Manuel Lara",
+    "Micrófono pie derecho": null,
+    "Atril": "Comienza la cuenta regresiva del video"
+  },
+  {
+    "Día": "DOMINGO MAÑANA",
+    "Hora": "11:45:00",
+    "Título": "Resumen de La Atalaya ",
+    "Orador": "Nino Llopis",
+    "Micrófono pie derecho": null,
+    "Atril": "Desde el atril, el presidente de sesión presenta el video musical. Permanece sentado en plataforma."
+  },
+  {
+    "Día": "DOMINGO MAÑANA",
+    "Hora": "12:15:00",
+    "Título": "Canción 61",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": null
+  },
+  {
+    "Día": "DOMINGO TARDE",
+    "Hora": "Hora",
+    "Título": "Título del discurso - Canción",
+    "Orador": "Presidente/Orador",
+    "Micrófono pie derecho": null,
+    "Atril": "Desde el atril, el presidente de sesión presenta la canción 93 y la oración de apertura"
+  },
+  {
+    "Día": "DOMINGO TARDE",
+    "Hora": "13:34:00",
+    "Título": " ",
+    "Orador": "Julián Lasheras",
+    "Micrófono pie derecho": null,
+    "Atril": "Desde el atril, oración por: "
+  },
+  {
+    "Día": "DOMINGO TARDE",
+    "Hora": "13:45:00",
+    "Título": "Canción 77",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": "Desde el atril, el presidente de sesión presenta el discurso núm.19."
+  },
+  {
+    "Día": "DOMINGO TARDE",
+    "Hora": "13:50:00",
+    "Título": "Las buenas noticias según Jesús: Episodio 3. \"Ese soy yo\"",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": null
+  },
+  {
+    "Día": "DOMINGO TARDE",
+    "Hora": "14:35:00",
+    "Título": "Canción 20",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": null
+  },
+  {
+    "Día": "DOMINGO TARDE",
+    "Hora": "14:45:00",
+    "Título": "¿Qué hemos aprendido? ",
+    "Orador": null,
+    "Micrófono pie derecho": null,
+    "Atril": "PRODUCCIÓN AUDIOVISUAL: "
+  },
+  {
+    "Día": "DOMINGO TARDE",
+    "Hora": "14:55:00",
+    "Título": "¡Permanezcamos en el gran templo espiritual de Jehová!",
+    "Orador": "Andrés Mayor (Betel)",
+    "Micrófono pie derecho": "El presidente de sesión presenta la canción 54",
+    "Atril": null
+  },
+  {
+    "Día": "DOMINGO TARDE",
+    "Hora": "15:45:00",
+    "Título": "Canción de conclusión",
+    "Orador": null,
+    "Micrófono pie derecho": "El presidente de sesión hace anuncios y presenta el video Solicite ir a la Escuela para Evangelizadores del Reino (fragmento)",
+    "Atril": null
+  }
 ];
 
+
 // --- NUEVA DATA: RESPONSABLES DE TURNO ---
-const dataResponsables = {
-  "distribucion_tareas": {
-    "COMUNICACION_AV": [
-      "Manel Casino",
-      "Rafael Monje"
-    ],
-    "ATREZZO_CRONO": [
-      "Rubén Gomez",
-      "Adriá Rivera"
-    ],
-    "ATRIL": [
-      "Alejandro Hernandez",
-      "Javier Bolivar",
-      "Mario Martín"
-    ],
-    "MAQUILLAJE": [
-      "Inma Casino",
-      "Vanessa Intriago",
-      "Raquel Pállares",
-      "Ana Marañon",
-      "Sandra Ortega",
-      "Gemma Monje"
-    ],
-    "RECEPCION_ENLACE": [
-      "Juan Carlos Marín",
-      "Luis Fernando Paz"
-    ]
+const dataResponsables = [
+  {
+    "Día": "Viernes",
+    "Turno": "Mañana",
+    "Comunicación AV": "Manel Casino",
+    "Atrezzo/Crono": "Rubén Gomez",
+    "Atril": "Javier Bolivar",
+    "Recepción y Enlace": "Juan Carlos Marín",
+    "Maquillaje": "Inma C., Vanessa C., Raquel P.",
+    "Maquillaje Plataforma": "Gemma Monje"
   },
-
-  "turnos": {
-    "viernes": {
-      "mañana": {
-        "COMUNICACION_AV": "Manel Casino",
-        "ATREZZO_CRONO": "Rubén Gomez",
-        "ATRIL": "Javier Bolivar",
-        "RECEPCION_ENLACE": "Juan Carlos Marín",
-        "MAQUILLAJE": [
-          "Inma Casino",
-          "Vanessa Intriago",
-          "Raquel Pállares"
-        ],
-        "MAQUILLAJE_PLATAFORMA": "Gemma Monje"
-      },
-      "tarde": {
-        "COMUNICACION_AV": "Rafael Monje",
-        "ATREZZO_CRONO": "Adriá Rivera",
-        "ATRIL": "Alejandro Hernandez",
-        "RECEPCION_ENLACE": "Luis Fernando Paz",
-        "MAQUILLAJE": [
-          "Ana Marañon",
-          "Sandra Ortega",
-          "Gemma Monje"
-        ],
-        "MAQUILLAJE_PLATAFORMA": "Raquel Pállares"
-      }
-    },
-
-    "sabado": {
-      "mañana": {
-        "COMUNICACION_AV": "Rafael Monje",
-        "ATREZZO_CRONO": "Adriá Rivera",
-        "ATRIL": "Mario Martín",
-        "RECEPCION_ENLACE": "Luis Fernando Paz",
-        "MAQUILLAJE": [
-          "Gemma Monje",
-          "Inma Casino",
-          "Sandra Ortega"
-        ],
-        "MAQUILLAJE_PLATAFORMA": "Ana Marañon"
-      },
-      "tarde": {
-        "COMUNICACION_AV": "Manel Casino",
-        "ATREZZO_CRONO": "Rubén Gomez",
-        "ATRIL": "Javier Bolivar",
-        "RECEPCION_ENLACE": "Juan Carlos Marín",
-        "MAQUILLAJE": [
-          "Vanessa Intriago",
-          "Raquel Pállares",
-          "Ana Marañon"
-        ],
-        "MAQUILLAJE_PLATAFORMA": "Sandra Ortega"
-      }
-    },
-
-    "domingo": {
-      "mañana": {
-        "COMUNICACION_AV": "Manel Casino",
-        "ATREZZO_CRONO": "Rubén Gomez",
-        "ATRIL": "Alejandro Hernandez",
-        "RECEPCION_ENLACE": "Juan Carlos Marín",
-        "MAQUILLAJE": [
-          "Ana Marañon",
-          "Sandra Ortega",
-          "Vanessa Intriago"
-        ],
-        "MAQUILLAJE_PLATAFORMA": "Inma Casino"
-      },
-      "tarde": {
-        "COMUNICACION_AV": "Rafael Monje",
-        "ATREZZO_CRONO": "Adriá Rivera",
-        "ATRIL": "Mario Martín",
-        "RECEPCION_ENLACE": "Luis Fernando Paz",
-        "MAQUILLAJE": [
-          "Gemma Monje",
-          "Ana Marañon",
-          "Raquel Pállares"
-        ],
-        "MAQUILLAJE_PLATAFORMA": "Vanessa Intriago"
-      }
-    }
+  {
+    "Día": "Viernes",
+    "Turno": "Tarde",
+    "Comunicación AV": "Rafael Monje",
+    "Atrezzo/Crono": "Adriá Rivera",
+    "Atril": "Alejandro Hernandez",
+    "Recepción y Enlace": "Luis Fernando Paz",
+    "Maquillaje": "Ana M., Sandra O., Gemma M.",
+    "Maquillaje Plataforma": "Raquel Pallares"
+  },
+  {
+    "Día": "Sábado",
+    "Turno": "Mañana",
+    "Comunicación AV": "Rafael Monje",
+    "Atrezzo/Crono": "Adriá Rivera",
+    "Atril": "Mario Martín",
+    "Recepción y Enlace": "Luis Fernando Paz",
+    "Maquillaje": "Gemma M., Inma C., Sandra O.",
+    "Maquillaje Plataforma": "Ana Marañón"
+  },
+  {
+    "Día": "Sábado",
+    "Turno": "Tarde",
+    "Comunicación AV": "Manel Casino",
+    "Atrezzo/Crono": "Rubén Gomez",
+    "Atril": "Javier Bolivar",
+    "Recepción y Enlace": "Juan Carlos Marín",
+    "Maquillaje": "Vanessa C., Raquel P., Ana M.",
+    "Maquillaje Plataforma": "Sandra Ortega"
+  },
+  {
+    "Día": "Domingo",
+    "Turno": "Mañana",
+    "Comunicación AV": "Manel Casino",
+    "Atrezzo/Crono": "Rubén Gomez",
+    "Atril": "Alejandro Hernandez",
+    "Recepción y Enlace": "Juan Carlos Marín",
+    "Maquillaje": "Ana M., Sandra O., Vanessa C.",
+    "Maquillaje Plataforma": "Inma Casino"
+  },
+  {
+    "Día": "Domingo",
+    "Turno": "Tarde",
+    "Comunicación AV": "Rafael Monje",
+    "Atrezzo/Crono": "Adriá Rivera",
+    "Atril": "Mario Martín",
+    "Recepción y Enlace": "Luis Fernando Paz",
+    "Maquillaje": "Gemma C., Ana M., Raquel P.",
+    "Maquillaje Plataforma": "Vanessa Intriago"
   }
-};
+];
 
 
 // --- ELEMENTOS DEL DOM ---
@@ -330,12 +792,13 @@ const passwordInput = document.getElementById('password-input');
 const loginError = document.getElementById('login-error');
 const appContainer = document.getElementById('app-container');
 const logoutButton = document.getElementById('logout-button');
-const navContainer = document.getElementById('day-nav');
-const programContainer = document.getElementById('program-container');
+const navContainer = document.getElementById('day-nav'); // Ahora contiene todos los botones de navegación
+const programContainer = document.getElementById('program-container'); // Contenedor del checklist
 const summaryPanel = document.getElementById('summary-panel');
-const horariosContainer = document.getElementById('horarios-container'); // Nuevo
-const responsablesContainer = document.getElementById('responsables-container'); // Nuevo
-const responsablesContent = document.getElementById('responsables-content'); // Nuevo
+const horariosContainer = document.getElementById('horarios-container'); // Contenedor de la tabla de horarios
+const horariosContent = document.getElementById('horarios-content'); // Contenido de la tabla de horarios
+const responsablesContainer = document.getElementById('responsables-container'); // Contenedor de la tabla de responsables
+const responsablesContent = document.getElementById('responsables-content'); // Contenido de la tabla de responsables
 const body = document.body;
 
 // Estado actual de la vista (checklist, horarios, responsables)
@@ -656,66 +1119,73 @@ function syncStateFromFirebase() {
  * Genera y muestra el horario completo del programa.
  */
 function mostrarHorarioCompleto() {
-    horariosContainer.innerHTML = ''; // Limpiar contenido anterior
-    let currentDayHeader = '';
-    let currentSessionHeader = '';
-
+    horariosContent.innerHTML = ''; // Limpiar contenido anterior
     const diasOrden = ['Viernes', 'Sábado', 'Domingo'];
 
-    diasOrden.forEach(dia => {
-        const horarioDia = horarioProgramaCompleto.filter(item => item.dia === dia);
-        if (horarioDia.length > 0) {
+    diasOrden.forEach(diaKey => {
+        const diaData = horarioProgramaCompleto.filter(item => item['Día'].startsWith(diaKey.toUpperCase()));
+        if (diaData.length > 0) {
             const dayDiv = document.createElement('div');
             dayDiv.className = 'horario-day-section';
-            dayDiv.id = `horario-${dia.toLowerCase()}`;
-            dayDiv.innerHTML = `<h2>${dia}</h2>`;
+            dayDiv.id = `horario-${diaKey.toLowerCase()}`;
+            dayDiv.innerHTML = `<h2>${diaKey}</h2>`;
 
             const sesionesDia = {};
-            horarioDia.forEach(item => {
-                const sesionKey = item.sesion || 'General'; // Agrupar por sesión o un genérico
-                if (!sesionesDia[sesionKey]) {
-                    sesionesDia[sesionKey] = [];
+            // Agrupar por "sesión" (Mañana/Tarde) basándose en el nombre del día
+            diaData.forEach(item => {
+                let sessionName = '';
+                if (item['Día'].includes('MAÑANA')) {
+                    sessionName = 'Mañana';
+                } else if (item['Día'].includes('TARDE')) {
+                    sessionName = 'Tarde';
+                } else {
+                    sessionName = 'General'; // Para casos que no especifiquen
                 }
-                sesionesDia[sesionKey].push(item);
+                
+                if (!sesionesDia[sessionName]) {
+                    sesionesDia[sessionName] = [];
+                }
+                sesionesDia[sessionName].push(item);
             });
 
-            for (const sesion in sesionesDia) {
+            for (const sesionName in sesionesDia) {
                 const sessionDiv = document.createElement('div');
                 sessionDiv.className = 'horario-session-block';
-                sessionDiv.innerHTML = `<h3>${sesion}</h3>`;
+                sessionDiv.innerHTML = `<h3>${sesionName}</h3>`;
 
                 const table = document.createElement('table');
                 table.innerHTML = `
                     <thead>
                         <tr>
                             <th>Hora</th>
-                            <th>Nº</th>
-                            <th>Duración</th>
-                            <th>Descripción</th>
-                            <th>Orador / Título</th>
-                            <th>Multimedia</th>
+                            <th>Título del Discurso / Canción</th>
+                            <th>Orador / Presidente</th>
+                            <th>Micrófono Pie Derecho</th>
+                            <th>Atril</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 `;
                 const tbody = table.querySelector('tbody');
 
-                sesionesDia[sesion].forEach(item => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${item.hora || ''}</td>
-                        <td>${item.numero_programa !== null ? item.numero_programa : ''}</td>
-                        <td>${item.duracion || ''}</td>
-                        <td>${item.descripcion || ''}</td>
-                        <td>${item.orador_o_titulo || ''}</td>
-                        <td>${item.multimedia || ''}</td>
-                    `;
-                    tbody.appendChild(row);
+                sesionesDia[sesionName].forEach(item => {
+                    // Solo renderizar filas con información relevante (omitir las de solo encabezados de columna)
+                    if (item['Hora'] !== 'Hora' && !isNaN(item['Hora'])) { // Validar si 'Hora' es un valor real (no "Hora" o NaN)
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${item['Hora'] ? item['Hora'].substring(0, 5) : ''}</td>
+                            <td>${item['Título'] || ''}</td>
+                            <td>${item['Orador'] || ''}</td>
+                            <td>${item['Micrófono pie derecho'] !== null && !isNaN(item['Micrófono pie derecho']) ? item['Micrófono pie derecho'] : ''}</td>
+                            <td>${item['Atril'] !== null && !isNaN(item['Atril']) ? item['Atril'] : ''}</td>
+                        `;
+                        tbody.appendChild(row);
+                    }
                 });
                 sessionDiv.appendChild(table);
                 dayDiv.appendChild(sessionDiv);
             }
-            horariosContainer.appendChild(dayDiv);
+            horariosContent.appendChild(dayDiv);
         }
     });
 }
@@ -726,58 +1196,45 @@ function mostrarHorarioCompleto() {
 function mostrarResponsablesDeTurno() {
     responsablesContent.innerHTML = ''; // Limpiar contenido anterior
 
-    // Sección de Distribución de Tareas
-    const distribucionDiv = document.createElement('div');
-    distribucionDiv.className = 'responsables-section';
-    distribucionDiv.innerHTML = `<h3>Distribución de Tareas</h3>`;
-    for (const tarea in dataResponsables.distribucion_tareas) {
-        const ul = document.createElement('ul');
-        ul.innerHTML = `<strong>${tarea.replace(/_/g, ' ')}:</strong>`;
-        dataResponsables.distribucion_tareas[tarea].forEach(persona => {
-            const li = document.createElement('li');
-            li.textContent = persona;
-            ul.appendChild(li);
-        });
-        distribucionDiv.appendChild(ul);
-    }
-    responsablesContent.appendChild(distribucionDiv);
+    const diasOrden = ['Viernes', 'Sábado', 'Domingo'];
 
-    // Secciones por día y sesión
-    const diasTurnoOrden = ['viernes', 'sabado', 'domingo'];
-    diasTurnoOrden.forEach(diaKey => {
-        const diaData = dataResponsables.turnos[diaKey];
-        if (diaData) {
-            const diaDiv = document.createElement('div');
-            diaDiv.className = 'responsables-day-section';
-            diaDiv.innerHTML = `<h2>${diaKey.charAt(0).toUpperCase() + diaKey.slice(1)}</h2>`; // Capitalizar día
+    diasOrden.forEach(diaKey => {
+        const dayData = dataResponsables.filter(item => item['Día'] === diaKey);
+        if (dayData.length > 0) {
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'responsables-day-section';
+            dayDiv.id = `responsables-${diaKey.toLowerCase()}`;
+            dayDiv.innerHTML = `<h2>${diaKey}</h2>`;
 
-            const sesiones = ['mañana', 'tarde']; // Asumiendo mañana y tarde
+            const sesiones = ['Mañana', 'Tarde']; // Asumiendo mañana y tarde
             sesiones.forEach(sesionKey => {
-                const sesionData = diaData[sesionKey];
+                const sesionData = dayData.find(item => item['Turno'] === sesionKey);
                 if (sesionData) {
                     const sesionDiv = document.createElement('div');
                     sesionDiv.className = 'responsables-session-block';
-                    sesionDiv.innerHTML = `<h3>${sesionKey.charAt(0).toUpperCase() + sesionKey.slice(1)}</h3>`; // Capitalizar sesión
+                    sesionDiv.innerHTML = `<h3>${sesionKey}</h3>`;
 
                     const ul = document.createElement('ul');
+                    // Excluir 'Día' y 'Turno' de la lista
                     for (const rol in sesionData) {
-                        const li = document.createElement('li');
-                        let personas = sesionData[rol];
-                        if (Array.isArray(personas)) {
-                            personas = personas.join(', ');
+                        if (rol !== 'Día' && rol !== 'Turno') {
+                            const li = document.createElement('li');
+                            let personas = sesionData[rol];
+                            if (Array.isArray(personas)) {
+                                personas = personas.join(', ');
+                            }
+                            li.innerHTML = `<strong>${rol}:</strong> ${personas}`;
+                            ul.appendChild(li);
                         }
-                        li.innerHTML = `<strong>${rol.replace(/_/g, ' ')}:</strong> ${personas}`;
-                        ul.appendChild(li);
                     }
                     sesionDiv.appendChild(ul);
-                    diaDiv.appendChild(sesionDiv);
+                    dayDiv.appendChild(sesionDiv);
                 }
             });
-            responsablesContent.appendChild(diaDiv);
+            responsablesContent.appendChild(dayDiv);
         }
     });
 }
-
 
 /**
  * Maneja el cambio de vista de la aplicación (checklist, horarios, responsables).
@@ -790,40 +1247,70 @@ function changeAppView(view, day = null) {
         currentDay = day;
     }
 
-    // Ocultar todas las secciones de contenido
+    // Ocultar todas las secciones de contenido principales
     programContainer.classList.add('hidden');
     horariosContainer.classList.add('hidden');
     responsablesContainer.classList.add('hidden');
-    summaryPanel.classList.add('hidden'); // Ocultar panel de resumen por defecto
+    summaryPanel.classList.add('hidden');
 
-    // Desactivar todos los botones de navegación
-    navContainer.querySelectorAll('.nav-button').forEach(button => button.classList.remove('active'));
+    // Ocultar todos los botones de día y desactivar todos los botones principales
+    navContainer.querySelectorAll('.nav-button').forEach(button => {
+        button.classList.remove('active');
+        if (button.classList.contains('sub-day-button')) {
+            button.classList.add('hidden');
+        }
+    });
 
-    // Mostrar la vista y activar el botón correspondiente
+    // Mostrar la vista y activar el botón principal correspondiente
+    const mainViewButton = navContainer.querySelector(`.nav-button.main-view-button[data-view="${view}"]`);
+    if (mainViewButton) {
+        mainViewButton.classList.add('active');
+    }
+
     if (view === 'checklist') {
         programContainer.classList.remove('hidden');
-        summaryPanel.classList.remove('hidden'); // Mostrar panel de resumen solo para checklist
-        // Activar botones de día para checklist
-        navContainer.querySelector(`.nav-button[data-view="checklist"][data-day="${currentDay}"]`).classList.add('active');
+        summaryPanel.classList.remove('hidden');
+        
+        // Mostrar los botones de día para la vista de checklist
+        navContainer.querySelectorAll('.nav-button.sub-day-button[data-view="checklist"]').forEach(button => {
+            button.classList.remove('hidden');
+        });
+        // Activar el botón del día actual para checklist
+        const currentChecklistDayButton = navContainer.querySelector(`.nav-button.sub-day-button[data-view="checklist"][data-day="${currentDay}"]`);
+        if (currentChecklistDayButton) {
+            currentChecklistDayButton.classList.add('active');
+        }
+
         document.querySelectorAll('.day-content').forEach(d => d.classList.add('hidden'));
         document.getElementById(`content-${currentDay}`).classList.remove('hidden');
         setDayTheme(currentDay);
-        updateSummary(); // Asegurarse de que el resumen se actualice al cambiar de día en checklist
+        updateSummary();
+        document.title = `(${document.querySelectorAll('.participant-accordion.is-complete').length}/${document.querySelectorAll('.participant-accordion:not(.is-audiovisual)').length}) Checklist ${currentDay}`;
     } else if (view === 'horarios') {
         horariosContainer.classList.remove('hidden');
-        navContainer.querySelector('.nav-button[data-view="horarios"]').classList.add('active');
+        
+        // Mostrar los botones de día para la vista de horarios
+        navContainer.querySelectorAll('.nav-button.sub-day-button[data-view="horarios"]').forEach(button => {
+            button.classList.remove('hidden');
+        });
+        // Activar el botón del día actual para horarios
+        const currentHorariosDayButton = navContainer.querySelector(`.nav-button.sub-day-button[data-view="horarios"][data-day="${currentDay}"]`);
+        if (currentHorariosDayButton) {
+            currentHorariosDayButton.classList.add('active');
+        }
+        
         mostrarHorarioCompleto();
-        // Para la vista de horarios, también aplicamos un tema de día si hay uno activo,
-        // o un tema por defecto si no lo hay (ej. Viernes).
-        setDayTheme(currentDay || 'Viernes');
-        document.title = `Horario del Programa`; // Título para la vista de horarios
+        // Ocultar todas las secciones de día dentro de horarios y mostrar solo la actual
+        document.querySelectorAll('.horario-day-section').forEach(d => d.classList.add('hidden'));
+        document.getElementById(`horario-${currentDay.toLowerCase()}`).classList.remove('hidden');
+        
+        setDayTheme(currentDay);
+        document.title = `Horario del Programa - ${currentDay}`;
     } else if (view === 'responsables') {
         responsablesContainer.classList.remove('hidden');
-        navContainer.querySelector('.nav-button[data-view="responsables"]').classList.add('active');
         mostrarResponsablesDeTurno();
-        // Aplicar un tema de día por defecto o neutral para la vista de responsables
-        setDayTheme('Viernes'); // O puedes elegir un color neutral como 'day-neutral'
-        document.title = `Responsables de Turno`; // Título para la vista de responsables
+        setDayTheme('Viernes'); // Puedes elegir un tema por defecto o neutral
+        document.title = `Responsables de Turno`;
     }
 }
 
@@ -860,36 +1347,18 @@ function setupEventListeners() {
         if (!button) return;
 
         const newView = button.dataset.view;
-        const newDay = button.dataset.day; // Podría ser undefined para responsables
+        const newDay = button.dataset.day;
 
-        if (newView === currentView && newDay === currentDay) {
-            // No hacer nada si ya está en la misma vista y día
-            return;
-        }
-
-        // Si se hace clic en un botón de día (checklist/horarios)
-        if (newDay) {
-            // Si el botón es de "checklist" o "horarios", cambiamos el día y mantenemos la vista
-            if (newView === 'checklist') {
-                navContainer.querySelector('.nav-button.active[data-view="checklist"]').classList.remove('active');
-                button.classList.add('active');
-                document.querySelectorAll('.day-content').forEach(d => d.classList.add('hidden'));
-                document.getElementById(`content-${newDay}`).classList.remove('hidden');
-                currentDay = newDay;
-                setDayTheme(currentDay);
-                updateSummary();
-            } else if (newView === 'horarios') {
-                 // Si ya estamos en la vista de horarios, no hacemos nada con los botones de día del checklist.
-                 // Si venimos de la vista de checklist, cambiamos a la vista de horarios y mantenemos el día.
-                if (currentView !== 'horarios') {
-                    changeAppView('horarios', newDay);
-                } else {
-                     // Si ya estamos en horarios, podemos ignorar clics en los botones de día
-                     // que originalmente eran para checklist.
-                }
+        // Lógica para botones de vista principales (Checklist, Horarios, Responsables)
+        if (button.classList.contains('main-view-button')) {
+            changeAppView(newView);
+        } 
+        // Lógica para botones de día secundarios (Viernes, Sábado, Domingo)
+        else if (button.classList.contains('sub-day-button')) {
+            // Asegurarse de que el día sea para la vista activa (checklist o horarios)
+            if (newView === currentView) {
+                changeAppView(newView, newDay);
             }
-        } else { // Si se hace clic en un botón de vista (Responsables, o el botón principal de Checklist/Horarios)
-             changeAppView(newView);
         }
     });
 
@@ -959,4 +1428,3 @@ loginForm.addEventListener('submit', async (e) => {
         loginError.classList.remove('hidden');
     }
 });
-
