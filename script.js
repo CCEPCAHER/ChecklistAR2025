@@ -104,18 +104,47 @@ const itemsChecklist = [
     { id: 'discursado', texto: 'Participación completada', tipo: 'checkbox', icon: 'fa-solid fa-microphone-slash', indicator: true }
 ];
 
-// --- ELEMENTOS DEL DOM ---
-const loginScreen = document.getElementById('login-screen');
-const loginForm = document.getElementById('login-form');
-const emailInput = document.getElementById('email-input');
-const passwordInput = document.getElementById('password-input');
-const loginError = document.getElementById('login-error');
-const appContainer = document.getElementById('app-container');
-const logoutButton = document.getElementById('logout-button');
-const navContainer = document.getElementById('day-nav');
-const programContainer = document.getElementById('program-container');
-const summaryPanel = document.getElementById('summary-panel');
-const body = document.body;
+// --- ELEMENTOS DEL DOM (se obtienen después de que el usuario se autentica) ---
+let loginScreen;
+let loginForm;
+let emailInput;
+let passwordInput;
+let loginError;
+let appContainer;
+let logoutButton;
+let navContainer;
+let programContainer;
+let summaryPanel;
+let body;
+
+// --- Nueva funcionalidad de tabla del programa ---
+let openProgramTableBtn;
+let closeProgramTableBtn;
+let programTableOverlay;
+let tabButtons;
+let tabContents;
+
+// Función para obtener los elementos del DOM una vez que la estructura HTML esté visible
+function getDOMElements() {
+    loginScreen = document.getElementById('login-screen');
+    loginForm = document.getElementById('login-form');
+    emailInput = document.getElementById('email-input');
+    passwordInput = document.getElementById('password-input');
+    loginError = document.getElementById('login-error');
+    appContainer = document.getElementById('app-container');
+    logoutButton = document.getElementById('logout-button');
+    navContainer = document.getElementById('day-nav');
+    programContainer = document.getElementById('program-container');
+    summaryPanel = document.getElementById('summary-panel');
+    body = document.body;
+
+    // Elementos de la nueva tabla
+    openProgramTableBtn = document.getElementById('openProgramTable');
+    closeProgramTableBtn = document.getElementById('closeProgramTable');
+    programTableOverlay = document.getElementById('programTableOverlay');
+    tabButtons = document.querySelectorAll('.tab-navigation .tab-button');
+    tabContents = document.querySelectorAll('.tab-content');
+}
 
 // --- FUNCIONES DE LA APLICACIÓN ---
 
@@ -197,7 +226,12 @@ function crearAcordeon(participante) {
         checklistContainer.className = 'checklist-container';
 
         itemsChecklist.forEach(item => {
-            if ((esOra && ocOra.includes(item.id)) || (esBetel && ocBet.includes(item.id))) return;
+            // Condición para ocultar/deshabilitar elementos del checklist
+            if ((esOra && ocOra.includes(item.id)) || (esBetel && ocBet.includes(item.id))) {
+                // Si el elemento debe ser ocultado por estas reglas, simplemente no lo creamos.
+                // Opcionalmente, podrías crearlo con 'display: none' si necesitas que esté en el DOM por alguna razón.
+                return;
+            }
 
             const itemDiv = document.createElement('div');
             itemDiv.className = 'checklist-item';
@@ -305,8 +339,8 @@ function actualizarEstadoUI(accordion) {
     const esOra = rol.includes('Oración');
     const ocOra = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
     const ocBet = ['orientacion', 'recordatorios'];
-    const maquillajeRadio = accordion.querySelector('input[data-item-id="maquillaje"]:checked');
-    const esNA = maquillajeRadio && maquillajeRadio.value === 'N/A';
+    const maquillajeRadio = accordion.querySelector('input[data-item-id="maquillaje"][value="N/A"]'); // Check specifically for N/A radio
+    const esNA = maquillajeRadio && maquillajeRadio.checked;
     
     // Deshabilitar repaso de maquillaje si se selecciona N/A
     const repasoContainer = accordion.querySelector('[data-container-for="repaso_maquillaje"]');
@@ -316,18 +350,29 @@ function actualizarEstadoUI(accordion) {
             inputRepaso.disabled = esNA;
             if (esNA && inputRepaso.checked) {
                 inputRepaso.checked = false;
-                inputRepaso.dispatchEvent(new Event('change', { bubbles: true }));
+                inputRepaso.dispatchEvent(new Event('change', { bubbles: true })); // Trigger change to save to Firebase
             }
         }
         repasoContainer.classList.toggle('disabled', esNA);
     }
 
     // Calcular progreso
-    const itemsAplicables = itemsChecklist.filter(it => 
-        !(esOra && ocOra.includes(it.id)) && 
-        !(esBetel && ocBet.includes(it.id)) && 
-        !(esNA && it.id === 'repaso_maquillaje')
-    );
+    const itemsAplicables = itemsChecklist.filter(item => {
+        // Excluir elementos si el rol es 'Oración' y están en ocOra
+        if (esOra && ocOra.includes(item.id)) {
+            return false;
+        }
+        // Excluir elementos si el nombre contiene 'Betel'/'BTL' y están en ocBet
+        if (esBetel && ocBet.includes(item.id)) {
+            return false;
+        }
+        // Excluir 'repaso_maquillaje' si 'maquillaje' es 'N/A'
+        if (esNA && item.id === 'repaso_maquillaje') {
+            return false;
+        }
+        return true;
+    });
+
     const totalTasks = itemsAplicables.length;
     let completedTasks = 0;
     
@@ -357,16 +402,34 @@ function actualizarEstadoUI(accordion) {
     accordion.querySelectorAll('.indicator').forEach(indicator => {
         indicator.className = 'indicator'; // Reset class
         const itemId = indicator.dataset.indicatorFor;
-        const input = accordion.querySelector(`input[data-item-id="${itemId}"]`);
-        
-        if (input && !input.disabled) { // Solo actualiza si no está deshabilitado
-            if (input.type === 'checkbox' && input.checked) {
-                indicator.classList.add(itemId);
-            } else if (input.type === 'radio') {
-                const checkedRadio = accordion.querySelector(`input[name="${input.name}"]:checked`);
-                if (checkedRadio) {
-                    const valueClass = `maquillaje-${checkedRadio.value.toLowerCase().replace('/', '')}`;
-                    indicator.classList.add(valueClass);
+
+        // Check if this indicator's item should be hidden/disabled based on participant rules
+        const itemConfig = itemsChecklist.find(it => it.id === itemId);
+        let shouldHideIndicator = false;
+        if (itemConfig) {
+            if ((esOra && ocOra.includes(itemConfig.id)) || (esBetel && ocBet.includes(itemConfig.id))) {
+                shouldHideIndicator = true;
+            }
+            if (esNA && itemConfig.id === 'repaso_maquillaje') {
+                shouldHideIndicator = true;
+            }
+        }
+
+        if (shouldHideIndicator) {
+            indicator.style.display = 'none'; // Hide the indicator if not applicable
+        } else {
+            indicator.style.display = ''; // Ensure it's visible if applicable
+            const input = accordion.querySelector(`input[data-item-id="${itemId}"]`);
+            
+            if (input && !input.disabled) { 
+                if (input.type === 'checkbox' && input.checked) {
+                    indicator.classList.add(itemId);
+                } else if (input.type === 'radio') {
+                    const checkedRadio = accordion.querySelector(`input[name="${input.name}"]:checked`);
+                    if (checkedRadio) {
+                        const valueClass = `maquillaje-${checkedRadio.value.toLowerCase().replace(/\s|\//g, '')}`; // Fix regex for N/A
+                        indicator.classList.add(valueClass);
+                    }
                 }
             }
         }
@@ -386,7 +449,15 @@ function updateSummary() {
 
     const totalParticipantes = dayContent.querySelectorAll('.participant-accordion:not(.is-audiovisual)').length;
     const completos = dayContent.querySelectorAll('.participant-accordion.is-complete').length;
-    const conMaquillaje = dayContent.querySelectorAll(`#content-${day} input[data-item-id="maquillaje"][value="Sí"]:checked`).length;
+    
+    // Count 'Maquillaje: Sí' explicitly
+    let conMaquillaje = 0;
+    dayContent.querySelectorAll('.participant-accordion').forEach(accordion => {
+        const maquillajeSiRadio = accordion.querySelector('input[data-item-id="maquillaje"][value="Sí"]');
+        if (maquillajeSiRadio && maquillajeSiRadio.checked) {
+            conMaquillaje++;
+        }
+    });
 
     summaryPanel.innerHTML = `
         <div class="summary-item"><div class="count">${totalParticipantes}</div><div class="label">Participantes</div></div>
@@ -440,7 +511,9 @@ function syncStateFromFirebase() {
                         if (checkbox) {
                             checkbox.checked = value;
                         } else { // Radios
-                            accordion.querySelectorAll(`input[data-item-id="${key}"]`).forEach(radio => {
+                            // Ensure to check if radio element exists before trying to access properties
+                            const radioElements = accordion.querySelectorAll(`input[data-item-id="${key}"]`);
+                            radioElements.forEach(radio => {
                                 radio.checked = (radio.value === value);
                                 radio.dataset.wasChecked = radio.checked; // Mantener el estado para deselección
                             });
@@ -453,6 +526,77 @@ function syncStateFromFirebase() {
         });
     });
 }
+
+/**
+ * Genera el contenido de las tablas del programa.
+ */
+function generateProgramTables() {
+    const dayMap = {
+        'Viernes': ['Viernes Mañana', 'Viernes Tarde'],
+        'Sábado': ['Sábado Mañana', 'Sábado Tarde'],
+        'Domingo': ['Domingo Mañana', 'Domingo Tarde']
+    };
+
+    for (const day in dayMap) {
+        const tableContentDiv = document.getElementById(`${day}TableContent`);
+        if (!tableContentDiv) continue;
+
+        tableContentDiv.innerHTML = ''; // Clear previous content
+
+        dayMap[day].forEach(sessionName => {
+            const sessionData = programa.find(s => s.sesion === sessionName);
+            if (!sessionData) return;
+
+            const sessionTableHTML = `
+                <h2>${sessionName}</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>Hora</th>
+                            <th>Discurso</th>
+                            <th>T</th>
+                            <th>Orador</th>
+                            <th>Congregación</th>
+                            <th>Teléfono</th>
+                            <th>PD</th>
+                            <th>DA</th>
+                            <th>AA</th>
+                            <th>REAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${sessionData.participantes.map(p => {
+                            const isPresident = p.rol.includes('Presidente');
+                            const isPrayer = p.rol.includes('Oración');
+                            const isVideo = p.rol.includes('Video');
+                            
+                            const rowClass = isPresident ? 'table-president-row' : '';
+
+                            return `
+                                <tr class="${rowClass}">
+                                    <td>${p.numero || ''}</td>
+                                    <td>${p.hora || ''}</td>
+                                    <td>${p.titulo || (isPresident ? 'PRESIDENTE DE LA SESIÓN' : (isPrayer ? `Canción y oración` : ''))}</td>
+                                    <td>${p.duracion || ''}</td>
+                                    <td>${p.nombre || ''}</td>
+                                    <td>${p.congregacion || ''}</td>
+                                    <td>${p.telefono ? p.telefono.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3') : ''}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            `;
+            tableContentDiv.insertAdjacentHTML('beforeend', sessionTableHTML);
+        });
+    }
+}
+
 
 /**
  * Configura todos los event listeners de la aplicación.
@@ -502,73 +646,8 @@ function setupEventListeners() {
             console.error("Error al cerrar sesión: ", error);
         }
     });
-}
 
-// --- LÓGICA DE INICIO Y AUTENTICACIÓN ---
-
-function showLoginScreen() {
-    loginScreen.classList.remove('hidden');
-    appContainer.classList.add('hidden');
-    loginError.classList.add('hidden');
-    // Limpia cualquier tema de día del body
-    body.className = '';
-}
-
-function startApp() {
-    loginScreen.classList.add('hidden');
-    appContainer.classList.remove('hidden');
-    
-    generarProgramaHTML();
-    setupEventListeners();
-    syncStateFromFirebase();
-    
-    // Establecer el tema inicial al cargar la app
-    const initialDay = navContainer.querySelector('.nav-button.active').dataset.day;
-    setDayTheme(initialDay);
-
-    updateAllUI();
-}
-
-// Observador del estado de autenticación
-onAuthStateChanged(auth, user => {
-    if (user) {
-        startApp();
-    } else {
-        showLoginScreen();
-    }
-});
-
-// Listener para el formulario de login
-loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    loginError.classList.add('hidden');
-    try {
-        await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
-    } catch (err) {
-        console.error("Error de autenticación:", err.code);
-        const errorMessages = {
-            'auth/invalid-email': 'El formato del correo es inválido.',
-            'auth/user-disabled': 'Esta cuenta ha sido deshabilitada.',
-            'auth/user-not-found': 'No se encontró un usuario con ese correo.',
-            'auth/wrong-password': 'La contraseña es incorrecta.',
-            'auth/too-many-requests': 'Demasiados intentos fallidos. Inténtalo más tarde.'
-        };
-        loginError.textContent = errorMessages[err.code] || 'Ocurrió un error al iniciar sesión.';
-        loginError.classList.remove('hidden');
-    }
-});
-/* ****************************************************** */
-/* PRINCIPIO: JavaScript para la nueva funcionalidad de tabla */
-/* ****************************************************** */
-
-document.addEventListener('DOMContentLoaded', () => {
-    const openProgramTableBtn = document.getElementById('openProgramTable');
-    const closeProgramTableBtn = document.getElementById('closeProgramTable');
-    const programTableOverlay = document.getElementById('programTableOverlay');
-    const tabButtons = document.querySelectorAll('.tab-navigation .tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
-
-    // Función para abrir el overlay de la tabla
+    // --- Lógica de la nueva tabla de programa ---
     if (openProgramTableBtn) {
         openProgramTableBtn.addEventListener('click', () => {
             if (programTableOverlay) {
@@ -577,7 +656,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Función para cerrar el overlay de la tabla
     if (closeProgramTableBtn) {
         closeProgramTableBtn.addEventListener('click', () => {
             if (programTableOverlay) {
@@ -586,7 +664,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Función para cambiar de pestaña (día)
+    // Función para cambiar de pestaña (día) en la tabla
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
             const day = button.dataset.day;
@@ -604,12 +682,74 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Asegurarse de que la primera pestaña esté activa y visible al cargar
-    if (tabButtons.length > 0 && tabContents.length > 0) {
-        tabButtons[0].click(); // Simula un click en el primer botón para mostrar su contenido
+    // Set initial active tab for the program table
+    if (tabButtons.length > 0) {
+        tabButtons[0].click(); // Simulate click on the first tab button
+    }
+}
+
+// --- LÓGICA DE INICIO Y AUTENTICACIÓN ---
+
+function showLoginScreen() {
+    loginScreen.classList.remove('hidden');
+    appContainer.classList.add('hidden');
+    loginError.classList.add('hidden');
+    // Limpia cualquier tema de día del body
+    body.className = '';
+}
+
+function startApp() {
+    // Get DOM elements here, after appContainer is shown
+    getDOMElements(); 
+
+    loginScreen.classList.add('hidden');
+    appContainer.classList.remove('hidden');
+    
+    generarProgramaHTML();
+    generateProgramTables(); // Generate the table content
+    setupEventListeners();
+    syncStateFromFirebase();
+    
+    // Establecer el tema inicial al cargar la app
+    const initialDay = navContainer.querySelector('.nav-button.active').dataset.day;
+    setDayTheme(initialDay);
+
+    updateAllUI();
+}
+
+// Observador del estado de autenticación
+onAuthStateChanged(auth, user => {
+    if (user) {
+        startApp();
+    } else {
+        // Ensure DOM elements are available for the login screen
+        getDOMElements(); 
+        showLoginScreen();
     }
 });
 
-/* ****************************************************** */
-/* FIN: JavaScript para la nueva funcionalidad de tabla   */
-/* ****************************************************** */
+// Listener para el formulario de login (ensure this listener is set up early)
+document.addEventListener('DOMContentLoaded', () => {
+    getDOMElements(); // Get DOM elements as soon as the DOM is ready for the login form
+
+    if (loginForm) { // Check if loginForm exists before adding listener
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            loginError.classList.add('hidden');
+            try {
+                await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
+            } catch (err) {
+                console.error("Error de autenticación:", err.code);
+                const errorMessages = {
+                    'auth/invalid-email': 'El formato del correo es inválido.',
+                    'auth/user-disabled': 'Esta cuenta ha sido deshabilitada.',
+                    'auth/user-not-found': 'No se encontró un usuario con ese correo.',
+                    'auth/wrong-password': 'La contraseña es incorrecta.',
+                    'auth/too-many-requests': 'Demasiados intentos fallidos. Inténtalo más tarde.'
+                };
+                loginError.textContent = errorMessages[err.code] || 'Ocurrió un error al iniciar sesión.';
+                loginError.classList.remove('hidden');
+            }
+        });
+    }
+});
