@@ -11,33 +11,32 @@
     /* --- PALETA DE COLORES MEJORADA POR DÍA --- */
     /* VIERNES: Tonos Océano/Teal - Calma y concentración */
     --viernes-primary: #005f73;
-    --viernes-progress: #0a9396;
+    --viernes-progress: #0a9396;       /* Color de progreso FUERTE */
     --viernes-bg-light: #e9f5f5;
+    --viernes-success: #2a9d8f;        /* Color de éxito temático */
 
     /* SÁBADO: Tonos Ámbar/Naranja - Energía y calidez */
     --sabado-primary: #ae2012;
-    --sabado-progress: #ee9b00;
+    --sabado-progress: #e76f51;        /* Color de progreso FUERTE */
     --sabado-bg-light: #fff2e6;
+    --sabado-success: #f4a261;         /* Color de éxito temático */
     
     /* DOMINGO: Tonos Ciruela/Amatista - Reflexión y calidez */
     --domingo-primary: #70286b;
-    --domingo-progress: #9d4edd;
+    --domingo-progress: #9d4edd;        /* Color de progreso FUERTE */
     --domingo-bg-light: #f6eff9;
-
-    /* Color de estado completado (global) */
-    --success: #198754;
-    --success-light: #e8f3ee;
+    --domingo-success: #8e44ad;         /* Color de éxito temático */
 }
 
 body {
     font-family: var(--font-family);
-    background-color: #e9ecef; /* Color de fondo inicial claro */
+    background-color: #e9ecef;
     color: var(--text-primary);
     margin: 0;
     padding: 1rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.4s ease; /* Transición suave para el cambio de color */
+    transition: background-color 0.4s ease;
 }
 
 /* --- PANTALLA DE LOGIN --- */
@@ -53,7 +52,6 @@ body {
     background-color: #e9ecef;
     z-index: 1000;
 }
-
 .login-container {
     text-align: center;
     background: var(--card-bg);
@@ -63,17 +61,8 @@ body {
     max-width: 400px;
     width: 90%;
 }
-
-.login-container h1 {
-    color: var(--text-primary);
-    margin-top: 0;
-}
-
-.login-container p {
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-}
-
+.login-container h1 { color: var(--text-primary); margin-top: 0; }
+.login-container p { color: var(--text-secondary); margin-bottom: 1.5rem; }
 #login-form input {
     width: 100%;
     padding: 0.75rem;
@@ -83,7 +72,6 @@ body {
     margin-bottom: 1rem;
     box-sizing: border-box;
 }
-
 #login-form button {
     width: 100%;
     padding: 0.75rem;
@@ -96,33 +84,13 @@ body {
     cursor: pointer;
     transition: background-color 0.2s;
 }
-
-#login-form button:hover {
-    background-color: #004c5c;
-}
-
-#login-error {
-    color: #dc3545;
-    margin-top: 1rem;
-    font-size: 0.9em;
-}
-
+#login-form button:hover { background-color: #004c5c; }
+#login-error { color: #dc3545; margin-top: 1rem; font-size: 0.9em; }
 
 /* --- ESTILOS GENERALES APP --- */
-.hidden { 
-    display: none !important; 
-}
-
-header { 
-    text-align: center; 
-    margin-bottom: 1.5rem; 
-    position: relative;
-}
-header h1 { 
-    color: var(--text-primary); 
-    margin: 0; 
-}
-
+.hidden { display: none !important; }
+header { text-align: center; margin-bottom: 1.5rem; position: relative; }
+header h1 { color: var(--text-primary); margin: 0; }
 #logout-button {
     position: absolute;
     top: 0;
@@ -137,155 +105,85 @@ header h1 {
     font-size: 1.1rem;
     transition: all 0.2s ease;
 }
-#logout-button:hover {
-    background-color: var(--border-color);
-    color: var(--text-primary);
-}
-
+#logout-button:hover { background-color: var(--border-color); color: var(--text-primary); }
 
 /* --- ESTILOS DE NAVEGACIÓN TEMATIZADOS --- */
-#day-nav { 
-    display: flex; 
-    justify-content: center; 
-    margin-bottom: 1.5rem; 
-    background-color: var(--card-bg); 
-    padding: 0.5rem; 
-    border-radius: 12px; 
-    box-shadow: var(--shadow); 
-    max-width: 900px; 
-    margin-left: auto; 
+#day-nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    background-color: var(--card-bg);
+    padding: 0.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    max-width: 900px;
+    margin-left: auto;
     margin-right: auto;
-    transition: box-shadow 0.4s ease; 
-    flex-wrap: wrap; 
+    transition: box-shadow 0.4s ease;
+    flex-wrap: wrap;
 }
 .nav-button {
-    flex-grow: 1; 
-    padding: 0.75rem 1rem; 
-    border: none; 
-    background: transparent; 
-    color: var(--text-secondary); 
-    font-size: 1em; 
-    font-weight: 600; 
-    cursor: pointer; 
-    border-radius: 8px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    gap: 0.5rem; 
+    flex-grow: 1;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     transition: background-color 0.3s ease, color 0.3s ease;
-    min-width: 100px; 
+    min-width: 100px;
 }
+.nav-button.main-view-button { flex-basis: 33%; margin: 0.25rem; }
+.nav-button.sub-day-button { flex-basis: 30%; margin: 0.2rem; font-size: 0.9em; }
 
-.nav-button.main-view-button {
-    flex-basis: 33%; 
-    margin: 0.25rem; 
-}
-
-.nav-button.sub-day-button {
-    flex-basis: 30%; 
-    margin: 0.2rem;
-    font-size: 0.9em; 
-}
-
-/* --- ESTILOS PARA BOTONES ACTIVOS --- */
-/* Los botones principales se iluminan con el color del día activo (o un color neutro) */
-body.day-viernes .nav-button.main-view-button[data-view="checklist"].active,
-body.day-viernes .nav-button.main-view-button[data-view="horarios"].active {
-    background-color: var(--viernes-primary); color: white;
-}
-body.day-sabado .nav-button.main-view-button[data-view="checklist"].active,
-body.day-sabado .nav-button.main-view-button[data-view="horarios"].active {
-    background-color: var(--sabado-primary); color: white;
-}
-body.day-domingo .nav-button.main-view-button[data-view="checklist"].active,
-body.day-domingo .nav-button.main-view-button[data-view="horarios"].active {
-    background-color: var(--domingo-primary); color: white;
-}
-
-/* El botón "Responsables" tiene su propio color activo */
-.nav-button.main-view-button[data-view="responsables"].active {
-    background-color: #6c757d; 
-    color: white;
-}
-
-/* Los botones de día secundarios se iluminan con el color del día */
+/* Estilos para botones activos */
+body.day-viernes .nav-button.main-view-button.active { background-color: var(--viernes-primary); color: white; }
+body.day-sabado .nav-button.main-view-button.active { background-color: var(--sabado-primary); color: white; }
+body.day-domingo .nav-button.main-view-button.active { background-color: var(--domingo-primary); color: white; }
+.nav-button.main-view-button[data-view="responsables"].active { background-color: #6c757d; color: white; }
 .nav-button.sub-day-button[data-day="Viernes"].active { background-color: var(--viernes-bg-light); color: var(--viernes-primary); }
 .nav-button.sub-day-button[data-day="Sábado"].active { background-color: var(--sabado-bg-light); color: var(--sabado-primary); }
 .nav-button.sub-day-button[data-day="Domingo"].active { background-color: var(--domingo-bg-light); color: var(--domingo-primary); }
 
-
 /* --- PANEL DE RESUMEN --- */
-#summary-panel { 
-    display: flex; 
-    gap: 1.5rem; 
-    justify-content: center; 
-    margin: 0 auto 2rem auto; 
-    padding: 1rem; 
-    background-color: var(--card-bg); 
-    border-radius: 12px; 
-    box-shadow: var(--shadow); 
-    max-width: 800px; 
-    flex-wrap: wrap; 
-    transition: box-shadow 0.4s ease;
-}
-.summary-item { 
-    text-align: center; 
-}
-.summary-item .count { 
-    font-size: 1.8em; 
-    font-weight: 700; 
-    color: var(--text-primary); 
-    transition: color 0.4s ease;
-}
-.summary-item .label { 
-    font-size: 0.9em; 
-    color: var(--text-secondary); 
-    font-weight: 500; 
-}
-
+#summary-panel { display: flex; gap: 1.5rem; justify-content: center; margin: 0 auto 2rem auto; padding: 1rem; background-color: var(--card-bg); border-radius: 12px; box-shadow: var(--shadow); max-width: 800px; flex-wrap: wrap; transition: box-shadow 0.4s ease; }
+.summary-item { text-align: center; }
+.summary-item .count { font-size: 1.8em; font-weight: 700; color: var(--text-primary); transition: color 0.4s ease; }
+.summary-item .label { font-size: 0.9em; color: var(--text-secondary); font-weight: 500; }
 body.day-viernes .summary-item .count { color: var(--viernes-primary); }
 body.day-sabado .summary-item .count { color: var(--sabado-primary); }
 body.day-domingo .summary-item .count { color: var(--domingo-primary); }
-
-main { 
-    max-width: 800px; 
-    margin: 0 auto; 
-}
+main { max-width: 800px; margin: 0 auto; }
 
 /* --- CONTENEDORES DE DÍA TEMATIZADOS --- */
 #content-Viernes, #horarios-container #horario-viernes, #responsables-container #responsables-viernes {
     --day-color-primary: var(--viernes-primary);
     --day-color-progress: var(--viernes-progress);
     --day-color-bg-light: var(--viernes-bg-light);
+    --day-color-success: var(--viernes-success);
 }
 #content-Sábado, #horarios-container #horario-sabado, #responsables-container #responsables-sabado {
     --day-color-primary: var(--sabado-primary);
     --day-color-progress: var(--sabado-progress);
     --day-color-bg-light: var(--sabado-bg-light);
+    --day-color-success: var(--sabado-success);
 }
 #content-Domingo, #horarios-container #horario-domingo, #responsables-container #responsables-domingo {
     --day-color-primary: var(--domingo-primary);
     --day-color-progress: var(--domingo-progress);
     --day-color-bg-light: var(--domingo-bg-light);
+    --day-color-success: var(--domingo-success);
 }
-
 
 /* --- TÍTULOS DE SECCIÓN TEMATIZADOS --- */
-.session-block h2, #horarios-container h2, #horarios-container h3, #responsables-container h2, #responsables-container h3 {
-    font-size: 1.5em;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    color: var(--day-color-primary);
-    border-bottom: 2px solid var(--day-color-primary);
-    margin-top: 1.5rem;
-}
-#horarios-container h3, #responsables-container h3 {
-    font-size: 1.2em;
-    border-bottom: 1px solid var(--day-color-primary);
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-}
-
+.session-block h2, #horarios-container h2, #horarios-container h3, #responsables-container h2, #responsables-container h3 { font-size: 1.5em; margin-bottom: 1rem; padding-bottom: 0.5rem; color: var(--day-color-primary); border-bottom: 2px solid var(--day-color-primary); margin-top: 1.5rem; }
+#horarios-container h3, #responsables-container h3 { font-size: 1.2em; border-bottom: 1px solid var(--day-color-primary); margin-top: 1rem; margin-bottom: 0.5rem; }
 
 /* --- ACORDEÓN CON FONDO PROGRESIVO --- */
 .participant-accordion {
@@ -295,85 +193,63 @@ main {
     border: 1px solid var(--border-color);
     box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     --progress-percent: 0%;
+    /* CAMBIO CLAVE: Usa el color de progreso fuerte en lugar del claro */
     background: linear-gradient(
         to right, 
-        var(--day-color-bg-light),
-        var(--day-color-bg-light) var(--progress-percent), 
+        var(--day-color-progress),
+        var(--day-color-progress) var(--progress-percent), 
         var(--card-bg) var(--progress-percent)
     );
     transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
-.participant-accordion:hover {
-    border-color: var(--day-color-primary);
-}
+.participant-accordion:hover { border-color: var(--day-color-primary); }
 
-/* --- ESTILO MEJORADO PARA EL ESTADO COMPLETADO --- */
+/* --- ESTILO MEJORADO PARA EL ESTADO COMPLETADO TEMÁTICO --- */
 .participant-accordion.is-complete {
-    background: var(--success); 
-    border-color: #146c43; 
-    color: white; 
-    box-shadow: 0 0 12px rgba(25, 135, 84, 0.6); 
+    background: var(--day-color-success); /* CAMBIO CLAVE: Color de éxito temático */
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 0 12px color-mix(in srgb, var(--day-color-success), transparent 40%);
 }
-.participant-accordion.is-complete .participant-role {
-    color: rgba(255, 255, 255, 0.85);
+.participant-accordion.is-complete .participant-role,
+.participant-accordion.is-complete .accordion-icon {
+    color: rgba(255, 255, 255, 0.9);
 }
 .participant-accordion.is-complete .details-time,
 .participant-accordion.is-complete .details-number {
     background-color: rgba(255, 255, 255, 0.2);
     color: white;
 }
-.participant-accordion.is-complete .accordion-icon {
-    color: white;
-}
 .participant-accordion.is-complete:hover {
-    border-color: #146c43;
-    box-shadow: 0 0 16px rgba(25, 135, 84, 0.7);
+    border-color: transparent;
+    box-shadow: 0 0 16px color-mix(in srgb, var(--day-color-success), transparent 30%);
 }
 
 /* --- ESTILO PARA PRODUCCIONES AUDIOVISUALES --- */
-.participant-accordion.is-audiovisual {
-    background: #f0f4f8; 
-    border-left: 5px solid #a6b7c9;
-    opacity: 0.9;
-}
-.participant-accordion.is-audiovisual .participant-name,
-.participant-accordion.is-audiovisual .participant-role,
-.participant-accordion.is-audiovisual .details-time,
-.participant-accordion.is-audiovisual .details-number {
-    color: #333;
-}
-.participant-accordion.is-audiovisual .accordion-header {
-    cursor: default;
-}
+.participant-accordion.is-audiovisual { background: #f0f4f8; border-left: 5px solid #a6b7c9; opacity: 0.9; }
+.participant-accordion.is-audiovisual .participant-name, .participant-accordion.is-audiovisual .participant-role, .participant-accordion.is-audiovisual .details-time, .participant-accordion.is-audiovisual .details-number { color: #333; }
+.participant-accordion.is-audiovisual .accordion-header { cursor: default; }
 
-.accordion-header {
-    display: flex; 
-    align-items: center; 
-    width: 100%; 
-    text-align: left; 
-    padding: 0.75rem 1rem; 
-    cursor: pointer; 
-    border: none;
-    background-color: transparent;
-}
-.accordion-icon { 
-    font-size: 1.2em; 
-    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); 
-}
-.accordion-header.active .accordion-icon { 
-    transform: rotate(180deg); 
-}
-
+.accordion-header { display: flex; align-items: center; width: 100%; text-align: left; padding: 0.75rem 1rem; cursor: pointer; border: none; background-color: transparent; }
+.accordion-icon { font-size: 1.2em; transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); }
+.accordion-header.active .accordion-icon { transform: rotate(180deg); }
 .participant-info { flex-grow: 1; }
-.participant-name { font-size: 1.1em; font-weight: 600; }
+
+/* CAMBIO CLAVE: Mejorar legibilidad del texto */
+.participant-name {
+    font-size: 1.1em;
+    font-weight: 700; /* Texto más grueso */
+    color: #111; /* Negro más intenso */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8); /* Sombra para "levantar" el texto */
+}
+
 .participant-role { font-size: 0.9em; color: var(--text-secondary); }
 .participant-details { display: flex; align-items: center; gap: 1rem; margin-left: 1rem; }
 .details-time, .details-number { background-color: #e9ecef; padding: 4px 10px; border-radius: 15px; font-size: 1em; font-weight: 700; transition: background-color 0.3s, color 0.3s; }
-
 .status-indicators { display: flex; gap: 6px; }
 .indicator { width: 10px; height: 10px; border-radius: 50%; background-color: #ced4da; transition: background-color 0.3s ease; box-shadow: inset 0 0 2px rgba(0,0,0,0.1); }
 
-/* --- COLORES COHERENTES PARA INDICADORES --- */
+/* Colores de indicadores */
 .indicator.recogida { background-color: #ffc107; } 
 .indicator.orientacion { background-color: var(--viernes-primary); }
 .indicator.detras_plataforma { background-color: var(--sabado-primary); }
@@ -382,167 +258,58 @@ main {
 .indicator.maquillaje-no { background-color: var(--text-primary); }
 .indicator.maquillaje-na { background-color: #80868b; }
 
-.accordion-content { 
-    max-height: 0; 
-    overflow: hidden; 
-    transition: max-height 0.4s ease-out; 
-}
-.accordion-content.active { 
-    max-height: 500px;
-}
-.checklist-container { 
-    padding: 0.5rem 1rem 1rem 1rem; 
-    background: rgba(255,255,255,0.6); 
-    backdrop-filter: blur(2px); 
-}
-.checklist-item { 
-    display: flex; 
-    align-items: center; 
-    padding: 0.9rem 0.5rem; 
-    border-bottom: 1px solid #f1f3f4; 
-    transition: opacity 0.3s; 
-}
-.checklist-item:last-child { 
-    border-bottom: none; 
-}
-.checklist-item.disabled { 
-    opacity: 0.5; 
-    pointer-events: none; 
-    background-color: #f8f9fa; 
-}
-.checklist-item .icon { 
-    color: var(--text-secondary); 
-    margin-right: 1rem; 
-    width: 20px; 
-    text-align: center; 
-}
-.checklist-item label { 
-    flex-grow: 1; 
-}
-.makeup-options { 
-    display: flex; 
-    gap: 1rem; 
-}
-.makeup-options label { 
-    cursor: pointer; 
-    padding: 0.3rem 0.8rem; 
-    border-radius: 15px; 
-    border: 1px solid var(--border-color); 
-    transition: all 0.2s ease; 
-}
-.makeup-options input[type="radio"] { 
-    display: none; 
-}
-.makeup-options input[type="radio"]:checked + label {
-    background-color: var(--day-color-primary);
-    color: white;
-    border-color: var(--day-color-primary);
-}
+.accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+.accordion-content.active { max-height: 500px; }
+.checklist-container { padding: 0.5rem 1rem 1rem 1rem; background: rgba(255,255,255,0.7); backdrop-filter: blur(4px); }
+.checklist-item { display: flex; align-items: center; padding: 0.9rem 0.5rem; border-bottom: 1px solid #f1f3f4; transition: opacity 0.3s; }
+.checklist-item:last-child { border-bottom: none; }
+.checklist-item.disabled { opacity: 0.5; pointer-events: none; background-color: #f8f9fa; }
+.checklist-item .icon { color: var(--text-secondary); margin-right: 1rem; width: 20px; text-align: center; }
+.checklist-item label { flex-grow: 1; }
+.makeup-options { display: flex; gap: 1rem; }
+.makeup-options label { cursor: pointer; padding: 0.3rem 0.8rem; border-radius: 15px; border: 1px solid var(--border-color); transition: all 0.2s ease; }
+.makeup-options input[type="radio"] { display: none; }
+.makeup-options input[type="radio"]:checked + label { background-color: var(--day-color-primary); color: white; border-color: var(--day-color-primary); }
 
+/* --- RESPONSIVE Y OTROS ESTILOS --- */
+@media (max-width: 768px) {
+    #horarios-container table, #horarios-container thead, #horarios-container tbody, #horarios-container th, #horarios-container td, #horarios-container tr { display: block; }
+    #horarios-container thead tr { position: absolute; top: -9999px; left: -9999px; }
+    #horarios-container tr { border: 1px solid #ccc; margin-bottom: 0.5rem; }
+    #horarios-container td { border: none; border-bottom: 1px solid #eee; position: relative; padding-left: 50%; white-space: normal; text-align: left; }
+    #horarios-container td:before { position: absolute; top: 6px; left: 6px; width: 45%; padding-right: 10px; white-space: nowrap; text-align: left; font-weight: bold; }
+    #horarios-container td:nth-of-type(1):before { content: "Hora"; }
+    #horarios-container td:nth-of-type(2):before { content: "Título/Evento"; }
+    #horarios-container td:nth-of-type(3):before { content: "Orador"; }
+    #horarios-container td:nth-of-type(4):before { content: "Micrófono"; }
+    #horarios-container td:nth-of-type(5):before { content: "Notas Atril"; }
+}
 @media (max-width: 480px) {
-  .details-time, .details-number {
-    font-size: 1.1em;
-  }
-  #logout-button {
-    position: static;
-    margin: 0.5rem auto 0;
-    display: block;
-    width: auto;
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
-  }
-  #day-nav {
-      flex-direction: column; 
-  }
-  .nav-button.main-view-button,
-  .nav-button.sub-day-button {
-      flex-basis: auto; 
-      width: 100%; 
-      margin: 0.2rem 0; 
-  }
+  .details-time, .details-number { font-size: 1.1em; }
+  #logout-button { position: static; margin: 0.5rem auto 0; display: block; width: auto; border-radius: 8px; padding: 0.5rem 1rem; }
+  #day-nav { flex-direction: column; }
+  .nav-button.main-view-button, .nav-button.sub-day-button { flex-basis: auto; width: 100%; margin: 0.2rem 0; }
 }
 
-/* --- ILUMINACIÓN DINÁMICA POR DÍA --- */
+/* Iluminación Dinámica por Día */
 body.day-viernes { background-color: var(--viernes-bg-light); }
 body.day-sabado { background-color: var(--sabado-bg-light); }
 body.day-domingo { background-color: var(--domingo-bg-light); }
+body.day-viernes #day-nav, body.day-viernes #summary-panel, body.day-viernes .participant-accordion:hover, body.day-viernes #horarios-container, body.day-viernes #responsables-container { box-shadow: 0 5px 15px rgba(0, 95, 115, 0.12), 0 2px 6px rgba(0, 95, 115, 0.1); }
+body.day-sabado #day-nav, body.day-sabado #summary-panel, body.day-sabado .participant-accordion:hover, body.day-sabado #horarios-container, body.day-sabado #responsables-container { box-shadow: 0 5px 15px rgba(174, 32, 18, 0.12), 0 2px 6px rgba(174, 32, 18, 0.1); }
+body.day-domingo #day-nav, body.day-domingo #summary-panel, body.day-domingo .participant-accordion:hover, body.day-domingo #horarios-container, body.day-domingo #responsables-container { box-shadow: 0 5px 15px rgba(112, 40, 107, 0.12), 0 2px 6px rgba(112, 40, 107, 0.1); }
 
-body.day-viernes #day-nav,
-body.day-viernes #summary-panel,
-body.day-viernes .participant-accordion:hover,
-body.day-viernes #horarios-container,
-body.day-viernes #responsables-container {
-    box-shadow: 0 5px 15px rgba(0, 95, 115, 0.12), 0 2px 6px rgba(0, 95, 115, 0.1);
-}
-
-body.day-sabado #day-nav,
-body.day-sabado #summary-panel,
-body.day-sabado .participant-accordion:hover,
-body.day-sabado #horarios-container,
-body.day-sabado #responsables-container {
-    box-shadow: 0 5px 15px rgba(174, 32, 18, 0.12), 0 2px 6px rgba(174, 32, 18, 0.1);
-}
-
-body.day-domingo #day-nav,
-body.day-domingo #summary-panel,
-body.day-domingo .participant-accordion:hover,
-body.day-domingo #horarios-container,
-body.day-domingo #responsables-container {
-    box-shadow: 0 5px 15px rgba(112, 40, 107, 0.12), 0 2px 6px rgba(112, 40, 107, 0.1);
-}
-
-/* --- ESTILOS PARA SECCIÓN DE HORARIOS --- */
-#horarios-container {
-    max-width: 900px;
-    margin: 0 auto 2rem auto;
-    background-color: var(--card-bg);
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: var(--shadow);
-}
+/* Secciones Horarios y Responsables */
+#horarios-container { max-width: 1100px; margin: 0 auto 2rem auto; background-color: var(--card-bg); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow); }
 .horario-day-section { margin-bottom: 2rem; }
 .horario-session-block { margin-bottom: 1rem; }
-#horarios-container table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-    font-size: 0.9em;
-}
-#horarios-container th,
-#horarios-container td {
-    border: 1px solid var(--border-color);
-    padding: 0.8rem;
-    text-align: left;
-    vertical-align: top;
-}
-#horarios-container th {
-    background-color: var(--day-color-bg-light);
-    font-weight: 600;
-    color: var(--text-primary);
-}
-#horarios-container tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
+#horarios-container table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9em; }
+#horarios-container th, #horarios-container td { border: 1px solid var(--border-color); padding: 0.8rem; text-align: left; vertical-align: top; }
+#horarios-container th { background-color: var(--day-color-bg-light); font-weight: 600; color: var(--text-primary); }
+#horarios-container tbody tr:nth-child(even) { background-color: #f9f9f9; }
 
-/* --- ESTILOS PARA SECCIÓN DE RESPONSABLES --- */
-#responsables-container {
-    max-width: 800px;
-    margin: 0 auto 2rem auto;
-    background-color: var(--card-bg);
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: var(--shadow);
-}
+#responsables-container { max-width: 800px; margin: 0 auto 2rem auto; background-color: var(--card-bg); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow); }
 .responsables-day-section { margin-bottom: 2rem; }
-.responsables-session-block ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 0.5rem;
-}
-.responsables-session-block li {
-    padding: 0.4rem 0;
-    border-bottom: 1px dashed #e0e0e0;
-}
-.responsables-session-block li:last-child {
-    border-bottom: none;
-}
+.responsables-session-block ul { list-style: none; padding: 0; margin-top: 0.5rem; }
+.responsables-session-block li { padding: 0.4rem 0; border-bottom: 1px dashed #e0e0e0; }
+.responsables-session-block li:last-child { border-bottom: none; }
