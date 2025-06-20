@@ -674,7 +674,7 @@ const horarioProgramaCompleto = [
     "Título": "Canción 77",
     "Orador": null,
     "Micrófono pie derecho": null,
-    "Atril": "Desde el atril, el presidente de sesión presenta el discurso núm.19."
+    "Atril": "Desde el atril, er presidense\n de sesión pres\n canción 77"
   },
   {
     "Día": "DOMINGO TARDE",
@@ -979,7 +979,7 @@ function actualizarEstadoUI(accordion) {
     const esBetel = nombre.includes('(Betel)') || nombre.includes('(BTL)');
     const ocOra = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
     const ocBet = ['orientacion', 'recordatorios'];
-    const maquillajeRadio = accordion.querySelector('input[data-item-id="maquillaje"]:checked');
+    const maquillajeRadio = accordion.querySelector('input[data-item-id="maquillaje"][value="Sí"]:checked');
     const esNA = maquillajeRadio && maquillajeRadio.value === 'N/A';
     
     // Deshabilitar repaso de maquillaje si se selecciona N/A
@@ -1123,7 +1123,8 @@ function mostrarHorarioCompleto() {
     const diasOrden = ['Viernes', 'Sábado', 'Domingo'];
 
     diasOrden.forEach(diaKey => {
-        const diaData = horarioProgramaCompleto.filter(item => item['Día'].startsWith(diaKey.toUpperCase()));
+        // Filter by the actual 'Día' field in data, which includes "MAÑANA" or "TARDE"
+        const diaData = horarioProgramaCompleto.filter(item => item['Día'] && item['Día'].startsWith(diaKey.toUpperCase()));
         if (diaData.length > 0) {
             const dayDiv = document.createElement('div');
             dayDiv.className = 'horario-day-section';
@@ -1169,15 +1170,16 @@ function mostrarHorarioCompleto() {
                 const tbody = table.querySelector('tbody');
 
                 sesionesDia[sesionName].forEach(item => {
-                    // Solo renderizar filas con información relevante (omitir las de solo encabezados de columna)
-                    if (item['Hora'] !== 'Hora' && !isNaN(item['Hora'])) { // Validar si 'Hora' es un valor real (no "Hora" o NaN)
+                    // Only render rows with relevant information (omit header-only rows)
+                    // Check if 'Hora' is not the literal string "Hora" or empty/null
+                    if (item['Hora'] && item['Hora'] !== 'Hora') {
                         const row = document.createElement('tr');
                         row.innerHTML = `
                             <td>${item['Hora'] ? item['Hora'].substring(0, 5) : ''}</td>
                             <td>${item['Título'] || ''}</td>
                             <td>${item['Orador'] || ''}</td>
-                            <td>${item['Micrófono pie derecho'] !== null && !isNaN(item['Micrófono pie derecho']) ? item['Micrófono pie derecho'] : ''}</td>
-                            <td>${item['Atril'] !== null && !isNaN(item['Atril']) ? item['Atril'] : ''}</td>
+                            <td>${item['Micrófono pie derecho'] !== null ? item['Micrófono pie derecho'] : ''}</td>
+                            <td>${item['Atril'] !== null ? item['Atril'] : ''}</td>
                         `;
                         tbody.appendChild(row);
                     }
