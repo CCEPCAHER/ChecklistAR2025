@@ -3,207 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checklist del Programa</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Asamblea Regional 2025 - Adoración Pura</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
-
-    <div id="login-screen">
-        <div class="login-container">
-            <h1>Bienvenido</h1>
-            <p>Inicia sesión para acceder al checklist del programa.</p>
-            <form id="login-form">
-                <input type="email" id="email-input" placeholder="Correo electrónico" required>
+<body class=""> <div id="login-screen" class="login-screen hidden">
+        <form id="login-form" class="login-form">
+            <h2>Acceso al Checklist de la Asamblea</h2>
+            <div class="input-group">
+                <label for="email-input">Correo Electrónico:</label>
+                <input type="email" id="email-input" placeholder="tu@email.com" required>
+            </div>
+            <div class="input-group">
+                <label for="password-input">Contraseña:</label>
                 <input type="password" id="password-input" placeholder="Contraseña" required>
-                <button type="submit">Iniciar Sesión</button>
-                <p id="login-error" class="hidden">Error de autenticación.</p>
-            </form>
-        </div>
+            </div>
+            <button type="submit">Iniciar Sesión</button>
+            <p id="login-error" class="login-error hidden"></p>
+        </form>
     </div>
 
-    <div id="app-container" class="hidden">
+    <div id="app-container" class="app-container hidden">
         <header>
-            <button class="hamburger-menu-button" id="openProgramTable">
-                <i class="fas fa-bars"></i>
-            </button>
-            <h1>Checklist de Participantes</h1>
-            <p>Gestión del programa de la asamblea regional</p>
-            <button id="logout-button" title="Cerrar Sesión">
-                <i class="fas fa-sign-out-alt"></i>
-            </button>
+            <div class="navbar">
+                <button class="hamburger" id="hamburger-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+                <h1>TABLA DE DISCURSOS DE LA ASAMBLEA REGIONAL DEL 2025 "ADORACIÓN PURA"</h1>
+                <button id="logout-button" class="logout-button">Cerrar Sesión</button>
+            </div>
+            <nav class="nav-menu" id="nav-menu">
+                <ul id="day-nav">
+                    <li><button class="nav-button active" data-day="Viernes">Viernes</button></li>
+                    <li><button class="nav-button" data-day="Sábado">Sábado</button></li>
+                    <li><button class="nav-button" data-day="Domingo">Domingo</button></li>
+                </ul>
+            </nav>
         </header>
 
-        <nav id="day-nav">
-            <button class="nav-button active" data-day="Viernes">
-                <i class="fas fa-calendar-day"></i> Viernes
-            </button>
-            <button class="nav-button" data-day="Sábado">
-                <i class="fas fa-calendar-day"></i> Sábado
-            </button>
-            <button class="nav-button" data-day="Domingo">
-                <i class="fas fa-calendar-day"></i> Domingo
-            </button>
-        </nav>
+        <main>
+            <section class="summary-panel" id="summary-panel">
+                </section>
 
-        <section id="summary-panel">
-            </section>
+            <section id="program-container">
+                </section>
+        </main>
 
-        <main id="program-container">
-            </main>
-    </div>
-
-    <div class="program-table-overlay" id="programTableOverlay">
-        <div class="program-table-container">
-            <button class="close-table-button" id="closeProgramTable">
-                <i class="fas fa-times"></i>
-            </button>
-
-            <h1>Programa de la Asamblea Regional 2025</h1>
-
-            <div class="tab-navigation">
-                <button class="tab-button active" data-day="Viernes">Viernes</button>
-                <button class="tab-button" data-day="Sábado">Sábado</button>
-                <button class="tab-button" data-day="Domingo">Domingo</button>
-            </div>
-
-            <div class="tab-content" id="ViernesTableContent">
-                <h2>Viernes Mañana</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nº</th>
-                            <th>Hora</th>
-                            <th>Discurso</th>
-                            <th>T</th>
-                            <th>Orador</th>
-                            <th>Congregación</th>
-                            <th>Teléfono</th>
-                            <th>PD</th>
-                            <th>DA</th>
-                            <th>AA</th>
-                            <th>REAL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                </table>
-
-                <h2>Viernes Tarde</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nº</th>
-                            <th>Hora</th>
-                            <th>Discurso</th>
-                            <th>T</th>
-                            <th>Orador</th>
-                            <th>Congregación</th>
-                            <th>Teléfono</th>
-                            <th>PD</th>
-                            <th>DA</th>
-                            <th>AA</th>
-                            <th>REAL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                </table>
-            </div>
-
-            <div class="tab-content" id="SábadoTableContent" style="display:none;">
-                <h2>Sábado Mañana</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nº</th>
-                            <th>Hora</th>
-                            <th>Discurso</th>
-                            <th>T</th>
-                            <th>Orador</th>
-                            <th>Congregación</th>
-                            <th>Teléfono</th>
-                            <th>PD</th>
-                            <th>DA</th>
-                            <th>AA</th>
-                            <th>REAL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                </table>
-
-                <h2>Sábado Tarde</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nº</th>
-                            <th>Hora</th>
-                            <th>Discurso</th>
-                            <th>T</th>
-                            <th>Orador</th>
-                            <th>Congregación</th>
-                            <th>Teléfono</th>
-                            <th>PD</th>
-                            <th>DA</th>
-                            <th>AA</th>
-                            <th>REAL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                </table>
-            </div>
-
-            <div class="tab-content" id="DomingoTableContent" style="display:none;">
-                <h2>Domingo Mañana</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nº</th>
-                            <th>Hora</th>
-                            <th>Discurso</th>
-                            <th>T</th>
-                            <th>Orador</th>
-                            <th>Congregación</th>
-                            <th>Teléfono</th>
-                            <th>PD</th>
-                            <th>DA</th>
-                            <th>AA</th>
-                            <th>REAL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                </table>
-
-                <h2>Domingo Tarde</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nº</th>
-                            <th>Hora</th>
-                            <th>Discurso</th>
-                            <th>T</th>
-                            <th>Orador</th>
-                            <th>Congregación</th>
-                            <th>Teléfono</th>
-                            <th>PD</th>
-                            <th>DA</th>
-                            <th>AA</th>
-                            <th>REAL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                </table>
+        <div id="programTableOverlay" class="program-table-overlay">
+            <div class="program-table-content">
+                <button id="closeProgramTable" class="close-button">&times;</button>
+                <div class="tab-navigation">
+                    <button class="tab-button" data-day="Viernes">Viernes</button>
+                    <button class="tab-button" data-day="Sábado">Sábado</button>
+                    <button class="tab-button" data-day="Domingo">Domingo</button>
+                </div>
+                <div id="ViernesTableContent" class="tab-content"></div>
+                <div id="SábadoTableContent" class="tab-content"></div>
+                <div id="DomingoTableContent" class="tab-content"></div>
             </div>
         </div>
+
+        <button id="openProgramTable" class="open-program-table-button" title="Ver Tabla Completa del Programa">
+            <i class="fa-solid fa-list-ul"></i>
+        </button>
+
     </div>
 
-    <script type="module" src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js"></script>
     <script type="module" src="script.js"></script>
 </body>
 </html>
