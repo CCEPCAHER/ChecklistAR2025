@@ -122,11 +122,6 @@ header h1 {
     color: var(--text-primary); 
     margin: 0; 
 }
-header p { 
-    color: var(--text-secondary); 
-    font-size: 1.1em; 
-    margin-top: 0.5rem; 
-}
 
 #logout-button {
     position: absolute;
@@ -157,11 +152,11 @@ header p {
     padding: 0.5rem; 
     border-radius: 12px; 
     box-shadow: var(--shadow); 
-    max-width: 900px; /* Aumentado para los nuevos botones */
+    max-width: 900px; 
     margin-left: auto; 
     margin-right: auto;
-    transition: box-shadow 0.4s ease; /* Transición para el resplandor */
-    flex-wrap: wrap; /* Permite que los botones se envuelvan en pantallas pequeñas */
+    transition: box-shadow 0.4s ease; 
+    flex-wrap: wrap; 
 }
 .nav-button {
     flex-grow: 1; 
@@ -178,43 +173,45 @@ header p {
     justify-content: center; 
     gap: 0.5rem; 
     transition: background-color 0.3s ease, color 0.3s ease;
-    min-width: 100px; /* Asegura un tamaño mínimo para los botones */
+    min-width: 100px; 
 }
 
-/* Estilos para los botones de vista principales */
 .nav-button.main-view-button {
-    flex-basis: 33%; /* Ocupan un tercio del espacio */
-    margin: 0.25rem; /* Pequeño margen entre ellos */
+    flex-basis: 33%; 
+    margin: 0.25rem; 
 }
 
-/* Estilos para los botones de día secundarios (ocultos por defecto) */
 .nav-button.sub-day-button {
-    flex-basis: 30%; /* Tamaño más pequeño para los días */
+    flex-basis: 30%; 
     margin: 0.2rem;
-    font-size: 0.9em; /* Fuente más pequeña */
-}
-.nav-button.sub-day-button.hidden {
-    display: none;
+    font-size: 0.9em; 
 }
 
-
-/* Estilos para los botones activos */
-/* El botón principal "Checklist" se iluminará con el color del día actual */
-.nav-button.main-view-button[data-view="checklist"].active,
-.nav-button.main-view-button[data-view="horarios"].active {
-    background-color: var(--day-color-primary);
-    color: white;
+/* --- ESTILOS PARA BOTONES ACTIVOS --- */
+/* Los botones principales se iluminan con el color del día activo (o un color neutro) */
+body.day-viernes .nav-button.main-view-button[data-view="checklist"].active,
+body.day-viernes .nav-button.main-view-button[data-view="horarios"].active {
+    background-color: var(--viernes-primary); color: white;
 }
-/* El botón "Turnos y Responsabilidades" tiene su propio color */
-.nav-button.main-view-button[data-view="turnosYResponsabilidades"].active {
-    background-color: #6c757d; /* Un gris neutro o el color que prefieras */
+body.day-sabado .nav-button.main-view-button[data-view="checklist"].active,
+body.day-sabado .nav-button.main-view-button[data-view="horarios"].active {
+    background-color: var(--sabado-primary); color: white;
+}
+body.day-domingo .nav-button.main-view-button[data-view="checklist"].active,
+body.day-domingo .nav-button.main-view-button[data-view="horarios"].active {
+    background-color: var(--domingo-primary); color: white;
+}
+
+/* El botón "Responsables" tiene su propio color activo */
+.nav-button.main-view-button[data-view="responsables"].active {
+    background-color: #6c757d; 
     color: white;
 }
 
 /* Los botones de día secundarios se iluminan con el color del día */
-.nav-button.sub-day-button.active[data-day="Viernes"] { background-color: var(--viernes-primary); color: white; }
-.nav-button.sub-day-button.active[data-day="Sábado"] { background-color: var(--sabado-primary); color: white; }
-.nav-button.sub-day-button.active[data-day="Domingo"] { background-color: var(--domingo-primary); color: white; }
+.nav-button.sub-day-button[data-day="Viernes"].active { background-color: var(--viernes-bg-light); color: var(--viernes-primary); }
+.nav-button.sub-day-button[data-day="Sábado"].active { background-color: var(--sabado-bg-light); color: var(--sabado-primary); }
+.nav-button.sub-day-button[data-day="Domingo"].active { background-color: var(--domingo-bg-light); color: var(--domingo-primary); }
 
 
 /* --- PANEL DE RESUMEN --- */
@@ -229,7 +226,7 @@ header p {
     box-shadow: var(--shadow); 
     max-width: 800px; 
     flex-wrap: wrap; 
-    transition: box-shadow 0.4s ease; /* Transición para el resplandor */
+    transition: box-shadow 0.4s ease;
 }
 .summary-item { 
     text-align: center; 
@@ -246,7 +243,6 @@ header p {
     font-weight: 500; 
 }
 
-/* El `body` con la clase del día aplica el estilo al contador */
 body.day-viernes .summary-item .count { color: var(--viernes-primary); }
 body.day-sabado .summary-item .count { color: var(--sabado-primary); }
 body.day-domingo .summary-item .count { color: var(--domingo-primary); }
@@ -257,18 +253,17 @@ main {
 }
 
 /* --- CONTENEDORES DE DÍA TEMATIZADOS --- */
-/* Estas variables se usarán para colorear los elementos dentro de cada día */
-#content-Viernes, #horarios-container #horario-viernes, #turnosYResponsabilidades-container #responsables-viernes {
+#content-Viernes, #horarios-container #horario-viernes, #responsables-container #responsables-viernes {
     --day-color-primary: var(--viernes-primary);
     --day-color-progress: var(--viernes-progress);
     --day-color-bg-light: var(--viernes-bg-light);
 }
-#content-Sábado, #horarios-container #horario-sabado, #turnosYResponsabilidades-container #responsables-sabado {
+#content-Sábado, #horarios-container #horario-sabado, #responsables-container #responsables-sabado {
     --day-color-primary: var(--sabado-primary);
     --day-color-progress: var(--sabado-progress);
     --day-color-bg-light: var(--sabado-bg-light);
 }
-#content-Domingo, #horarios-container #horario-domingo, #turnosYResponsabilidades-container #responsables-domingo {
+#content-Domingo, #horarios-container #horario-domingo, #responsables-container #responsables-domingo {
     --day-color-primary: var(--domingo-primary);
     --day-color-progress: var(--domingo-progress);
     --day-color-bg-light: var(--domingo-bg-light);
@@ -276,7 +271,7 @@ main {
 
 
 /* --- TÍTULOS DE SECCIÓN TEMATIZADOS --- */
-.session-block h2, #horarios-container h2, #horarios-container h3, #turnosYResponsabilidades-container h2, #turnosYResponsabilidades-container h3 {
+.session-block h2, #horarios-container h2, #horarios-container h3, #responsables-container h2, #responsables-container h3 {
     font-size: 1.5em;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
@@ -284,7 +279,7 @@ main {
     border-bottom: 2px solid var(--day-color-primary);
     margin-top: 1.5rem;
 }
-#horarios-container h3, #turnosYResponsabilidades-container h3 {
+#horarios-container h3, #responsables-container h3 {
     font-size: 1.2em;
     border-bottom: 1px solid var(--day-color-primary);
     margin-top: 1rem;
@@ -299,16 +294,13 @@ main {
     overflow: hidden;
     border: 1px solid var(--border-color);
     box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-    
     --progress-percent: 0%;
-
     background: linear-gradient(
         to right, 
-        var(--day-color-progress),
-        var(--day-color-progress) var(--progress-percent), 
+        var(--day-color-bg-light),
+        var(--day-color-bg-light) var(--progress-percent), 
         var(--card-bg) var(--progress-percent)
     );
-    
     transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 .participant-accordion:hover {
@@ -317,35 +309,31 @@ main {
 
 /* --- ESTILO MEJORADO PARA EL ESTADO COMPLETADO --- */
 .participant-accordion.is-complete {
-    background: var(--success); /* Fondo sólido con el color de éxito */
-    border-color: #146c43; /* Un borde ligeramente más oscuro que el fondo */
-    color: white; /* El color del texto por defecto será blanco */
-    box-shadow: 0 0 12px rgba(25, 135, 84, 0.6); /* Sutil resplandor para destacar */
+    background: var(--success); 
+    border-color: #146c43; 
+    color: white; 
+    box-shadow: 0 0 12px rgba(25, 135, 84, 0.6); 
 }
-
 .participant-accordion.is-complete .participant-role {
     color: rgba(255, 255, 255, 0.85);
 }
-
 .participant-accordion.is-complete .details-time,
 .participant-accordion.is-complete .details-number {
     background-color: rgba(255, 255, 255, 0.2);
     color: white;
 }
-
 .participant-accordion.is-complete .accordion-icon {
     color: white;
 }
-
 .participant-accordion.is-complete:hover {
     border-color: #146c43;
     box-shadow: 0 0 16px rgba(25, 135, 84, 0.7);
 }
 
-/* --- NUEVO: ESTILO PARA PRODUCCIONES AUDIOVISUALES --- */
+/* --- ESTILO PARA PRODUCCIONES AUDIOVISUALES --- */
 .participant-accordion.is-audiovisual {
-    background: #f0f4f8; /* Un color azul-grisáceo muy claro y suave */
-    border-left: 5px solid #a6b7c9; /* Un borde izquierdo para darle un toque distintivo */
+    background: #f0f4f8; 
+    border-left: 5px solid #a6b7c9;
     opacity: 0.9;
 }
 .participant-accordion.is-audiovisual .participant-name,
@@ -357,11 +345,6 @@ main {
 .participant-accordion.is-audiovisual .accordion-header {
     cursor: default;
 }
-.participant-accordion.is-audiovisual .accordion-header:hover {
-    background-color: transparent;
-    border-color: var(--border-color); /* Evita que el borde cambie de color */
-}
-/* -------------------------------------------------- */
 
 .accordion-header {
     display: flex; 
@@ -385,21 +368,19 @@ main {
 .participant-name { font-size: 1.1em; font-weight: 600; }
 .participant-role { font-size: 0.9em; color: var(--text-secondary); }
 .participant-details { display: flex; align-items: center; gap: 1rem; margin-left: 1rem; }
-.details-time, .details-number { background-color: #e9ecef; padding: 4px 10px; border-radius: 15px; font-size: 1em; font-weight: 700; }
+.details-time, .details-number { background-color: #e9ecef; padding: 4px 10px; border-radius: 15px; font-size: 1em; font-weight: 700; transition: background-color 0.3s, color 0.3s; }
 
 .status-indicators { display: flex; gap: 6px; }
 .indicator { width: 10px; height: 10px; border-radius: 50%; background-color: #ced4da; transition: background-color 0.3s ease; box-shadow: inset 0 0 2px rgba(0,0,0,0.1); }
 
 /* --- COLORES COHERENTES PARA INDICADORES --- */
-.indicator.recogida { background-color: #ffc107; } /* Amarillo/Oro */
-.indicator.orientacion { background-color: var(--viernes-primary); } /* Azul Océano */
-.indicator.detras_plataforma { background-color: var(--sabado-primary); } /* Naranja Cálido */
-.indicator.discursado { background-color: var(--domingo-primary); } /* Ciruela */
-
-.indicator.maquillaje-sí { background-color: #ea4335; } /* Rojo para 'Sí' */
-.indicator.maquillaje-no { background-color: var(--text-primary); } /* Negro para 'No' */
-.indicator.maquillaje-n\/a { background-color: #80868b; } /* Gris para 'N/A' */
-
+.indicator.recogida { background-color: #ffc107; } 
+.indicator.orientacion { background-color: var(--viernes-primary); }
+.indicator.detras_plataforma { background-color: var(--sabado-primary); }
+.indicator.discursado { background-color: var(--domingo-primary); }
+.indicator.maquillaje-sí { background-color: #ea4335; }
+.indicator.maquillaje-no { background-color: var(--text-primary); }
+.indicator.maquillaje-na { background-color: #80868b; }
 
 .accordion-content { 
     max-height: 0; 
@@ -458,9 +439,6 @@ main {
     border-color: var(--day-color-primary);
 }
 
-.progress-bar-container { 
-    display: none;
-}
 @media (max-width: 480px) {
   .details-time, .details-number {
     font-size: 1.1em;
@@ -473,42 +451,27 @@ main {
     border-radius: 8px;
     padding: 0.5rem 1rem;
   }
-
-  /* Ajuste para los botones de navegación en pantallas pequeñas */
   #day-nav {
-      flex-direction: column; /* Apila los botones */
+      flex-direction: column; 
   }
   .nav-button.main-view-button,
   .nav-button.sub-day-button {
-      flex-basis: auto; /* Dejan de ocupar un porcentaje fijo */
-      width: 100%; /* Ocupan todo el ancho disponible */
-      margin: 0.2rem 0; /* Margen vertical entre ellos */
+      flex-basis: auto; 
+      width: 100%; 
+      margin: 0.2rem 0; 
   }
 }
 
-/* --- ILUMINACIÓN DINÁMICA POR DÍA (NUEVA MEJORA) --- */
-/*
-  Estos estilos cambian el fondo de la página y añaden un "resplandor" 
-  sutil a los paneles principales, creando un ambiente inmersivo.
-  Se activan al añadir la clase .day-viernes, .day-sabado o .day-domingo al <body>.
-*/
+/* --- ILUMINACIÓN DINÁMICA POR DÍA --- */
+body.day-viernes { background-color: var(--viernes-bg-light); }
+body.day-sabado { background-color: var(--sabado-bg-light); }
+body.day-domingo { background-color: var(--domingo-bg-light); }
 
-body.day-viernes {
-    background-color: var(--viernes-bg-light);
-}
-body.day-sabado {
-    background-color: var(--sabado-bg-light);
-}
-body.day-domingo {
-    background-color: var(--domingo-bg-light);
-}
-
-/* Resplandor temático para los paneles y acordeones al pasar el ratón */
 body.day-viernes #day-nav,
 body.day-viernes #summary-panel,
 body.day-viernes .participant-accordion:hover,
 body.day-viernes #horarios-container,
-body.day-viernes #turnosYResponsabilidades-container {
+body.day-viernes #responsables-container {
     box-shadow: 0 5px 15px rgba(0, 95, 115, 0.12), 0 2px 6px rgba(0, 95, 115, 0.1);
 }
 
@@ -516,7 +479,7 @@ body.day-sabado #day-nav,
 body.day-sabado #summary-panel,
 body.day-sabado .participant-accordion:hover,
 body.day-sabado #horarios-container,
-body.day-sabado #turnosYResponsabilidades-container {
+body.day-sabado #responsables-container {
     box-shadow: 0 5px 15px rgba(174, 32, 18, 0.12), 0 2px 6px rgba(174, 32, 18, 0.1);
 }
 
@@ -524,11 +487,11 @@ body.day-domingo #day-nav,
 body.day-domingo #summary-panel,
 body.day-domingo .participant-accordion:hover,
 body.day-domingo #horarios-container,
-body.day-domingo #turnosYResponsabilidades-container {
+body.day-domingo #responsables-container {
     box-shadow: 0 5px 15px rgba(112, 40, 107, 0.12), 0 2px 6px rgba(112, 40, 107, 0.1);
 }
 
-/* --- ESTILOS ESPECÍFICOS PARA LA SECCIÓN DE HORARIOS --- */
+/* --- ESTILOS PARA SECCIÓN DE HORARIOS --- */
 #horarios-container {
     max-width: 900px;
     margin: 0 auto 2rem auto;
@@ -537,22 +500,14 @@ body.day-domingo #turnosYResponsabilidades-container {
     padding: 1.5rem;
     box-shadow: var(--shadow);
 }
-
-.horario-day-section {
-    margin-bottom: 2rem;
-}
-
-.horario-session-block {
-    margin-bottom: 1rem;
-}
-
+.horario-day-section { margin-bottom: 2rem; }
+.horario-session-block { margin-bottom: 1rem; }
 #horarios-container table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
     font-size: 0.9em;
 }
-
 #horarios-container th,
 #horarios-container td {
     border: 1px solid var(--border-color);
@@ -560,19 +515,17 @@ body.day-domingo #turnosYResponsabilidades-container {
     text-align: left;
     vertical-align: top;
 }
-
 #horarios-container th {
     background-color: var(--day-color-bg-light);
     font-weight: 600;
     color: var(--text-primary);
 }
-
 #horarios-container tbody tr:nth-child(even) {
-    background-color: #f9f9f9; /* Ligeramente más oscuro para filas pares */
+    background-color: #f9f9f9;
 }
 
-/* --- ESTILOS ESPECÍFICOS PARA LA SECCIÓN DE TURNOS Y RESPONSABILIDADES --- */
-#turnosYResponsabilidades-container {
+/* --- ESTILOS PARA SECCIÓN DE RESPONSABLES --- */
+#responsables-container {
     max-width: 800px;
     margin: 0 auto 2rem auto;
     background-color: var(--card-bg);
@@ -580,21 +533,16 @@ body.day-domingo #turnosYResponsabilidades-container {
     padding: 1.5rem;
     box-shadow: var(--shadow);
 }
-
-.turnosYResponsabilidades-section, .turnosYResponsabilidades-day-section {
-    margin-bottom: 2rem;
-}
-
-.turnosYResponsabilidades-section ul, .turnosYResponsabilidades-session-block ul {
+.responsables-day-section { margin-bottom: 2rem; }
+.responsables-session-block ul {
     list-style: none;
     padding: 0;
     margin-top: 0.5rem;
 }
-
-.turnosYResponsabilidades-section li, .turnosYResponsabilidades-session-block li {
+.responsables-session-block li {
     padding: 0.4rem 0;
     border-bottom: 1px dashed #e0e0e0;
 }
-.turnosYResponsabilidades-section li:last-child, .turnosYResponsabilidades-session-block li:last-child {
+.responsables-session-block li:last-child {
     border-bottom: none;
 }
