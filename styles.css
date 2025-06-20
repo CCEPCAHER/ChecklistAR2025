@@ -157,7 +157,7 @@ header p {
     padding: 0.5rem; 
     border-radius: 12px; 
     box-shadow: var(--shadow); 
-    max-width: 800px; /* Aumentado para los nuevos botones */
+    max-width: 900px; /* Aumentado para los nuevos botones */
     margin-left: auto; 
     margin-right: auto;
     transition: box-shadow 0.4s ease; /* Transición para el resplandor */
@@ -178,63 +178,43 @@ header p {
     justify-content: center; 
     gap: 0.5rem; 
     transition: background-color 0.3s ease, color 0.3s ease;
-    min-width: 120px; /* Asegura un tamaño mínimo para los botones */
+    min-width: 100px; /* Asegura un tamaño mínimo para los botones */
 }
 
-/* Estilos específicos para los botones de día dentro del nav (Viernes, Sábado, Domingo) */
-.nav-button[data-view="checklist"],
-.nav-button[data-view="horarios"] {
-    display: none; /* Oculta por defecto los botones de día */
+/* Estilos para los botones de vista principales */
+.nav-button.main-view-button {
+    flex-basis: 33%; /* Ocupan un tercio del espacio */
+    margin: 0.25rem; /* Pequeño margen entre ellos */
 }
 
-/* Muestra los botones de día si la vista activa es "checklist" */
-body.day-viernes .nav-button[data-view="checklist"][data-day="Viernes"],
-body.day-sabado .nav-button[data-view="checklist"][data-day="Sábado"],
-body.day-domingo .nav-button[data-view="checklist"][data-day="Domingo"],
-.nav-button[data-view="checklist"].active, /* Esto es para el botón "Checklist" principal */
-.nav-button[data-view="horarios"].active, /* Esto es para el botón "Horarios" principal */
-.nav-button[data-view="responsables"].active {
-    display: flex; /* Muestra el botón de la vista activa */
+/* Estilos para los botones de día secundarios (ocultos por defecto) */
+.nav-button.sub-day-button {
+    flex-basis: 30%; /* Tamaño más pequeño para los días */
+    margin: 0.2rem;
+    font-size: 0.9em; /* Fuente más pequeña */
+}
+.nav-button.sub-day-button.hidden {
+    display: none;
 }
 
-/* Mostrar los botones de día correspondientes si la vista es checklist */
-#day-nav:has(.nav-button[data-view="checklist"].active) .nav-button[data-view="checklist"][data-day] {
-    display: flex; /* Mostrar todos los botones de día cuando la vista "Checklist" está activa */
-}
 
-/* Mostrar los botones de día correspondientes si la vista es horarios */
-#day-nav:has(.nav-button[data-view="horarios"].active) .nav-button[data-view="horarios"][data-day] {
-    display: flex; /* Mostrar todos los botones de día cuando la vista "Horarios" está activa */
-}
-
-/* Asegurarse de que el botón principal de "Checklist" y "Horarios" tenga sentido */
-.nav-button[data-view="checklist"]:not([data-day]),
-.nav-button[data-view="horarios"]:not([data-day]) {
-    flex-basis: auto; /* Ajusta el ancho para estos botones */
-    /* Asegura que no se muestren si no están activos, y luego se manejan por JS */
-    display: flex; /* Estos son los botones "principales" de vista */
-}
-
-/* El `body` con la clase del día aplica el estilo al botón activo (solo para botones de día) */
-body.day-viernes .nav-button.active[data-day="Viernes"] { background-color: var(--viernes-primary); color: white; }
-body.day-sabado .nav-button.active[data-day="Sábado"] { background-color: var(--sabado-primary); color: white; }
-body.day-domingo .nav-button.active[data-day="Domingo"] { background-color: var(--domingo-primary); color: white; }
-
+/* Estilos para los botones activos */
 /* El botón principal "Checklist" se iluminará con el color del día actual */
-.nav-button[data-view="checklist"].active {
-    background-color: var(--day-color-primary);
-    color: white;
-}
-/* El botón principal "Horarios" se iluminará con el color del día actual */
-.nav-button[data-view="horarios"].active {
+.nav-button.main-view-button[data-view="checklist"].active,
+.nav-button.main-view-button[data-view="horarios"].active {
     background-color: var(--day-color-primary);
     color: white;
 }
 /* El botón "Responsables" tiene su propio color */
-.nav-button[data-view="responsables"].active {
+.nav-button.main-view-button[data-view="responsables"].active {
     background-color: #6c757d; /* Un gris neutro o el color que prefieras */
     color: white;
 }
+
+/* Los botones de día secundarios se iluminan con el color del día */
+.nav-button.sub-day-button.active[data-day="Viernes"] { background-color: var(--viernes-primary); color: white; }
+.nav-button.sub-day-button.active[data-day="Sábado"] { background-color: var(--sabado-primary); color: white; }
+.nav-button.sub-day-button.active[data-day="Domingo"] { background-color: var(--domingo-primary); color: white; }
 
 
 /* --- PANEL DE RESUMEN --- */
@@ -277,23 +257,25 @@ main {
 }
 
 /* --- CONTENEDORES DE DÍA TEMATIZADOS --- */
-#content-Viernes, #horario-viernes, .responsables-day-section h2:nth-child(1) {
+/* Estas variables se usarán para colorear los elementos dentro de cada día */
+#content-Viernes, #horarios-container #horario-viernes, #responsables-container #responsables-viernes {
     --day-color-primary: var(--viernes-primary);
     --day-color-progress: var(--viernes-progress);
     --day-color-bg-light: var(--viernes-bg-light);
 }
-#content-Sábado, #horario-sabado, .responsables-day-section h2:nth-child(2) {
+#content-Sábado, #horarios-container #horario-sabado, #responsables-container #responsables-sabado {
     --day-color-primary: var(--sabado-primary);
     --day-color-progress: var(--sabado-progress);
     --day-color-bg-light: var(--sabado-bg-light);
 }
-#content-Domingo, #horario-domingo, .responsables-day-section h2:nth-child(3) {
+#content-Domingo, #horarios-container #horario-domingo, #responsables-container #responsables-domingo {
     --day-color-primary: var(--domingo-primary);
     --day-color-progress: var(--domingo-progress);
     --day-color-bg-light: var(--domingo-bg-light);
 }
 
-/* --- TÍTULOS DE SESIÓN TEMATIZADOS --- */
+
+/* --- TÍTULOS DE SECCIÓN TEMATIZADOS --- */
 .session-block h2, #horarios-container h2, #horarios-container h3, #responsables-container h2, #responsables-container h3 {
     font-size: 1.5em;
     margin-bottom: 1rem;
@@ -490,6 +472,17 @@ main {
     width: auto;
     border-radius: 8px;
     padding: 0.5rem 1rem;
+  }
+
+  /* Ajuste para los botones de navegación en pantallas pequeñas */
+  #day-nav {
+      flex-direction: column; /* Apila los botones */
+  }
+  .nav-button.main-view-button,
+  .nav-button.sub-day-button {
+      flex-basis: auto; /* Dejan de ocupar un porcentaje fijo */
+      width: 100%; /* Ocupan todo el ancho disponible */
+      margin: 0.2rem 0; /* Margen vertical entre ellos */
   }
 }
 
