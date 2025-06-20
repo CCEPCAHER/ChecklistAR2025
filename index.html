@@ -9,9 +9,49 @@
 </head>
 <body>
 
-    <button class="hamburger-menu-button" id="openProgramTable">
-        <i class="fas fa-bars"></i>
-    </button>
+    <div id="login-screen">
+        <div class="login-container">
+            <h1>Bienvenido</h1>
+            <p>Inicia sesión para acceder al checklist del programa.</p>
+            <form id="login-form">
+                <input type="email" id="email-input" placeholder="Correo electrónico" required>
+                <input type="password" id="password-input" placeholder="Contraseña" required>
+                <button type="submit">Iniciar Sesión</button>
+                <p id="login-error" class="hidden">Error de autenticación.</p>
+            </form>
+        </div>
+    </div>
+
+    <div id="app-container" class="hidden">
+        <header>
+            <button class="hamburger-menu-button" id="openProgramTable">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Checklist de Participantes</h1>
+            <p>Gestión del programa de la asamblea regional</p>
+            <button id="logout-button" title="Cerrar Sesión">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </header>
+
+        <nav id="day-nav">
+            <button class="nav-button active" data-day="Viernes">
+                <i class="fas fa-calendar-day"></i> Viernes
+            </button>
+            <button class="nav-button" data-day="Sábado">
+                <i class="fas fa-calendar-day"></i> Sábado
+            </button>
+            <button class="nav-button" data-day="Domingo">
+                <i class="fas fa-calendar-day"></i> Domingo
+            </button>
+        </nav>
+
+        <section id="summary-panel">
+            </section>
+
+        <main id="program-container">
+            </main>
+    </div>
 
     <div class="program-table-overlay" id="programTableOverlay">
         <div class="program-table-container">
@@ -22,12 +62,12 @@
             <h1>Programa de la Asamblea Regional 2025</h1>
 
             <div class="tab-navigation">
-                <button class="tab-button active" data-day="viernes">Viernes</button>
-                <button class="tab-button" data-day="sabado">Sábado</button>
-                <button class="tab-button" data-day="domingo">Domingo</button>
+                <button class="tab-button active" data-day="Viernes">Viernes</button>
+                <button class="tab-button" data-day="Sábado">Sábado</button>
+                <button class="tab-button" data-day="Domingo">Domingo</button>
             </div>
 
-            <div class="tab-content" id="viernesTableContent">
+            <div class="tab-content" id="ViernesTableContent">
                 <h2>Viernes Mañana</h2>
                 <table>
                     <thead>
@@ -46,18 +86,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td></td><td>PRESIDENTE DE LA SESIÓN</td><td></td><td></td><td>David Castro</td><td>Manresa-Este</td><td>618 200 006</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>9:20</td><td>Video musical</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>9:30</td><td>Canción 74 y oración</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>1</td><td>9:40</td><td>DISCURSO DEL PRESIDENTE: ¿Qué es la adoración pura?</td><td></td><td>Julián Lasheras</td><td>Sant Feliu de Llobregat-Norte</td><td>697 818 981</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>2</td><td>10:10</td><td>PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús: Episodio 2. "Este es mi Hijo" (Parte 1).</td><td>30 min</td><td></td><td>Circuito ESP-B-03</td><td>+34 609 919 464</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>10:20</td><td>Canción 54 y anuncios</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>3</td><td>10:50</td><td>SERIE DE DISCURSOS: ¡Las profecías sobre el Mesías se cumplieron! (Parte 1) Reconocido por Dios</td><td>20 min</td><td>Domingo Tarrason</td><td>Barcelona - Artesanía</td><td>+34 649 455 497</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>4</td><td>11:10</td><td>Descendiente del rey David</td><td>16 min</td><td>Pedro Medina</td><td>Barcelona - Artesanía</td><td>+34 675 734 270</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>5</td><td>11:45</td><td>Ungido para ser "el Mesías, el Líder"</td><td>16 min</td><td>Daniel Velasco</td><td>Barcelona - Gracia</td><td>+34 622 033 449</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>6</td><td></td><td>¿Quién es realmente el gobernante del mundo?</td><td>29 min</td><td>Álex Botella</td><td>Barcelona - Pueblo Nuevo</td><td>+34 691 556 419</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>12:15</td><td>Canción 22 e intermedio</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    </tbody>
+                        </tbody>
                 </table>
 
                 <h2>Viernes Tarde</h2>
@@ -78,28 +107,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td></td><td>PRESIDENTE DE LA SESIÓN</td><td></td><td></td><td>Eduardo Ayala</td><td>Hospitalet - Can Serra</td><td>669 380 176</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>1:35</td><td>Video musical</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>1:45</td><td>Canción 121</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>7</td><td>1:50</td><td>SERIE DE DISCURSOS: Imitamos a Jesús cuando Satanás nos tiente.</td><td>15 min</td><td>Miguel Solé</td><td>Circuito ESP-B-12</td><td>+34 656 331 939</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>8</td><td></td><td>Apoyémonos en la Palabra de Dios</td><td>13 min</td><td>David Aleixandri</td><td>Badalona - Llefia</td><td>+34 610 455 277</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>9</td><td></td><td>Adoremos solo a Jehová</td><td>14 min</td><td>David Maldonado</td><td>Sant Vicenç de Castellet - Centro</td><td>+34 676 607 301</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>10</td><td></td><td>Defendamos la verdad</td><td>13 min</td><td>Juan Martin Prior</td><td>Badalona - Oeste</td><td>+34 645 573 306</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>2:50</td><td>Canción 97 y anuncios</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>11</td><td>3:00</td><td>SERIE DE DISCURSOS: Lecciones sobre la tierra en la que vivió Jesús. El desierto de Judea</td><td>11 min</td><td>Elliot Miguel</td><td>Barcelona - Guinardó</td><td>667 250 970</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>12</td><td></td><td>El valle del Jordán</td><td>9 min</td><td>José Bonet</td><td>Barcelona - Triunfo</td><td>+34 695 35 45 68</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>13</td><td></td><td>Jerusalén</td><td>14 min</td><td>Santiago Cardona</td><td>Barcelona - Horta</td><td>+34 671 181 894</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>14</td><td></td><td>Samaria</td><td>9 min</td><td>Israel Malla</td><td>Manresa - Norte</td><td>+34 658 609 587</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>15</td><td></td><td>Galilea</td><td>9 min</td><td>Bárbara Yulexi Tejera Rios</td><td>Manresa - Norte</td><td>+34 668 586 628</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>16</td><td></td><td>Fenicia</td><td>14 min</td><td>Rafael Corral</td><td>San Feliu de Llobregat - Norte</td><td>+34 616 329 783</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>17</td><td></td><td>Siria</td><td>9 min</td><td>Michel Gottardo</td><td>Cornellà - Centro</td><td>+34 697 578 921</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>18</td><td>4:10</td><td>¿Qué ve Jesús en cada uno de nosotros?</td><td>34 min</td><td>Andrés Mayor (Betel)</td><td>Alcalá de Henares - Inglesa</td><td>+34 657 10 75 24</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>4:45</td><td>Canción 34 de conclusión</td><td></td><td>Pedro Mora</td><td>Cornellà - Linda Vista</td><td>627 584 967</td><td></td><td></td><td></td><td></td></tr>
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
 
-            <div class="tab-content" id="sabadoTableContent" style="display:none;">
+            <div class="tab-content" id="SábadoTableContent" style="display:none;">
                 <h2>Sábado Mañana</h2>
                 <table>
                     <thead>
@@ -118,22 +130,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td></td><td>PRESIDENTE DE LA SESIÓN</td><td></td><td></td><td>Abel Reguant</td><td>Manresa - Oeste</td><td>619 785 527</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>9:20</td><td>Video musical</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>9:30</td><td>Canción 93 y oración</td><td></td><td>Ricardo Cordovilla</td><td>Hospitalet - Bellvitge</td><td>609 831 085</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>9:40</td><td>"Qué buscan?"</td><td>10 min</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>9:50</td><td>PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús: Episodio 2. "Este es mi Hijo"(Parte 2).</td><td>30 min</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>10:20</td><td>Canción 54 y anuncios</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>10:30</td><td>SERIE DE DISCURSOS: Imitamos a los que amaron la adoración pura</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>21</td><td></td><td>Juan el Bautista</td><td>18 min</td><td>Gabriel Quintana</td><td>Berga</td><td>+34 628 750 431</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>22</td><td></td><td>Andrés</td><td>9 min</td><td>Manuel Casino</td><td>Barcelona - Industria</td><td>+34 640 407 731</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>23</td><td></td><td>Pedro</td><td>9 min</td><td>Esteban Martín</td><td>Barcelona - Correos</td><td>+34 647 418 124</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>24</td><td></td><td>Juan</td><td>9 min</td><td>Kevin Adiel Cobo (Betel)</td><td>Madrid - Moratalaz</td><td>+34 626 47 34</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>25</td><td></td><td>Santiago</td><td>8 min</td><td>Rubén Verdés</td><td>Barcelona - Ramblas</td><td>+34 633 777 095</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>26</td><td></td><td>Felipe</td><td>8 min</td><td>David Mercader</td><td>Prat de Llobregat - Centric</td><td>+34 603 299 172</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>27</td><td></td><td>Natanael</td><td>9 min</td><td>Daniel Sellarés</td><td>Manresa - Sur</td><td>+34 635 670 682</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>28</td><td>11:35</td><td>DISCURSO DE BAUTISMO: El significado de su bautismo</td><td>29 min</td><td>Natán Becerril</td><td>Hospitalet de Llobregat - Can Serra</td><td>+34 650 677 392</td><td></td><td></td><td></td><td></td></tr>
-                    </tbody>
+                        </tbody>
                 </table>
 
                 <h2>Sábado Tarde</h2>
@@ -154,27 +151,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td></td><td>PRESIDENTE DE LA SESIÓN</td><td></td><td></td><td>Climent Ambrós</td><td>Barcelona - Gracia</td><td>670 227 872</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>1:35</td><td>Video musical</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>1:45</td><td>Canción 36</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>1:50</td><td>SERIE DE DISCURSOS: El primer milagro de Jesús nos enseña...</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>29</td><td></td><td>...a ser compasivos</td><td>19 min</td><td>Jonatán Vicente</td><td>Santa Coloma de Gramanet - Sur</td><td>+34 696 683 559</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>30</td><td></td><td>...a ser humildes</td><td>9 min</td><td>Santiago Sáez</td><td>San Feliu de Llobregat - Norte</td><td>+34 665 817 304</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>31</td><td></td><td>...a ser generosos</td><td>10 min</td><td>Ricardo Anguita</td><td>Sant Vicenç dels Horts - Centro</td><td>+34 660 830 486</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>32</td><td>2:20</td><td>¿Cómo quita el pecado el Cordero de Dios?</td><td>29 min</td><td>Josué Rabaneda</td><td>Barcelona - Rondes</td><td>+34 627 977 232</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>2:45</td><td>SERIE DE DISCURSOS: ¡Las profecías sobre el Mesías se cumplieron! (Parte 2)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>33</td><td></td><td>La devoción por la casa de Jehová ardió en su interior</td><td>19 min</td><td>Edgar Teruel (Betel)</td><td>Alcalá de Henares - Inglesa</td><td>+34 627 73 22 31</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>34</td><td></td><td>Anunció "Buenas noticias a los mansos"</td><td>9 min</td><td>Álvaro Paniagua</td><td>Manresa - Norte</td><td>609 325 570</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>35</td><td></td><td>"Una gran luz" brilló en Galilea</td><td>13 min</td><td>Adolfo Fornieles</td><td>Circuito ESP-B-04</td><td>+34 607 716 403</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>3:20</td><td>Canción 117 y anuncios</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>36</td><td>3:30</td><td>¡Quiten todo esto de aquí!</td><td>29 min</td><td>Alfonso Guerrero</td><td>Barcelona - Pueblo Nuevo</td><td>+34 643 931 362</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>37</td><td>4:00</td><td>"Lo levantaré"</td><td>14 min</td><td>Andrés Mayor (Betel)</td><td>Alcalá de Henares - Inglesa</td><td>+34 657 10 75 24</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>4:35</td><td>Canción 75 y oración de conclusión</td><td></td><td>Jairo José Galán</td><td>Berga</td><td>649 031 832</td><td></td><td></td><td></td><td></td></tr>
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
 
-            <div class="tab-content" id="domingoTableContent" style="display:none;">
+            <div class="tab-content" id="DomingoTableContent" style="display:none;">
                 <h2>Domingo Mañana</h2>
                 <table>
                     <thead>
@@ -193,20 +174,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td></td><td>PRESIDENTE DE LA SESIÓN</td><td></td><td></td><td>Juan Alcaraz</td><td>Barcelona - Rondes</td><td>600 460 360</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>9:20</td><td>Video musical</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>9:30</td><td>Canción 140 y oración</td><td></td><td>José Diego</td><td>Tona</td><td>+34 624 254 650</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>9:40</td><td>SERIE DE DISCURSOS: Lecciones sobre lo que dijo Jesús</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>38</td><td></td><td>Nacer "del agua y del espíritu"</td><td>14 min</td><td>Isaac Díaz</td><td>Tona</td><td>+34 641 13 07 65</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>39</td><td></td><td>"Ningún hombre ha subido al cielo"</td><td>12 min</td><td>Benjamin Ferrer</td><td>Barcelona - Verneda</td><td>+34 660 407 731</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>40</td><td></td><td>Ir "a la luz"</td><td>13 min</td><td>Francisco Javier Villa</td><td>Prat de Llobregat - Centric</td><td>+34 626 222 691</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>41</td><td></td><td>"Ese soy yo"</td><td>13 min</td><td>Joseph Salazar</td><td>Barcelona - Horta</td><td>+34 644 611 770</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>42</td><td></td><td>"Mi alimento"</td><td>13 min</td><td>Fernando Teruel</td><td>Hospitalet de Llobregat - Este</td><td>+34 610 520 042</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>11:05</td><td>Canción 37 y anuncios</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>43</td><td>11:15</td><td>DISCURSO PÚBLICO: ¿Sabe en qué se basan sus creencias?</td><td>29 min</td><td>José Manuel Lara</td><td>Circuito ESP-B-10</td><td>+34 647 905 979</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>44</td><td>11:45</td><td>Resumen de Lo Atalaya</td><td>29 min</td><td>Nino Llopis</td><td>Ripoll</td><td>+34 676 977 747</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>12:15</td><td>Canción 84 e intermedio</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    </tbody>
+                        </tbody>
                 </table>
 
                 <h2>Domingo Tarde</h2>
@@ -227,20 +195,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td></td><td>PRESIDENTE DE LA SESIÓN</td><td></td><td></td><td>Julián Lasheras</td><td>ESP-B-03</td><td>609 919 464</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>1:35</td><td>Video musical</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>1:45</td><td>Canción 77</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>1:50</td><td>PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús: Episodio 3. "Ese soy yo"</td><td>45 min</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>2:35</td><td>Canción 20 y anuncios</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>2:47</td><td>¿Qué hemos aprendido?</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td>48</td><td>2:55</td><td>¡Permanezcamos en el gran templo espiritual de Jehová!</td><td>49 min</td><td>Andrés Mayor (Betel)</td><td>Alcalá de Henares - Inglesa</td><td>+34 657 10 75 24</td><td></td><td></td><td></td><td></td></tr>
-                        <tr><td></td><td>3:45</td><td>Nueva canción y oración de conclusión</td><td></td><td>Andrés Mayor (Betel)</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    </tbody>
+                        </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
