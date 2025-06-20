@@ -37,7 +37,7 @@ body {
     padding: 1rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.4s ease; /* Transición suave para el cambio de color */
 }
 
 /* --- PANTALLA DE LOGIN --- */
@@ -159,7 +159,8 @@ header p {
     box-shadow: var(--shadow); 
     max-width: 600px; 
     margin-left: auto; 
-    margin-right: auto; 
+    margin-right: auto;
+    transition: box-shadow 0.4s ease; /* Transición para el resplandor */
 }
 .nav-button {
     flex-grow: 1; 
@@ -177,9 +178,11 @@ header p {
     gap: 0.5rem; 
     transition: background-color 0.3s ease, color 0.3s ease;
 }
-.day-viernes .nav-button.active[data-day="Viernes"] { background-color: var(--viernes-primary); color: white; }
-.day-sabado .nav-button.active[data-day="Sábado"] { background-color: var(--sabado-primary); color: white; }
-.day-domingo .nav-button.active[data-day="Domingo"] { background-color: var(--domingo-primary); color: white; }
+
+/* El `body` con la clase del día aplica el estilo al botón activo */
+body.day-viernes .nav-button.active[data-day="Viernes"] { background-color: var(--viernes-primary); color: white; }
+body.day-sabado .nav-button.active[data-day="Sábado"] { background-color: var(--sabado-primary); color: white; }
+body.day-domingo .nav-button.active[data-day="Domingo"] { background-color: var(--domingo-primary); color: white; }
 
 /* --- PANEL DE RESUMEN --- */
 #summary-panel { 
@@ -193,6 +196,7 @@ header p {
     box-shadow: var(--shadow); 
     max-width: 800px; 
     flex-wrap: wrap; 
+    transition: box-shadow 0.4s ease; /* Transición para el resplandor */
 }
 .summary-item { 
     text-align: center; 
@@ -201,15 +205,18 @@ header p {
     font-size: 1.8em; 
     font-weight: 700; 
     color: var(--text-primary); 
+    transition: color 0.4s ease;
 }
 .summary-item .label { 
     font-size: 0.9em; 
     color: var(--text-secondary); 
     font-weight: 500; 
 }
-.day-viernes .summary-item .count { color: var(--viernes-primary); }
-.day-sabado .summary-item .count { color: var(--sabado-primary); }
-.day-domingo .summary-item .count { color: var(--domingo-primary); }
+
+/* El `body` con la clase del día aplica el estilo al contador */
+body.day-viernes .summary-item .count { color: var(--viernes-primary); }
+body.day-sabado .summary-item .count { color: var(--sabado-primary); }
+body.day-domingo .summary-item .count { color: var(--domingo-primary); }
 
 main { 
     max-width: 800px; 
@@ -273,12 +280,14 @@ main {
     box-shadow: 0 0 12px rgba(25, 135, 84, 0.6); /* Sutil resplandor para destacar */
 }
 
-.participant-accordion.is-complete .participant-role {
+.participant-accordion.is-complete .participant-role,
+.participant-accordion.is-complete .participant-congregation { /* Añadido .participant-congregation */
     color: rgba(255, 255, 255, 0.85);
 }
 
 .participant-accordion.is-complete .details-time,
-.participant-accordion.is-complete .details-number {
+.participant-accordion.is-complete .details-number,
+.participant-accordion.is-complete .whatsapp-icon { /* Añadido .whatsapp-icon */
     background-color: rgba(255, 255, 255, 0.2);
     color: white;
 }
@@ -289,6 +298,7 @@ main {
 
 .participant-accordion.is-complete:hover {
     border-color: #146c43;
+    box-shadow: 0 0 16px rgba(25, 135, 84, 0.7);
 }
 
 /* --- NUEVO: ESTILO PARA PRODUCCIONES AUDIOVISUALES --- */
@@ -300,7 +310,8 @@ main {
 .participant-accordion.is-audiovisual .participant-name,
 .participant-accordion.is-audiovisual .participant-role,
 .participant-accordion.is-audiovisual .details-time,
-.participant-accordion.is-audiovisual .details-number {
+.participant-accordion.is-audiovisual .details-number,
+.participant-accordion.is-audiovisual .participant-congregation { /* Añadido .participant-congregation */
     color: #333;
 }
 .participant-accordion.is-audiovisual .accordion-header {
@@ -321,6 +332,8 @@ main {
     cursor: pointer; 
     border: none;
     background-color: transparent;
+    flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas pequeñas */
+    gap: 0.5rem; /* Espacio entre elementos del header */
 }
 .accordion-icon { 
     font-size: 1.2em; 
@@ -330,11 +343,58 @@ main {
     transform: rotate(180deg); 
 }
 
-.participant-info { flex-grow: 1; }
-.participant-name { font-size: 1.1em; font-weight: 600; }
-.participant-role { font-size: 0.9em; color: var(--text-secondary); }
-.participant-details { display: flex; align-items: center; gap: 1rem; margin-left: 1rem; }
-.details-time, .details-number { background-color: #e9ecef; padding: 4px 10px; border-radius: 15px; font-size: 1em; font-weight: 700; }
+.participant-info { 
+    flex-grow: 1; 
+    min-width: 150px; /* Asegurar que no sea demasiado pequeño */
+}
+.participant-name { 
+    font-size: 1.1em; 
+    font-weight: 600; 
+}
+.participant-role { 
+    font-size: 0.9em; 
+    color: var(--text-secondary); 
+}
+.participant-congregation { /* Nuevo estilo para la congregación */
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    margin-top: 0.2em;
+    font-weight: 500;
+}
+.participant-details { 
+    display: flex; 
+    align-items: center; 
+    gap: 1rem; 
+    margin-left: 1rem; 
+    flex-wrap: wrap; /* Permitir que los detalles se envuelvan */
+    justify-content: flex-end; /* Alinear a la derecha en el wrap */
+}
+.details-time, .details-number { 
+    background-color: #e9ecef; 
+    padding: 4px 10px; 
+    border-radius: 15px; 
+    font-size: 1em; 
+    font-weight: 700; 
+}
+
+/* Estilo para el icono de WhatsApp */
+.whatsapp-icon {
+    font-size: 1.4em; /* Tamaño un poco más grande */
+    color: #25D366; /* Color oficial de WhatsApp */
+    margin-left: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+.whatsapp-icon:hover {
+    transform: scale(1.1);
+}
+.whatsapp-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px; /* Un poco de padding para que sea más fácil de tocar */
+}
+
 
 .status-indicators { display: flex; gap: 6px; }
 .indicator { width: 10px; height: 10px; border-radius: 50%; background-color: #ced4da; transition: background-color 0.3s ease; box-shadow: inset 0 0 2px rgba(0,0,0,0.1); }
@@ -422,4 +482,292 @@ main {
     border-radius: 8px;
     padding: 0.5rem 1rem;
   }
+  .accordion-header {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+  .participant-details {
+      margin-left: 0;
+      justify-content: flex-start;
+      width: 100%;
+  }
+  .participant-info {
+      width: 100%;
+      margin-bottom: 0.5rem;
+  }
+  .whatsapp-icon-container {
+      margin-left: auto; /* Empuja el icono a la derecha en móvil */
+  }
 }
+
+/* --- ILUMINACIÓN DINÁMICA POR DÍA (NUEVA MEJORA) --- */
+/*
+  Estos estilos cambian el fondo de la página y añaden un "resplandor" 
+  sutil a los paneles principales, creando un ambiente inmersivo.
+  Se activan al añadir la clase .day-viernes, .day-sabado o .day-domingo al <body>.
+*/
+
+body.day-viernes {
+    background-color: var(--viernes-bg-light);
+}
+body.day-sabado {
+    background-color: var(--sabado-bg-light);
+}
+body.day-domingo {
+    background-color: var(--domingo-bg-light);
+}
+
+/* Resplandor temático para los paneles y acordeones al pasar el ratón */
+body.day-viernes #day-nav,
+body.day-viernes #summary-panel,
+body.day-viernes .participant-accordion:hover {
+    box-shadow: 0 5px 15px rgba(0, 95, 115, 0.12), 0 2px 6px rgba(0, 95, 115, 0.1);
+}
+
+body.day-sabado #day-nav,
+body.day-sabado #summary-panel,
+body.day-sabado .participant-accordion:hover {
+    box-shadow: 0 5px 15px rgba(174, 32, 18, 0.12), 0 2px 6px rgba(174, 32, 18, 0.1);
+}
+
+body.day-domingo #day-nav,
+body.day-domingo #summary-panel,
+body.day-domingo .participant-accordion:hover {
+    box-shadow: 0 5px 15px rgba(112, 40, 107, 0.12), 0 2px 6px rgba(112, 40, 107, 0.1);
+}
+/* ****************************************************** */
+/* PRINCIPIO: CSS para la nueva funcionalidad de tabla    */
+/* ****************************************************** */
+
+/* Estilos para el botón de hamburguesa */
+.hamburger-menu-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1001; /* Asegura que esté por encima de todo */
+    background-color: var(--primary-color, #007bff); /* Color primario de tu app */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease;
+}
+
+.hamburger-menu-button:hover {
+    background-color: var(--primary-dark-color, #0056b3); /* Tono más oscuro al pasar el ratón */
+}
+
+/* Estilos para el overlay de la tabla */
+.program-table-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Por encima del contenido normal, pero debajo del botón */
+    backdrop-filter: blur(5px); /* Efecto de desenfoque */
+    -webkit-backdrop-filter: blur(5px); /* Para compatibilidad con Safari */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.program-table-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.program-table-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 1200px; /* Ancho máximo para la tabla */
+    height: 90vh; /* Altura del 90% del viewport */
+    overflow-y: auto; /* Permite desplazamiento vertical si el contenido es largo */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.program-table-container h1 {
+    text-align: center;
+    color: var(--text-primary, #333);
+    margin-bottom: 20px;
+}
+
+.close-table-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2em;
+    color: var(--text-secondary, #666);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-table-button:hover {
+    color: var(--accent-color, #dc3545);
+}
+
+/* Navegación de pestañas */
+.tab-navigation {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
+    flex-wrap: wrap; /* Permite que los botones salten de línea */
+}
+
+.tab-button {
+    background-color: var(--secondary-color, #e9ecef);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: var(--text-primary, #333);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tab-button:hover {
+    background-color: var(--secondary-dark-color, #d6d8db);
+}
+
+.tab-button.active {
+    background-color: var(--primary-color, #007bff);
+    color: white;
+    font-weight: bold;
+}
+
+/* Contenido de las tablas */
+.tab-content {
+    flex-grow: 1; /* Permite que el contenido ocupe el espacio restante */
+    overflow-y: auto; /* Permite desplazamiento dentro de la pestaña */
+    padding-right: 10px; /* Espacio para el scrollbar */
+}
+
+.tab-content h2 {
+    color: var(--text-primary, #333);
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid var(--border-color, #eee);
+    padding-bottom: 5px;
+}
+
+/* Estilos generales de la tabla */
+.program-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+
+.program-table-container th,
+.program-table-container td {
+    border: 1px solid var(--table-border-color, #ddd);
+    padding: 8px;
+    text-align: left;
+    vertical-align: top; /* Alinea el contenido superiormente */
+}
+
+.program-table-container thead {
+    background-color: var(--table-header-bg, #f2f2f2);
+    position: sticky; /* Encabezado pegajoso al hacer scroll */
+    top: 0;
+    z-index: 1; /* Asegura que el encabezado esté por encima del contenido */
+}
+
+.program-table-container th {
+    font-weight: bold;
+    color: var(--text-primary, #333);
+}
+
+.program-table-container tbody tr:nth-child(even) {
+    background-color: var(--table-even-row-bg, #f9f9f9);
+}
+
+.program-table-container tbody tr:hover {
+    background-color: var(--table-hover-bg, #f1f1f1);
+}
+
+/* Estilos específicos para celdas vacías o con info mínima */
+.program-table-container td:nth-child(1), /* Nº */
+.program-table-container td:nth-child(4), /* T */
+.program-table-container td:nth-child(8), /* PD */
+.program-table-container td:nth-child(9), /* DA */
+.program-table-container td:nth-child(10), /* AA */
+.program-table-container td:nth-child(11) { /* REAL */
+    text-align: center;
+    width: 40px; /* Ancho fijo para columnas pequeñas */
+}
+
+/* Ajustes para la columna de Hora */
+.program-table-container td:nth-child(2) {
+    white-space: nowrap; /* Evita que la hora se rompa */
+    width: 60px;
+}
+
+/* Columna de Teléfono */
+.program-table-container td:nth-child(7) {
+    white-space: nowrap;
+}
+
+
+/* Media Queries para responsividad (opcional, pero recomendado) */
+@media (max-width: 768px) {
+    .program-table-container {
+        width: 95%;
+        padding: 10px;
+        height: 95vh;
+    }
+
+    .program-table-container th,
+    .program-table-container td {
+        padding: 6px;
+        font-size: 0.8em;
+    }
+
+    .tab-button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
+    /* Ocultar columnas menos importantes en pantallas pequeñas */
+    .program-table-container th:nth-child(4), /* T */
+    .program-table-container td:nth-child(4),
+    .program-table-container th:nth-child(8), /* PD */
+    .program-table-container td:nth-child(8),
+    .program-table-container th:nth-child(9), /* DA */
+    .program-table-container td:nth-child(9),
+    .program-table-container th:nth-child(10), /* AA */
+    .program-table-container td:nth-child(10),
+    .program-table-container th:nth-child(11), /* REAL */
+    .program-table-container td:nth-child(11) {
+        display: none;
+    }
+}
+
+/* Estilos específicos para filas de "PRESIDENTE DE LA SESIÓN" */
+.program-table-container tbody tr:has(td:nth-child(2):contains("PRESIDENTE DE LA SESIÓN")) {
+    background-color: #e0f2f7; /* Un color de fondo diferente */
+    font-weight: bold;
+}
+
+/* ****************************************************** */
+/* FIN: CSS para la nueva funcionalidad de tabla          */
+/* ****************************************************** */
