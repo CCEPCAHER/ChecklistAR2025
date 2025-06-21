@@ -46,6 +46,41 @@ body {
 #login-form button:hover { background-color: #004c5c; }
 #login-error { color: #dc3545; margin-top: 1rem; font-size: 0.9em; }
 
+/* Nuevo contenedor para el campo de contraseña */
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem; /* Mantenemos el margen que tenía el input */
+}
+
+/* Ajustamos el input para que no se solape con el icono */
+#login-form .password-wrapper input {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1em;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-sizing: border-box;
+  /* Añadimos padding a la derecha para dejar espacio al icono */
+  padding-right: 40px; 
+}
+
+/* Estilos para el icono del ojo */
+#toggle-password-visibility {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+#toggle-password-visibility:hover {
+  color: var(--text-primary);
+}
+
+
 /* --- ESTILOS GENERALES APP --- */
 .hidden { display: none !important; }
 header { text-align: center; margin-bottom: 1.5rem; position: relative; }
