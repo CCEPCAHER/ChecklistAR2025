@@ -145,9 +145,13 @@ function crearAcordeon(participante, idUnico) {
                     
                     // ESTE ES EL CÓDIGO CLAVE PARA DESELECCIONAR
                     radio.addEventListener('mousedown', (e) => {
+                        // Si el botón que estás presionando ya estaba marcado...
                         if (radio.checked) {
+                            // ...prevenimos la acción normal del navegador...
                             e.preventDefault();
+                            // ...lo desmarcamos manualmente...
                             radio.checked = false;
+                            // ...y avisamos a la app que el estado ha cambiado para que se guarde.
                             radio.dispatchEvent(new Event('change', { bubbles: true }));
                         }
                     });
