@@ -77,7 +77,7 @@ function crearAcordeon(participante, idUnico) {
     header.className = 'accordion-header';
 
     const esProd = participante.nombre.includes('PRODUCCIÓN AUDIOVISUAL');
-    const esBetel = participante.nombre.includes('(Betel)') || participante.nombre.includes('(BTL)');
+    const esBetel = participante.nombre.includes('(Betel)') || participante.nombre.includes('(B)');
     const esOra = participante.rol.includes('Oración');
     const ocOra = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
     const ocBet = ['orientacion', 'recordatorios'];
