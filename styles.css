@@ -160,7 +160,7 @@ body.day-viernes #day-nav, body.day-viernes #summary-panel, body.day-viernes .pa
 body.day-sabado #day-nav, body.day-sabado #summary-panel, body.day-sabado .participant-accordion:hover, body.day-sabado #responsables-container { box-shadow: 0 5px 15px rgba(174, 32, 18, 0.12), 0 2px 6px rgba(174, 32, 18, 0.1); }
 body.day-domingo #day-nav, body.day-domingo #summary-panel, body.day-domingo .participant-accordion:hover, body.day-domingo #responsables-container { box-shadow: 0 5px 15px rgba(112, 40, 107, 0.12), 0 2px 6px rgba(112, 40, 107, 0.1); }
 
-/* ESTILOS PARA SECCIÓN DE RESPONSABLES */
+/* --- ESTILOS PARA SECCIÓN DE RESPONSABLES --- */
 #responsables-container { max-width: 800px; margin: 0 auto 2rem auto; background-color: var(--card-bg); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow); }
 .responsables-day-section { margin-bottom: 2rem; }
 .responsables-session-block ul { list-style: none; padding: 0; margin-top: 0.5rem; }
