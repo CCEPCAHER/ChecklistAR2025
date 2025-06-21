@@ -77,22 +77,16 @@ function crearAcordeon(participante, idUnico) {
     header.className = 'accordion-header';
 
     const esProd = participante.nombre.includes('PRODUCCIÓN AUDIOVISUAL');
-    if (esProd) accordionItem.classList.add('is-audiovisual');
-
     const esBetel = participante.nombre.includes('(Betel)') || participante.nombre.includes('(BTL)');
     const esOra = participante.rol.includes('Oración');
-    const ocultaParaOracion = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
-    const ocultaParaBetel = ['orientacion', 'recordatorios'];
+    const ocOra = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
+    const ocBet = ['orientacion', 'recordatorios'];
     
     let indicatorsHTML = '';
     if (!esProd) {
         indicatorsHTML = itemsChecklist
-            .filter(item => 
-                item.indicator && 
-                !(esOra && ocultaParaOracion.includes(item.id)) && 
-                !(esBetel && ocultaParaBetel.includes(item.id))
-            )
-            .map(item => `<span class="indicator" data-indicator-for="${item.id}"></span>`).join('');
+            .filter(it => it.indicator && !(esOra && ocOra.includes(it.id)) && !(esBetel && ocBet.includes(it.id)))
+            .map(it => `<span class="indicator" data-indicator-for="${it.id}"></span>`).join('');
     }
 
     header.innerHTML = `
@@ -115,7 +109,7 @@ function crearAcordeon(participante, idUnico) {
         checklistContainer.className = 'checklist-container';
 
         itemsChecklist.forEach(item => {
-            if ((esOra && ocultaParaOracion.includes(item.id)) || (esBetel && ocultaParaBetel.includes(item.id))) return;
+            if ((esOra && ocOra.includes(item.id)) || (esBetel && ocBet.includes(item.id))) return;
 
             const itemDiv = document.createElement('div');
             itemDiv.className = 'checklist-item';
@@ -128,31 +122,29 @@ function crearAcordeon(participante, idUnico) {
                 input.dataset.itemId = item.id;
                 input.id = `check-${idUnico}-${item.id}`;
                 itemDiv.appendChild(input);
-            } else if (item.tipo === 'radio') { 
+            } else { // tipo 'radio'
                 const radioGroup = document.createElement('div');
                 radioGroup.className = 'makeup-options';
                 item.opciones.forEach(opt => {
-                    const radioId = `radio-${idUnico}-${item.id}-${opt}`;
                     const radio = document.createElement('input');
                     radio.type = 'radio';
                     radio.name = `radio-${idUnico}-${item.id}`;
                     radio.value = opt;
                     radio.dataset.itemId = item.id;
-                    radio.id = radioId;
+                    radio.id = `radio-${idUnico}-${item.id}-${opt}`;
                     const label = document.createElement('label');
-                    label.htmlFor = radioId;
+                    label.setAttribute('for', radio.id);
                     label.textContent = opt;
                     
-                    // ESTE ES EL CÓDIGO CLAVE PARA DESELECCIONAR
-                    radio.addEventListener('mousedown', (e) => {
-                        // Si el botón que estás presionando ya estaba marcado...
-                        if (radio.checked) {
-                            // ...prevenimos la acción normal del navegador...
-                            e.preventDefault();
-                            // ...lo desmarcamos manualmente...
+                    // Lógica para permitir deseleccionar un radio button
+                    radio.addEventListener('mousedown', () => radio.dataset.wasChecked = radio.checked);
+                    radio.addEventListener('click', () => {
+                        if (radio.dataset.wasChecked === 'true') {
                             radio.checked = false;
-                            // ...y avisamos a la app que el estado ha cambiado para que se guarde.
+                            radio.dataset.wasChecked = 'false';
                             radio.dispatchEvent(new Event('change', { bubbles: true }));
+                        } else {
+                            radio.dataset.wasChecked = 'true';
                         }
                     });
                     radioGroup.append(radio, label);
@@ -166,8 +158,7 @@ function crearAcordeon(participante, idUnico) {
 
     accordionItem.append(header, content);
     return accordionItem;
-}
-/** Genera toda la estructura HTML del programa. */
+}/** Genera toda la estructura HTML del programa. */
 function generarProgramaHTML() {
     DOMElements.app.programContainer.innerHTML = '';
     ['Viernes', 'Sábado', 'Domingo'].forEach(dia => {
