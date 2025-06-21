@@ -142,6 +142,8 @@ function crearAcordeon(participante, idUnico) {
                     const label = document.createElement('label');
                     label.htmlFor = radioId;
                     label.textContent = opt;
+                    
+                    // ESTE ES EL CÓDIGO CLAVE PARA DESELECCIONAR
                     radio.addEventListener('mousedown', (e) => {
                         if (radio.checked) {
                             e.preventDefault();
@@ -161,7 +163,6 @@ function crearAcordeon(participante, idUnico) {
     accordionItem.append(header, content);
     return accordionItem;
 }
-
 /** Genera toda la estructura HTML del programa. */
 function generarProgramaHTML() {
     DOMElements.app.programContainer.innerHTML = '';
