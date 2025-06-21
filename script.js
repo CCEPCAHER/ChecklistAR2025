@@ -99,25 +99,83 @@ const programa = [
       ]
     }
 ];
+const itemsChecklist = [ { id: 'recogida', texto: 'Recogida en presidencia', tipo: 'checkbox', icon: 'fa-solid fa-handshake', indicator: true }, { id: 'orientacion', texto: 'Orientación inicial', tipo: 'checkbox', icon: 'fa-solid fa-compass', indicator: true }, { id: 'maquillaje', texto: 'Maquillaje', tipo: 'radio', opciones: ['Sí', 'No', 'N/A'], icon: 'fa-solid fa-palette', indicator: true }, { id: 'detras_plataforma', texto: 'Listo tras bastidores (20 min)', tipo: 'checkbox', icon: 'fa-solid fa-clock', indicator: true }, { id: 'repaso_maquillaje', texto: 'Repaso final de maquillaje', tipo: 'checkbox', icon: 'fa-solid fa-brush', indicator: false }, { id: 'recordatorios', texto: 'Recordatorios finales', tipo: 'checkbox', icon: 'fa-solid fa-bullhorn', indicator: false }, { id: 'discursado', texto: 'Participación completada', tipo: 'checkbox', icon: 'fa-solid fa-microphone-slash', indicator: true } ];
+const responsablesPorTurno = [ { "Día": "Viernes", "Turno": "Mañana", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Javier Bolivar", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Inma C., Vanessa C., Raquel P.", "Maquillaje Plataforma": "Gemma Monje" }, { "Día": "Viernes", "Turno": "Tarde", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Alejandro Hernandez", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Ana M., Sandra O., Gemma M.", "Maquillaje Plataforma": "Raquel Pallares" }, { "Día": "Sábado", "Turno": "Mañana", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Mario Martín", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Gemma M., Inma C., Sandra O.", "Maquillaje Plataforma": "Ana Marañón" }, { "Día": "Sábado", "Turno": "Tarde", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Javier Bolivar", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Vanessa C., Raquel P., Ana M.", "Maquillaje Plataforma": "Sandra Ortega" }, { "Día": "Domingo", "Turno": "Mañana", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Alejandro Hernandez", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Ana M., Sandra O., Vanessa C.", "Maquillaje Plataforma": "Inma Casino" }, { "Día": "Domingo", "Turno": "Tarde", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Mario Martín", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Gemma Monje, Ana M., Raquel P.", "Maquillaje Plataforma": "Vanessa Intriago" } ];
 
-const itemsChecklist = [
-    { id: 'recogida', texto: 'Recogida en presidencia', tipo: 'checkbox', icon: 'fa-solid fa-handshake', indicator: true },
-    { id: 'orientacion', texto: 'Orientación inicial', tipo: 'checkbox', icon: 'fa-solid fa-compass', indicator: true },
-    { id: 'maquillaje', texto: 'Maquillaje', tipo: 'radio', opciones: ['Sí', 'No', 'N/A'], icon: 'fa-solid fa-palette', indicator: true },
-    { id: 'detras_plataforma', texto: 'Listo tras bastidores (20 min)', tipo: 'checkbox', icon: 'fa-solid fa-clock', indicator: true },
-    { id: 'repaso_maquillaje', texto: 'Repaso final de maquillaje', tipo: 'checkbox', icon: 'fa-solid fa-brush', indicator: false },
-    { id: 'recordatorios', texto: 'Recordatorios finales', tipo: 'checkbox', icon: 'fa-solid fa-bullhorn', indicator: false },
-    { id: 'discursado', texto: 'Participación completada', tipo: 'checkbox', icon: 'fa-solid fa-microphone-slash', indicator: true }
-];
-
-// --- RESPONSABLES DE TURNO ---
-const responsablesPorTurno = [
-  { "Día": "Viernes", "Turno": "Mañana", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Javier Bolivar", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Inma C., Vanessa C., Raquel P.", "Maquillaje Plataforma": "Gemma Monje" },
-  { "Día": "Viernes", "Turno": "Tarde", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Alejandro Hernandez", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Ana M., Sandra O., Gemma M.", "Maquillaje Plataforma": "Raquel Pallares" },
-  { "Día": "Sábado", "Turno": "Mañana", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Mario Martín", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Gemma M., Inma C., Sandra O.", "Maquillaje Plataforma": "Ana Marañón" },
-  { "Día": "Sábado", "Turno": "Tarde", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Javier Bolivar", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Vanessa C., Raquel P., Ana M.", "Maquillaje Plataforma": "Sandra Ortega" },
-  { "Día": "Domingo", "Turno": "Mañana", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Alejandro Hernandez", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Ana M., Sandra O., Vanessa C.", "Maquillaje Plataforma": "Inma Casino" },
-  { "Día": "Domingo", "Turno": "Tarde", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Mario Martín", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Gemma Monje, Ana M., Raquel P.", "Maquillaje Plataforma": "Vanessa Intriago" }
+// --- NUEVA DATA: INSTRUCCIONES POR PERFIL ---
+const instruccionesPorPerfil = [
+    {
+        perfil: "Recepción",
+        icono: "fa-solid fa-hands-holding-child",
+        color: "color-recepcion",
+        instrucciones: [
+            "Esperaremos a los oradores en presidencia donde les daremos la bienvenida.",
+            "Dirigirlos a maquillaje (estará situado al lado de presidencia) y una vez maquillados acompañarlos hasta plataforma.",
+            "Asegurarnos que estén en plataforma al menos 20 minutos antes de su participación.",
+            "Comprobar que llevan su tarjeta de solapa. (Tener preparada una tarjeta por si fuera necesario)."
+        ]
+    },
+    {
+        perfil: "Maquillaje",
+        icono: "fa-solid fa-palette",
+        color: "color-maquillaje",
+        instrucciones: [
+            "La decisión de usar maquillaje le corresponde a los participantes.",
+            "No debe parecer que los hombres van maquillados, se trata de evitar brillos o reflejos en el rostro.",
+            "No se maquilla a quienes hagan las oraciones, comenten durante la atalaya o sean entrevistados.",
+            "Debemos asegurarnos que nuestra vestimenta sea decentes \"en cualquier postura\" especialmente al acercarnos al oradora para maquillarle."
+        ]
+    },
+    {
+        perfil: "Plataforma / Atrezzo",
+        icono: "fa-solid fa-chair",
+        color: "color-plataforma",
+        instrucciones: [
+            { titulo: "Antes del inicio de cada sesión:", puntos: [
+                "Colocaremos una silla en el lado izquierdo de la plataforma. (El presidente del programa se sentará durante el video musical de 10 minutos).",
+                "Comprobar el buen funcionamiento del cronómetro. (Disponemos de un cronómetro de repuesto si fuera necesario)."
+            ]},
+            { titulo: "Durante el programa:", puntos: [
+                "Se pondrá en marcha el cronómetro al inicio del video musical con el que se empiezan todas las sesiones. (Sirve de referencia al presidente del programa para saber cuando va a terminar el video).",
+                "Durante la canción de inicio de la sesión retiraremos la silla que usó el presidente del programa.",
+                "Poner en marcha el cronómetro justo cuando el orador empiece a hablar y ponerlo a cero cuando termine."
+            ]},
+            { titulo: "Entrevistas:", puntos: [
+                "Indicar a los entrevistados por donde deberán entrar y salir a plataforma y donde situarse (habrá unas marcas en el suelo como referencia).",
+                "Entregar los micrófonos a los entrevistados y recordarles cómo usarlos.",
+                "Preguntar al hermano de comunicación con AV qué micrófonos usar."
+            ]}
+        ]
+    },
+    {
+        perfil: "Atril",
+        icono: "fa-solid fa-person-chalkboard",
+        color: "color-atril",
+        instrucciones: [
+             { titulo: "Comentar a los oradores las siguientes pautas antes de salir a plataforma:", puntos: [
+                "Colocaremos el atril a la altura que les sea más cómoda para ellos, pero la altura y posición del micrófono la decidiréis vosotros.",
+                "En el momento de ajustar el micrófono el orador debe permanecer erguido mirando al frente para facilitar vuestra labor.",
+                "Recordarles que tienen que mirar a las cámaras que tienen enfrente y no al auditorio."
+            ]},
+             { titulo: "Recordatorios sobre la entrada y salida a plataforma:", puntos: [
+                "Al acceder a plataforma se hará en este orden: Primero el hermano de plataforma, seguido del orador y del presidente de la sesión. (Entrarán en el mismo momento pero en este orden).",
+                "El orador siempre entrarán por la derecha y saldrán por el lado izquierdo de plataforma.",
+                "El hermano de plataforma entrará por la derecha y saldrá por la izquierda. (Excepto cuando el presidente use el atril, entonces saldrá por el lado derecho).",
+                "El presidente del programa entrará y saldrá por la derecha cuando use el micrófono de pie. Solo en los inicios de sesión, cuando presenta desde el atril, saldrá por la izquierda."
+            ]}
+        ]
+    },
+    {
+        perfil: "Comunicación AV",
+        icono: "fa-solid fa-satellite-dish",
+        color: "color-comunicación",
+        instrucciones: [
+            "Estar en contacto con audio y video antes del inicio de la sesión y durante todo el programa.",
+            "1 minuto antes del inicio de cada sesión comunicar al hermano que se ocupa del atril que acompañe al presidente del programa a plataforma para iniciar el programa.",
+            "Al mismo tiempo avisar a AV que el presidente del programa sale a plataforma.",
+            "Comunicar al hermano de plataforma cualquier indicación que nos den desde AV (ajustar el micrófono del orador...)."
+        ]
+    }
 ];
 
 // --- ELEMENTOS DEL DOM ---
@@ -133,6 +191,8 @@ const programContainer = document.getElementById('program-container');
 const summaryPanel = document.getElementById('summary-panel');
 const responsablesContainer = document.getElementById('responsables-container');
 const responsablesContent = document.getElementById('responsables-content');
+const instruccionesContainer = document.getElementById('instrucciones-container');
+const instruccionesContent = document.getElementById('instrucciones-content');
 const body = document.body;
 
 // Estado de la aplicación
@@ -148,6 +208,7 @@ function setDayTheme(day) {
     }
 }
 
+// ... (El resto de funciones como crearAcordeon, actualizarEstadoUI, etc., permanecen igual)
 function crearAcordeon(participante, idUnico) {
     const accordionItem = document.createElement('div');
     accordionItem.className = 'participant-accordion';
@@ -191,7 +252,7 @@ function crearAcordeon(participante, idUnico) {
         checklistContainer.className = 'checklist-container';
 
         itemsChecklist.forEach(item => {
-            if ((esOra && ocOra.includes(item.id)) || (esBetel && ocBet.includes(item.id))) return;
+            if ((esOra && ocOra.includes(it.id)) || (esBetel && ocBet.includes(item.id))) return;
 
             const itemDiv = document.createElement('div');
             itemDiv.className = 'checklist-item';
@@ -237,7 +298,6 @@ function crearAcordeon(participante, idUnico) {
     accordionItem.append(header, content);
     return accordionItem;
 }
-
 function generarProgramaHTML() {
     programContainer.innerHTML = '';
     ['Viernes', 'Sábado', 'Domingo'].forEach(dia => {
@@ -258,23 +318,19 @@ function generarProgramaHTML() {
         programContainer.appendChild(dayContent);
     });
 }
-
 function actualizarEstadoUI(accordion) {
     if (!accordion) return;
-
     const nombre = accordion.dataset.nombre;
     if (nombre.includes('PRODUCCIÓN AUDIOVISUAL')) {
         accordion.classList.add('is-audiovisual');
         return;
     }
-    
     const rol = accordion.dataset.rol;
     const esOra = rol.includes('Oración');
     const esBetel = nombre.includes('(Betel)') || nombre.includes('(BTL)');
     const ocOra = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
     const ocBet = ['orientacion', 'recordatorios'];
     const maquillajeNA = accordion.querySelector('input[data-item-id="maquillaje"][value="N/A"]:checked');
-    
     const repasoContainer = accordion.querySelector('[data-container-for="repaso_maquillaje"]');
     if (repasoContainer) {
         const inputRepaso = repasoContainer.querySelector('input');
@@ -286,12 +342,10 @@ function actualizarEstadoUI(accordion) {
             }
         }
     }
-
     const itemsAplicables = itemsChecklist.filter(it => !(esOra && ocOra.includes(it.id)) && !(esBetel && ocBet.includes(it.id)) && !(maquillajeNA && it.id === 'repaso_maquillaje'));
     const totalTasks = itemsAplicables.length;
     let completedTasks = 0;
     const seen = {};
-
     accordion.querySelectorAll('input[data-item-id]').forEach(input => {
         if (input.disabled || seen[input.dataset.itemId]) return;
         if ((input.type === 'checkbox' && input.checked) || (input.type === 'radio' && accordion.querySelector(`input[name="${input.name}"]:checked`))) {
@@ -299,11 +353,9 @@ function actualizarEstadoUI(accordion) {
         }
         seen[input.dataset.itemId] = true;
     });
-    
     const percent = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
     accordion.style.setProperty('--progress-percent', `${percent}%`);
     accordion.classList.toggle('is-complete', percent >= 100);
-    
     accordion.querySelectorAll('.indicator').forEach(indicator => {
         indicator.className = 'indicator';
         const itemId = indicator.dataset.indicatorFor;
@@ -319,7 +371,6 @@ function actualizarEstadoUI(accordion) {
         }
     });
 }
-
 function updateSummary() {
     if (currentView !== 'checklist') {
         summaryPanel.classList.add('hidden');
@@ -327,22 +378,17 @@ function updateSummary() {
         return;
     }
     summaryPanel.classList.remove('hidden');
-
     const dayContent = document.getElementById(`content-${currentDay}`);
     if (!dayContent) return;
-
     const totalParticipantes = dayContent.querySelectorAll('.participant-accordion:not(.is-audiovisual)').length;
     const completos = dayContent.querySelectorAll('.participant-accordion.is-complete').length;
     const conMaquillaje = dayContent.querySelectorAll('input[data-item-id="maquillaje"][value="Sí"]:checked').length;
-
     summaryPanel.innerHTML = `
         <div class="summary-item"><div class="count">${totalParticipantes}</div><div class="label">Participantes</div></div>
         <div class="summary-item"><div class="count">${completos}</div><div class="label">Completos</div></div>
         <div class="summary-item"><div class="count">${conMaquillaje}</div><div class="label">Maquillaje</div></div>`;
-    
     document.title = `(${completos}/${totalParticipantes}) Checklist ${currentDay}`;
 }
-
 async function saveStateToFirebase(id, item, value) {
     try {
         await setDoc(doc(db, 'tareas', id), { [item]: value }, { merge: true });
@@ -351,17 +397,14 @@ async function saveStateToFirebase(id, item, value) {
         alert('No se pudo guardar el cambio. Revisa tu conexión a internet.');
     }
 }
-
 function syncStateFromFirebase() {
     programa.forEach(sesion => {
         sesion.participantes.forEach(p => {
             if (p.nombre.includes('PRODUCCIÓN AUDIOVISUAL')) return;
             const idUnico = `${sesion.sesion.replace(/\s+/g, '-')}-${p.nombre.replace(/[^a-zA-Z0-9-]/g, '-')}-${p.rol.replace(/\s+/g, '-')}`;
-
             onSnapshot(doc(db, 'tareas', idUnico), (docSnapshot) => {
                 const accordion = document.querySelector(`.participant-accordion[data-id="${idUnico}"]`);
                 if (!accordion) return;
-
                 if (docSnapshot.exists()) {
                     const data = docSnapshot.data();
                     Object.entries(data).forEach(([key, value]) => {
@@ -381,11 +424,9 @@ function syncStateFromFirebase() {
         });
     });
 }
-
 function mostrarResponsablesDeTurno() {
     responsablesContent.innerHTML = '';
     const diasOrden = ['Viernes', 'Sábado', 'Domingo'];
-
     diasOrden.forEach(diaKey => {
         const dayData = responsablesPorTurno.filter(item => item['Día'] === diaKey);
         if (dayData.length > 0) {
@@ -393,7 +434,6 @@ function mostrarResponsablesDeTurno() {
             dayDiv.className = 'responsables-day-section';
             dayDiv.id = `responsables-${diaKey.toLowerCase()}`;
             dayDiv.innerHTML = `<h2>${diaKey}</h2>`;
-
             ['Mañana', 'Tarde'].forEach(sesionKey => {
                 const sesionData = dayData.find(item => item['Turno'] === sesionKey);
                 if (sesionData) {
@@ -417,26 +457,61 @@ function mostrarResponsablesDeTurno() {
     });
 }
 
+/**
+ * NUEVA FUNCIÓN: Genera el HTML para la sección de instrucciones.
+ */
+function mostrarInstrucciones() {
+    instruccionesContent.innerHTML = '';
+    const grid = document.createElement('div');
+    grid.className = 'instrucciones-grid';
+
+    // Función recursiva para crear listas (maneja anidación)
+    const createList = (items) => {
+        let html = '<ul>';
+        items.forEach(item => {
+            if (typeof item === 'string') {
+                html += `<li>${item}</li>`;
+            } else if (typeof item === 'object' && item.titulo) {
+                html += `<li><strong>${item.titulo}</strong>${createList(item.puntos)}</li>`;
+            }
+        });
+        html += '</ul>';
+        return html;
+    };
+
+    instruccionesPorPerfil.forEach(perfil => {
+        const card = document.createElement('div');
+        card.className = `instruccion-card ${perfil.color}`;
+        card.innerHTML = `
+            <div class="card-header">
+                <i class="${perfil.icono}"></i>
+                <h3>${perfil.perfil}</h3>
+            </div>
+            <div class="card-body">
+                ${createList(perfil.instrucciones)}
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+    instruccionesContent.appendChild(grid);
+}
+
+
 function changeAppView(view, day = null) {
     currentView = view;
     if (day) currentDay = day;
 
-    // Ocultar todos los contenedores principales
-    [programContainer, responsablesContainer, summaryPanel].forEach(c => c.classList.add('hidden'));
-    
-    // Resetear todos los botones de navegación
+    [programContainer, responsablesContainer, instruccionesContainer, summaryPanel].forEach(c => c.classList.add('hidden'));
     navContainer.querySelectorAll('.nav-button').forEach(button => button.classList.remove('active'));
     navContainer.querySelectorAll('.sub-day-button').forEach(button => button.classList.add('hidden'));
 
-    // Activar el botón de la vista principal
     const mainViewButton = navContainer.querySelector(`.nav-button.main-view-button[data-view="${view}"]`);
     if (mainViewButton) mainViewButton.classList.add('active');
 
     let pageTitle = "Checklist del Programa";
-    setDayTheme(null); // Limpiar tema
+    setDayTheme(null); 
 
     if (view === 'checklist') {
-        // Mostrar sub-botones para la vista de checklist
         navContainer.querySelectorAll(`.nav-button.sub-day-button[data-view="checklist"]`).forEach(button => {
             button.classList.remove('hidden');
         });
@@ -448,12 +523,17 @@ function changeAppView(view, day = null) {
         document.querySelectorAll('.day-content').forEach(d => d.classList.add('hidden'));
         const content = document.getElementById(`content-${currentDay}`);
         if (content) content.classList.remove('hidden');
-        updateSummary(); // El título se actualiza dentro de updateSummary
+        updateSummary();
 
     } else if (view === 'responsables') {
         responsablesContainer.classList.remove('hidden');
-        setDayTheme('Viernes'); // Usar un tema por defecto/neutro
+        setDayTheme('Viernes');
         pageTitle = 'Responsables de Turno';
+        document.title = pageTitle;
+    
+    } else if (view === 'instrucciones') {
+        instruccionesContainer.classList.remove('hidden');
+        pageTitle = 'Instrucciones por Perfil';
         document.title = pageTitle;
     }
 }
@@ -503,6 +583,7 @@ function startApp() {
     
     generarProgramaHTML();
     mostrarResponsablesDeTurno();
+    mostrarInstrucciones(); // Generar la nueva sección
 
     setupEventListeners();
     syncStateFromFirebase();
