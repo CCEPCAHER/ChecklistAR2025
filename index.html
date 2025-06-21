@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="images/icons/icon-192x192.png"/>
 
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="preconnect" href="https://gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
   <link
@@ -64,6 +64,9 @@
       <button class="nav-button main-view-button" data-view="checklist">
         <i class="fas fa-clipboard-check"></i> Checklist
       </button>
+      <button class="nav-button main-view-button" data-view="instrucciones">
+        <i class="fas fa-book-open"></i> Instrucciones
+      </button>
       <button class="nav-button main-view-button" data-view="responsables">
         <i class="fas fa-users-cog"></i> Responsables
       </button>
@@ -76,6 +79,14 @@
     <section id="summary-panel" class="hidden"></section>
 
     <main id="program-container" class="hidden"></main>
+
+    <section id="instrucciones-container" class="hidden">
+      <div class="main-header">
+        <h2>Instrucciones por Perfil</h2>
+      </div>
+      <div id="instrucciones-content">
+          </div>
+    </section>
 
     <section id="responsables-container" class="hidden">
       <div id="responsables-content"></div>
