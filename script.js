@@ -249,7 +249,7 @@ function actualizarEstadoUI(accordion) {
     
     const { nombre, rol } = accordion.dataset;
     const esOra = rol.includes('Oración');
-    const esBetel = nombre.includes('(Betel)') || nombre.includes('(BTL)');
+    const esBetel = nombre.includes('(Betel)') || nombre.includes('(BT)');
     const ocultaParaOracion = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
     const ocultaParaBetel = ['orientacion', 'recordatorios'];
     
