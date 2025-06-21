@@ -3,6 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebas
 import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 
+// --- CONFIGURACIÓN DE FIREBASE ---
 const firebaseConfig = {
     apiKey: "AIzaSyB0djqHeWvNLjWiBkNKMVz_SKbN2ulGcxY",
     authDomain: "checklist2025b1.firebaseapp.com",
@@ -13,202 +14,59 @@ const firebaseConfig = {
     measurementId: "G-T6S0GQ4P4Z"
 };
 
+// --- DATOS DE LA APLICACIÓN ---
+// En una aplicación profesional a gran escala, estos datos se obtendrían de una base de datos (como Firestore)
+// o se cargarían desde archivos JSON separados para mantener limpio el código de lógica.
+const programa = [ { sesion: "Viernes Mañana", participantes: [ { rol: "Presidente", nombre: "David Castro", hora: "9:30" }, { rol: "Oración", nombre: "Francisco José Sánchez" }, { rol: "Discursante", nombre: "Julián Lasheras ¿Qué es la adoración pura?", hora: "9:40", numero: 1 }, { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús (Episodio 1).", hora: "10:10", numero: 2 }, { rol: "Discursante", nombre: "Domingo Tarrasón", hora: "10:50", numero: 3 }, { rol: "Discursante", nombre: "Pedro Medina", hora: "11:11", numero: 4 }, { rol: "Discursante", nombre: "Daniel Velasco", hora: "11:28", numero: 5 }, { rol: "Discursante", nombre: "Álex Botella", hora: "11:45", numero: 6 } ] }, { sesion: "Viernes Tarde", participantes: [ { rol: "Presidente", nombre: "Eduardo Ayala" }, { rol: "Discursante", nombre: "Miguel Solé", hora: "13:50", numero: 7 }, { rol: "Discursante", nombre: "David Aleixandri", hora: "14:06", numero: 8 }, { rol: "Discursante", nombre: "David Maldonado", hora: "14:22", numero: 9 }, { rol: "Discursante", nombre: "Juan Martín Prior", hora: "14:36", numero: 10 }, { rol: "Discursante", nombre: "Elliot Miguel", hora: "15:00", numero: 11 }, { rol: "Discursante", nombre: "José Bonet", hora: "15:12", numero: 12 }, { rol: "Discursante", nombre: "Santiago Cardona", hora: "15:21", numero: 13 }, { rol: "Discursante", nombre: "Israel Malla", hora: "15:30", numero: 14 }, { rol: "Discursante", nombre: "Bárbaro Yuliexi Tejera Ríos", hora: "15:39", numero: 15 }, { rol: "Discursante", nombre: "Rafael Corral", hora: "15:48", numero: 16 }, { rol: "Discursante", nombre: "Míchel Gottardo", hora: "15:58", numero: 17 }, { rol: "Discursante", nombre: "Andrés Mayor (Betel)", hora: "16:10", numero: 18 }, { rol: "Oración Final", nombre: "Pedro Mora" } ] }, { sesion: "Sábado Mañana", participantes: [ { rol: "Presidente", nombre: "Abel Reguant" }, { rol: "Oración", nombre: "Ricardo Cordovilla" }, { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL:¿Qué buscan?", hora: "9:40", numero: 19 }, { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL:Las buenas noticias según Jesús (Episodio 2).", hora: "9:50", numero: 20 }, { rol: "Discursante", nombre: "Gabriel Quintana", hora: "10:30", numero: 21 }, { rol: "Discursante", nombre: "Manuel Casino", hora: "10:40", numero: 22 }, { rol: "Discursante", nombre: "Esteban Martín", hora: "10:49", numero: 23 }, { rol: "Discursante", nombre: "Kevin Adiel Cobo (BTL)", hora: "10:59", numero: 24 }, { rol: "Discursante", nombre: "Rubén Verdés", hora: "11:09", numero: 25 }, { rol: "Discursante", nombre: "David Mercader", hora: "11:17", numero: 26 }, { rol: "Discursante", nombre: "Daniel Sellares", hora: "11:25", numero: 27 }, { rol: "Discursante", nombre: "Natán Becerril", hora: "11:34", numero: 28 } ] }, { sesion: "Sábado Tarde", participantes: [ { rol: "Presidente", nombre: "Climent Ambrós" }, { rol: "Discursante", nombre: "Jonatán Vicente", hora: "13:50", numero: 29 }, { rol: "Discursante", nombre: "Santiago Sáez", hora: "14:00", numero: 30 }, { rol: "Discursante", nombre: "Ricardo Anguita", hora: "14:09", numero: 31 }, { rol: "Discursante", nombre: "Josué Rabaneda", hora: "14:20", numero: 32 }, { rol: "Discursante", nombre: "Edgar Teruel (BTL)", hora: "14:45", numero: 33 }, { rol: "Discursante", nombre: "Álvaro Paniagua", hora: "14:56", numero: 34 }, { rol: "Discursante", nombre: "Adolfo Fornieles", hora: "15:06", numero: 35 }, { rol: "Discursante", nombre: "Alfonso Guerrero", hora: "15:30", numero: 36 }, { rol: "Discursante", nombre: "Andrés Mayor (Betel)", hora: "16:00", numero: 37 }, { rol: "Oración Final", nombre: "Jairo José Galán" } ] }, { sesion: "Domingo Mañana", participantes: [ { rol: "Presidente", nombre: "Juan Alcaraz" }, { rol: "Oración", nombre: "José Diego" }, { rol: "Discursante", nombre: "Isaac Díaz", hora: "9:40", numero: 38 }, { rol: "Discursante", nombre: "Benjamín Ferrer", hora: "9:55", numero: 39 }, { rol: "Discursante", nombre: "Francisco Javier Vila", hora: "10:07", numero: 40 }, { rol: "Discursante", nombre: "Joseph Salazar", hora: "10:21", numero: 41 }, { rol: "Discursante", nombre: "Fernando Teruel", hora: "10:35", numero: 42 }, { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Los campos están Blacos, listos para la cosecha", hora: "10:49", numero: 43 }, { rol: "Discursante", nombre: "José Manuel Lara", hora: "11:15", numero: 44 }, { rol: "Discursante", nombre: "Nino Llopis", hora: "11:45", numero: 45 } ] }, { sesion: "Domingo Tarde", participantes: [ { rol: "Presidente", nombre: "Julián Lasheras" }, { rol: "Discursante", nombre: "PRODUCCIÓN AUDIOVISUAL", hora: "13:50", numero: 46 }, { rol: "Discursante", nombre: "Julián Lasheras", hora: "14:45", numero: 47 }, { rol: "Discursante", nombre: "Andrés Mayor (Betel)", hora: "14:54", numero: 48 }, { rol: "Oración Final", nombre: "Andrés Mayor (Betel)" } ] } ];
+const itemsChecklist = [ { id: 'recogida', texto: 'Recogida en presidencia', tipo: 'checkbox', icon: 'fa-solid fa-handshake', indicator: true }, { id: 'orientacion', texto: 'Orientación inicial', tipo: 'checkbox', icon: 'fa-solid fa-compass', indicator: true }, { id: 'maquillaje', texto: 'Maquillaje', tipo: 'radio', opciones: ['Sí', 'No', 'N/A'], icon: 'fa-solid fa-palette', indicator: true }, { id: 'detras_plataforma', texto: 'Listo tras bastidores (20 min)', tipo: 'checkbox', icon: 'fa-solid fa-clock', indicator: true }, { id: 'repaso_maquillaje', texto: 'Repaso final de maquillaje', tipo: 'checkbox', icon: 'fa-solid fa-brush', indicator: false }, { id: 'recordatorios', texto: 'Recordatorios finales', tipo: 'checkbox', icon: 'fa-solid fa-bullhorn', indicator: false }, { id: 'discursado', texto: 'Participación completada', tipo: 'checkbox', icon: 'fa-solid fa-microphone-slash', indicator: true } ];
+const responsablesPorTurno = [ { "Día": "Viernes", "Turno": "Mañana", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Javier Bolivar", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Inma C., Vanessa C., Raquel P.", "Maquillaje Plataforma": "Gemma Monje" }, { "Día": "Viernes", "Turno": "Tarde", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Alejandro Hernandez", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Ana M., Sandra O., Gemma M.", "Maquillaje Plataforma": "Raquel Pallares" }, { "Día": "Sábado", "Turno": "Mañana", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Mario Martín", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Gemma M., Inma C., Sandra O.", "Maquillaje Plataforma": "Ana Marañón" }, { "Día": "Sábado", "Turno": "Tarde", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Javier Bolivar", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Vanessa C., Raquel P., Ana M.", "Maquillaje Plataforma": "Sandra Ortega" }, { "Día": "Domingo", "Turno": "Mañana", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Alejandro Hernandez", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Ana M., Sandra O., Vanessa C.", "Maquillaje Plataforma": "Inma Casino" }, { "Día": "Domingo", "Turno": "Tarde", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Mario Martín", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Gemma Monje, Ana M., Raquel P.", "Maquillaje Plataforma": "Vanessa Intriago" } ];
+const instruccionesPorPerfil = [ { perfil: "Recepción", icono: "fa-solid fa-hands-holding-child", color: "color-recepcion", instrucciones: [ "Esperaremos a los oradores en presidencia donde les daremos la bienvenida.", "Dirigirlos a maquillaje (estará situado al lado de presidencia) y una vez maquillados acompañarlos hasta plataforma.", "Asegurarnos que estén en plataforma al menos 20 minutos antes de su participación.", "Comprobar que llevan su tarjeta de solapa. (Tener preparada una tarjeta por si fuera necesario)." ] }, { perfil: "Maquillaje", icono: "fa-solid fa-palette", color: "color-maquillaje", instrucciones: [ "La decisión de usar maquillaje le corresponde a los participantes.", "No debe parecer que los hombres van maquillados, se trata de evitar brillos o reflejos en el rostro.", "No se maquilla a quienes hagan las oraciones, comenten durante la atalaya o sean entrevistados.", "Debemos asegurarnos que nuestra vestimenta sea decentes \"en cualquier postura\" especialmente al acercarnos al oradora para maquillarle." ] }, { perfil: "Plataforma / Atrezzo", icono: "fa-solid fa-chair", color: "color-plataforma", instrucciones: [ { titulo: "Antes del inicio de cada sesión:", puntos: [ "Colocaremos una silla en el lado izquierdo de la plataforma. (El presidente del programa se sentará durante el video musical de 10 minutos).", "Comprobar el buen funcionamiento del cronómetro. (Disponemos de un cronómetro de repuesto si fuera necesario)." ]}, { titulo: "Durante el programa:", puntos: [ "Se pondrá en marcha el cronómetro al inicio del video musical con el que se empiezan todas las sesiones. (Sirve de referencia al presidente del programa para saber cuando va a terminar el video).", "Durante la canción de inicio de la sesión retiraremos la silla que usó el presidente del programa.", "Poner en marcha el cronómetro justo cuando el orador empiece a hablar y ponerlo a cero cuando termine." ]}, { titulo: "Entrevistas:", puntos: [ "Indicar a los entrevistados por donde deberán entrar y salir a plataforma y donde situarse (habrá unas marcas en el suelo como referencia).", "Entregar los micrófonos a los entrevistados y recordarles cómo usarlos.", "Preguntar al hermano de comunicación con AV qué micrófonos usar." ]} ] }, { perfil: "Atril", icono: "fa-solid fa-person-chalkboard", color: "color-atril", instrucciones: [ { titulo: "Comentar a los oradores las siguientes pautas antes de salir a plataforma:", puntos: [ "Colocaremos el atril a la altura que les sea más cómoda para ellos, pero la altura y posición del micrófono la decidiréis vosotros.", "En el momento de ajustar el micrófono el orador debe permanecer erguido mirando al frente para facilitar vuestra labor.", "Recordarles que tienen que mirar a las cámaras que tienen enfrente y no al auditorio." ]}, { titulo: "Recordatorios sobre la entrada y salida a plataforma:", puntos: [ "Al acceder a plataforma se hará en este orden: Primero el hermano de plataforma, seguido del orador y del presidente de la sesión. (Entrarán en el mismo momento pero en este orden).", "El orador siempre entrarán por la derecha y saldrán por el lado izquierdo de plataforma.", "El hermano de plataforma entrará por la derecha y saldrá por la izquierda. (Excepto cuando el presidente use el atril, entonces saldrá por el lado derecho).", "El presidente del programa entrará y saldrá por la derecha cuando use el micrófono de pie. Solo en los inicios de sesión, cuando presenta desde el atril, saldrá por la izquierda." ]} ] }, { perfil: "Comunicación AV", icono: "fa-solid fa-satellite-dish", color: "color-comunicación", instrucciones: [ "Estar en contacto con audio y video antes del inicio de la sesión y durante todo el programa.", "1 minuto antes del inicio de cada sesión comunicar al hermano que se ocupa del atril que acompañe al presidente del programa a plataforma para iniciar el programa.", "Al mismo tiempo avisar a AV que el presidente del programa sale a plataforma.", "Comunicar al hermano de plataforma cualquier indicación que nos den desde AV (ajustar el micrófono del orador...)." ] } ];
+
 // --- INICIALIZACIÓN DE FIREBASE ---
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-// --- ESTRUCTURA DEL PROGRAMA Y CHECKLIST ---
-const programa = [
-    { sesion: "Viernes Mañana", participantes: [
-        { rol: "Presidente", nombre: "David Castro", hora: "9:30" },
-        { rol: "Oración", nombre: "Francisco José Sánchez" },
-        { rol: "Discursante", nombre: "Julián Lasheras ¿Qué es la adoración pura?", hora: "9:40", numero: 1 },
-        { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús (Episodio 1).", hora: "10:10", numero: 2 },
-        { rol: "Discursante", nombre: "Domingo Tarrasón", hora: "10:50", numero: 3 },
-        { rol: "Discursante", nombre: "Pedro Medina", hora: "11:11", numero: 4 },
-        { rol: "Discursante", nombre: "Daniel Velasco", hora: "11:28", numero: 5 },
-        { rol: "Discursante", nombre: "Álex Botella", hora: "11:45", numero: 6 }
-      ]
+// --- SELECTORES DEL DOM ---
+const DOMElements = {
+    body: document.body,
+    login: {
+        screen: document.getElementById('login-screen'),
+        form: document.getElementById('login-form'),
+        emailInput: document.getElementById('email-input'),
+        passwordInput: document.getElementById('password-input'),
+        error: document.getElementById('login-error')
     },
-    { sesion: "Viernes Tarde", participantes: [
-        { rol: "Presidente", nombre: "Eduardo Ayala" },
-        { rol: "Discursante", nombre: "Miguel Solé", hora: "13:50", numero: 7 },
-        { rol: "Discursante", nombre: "David Aleixandri", hora: "14:06", numero: 8 },
-        { rol: "Discursante", nombre: "David Maldonado", hora: "14:22", numero: 9 },
-        { rol: "Discursante", nombre: "Juan Martín Prior", hora: "14:36", numero: 10 },
-        { rol: "Discursante", nombre: "Elliot Miguel", hora: "15:00", numero: 11 },
-        { rol: "Discursante", nombre: "José Bonet", hora: "15:12", numero: 12 },
-        { rol: "Discursante", nombre: "Santiago Cardona", hora: "15:21", numero: 13 },
-        { rol: "Discursante", nombre: "Israel Malla", hora: "15:30", numero: 14 },
-        { rol: "Discursante", nombre: "Bárbaro Yuliexi Tejera Ríos", hora: "15:39", numero: 15 },
-        { rol: "Discursante", nombre: "Rafael Corral", hora: "15:48", numero: 16 },
-        { rol: "Discursante", nombre: "Míchel Gottardo", hora: "15:58", numero: 17 },
-        { rol: "Discursante", nombre: "Andrés Mayor (Betel)", hora: "16:10", numero: 18 },
-        { rol: "Oración Final", nombre: "Pedro Mora" }
-      ]
-    },
-    { sesion: "Sábado Mañana", participantes: [
-        { rol: "Presidente", nombre: "Abel Reguant" },
-        { rol: "Oración", nombre: "Ricardo Cordovilla" },
-        { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL:¿Qué buscan?", hora: "9:40", numero: 19 },
-        { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL:Las buenas noticias según Jesús (Episodio 2).", hora: "9:50", numero: 20 },
-        { rol: "Discursante", nombre: "Gabriel Quintana", hora: "10:30", numero: 21 },
-        { rol: "Discursante", nombre: "Manuel Casino", hora: "10:40", numero: 22 },
-        { rol: "Discursante", nombre: "Esteban Martín", hora: "10:49", numero: 23 },
-        { rol: "Discursante", nombre: "Kevin Adiel Cobo (BTL)", hora: "10:59", numero: 24 },
-        { rol: "Discursante", nombre: "Rubén Verdés", hora: "11:09", numero: 25 },
-        { rol: "Discursante", nombre: "David Mercader", hora: "11:17", numero: 26 },
-        { rol: "Discursante", nombre: "Daniel Sellares", hora: "11:25", numero: 27 },
-        { rol: "Discursante", nombre: "Natán Becerril", hora: "11:34", numero: 28 }
-      ]
-    },
-    { sesion: "Sábado Tarde", participantes: [
-        { rol: "Presidente", nombre: "Climent Ambrós" },
-        { rol: "Discursante", nombre: "Jonatán Vicente", hora: "13:50", numero: 29 },
-        { rol: "Discursante", nombre: "Santiago Sáez", hora: "14:00", numero: 30 },
-        { rol: "Discursante", nombre: "Ricardo Anguita", hora: "14:09", numero: 31 },
-        { rol: "Discursante", nombre: "Josué Rabaneda", hora: "14:20", numero: 32 },
-        { rol: "Discursante", nombre: "Edgar Teruel (BTL)", hora: "14:45", numero: 33 },
-        { rol: "Discursante", nombre: "Álvaro Paniagua", hora: "14:56", numero: 34 },
-        { rol: "Discursante", nombre: "Adolfo Fornieles", hora: "15:06", numero: 35 },
-        { rol: "Discursante", nombre: "Alfonso Guerrero", hora: "15:30", numero: 36 },
-        { rol: "Discursante", nombre: "Andrés Mayor (Betel)", hora: "16:00", numero: 37 },
-        { rol: "Oración Final", nombre: "Jairo José Galán" }
-      ]
-    },
-    { sesion: "Domingo Mañana", participantes: [
-        { rol: "Presidente", nombre: "Juan Alcaraz" },
-        { rol: "Oración", nombre: "José Diego" },
-        { rol: "Discursante", nombre: "Isaac Díaz", hora: "9:40", numero: 38 },
-        { rol: "Discursante", nombre: "Benjamín Ferrer", hora: "9:55", numero: 39 },
-        { rol: "Discursante", nombre: "Francisco Javier Vila", hora: "10:07", numero: 40 },
-        { rol: "Discursante", nombre: "Joseph Salazar", hora: "10:21", numero: 41 },
-        { rol: "Discursante", nombre: "Fernando Teruel", hora: "10:35", numero: 42 },
-        { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Los campos están Blacos, listos para la cosecha", hora: "10:49", numero: 43 },
-        { rol: "Discursante", nombre: "José Manuel Lara", hora: "11:15", numero: 44 },
-        { rol: "Discursante", nombre: "Nino Llopis", hora: "11:45", numero: 45 }
-      ]
-    },
-    { sesion: "Domingo Tarde", participantes: [
-        { rol: "Presidente", nombre: "Julián Lasheras" },
-        { rol: "Discursante", nombre: "PRODUCCIÓN AUDIOVISUAL", hora: "13:50", numero: 46 },
-        { rol: "Discursante", nombre: "Julián Lasheras", hora: "14:45", numero: 47 },
-        { rol: "Discursante", nombre: "Andrés Mayor (Betel)", hora: "14:54", numero: 48 },
-        { rol: "Oración Final", nombre: "Andrés Mayor (Betel)" }
-      ]
+    app: {
+        container: document.getElementById('app-container'),
+        logoutButton: document.getElementById('logout-button'),
+        navContainer: document.getElementById('day-nav'),
+        programContainer: document.getElementById('program-container'),
+        summaryPanel: document.getElementById('summary-panel'),
+        responsablesContainer: document.getElementById('responsables-container'),
+        responsablesContent: document.getElementById('responsables-content'),
+        instruccionesContainer: document.getElementById('instrucciones-container'),
+        instruccionesContent: document.getElementById('instrucciones-content')
     }
-];
-const itemsChecklist = [ { id: 'recogida', texto: 'Recogida en presidencia', tipo: 'checkbox', icon: 'fa-solid fa-handshake', indicator: true }, { id: 'orientacion', texto: 'Orientación inicial', tipo: 'checkbox', icon: 'fa-solid fa-compass', indicator: true }, { id: 'maquillaje', texto: 'Maquillaje', tipo: 'radio', opciones: ['Sí', 'No', 'N/A'], icon: 'fa-solid fa-palette', indicator: true }, { id: 'detras_plataforma', texto: 'Listo tras bastidores (20 min)', tipo: 'checkbox', icon: 'fa-solid fa-clock', indicator: true }, { id: 'repaso_maquillaje', texto: 'Repaso final de maquillaje', tipo: 'checkbox', icon: 'fa-solid fa-brush', indicator: false }, { id: 'recordatorios', texto: 'Recordatorios finales', tipo: 'checkbox', icon: 'fa-solid fa-bullhorn', indicator: false }, { id: 'discursado', texto: 'Participación completada', tipo: 'checkbox', icon: 'fa-solid fa-microphone-slash', indicator: true } ];
-const responsablesPorTurno = [ { "Día": "Viernes", "Turno": "Mañana", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Javier Bolivar", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Inma C., Vanessa C., Raquel P.", "Maquillaje Plataforma": "Gemma Monje" }, { "Día": "Viernes", "Turno": "Tarde", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Alejandro Hernandez", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Ana M., Sandra O., Gemma M.", "Maquillaje Plataforma": "Raquel Pallares" }, { "Día": "Sábado", "Turno": "Mañana", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Mario Martín", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Gemma M., Inma C., Sandra O.", "Maquillaje Plataforma": "Ana Marañón" }, { "Día": "Sábado", "Turno": "Tarde", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Javier Bolivar", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Vanessa C., Raquel P., Ana M.", "Maquillaje Plataforma": "Sandra Ortega" }, { "Día": "Domingo", "Turno": "Mañana", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Alejandro Hernandez", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Ana M., Sandra O., Vanessa C.", "Maquillaje Plataforma": "Inma Casino" }, { "Día": "Domingo", "Turno": "Tarde", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Mario Martín", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Gemma Monje, Ana M., Raquel P.", "Maquillaje Plataforma": "Vanessa Intriago" } ];
+};
 
-// --- NUEVA DATA: INSTRUCCIONES POR PERFIL ---
-const instruccionesPorPerfil = [
-    {
-        perfil: "Recepción",
-        icono: "fa-solid fa-hands-holding-child",
-        color: "color-recepcion",
-        instrucciones: [
-            "Esperaremos a los oradores en presidencia donde les daremos la bienvenida.",
-            "Dirigirlos a maquillaje (estará situado al lado de presidencia) y una vez maquillados acompañarlos hasta plataforma.",
-            "Asegurarnos que estén en plataforma al menos 20 minutos antes de su participación.",
-            "Comprobar que llevan su tarjeta de solapa. (Tener preparada una tarjeta por si fuera necesario)."
-        ]
-    },
-    {
-        perfil: "Maquillaje",
-        icono: "fa-solid fa-palette",
-        color: "color-maquillaje",
-        instrucciones: [
-            "La decisión de usar maquillaje le corresponde a los participantes.",
-            "No debe parecer que los hombres van maquillados, se trata de evitar brillos o reflejos en el rostro.",
-            "No se maquilla a quienes hagan las oraciones, comenten durante la atalaya o sean entrevistados.",
-            "Debemos asegurarnos que nuestra vestimenta sea decentes \"en cualquier postura\" especialmente al acercarnos al oradora para maquillarle."
-        ]
-    },
-    {
-        perfil: "Plataforma / Atrezzo",
-        icono: "fa-solid fa-chair",
-        color: "color-plataforma",
-        instrucciones: [
-            { titulo: "Antes del inicio de cada sesión:", puntos: [
-                "Colocaremos una silla en el lado izquierdo de la plataforma. (El presidente del programa se sentará durante el video musical de 10 minutos).",
-                "Comprobar el buen funcionamiento del cronómetro. (Disponemos de un cronómetro de repuesto si fuera necesario)."
-            ]},
-            { titulo: "Durante el programa:", puntos: [
-                "Se pondrá en marcha el cronómetro al inicio del video musical con el que se empiezan todas las sesiones. (Sirve de referencia al presidente del programa para saber cuando va a terminar el video).",
-                "Durante la canción de inicio de la sesión retiraremos la silla que usó el presidente del programa.",
-                "Poner en marcha el cronómetro justo cuando el orador empiece a hablar y ponerlo a cero cuando termine."
-            ]},
-            { titulo: "Entrevistas:", puntos: [
-                "Indicar a los entrevistados por donde deberán entrar y salir a plataforma y donde situarse (habrá unas marcas en el suelo como referencia).",
-                "Entregar los micrófonos a los entrevistados y recordarles cómo usarlos.",
-                "Preguntar al hermano de comunicación con AV qué micrófonos usar."
-            ]}
-        ]
-    },
-    {
-        perfil: "Atril",
-        icono: "fa-solid fa-person-chalkboard",
-        color: "color-atril",
-        instrucciones: [
-             { titulo: "Comentar a los oradores las siguientes pautas antes de salir a plataforma:", puntos: [
-                "Colocaremos el atril a la altura que les sea más cómoda para ellos, pero la altura y posición del micrófono la decidiréis vosotros.",
-                "En el momento de ajustar el micrófono el orador debe permanecer erguido mirando al frente para facilitar vuestra labor.",
-                "Recordarles que tienen que mirar a las cámaras que tienen enfrente y no al auditorio."
-            ]},
-             { titulo: "Recordatorios sobre la entrada y salida a plataforma:", puntos: [
-                "Al acceder a plataforma se hará en este orden: Primero el hermano de plataforma, seguido del orador y del presidente de la sesión. (Entrarán en el mismo momento pero en este orden).",
-                "El orador siempre entrarán por la derecha y saldrán por el lado izquierdo de plataforma.",
-                "El hermano de plataforma entrará por la derecha y saldrá por la izquierda. (Excepto cuando el presidente use el atril, entonces saldrá por el lado derecho).",
-                "El presidente del programa entrará y saldrá por la derecha cuando use el micrófono de pie. Solo en los inicios de sesión, cuando presenta desde el atril, saldrá por la izquierda."
-            ]}
-        ]
-    },
-    {
-        perfil: "Comunicación AV",
-        icono: "fa-solid fa-satellite-dish",
-        color: "color-comunicación",
-        instrucciones: [
-            "Estar en contacto con audio y video antes del inicio de la sesión y durante todo el programa.",
-            "1 minuto antes del inicio de cada sesión comunicar al hermano que se ocupa del atril que acompañe al presidente del programa a plataforma para iniciar el programa.",
-            "Al mismo tiempo avisar a AV que el presidente del programa sale a plataforma.",
-            "Comunicar al hermano de plataforma cualquier indicación que nos den desde AV (ajustar el micrófono del orador...)."
-        ]
-    }
-];
+// --- ESTADO DE LA APLICACIÓN ---
+let appState = {
+    currentView: 'checklist',
+    currentDay: 'Viernes'
+};
 
-// --- ELEMENTOS DEL DOM ---
-const loginScreen = document.getElementById('login-screen');
-const loginForm = document.getElementById('login-form');
-const emailInput = document.getElementById('email-input');
-const passwordInput = document.getElementById('password-input');
-const loginError = document.getElementById('login-error');
-const appContainer = document.getElementById('app-container');
-const logoutButton = document.getElementById('logout-button');
-const navContainer = document.getElementById('day-nav');
-const programContainer = document.getElementById('program-container');
-const summaryPanel = document.getElementById('summary-panel');
-const responsablesContainer = document.getElementById('responsables-container');
-const responsablesContent = document.getElementById('responsables-content');
-const instruccionesContainer = document.getElementById('instrucciones-container');
-const instruccionesContent = document.getElementById('instrucciones-content');
-const body = document.body;
+// --- FUNCIONES DE RENDERIZADO Y UI ---
 
-// Estado de la aplicación
-let currentView = 'checklist';
-let currentDay = 'Viernes'; 
-
-// --- FUNCIONES DE LA APLICACIÓN ---
-
+/** Cambia el tema de color del body según el día. */
 function setDayTheme(day) {
-    body.classList.remove('day-viernes', 'day-sabado', 'day-domingo');
+    DOMElements.body.classList.remove('day-viernes', 'day-sabado', 'day-domingo');
     if (day) {
-        body.classList.add(`day-${day.toLowerCase()}`);
+        DOMElements.body.classList.add(`day-${day.toLowerCase()}`);
     }
 }
 
-// ... (El resto de funciones como crearAcordeon, actualizarEstadoUI, etc., permanecen igual)
+/** Crea un acordeón individual para un participante. */
 function crearAcordeon(participante, idUnico) {
     const accordionItem = document.createElement('div');
     accordionItem.className = 'participant-accordion';
@@ -220,16 +78,22 @@ function crearAcordeon(participante, idUnico) {
     header.className = 'accordion-header';
 
     const esProd = participante.nombre.includes('PRODUCCIÓN AUDIOVISUAL');
+    if (esProd) accordionItem.classList.add('is-audiovisual');
+
     const esBetel = participante.nombre.includes('(Betel)') || participante.nombre.includes('(BTL)');
     const esOra = participante.rol.includes('Oración');
-    const ocOra = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
-    const ocBet = ['orientacion', 'recordatorios'];
+    const ocultaParaOracion = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
+    const ocultaParaBetel = ['orientacion', 'recordatorios'];
     
     let indicatorsHTML = '';
     if (!esProd) {
         indicatorsHTML = itemsChecklist
-            .filter(it => it.indicator && !(esOra && ocOra.includes(it.id)) && !(esBetel && ocBet.includes(it.id)))
-            .map(it => `<span class="indicator" data-indicator-for="${it.id}"></span>`).join('');
+            .filter(item => 
+                item.indicator && 
+                !(esOra && ocultaParaOracion.includes(item.id)) && 
+                !(esBetel && ocultaParaBetel.includes(item.id))
+            )
+            .map(item => `<span class="indicator" data-indicator-for="${item.id}"></span>`).join('');
     }
 
     header.innerHTML = `
@@ -252,7 +116,8 @@ function crearAcordeon(participante, idUnico) {
         checklistContainer.className = 'checklist-container';
 
         itemsChecklist.forEach(item => {
-            if ((esOra && ocOra.includes(it.id)) || (esBetel && ocBet.includes(item.id))) return;
+            // **LA CORRECCIÓN ESTÁ AQUÍ** -> Se usa 'item.id' consistentemente.
+            if ((esOra && ocultaParaOracion.includes(item.id)) || (esBetel && ocultaParaBetel.includes(item.id))) return;
 
             const itemDiv = document.createElement('div');
             itemDiv.className = 'checklist-item';
@@ -265,7 +130,7 @@ function crearAcordeon(participante, idUnico) {
                 input.dataset.itemId = item.id;
                 input.id = `check-${idUnico}-${item.id}`;
                 itemDiv.appendChild(input);
-            } else { 
+            } else if (item.tipo === 'radio') { 
                 const radioGroup = document.createElement('div');
                 radioGroup.className = 'makeup-options';
                 item.opciones.forEach(opt => {
@@ -277,8 +142,9 @@ function crearAcordeon(participante, idUnico) {
                     radio.dataset.itemId = item.id;
                     radio.id = radioId;
                     const label = document.createElement('label');
-                    label.setAttribute('for', radioId);
+                    label.htmlFor = radioId;
                     label.textContent = opt;
+                    // Permite deseleccionar un radio button
                     radio.addEventListener('mousedown', (e) => {
                         if (radio.checked) {
                             e.preventDefault();
@@ -298,8 +164,10 @@ function crearAcordeon(participante, idUnico) {
     accordionItem.append(header, content);
     return accordionItem;
 }
+
+/** Genera toda la estructura HTML del programa. */
 function generarProgramaHTML() {
-    programContainer.innerHTML = '';
+    DOMElements.app.programContainer.innerHTML = '';
     ['Viernes', 'Sábado', 'Domingo'].forEach(dia => {
         const dayContent = document.createElement('div');
         dayContent.id = `content-${dia}`;
@@ -315,119 +183,14 @@ function generarProgramaHTML() {
             });
             dayContent.appendChild(sessionBlock);
         });
-        programContainer.appendChild(dayContent);
+        DOMElements.app.programContainer.appendChild(dayContent);
     });
 }
-function actualizarEstadoUI(accordion) {
-    if (!accordion) return;
-    const nombre = accordion.dataset.nombre;
-    if (nombre.includes('PRODUCCIÓN AUDIOVISUAL')) {
-        accordion.classList.add('is-audiovisual');
-        return;
-    }
-    const rol = accordion.dataset.rol;
-    const esOra = rol.includes('Oración');
-    const esBetel = nombre.includes('(Betel)') || nombre.includes('(BTL)');
-    const ocOra = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
-    const ocBet = ['orientacion', 'recordatorios'];
-    const maquillajeNA = accordion.querySelector('input[data-item-id="maquillaje"][value="N/A"]:checked');
-    const repasoContainer = accordion.querySelector('[data-container-for="repaso_maquillaje"]');
-    if (repasoContainer) {
-        const inputRepaso = repasoContainer.querySelector('input');
-        if (inputRepaso) {
-            inputRepaso.disabled = !!maquillajeNA;
-            if (maquillajeNA && inputRepaso.checked) {
-                inputRepaso.checked = false;
-                inputRepaso.dispatchEvent(new Event('change', { bubbles: true }));
-            }
-        }
-    }
-    const itemsAplicables = itemsChecklist.filter(it => !(esOra && ocOra.includes(it.id)) && !(esBetel && ocBet.includes(it.id)) && !(maquillajeNA && it.id === 'repaso_maquillaje'));
-    const totalTasks = itemsAplicables.length;
-    let completedTasks = 0;
-    const seen = {};
-    accordion.querySelectorAll('input[data-item-id]').forEach(input => {
-        if (input.disabled || seen[input.dataset.itemId]) return;
-        if ((input.type === 'checkbox' && input.checked) || (input.type === 'radio' && accordion.querySelector(`input[name="${input.name}"]:checked`))) {
-            completedTasks++;
-        }
-        seen[input.dataset.itemId] = true;
-    });
-    const percent = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
-    accordion.style.setProperty('--progress-percent', `${percent}%`);
-    accordion.classList.toggle('is-complete', percent >= 100);
-    accordion.querySelectorAll('.indicator').forEach(indicator => {
-        indicator.className = 'indicator';
-        const itemId = indicator.dataset.indicatorFor;
-        const input = accordion.querySelector(`input[data-item-id="${itemId}"]`);
-        if (input?.type === 'checkbox' && input.checked) {
-            indicator.classList.add(itemId);
-        } else if (input?.type === 'radio') {
-            const checkedRadio = accordion.querySelector(`input[name="${input.name}"]:checked`);
-            if (checkedRadio) {
-                const valueClass = `maquillaje-${checkedRadio.value.toLowerCase().replace('/', '')}`;
-                indicator.classList.add(valueClass);
-            }
-        }
-    });
-}
-function updateSummary() {
-    if (currentView !== 'checklist') {
-        summaryPanel.classList.add('hidden');
-        document.title = "Checklist del Programa";
-        return;
-    }
-    summaryPanel.classList.remove('hidden');
-    const dayContent = document.getElementById(`content-${currentDay}`);
-    if (!dayContent) return;
-    const totalParticipantes = dayContent.querySelectorAll('.participant-accordion:not(.is-audiovisual)').length;
-    const completos = dayContent.querySelectorAll('.participant-accordion.is-complete').length;
-    const conMaquillaje = dayContent.querySelectorAll('input[data-item-id="maquillaje"][value="Sí"]:checked').length;
-    summaryPanel.innerHTML = `
-        <div class="summary-item"><div class="count">${totalParticipantes}</div><div class="label">Participantes</div></div>
-        <div class="summary-item"><div class="count">${completos}</div><div class="label">Completos</div></div>
-        <div class="summary-item"><div class="count">${conMaquillaje}</div><div class="label">Maquillaje</div></div>`;
-    document.title = `(${completos}/${totalParticipantes}) Checklist ${currentDay}`;
-}
-async function saveStateToFirebase(id, item, value) {
-    try {
-        await setDoc(doc(db, 'tareas', id), { [item]: value }, { merge: true });
-    } catch (e) {
-        console.error("Error al guardar en Firebase: ", e);
-        alert('No se pudo guardar el cambio. Revisa tu conexión a internet.');
-    }
-}
-function syncStateFromFirebase() {
-    programa.forEach(sesion => {
-        sesion.participantes.forEach(p => {
-            if (p.nombre.includes('PRODUCCIÓN AUDIOVISUAL')) return;
-            const idUnico = `${sesion.sesion.replace(/\s+/g, '-')}-${p.nombre.replace(/[^a-zA-Z0-9-]/g, '-')}-${p.rol.replace(/\s+/g, '-')}`;
-            onSnapshot(doc(db, 'tareas', idUnico), (docSnapshot) => {
-                const accordion = document.querySelector(`.participant-accordion[data-id="${idUnico}"]`);
-                if (!accordion) return;
-                if (docSnapshot.exists()) {
-                    const data = docSnapshot.data();
-                    Object.entries(data).forEach(([key, value]) => {
-                        const checkbox = accordion.querySelector(`input[data-item-id="${key}"][type="checkbox"]`);
-                        if (checkbox) {
-                            checkbox.checked = !!value;
-                        } else {
-                            accordion.querySelectorAll(`input[data-item-id="${key}"]`).forEach(radio => {
-                                radio.checked = (radio.value === value);
-                            });
-                        }
-                    });
-                }
-                actualizarEstadoUI(accordion);
-                updateSummary();
-            });
-        });
-    });
-}
+
+/** Genera el HTML para la sección de responsables. */
 function mostrarResponsablesDeTurno() {
-    responsablesContent.innerHTML = '';
-    const diasOrden = ['Viernes', 'Sábado', 'Domingo'];
-    diasOrden.forEach(diaKey => {
+    DOMElements.app.responsablesContent.innerHTML = '';
+    ['Viernes', 'Sábado', 'Domingo'].forEach(diaKey => {
         const dayData = responsablesPorTurno.filter(item => item['Día'] === diaKey);
         if (dayData.length > 0) {
             const dayDiv = document.createElement('div');
@@ -443,40 +206,34 @@ function mostrarResponsablesDeTurno() {
                     const ul = document.createElement('ul');
                     for (const rol in sesionData) {
                         if (rol !== 'Día' && rol !== 'Turno') {
-                            const li = document.createElement('li');
-                            li.innerHTML = `<strong>${rol}:</strong> ${sesionData[rol]}`;
-                            ul.appendChild(li);
+                            ul.innerHTML += `<li><strong>${rol}:</strong> ${sesionData[rol]}</li>`;
                         }
                     }
                     sesionDiv.appendChild(ul);
                     dayDiv.appendChild(sesionDiv);
                 }
             });
-            responsablesContent.appendChild(dayDiv);
+            DOMElements.app.responsablesContent.appendChild(dayDiv);
         }
     });
 }
 
-/**
- * NUEVA FUNCIÓN: Genera el HTML para la sección de instrucciones.
- */
+/** Genera el HTML para la sección de instrucciones. */
 function mostrarInstrucciones() {
-    instruccionesContent.innerHTML = '';
+    DOMElements.app.instruccionesContent.innerHTML = '';
     const grid = document.createElement('div');
     grid.className = 'instrucciones-grid';
 
-    // Función recursiva para crear listas (maneja anidación)
     const createList = (items) => {
-        let html = '<ul>';
+        let listHtml = '<ul>';
         items.forEach(item => {
             if (typeof item === 'string') {
-                html += `<li>${item}</li>`;
-            } else if (typeof item === 'object' && item.titulo) {
-                html += `<li><strong>${item.titulo}</strong>${createList(item.puntos)}</li>`;
+                listHtml += `<li>${item}</li>`;
+            } else if (item.titulo) {
+                listHtml += `<li><strong>${item.titulo}</strong>${createList(item.puntos)}</li>`;
             }
         });
-        html += '</ul>';
-        return html;
+        return listHtml + '</ul>';
     };
 
     instruccionesPorPerfil.forEach(perfil => {
@@ -487,69 +244,189 @@ function mostrarInstrucciones() {
                 <i class="${perfil.icono}"></i>
                 <h3>${perfil.perfil}</h3>
             </div>
-            <div class="card-body">
-                ${createList(perfil.instrucciones)}
-            </div>
-        `;
+            <div class="card-body">${createList(perfil.instrucciones)}</div>`;
         grid.appendChild(card);
     });
-    instruccionesContent.appendChild(grid);
+    DOMElements.app.instruccionesContent.appendChild(grid);
 }
 
+/** Actualiza el estado visual de un acordeón (progreso, completado, etc.). */
+function actualizarEstadoUI(accordion) {
+    if (!accordion || accordion.classList.contains('is-audiovisual')) return;
+    
+    const { nombre, rol } = accordion.dataset;
+    const esOra = rol.includes('Oración');
+    const esBetel = nombre.includes('(Betel)') || nombre.includes('(BTL)');
+    const ocultaParaOracion = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
+    const ocultaParaBetel = ['orientacion', 'recordatorios'];
+    
+    const maquillajeNA = accordion.querySelector('input[data-item-id="maquillaje"][value="N/A"]:checked');
+    const repasoContainer = accordion.querySelector('[data-container-for="repaso_maquillaje"] input');
+    
+    if (repasoContainer) {
+        repasoContainer.disabled = !!maquillajeNA;
+        if (maquillajeNA && repasoContainer.checked) {
+            repasoContainer.checked = false;
+            repasoContainer.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+    }
 
+    const itemsAplicables = itemsChecklist.filter(it => 
+        !(esOra && ocultaParaOracion.includes(it.id)) && 
+        !(esBetel && ocultaParaBetel.includes(it.id)) && 
+        !(maquillajeNA && it.id === 'repaso_maquillaje')
+    );
+    
+    let completedTasks = 0;
+    const checkedItems = new Set();
+    accordion.querySelectorAll('input[data-item-id]:checked').forEach(input => {
+        if (!checkedItems.has(input.dataset.itemId)) {
+            completedTasks++;
+            checkedItems.add(input.dataset.itemId);
+        }
+    });
+
+    const percent = itemsAplicables.length > 0 ? (completedTasks / itemsAplicables.length) * 100 : 0;
+    accordion.style.setProperty('--progress-percent', `${percent}%`);
+    accordion.classList.toggle('is-complete', percent >= 100);
+
+    accordion.querySelectorAll('.indicator[data-indicator-for]').forEach(indicator => {
+        indicator.className = 'indicator';
+        const itemId = indicator.dataset.indicatorFor;
+        const input = accordion.querySelector(`input[data-item-id="${itemId}"]`);
+        if (input?.type === 'checkbox' && input.checked) {
+            indicator.classList.add(itemId);
+        } else if (input?.type === 'radio') {
+            const checkedRadio = accordion.querySelector(`input[name="${input.name}"]:checked`);
+            if (checkedRadio) {
+                indicator.classList.add(`maquillaje-${checkedRadio.value.toLowerCase().replace('/', '')}`);
+            }
+        }
+    });
+}
+
+/** Actualiza el panel de resumen con las estadísticas del día actual. */
+function updateSummary() {
+    if (appState.currentView !== 'checklist') {
+        DOMElements.app.summaryPanel.classList.add('hidden');
+        document.title = "Checklist del Programa";
+        return;
+    }
+    DOMElements.app.summaryPanel.classList.remove('hidden');
+    const dayContent = document.getElementById(`content-${appState.currentDay}`);
+    if (!dayContent) return;
+
+    const totalParticipantes = dayContent.querySelectorAll('.participant-accordion:not(.is-audiovisual)').length;
+    const completos = dayContent.querySelectorAll('.participant-accordion.is-complete').length;
+    const conMaquillaje = dayContent.querySelectorAll('input[data-item-id="maquillaje"][value="Sí"]:checked').length;
+    
+    DOMElements.app.summaryPanel.innerHTML = `
+        <div class="summary-item"><div class="count">${totalParticipantes}</div><div class="label">Participantes</div></div>
+        <div class="summary-item"><div class="count">${completos}</div><div class="label">Completos</div></div>
+        <div class="summary-item"><div class="count">${conMaquillaje}</div><div class="label">Maquillaje</div></div>`;
+    document.title = `(${completos}/${totalParticipantes}) Checklist ${appState.currentDay}`;
+}
+
+/** Cambia la vista principal de la aplicación. */
 function changeAppView(view, day = null) {
-    currentView = view;
-    if (day) currentDay = day;
+    appState.currentView = view;
+    if (day) appState.currentDay = day;
 
-    [programContainer, responsablesContainer, instruccionesContainer, summaryPanel].forEach(c => c.classList.add('hidden'));
-    navContainer.querySelectorAll('.nav-button').forEach(button => button.classList.remove('active'));
-    navContainer.querySelectorAll('.sub-day-button').forEach(button => button.classList.add('hidden'));
+    // Ocultar todos los contenedores principales
+    Object.values(DOMElements.app)
+        .filter(el => el.id?.includes('container') || el.id?.includes('panel'))
+        .forEach(c => c.classList.add('hidden'));
+    DOMElements.app.container.classList.remove('hidden'); // El contenedor principal siempre visible
 
-    const mainViewButton = navContainer.querySelector(`.nav-button.main-view-button[data-view="${view}"]`);
-    if (mainViewButton) mainViewButton.classList.add('active');
+    // Resetear botones de navegación
+    DOMElements.app.navContainer.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
+    DOMElements.app.navContainer.querySelectorAll('.sub-day-button').forEach(b => b.classList.add('hidden'));
 
+    // Activar el botón de la vista principal
+    DOMElements.app.navContainer.querySelector(`.nav-button.main-view-button[data-view="${view}"]`)?.classList.add('active');
+    
+    setDayTheme(null);
     let pageTitle = "Checklist del Programa";
-    setDayTheme(null); 
 
     if (view === 'checklist') {
-        navContainer.querySelectorAll(`.nav-button.sub-day-button[data-view="checklist"]`).forEach(button => {
-            button.classList.remove('hidden');
-        });
-        const currentDayButton = navContainer.querySelector(`.nav-button.sub-day-button[data-view="checklist"][data-day="${currentDay}"]`);
-        if(currentDayButton) currentDayButton.classList.add('active');
+        DOMElements.app.navContainer.querySelectorAll('.sub-day-button[data-view="checklist"]').forEach(b => b.classList.remove('hidden'));
+        DOMElements.app.navContainer.querySelector(`.nav-button.sub-day-button[data-day="${appState.currentDay}"]`)?.classList.add('active');
         
-        setDayTheme(currentDay);
-        programContainer.classList.remove('hidden');
+        setDayTheme(appState.currentDay);
+        DOMElements.app.programContainer.classList.remove('hidden');
         document.querySelectorAll('.day-content').forEach(d => d.classList.add('hidden'));
-        const content = document.getElementById(`content-${currentDay}`);
-        if (content) content.classList.remove('hidden');
+        document.getElementById(`content-${appState.currentDay}`)?.classList.remove('hidden');
         updateSummary();
-
     } else if (view === 'responsables') {
-        responsablesContainer.classList.remove('hidden');
-        setDayTheme('Viernes');
+        DOMElements.app.responsablesContainer.classList.remove('hidden');
+        setDayTheme('Viernes'); // Tema por defecto para esta vista
         pageTitle = 'Responsables de Turno';
-        document.title = pageTitle;
-    
     } else if (view === 'instrucciones') {
-        instruccionesContainer.classList.remove('hidden');
+        DOMElements.app.instruccionesContainer.classList.remove('hidden');
         pageTitle = 'Instrucciones por Perfil';
-        document.title = pageTitle;
+    }
+    
+    document.title = pageTitle;
+}
+
+// --- LÓGICA DE FIREBASE ---
+
+/** Guarda un cambio de estado en un documento de Firebase. */
+async function saveStateToFirebase(id, item, value) {
+    try {
+        await setDoc(doc(db, 'tareas', id), { [item]: value }, { merge: true });
+    } catch (e) {
+        console.error("Error al guardar en Firebase: ", e);
+        alert('No se pudo guardar el cambio. Revisa tu conexión a internet.');
     }
 }
 
+/** Sincroniza el estado de todos los participantes desde Firebase en tiempo real. */
+function syncStateFromFirebase() {
+    programa.forEach(sesion => {
+        sesion.participantes.forEach(p => {
+            if (p.nombre.includes('PRODUCCIÓN AUDIOVISUAL')) return;
+            const idUnico = `${sesion.sesion.replace(/\s+/g, '-')}-${p.nombre.replace(/[^a-zA-Z0-9-]/g, '-')}-${p.rol.replace(/\s+/g, '-')}`;
+            
+            onSnapshot(doc(db, 'tareas', idUnico), (docSnapshot) => {
+                const accordion = document.querySelector(`.participant-accordion[data-id="${idUnico}"]`);
+                if (!accordion) return;
+
+                if (docSnapshot.exists()) {
+                    const data = docSnapshot.data();
+                    Object.entries(data).forEach(([key, value]) => {
+                        const checkbox = accordion.querySelector(`input[data-item-id="${key}"][type="checkbox"]`);
+                        if (checkbox) {
+                            checkbox.checked = !!value;
+                        } else {
+                            accordion.querySelectorAll(`input[data-item-id="${key}"][type="radio"]`).forEach(radio => {
+                                radio.checked = (radio.value === value);
+                            });
+                        }
+                    });
+                }
+                actualizarEstadoUI(accordion);
+                updateSummary();
+            });
+        });
+    });
+}
+
+// --- MANEJADORES DE EVENTOS ---
+
+/** Configura todos los event listeners de la aplicación. */
 function setupEventListeners() {
-    programContainer.addEventListener('click', (e) => {
+    // Evento para abrir/cerrar acordeones
+    DOMElements.app.programContainer.addEventListener('click', (e) => {
         const header = e.target.closest('.accordion-header');
-        if (!header) return;
-        const accordion = header.closest('.participant-accordion');
-        if (accordion.classList.contains('is-audiovisual')) return;
-        header.classList.toggle('active');
-        const content = header.nextElementSibling;
-        content.classList.toggle('active');
+        if (header && !header.closest('.is-audiovisual')) {
+            header.classList.toggle('active');
+            header.nextElementSibling.classList.toggle('active');
+        }
     });
 
-    programContainer.addEventListener('change', (e) => {
+    // Evento para guardar cambios en el checklist
+    DOMElements.app.programContainer.addEventListener('change', (e) => {
         const input = e.target.closest('input[data-item-id]');
         if (!input) return;
         const accordion = input.closest('.participant-accordion');
@@ -557,61 +434,72 @@ function setupEventListeners() {
         saveStateToFirebase(accordion.dataset.id, input.dataset.itemId, value);
     });
 
-    navContainer.addEventListener('click', (e) => {
+    // Evento para la navegación principal
+    DOMElements.app.navContainer.addEventListener('click', (e) => {
         const button = e.target.closest('.nav-button');
-        if (!button) return;
-        const newView = button.dataset.view;
-        const newDay = button.dataset.day;
-        changeAppView(newView, newDay || currentDay);
+        if (button) {
+            changeAppView(button.dataset.view, button.dataset.day || appState.currentDay);
+        }
     });
 
-    logoutButton.addEventListener('click', () => signOut(auth).catch(err => console.error("Error al cerrar sesión: ", err)));
+    // Evento para el botón de logout
+    DOMElements.app.logoutButton.addEventListener('click', () => {
+        signOut(auth).catch(err => console.error("Error al cerrar sesión: ", err));
+    });
+
+    // Evento para el formulario de login
+    DOMElements.login.form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        DOMElements.login.error.classList.add('hidden');
+        try {
+            await signInWithEmailAndPassword(auth, DOMElements.login.emailInput.value, DOMElements.login.passwordInput.value);
+        } catch (err) {
+            const errorMessages = {
+                'auth/invalid-email': 'El formato del correo es inválido.',
+                'auth/user-not-found': 'No se encontró un usuario con ese correo.',
+                'auth/wrong-password': 'La contraseña es incorrecta.',
+                'auth/too-many-requests': 'Demasiados intentos fallidos. Inténtalo más tarde.'
+            };
+            DOMElements.login.error.textContent = errorMessages[err.code] || 'Ocurrió un error al iniciar sesión.';
+            DOMElements.login.error.classList.remove('hidden');
+        }
+    });
 }
 
 // --- LÓGICA DE INICIO Y AUTENTICACIÓN ---
 
 function showLoginScreen() {
-    loginScreen.classList.remove('hidden');
-    appContainer.classList.add('hidden');
-    loginError.classList.add('hidden');
-    body.className = '';
+    DOMElements.login.screen.classList.remove('hidden');
+    DOMElements.app.container.classList.add('hidden');
+    DOMElements.login.error.classList.add('hidden');
+    DOMElements.body.className = '';
 }
 
-function startApp() {
-    loginScreen.classList.add('hidden');
-    appContainer.classList.remove('hidden');
+/** Inicializa la aplicación principal después del login. */
+function initApp() {
+    DOMElements.login.screen.classList.add('hidden');
+    DOMElements.app.container.classList.remove('hidden');
     
+    // 1. Generar todo el HTML dinámico
     generarProgramaHTML();
     mostrarResponsablesDeTurno();
-    mostrarInstrucciones(); // Generar la nueva sección
+    mostrarInstrucciones();
 
+    // 2. Conectar los eventos
     setupEventListeners();
+
+    // 3. Sincronizar con la base de datos
     syncStateFromFirebase();
     
+    // 4. Establecer la vista inicial
     changeAppView('checklist', 'Viernes');
 }
 
+// --- PUNTO DE ENTRADA DE LA APLICACIÓN ---
 onAuthStateChanged(auth, user => {
     if (user) {
-        startApp();
+        initApp();
     } else {
         showLoginScreen();
-    }
-});
-
-loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    loginError.classList.add('hidden');
-    try {
-        await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
-    } catch (err) {
-        const errorMessages = {
-            'auth/invalid-email': 'El formato del correo es inválido.',
-            'auth/user-not-found': 'No se encontró un usuario con ese correo.',
-            'auth/wrong-password': 'La contraseña es incorrecta.',
-            'auth/too-many-requests': 'Demasiados intentos fallidos. Inténtalo más tarde.'
-        };
-        loginError.textContent = errorMessages[err.code] || 'Ocurrió un error al iniciar sesión.';
-        loginError.classList.remove('hidden');
     }
 });
