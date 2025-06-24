@@ -18,7 +18,97 @@ const firebaseConfig = {
 const programa = [ { sesion: "Viernes Mañana", participantes: [ { rol: "Presidente", nombre: "David Castro", hora: "9:30" }, { rol: "Oración", nombre: "Francisco José Sánchez" }, { rol: "Discursante", nombre: "Julián Lasheras ¿Qué es la adoración pura?", hora: "9:40", numero: 1 }, { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús (Episodio 1).", hora: "10:10", numero: 2 }, { rol: "Discursante", nombre: "Domingo Tarrasón", hora: "10:50", numero: 3 }, { rol: "Discursante", nombre: "Pedro Medina", hora: "11:11", numero: 4 }, { rol: "Discursante", nombre: "Daniel Velasco", hora: "11:28", numero: 5 }, { rol: "Discursante", nombre: "Álex Botella", hora: "11:45", numero: 6 } ] }, { sesion: "Viernes Tarde", participantes: [ { rol: "Presidente", nombre: "Eduardo Ayala" }, { rol: "Discursante", nombre: "Miguel Solé", hora: "13:50", numero: 7 }, { rol: "Discursante", nombre: "David Aleixandri", hora: "14:06", numero: 8 }, { rol: "Discursante", nombre: "David Maldonado", hora: "14:22", numero: 9 }, { rol: "Discursante", nombre: "Juan Martín Prior", hora: "14:36", numero: 10 }, { rol: "Discursante", nombre: "Elliot Miguel", hora: "15:00", numero: 11 }, { rol: "Discursante", nombre: "José Bonet", hora: "15:12", numero: 12 }, { rol: "Discursante", nombre: "Santiago Cardona", hora: "15:21", numero: 13 }, { rol: "Discursante", nombre: "Israel Malla", hora: "15:30", numero: 14 }, { rol: "Discursante", nombre: "Bárbaro Yuliexi Tejera Ríos", hora: "15:39", numero: 15 }, { rol: "Discursante", nombre: "Rafael Corral", hora: "15:48", numero: 16 }, { rol: "Discursante", nombre: "Míchel Gottardo", hora: "15:58", numero: 17 }, { rol: "Discursante", nombre: "Andrés Mayor (Betel)", hora: "16:10", numero: 18 }, { rol: "Oración Final", nombre: "Pedro Mora" } ] }, { sesion: "Sábado Mañana", participantes: [ { rol: "Presidente", nombre: "Abel Reguant" }, { rol: "Oración", nombre: "Ricardo Cordovilla" }, { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL:¿Qué buscan?", hora: "9:40", numero: 19 }, { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL:Las buenas noticias según Jesús (Episodio 2).", hora: "9:50", numero: 20 }, { rol: "Discursante", nombre: "Gabriel Quintana", hora: "10:30", numero: 21 }, { rol: "Discursante", nombre: "Manuel Casino", hora: "10:40", numero: 22 }, { rol: "Discursante", nombre: "Esteban Martín", hora: "10:49", numero: 23 }, { rol: "Discursante", nombre: "Kevin Adiel Cobo (BTL)", hora: "10:59", numero: 24 }, { rol: "Discursante", nombre: "Rubén Verdés", hora: "11:09", numero: 25 }, { rol: "Discursante", nombre: "David Mercader", hora: "11:17", numero: 26 }, { rol: "Discursante", nombre: "Daniel Sellares", hora: "11:25", numero: 27 }, { rol: "Discursante", nombre: "Natán Becerril", hora: "11:34", numero: 28 } ] }, { sesion: "Sábado Tarde", participantes: [ { rol: "Presidente", nombre: "Climent Ambrós" }, { rol: "Discursante", nombre: "Jonatán Vicente", hora: "13:50", numero: 29 }, { rol: "Discursante", nombre: "Santiago Sáez", hora: "14:00", numero: 30 }, { rol: "Discursante", nombre: "Ricardo Anguita", hora: "14:09", numero: 31 }, { rol: "Discursante", nombre: "Josué Rabaneda", hora: "14:20", numero: 32 }, { rol: "Discursante", nombre: "Edgar Teruel (BTL)", hora: "14:45", numero: 33 }, { rol: "Discursante", nombre: "Álvaro Paniagua", hora: "14:56", numero: 34 }, { rol: "Discursante", nombre: "Adolfo Fornieles", hora: "15:06", numero: 35 }, { rol: "Discursante", nombre: "Alfonso Guerrero", hora: "15:30", numero: 36 }, { rol: "Discursante", nombre: "Andrés Mayor (Betel)", hora: "16:00", numero: 37 }, { rol: "Oración Final", nombre: "Jairo José Galán" } ] }, { sesion: "Domingo Mañana", participantes: [ { rol: "Presidente", nombre: "Juan Alcaraz" }, { rol: "Oración", nombre: "José Diego" }, { rol: "Discursante", nombre: "Isaac Díaz", hora: "9:40", numero: 38 }, { rol: "Discursante", nombre: "Benjamín Ferrer", hora: "9:55", numero: 39 }, { rol: "Discursante", nombre: "Francisco Javier Vila", hora: "10:07", numero: 40 }, { rol: "Discursante", nombre: "Joseph Salazar", hora: "10:21", numero: 41 }, { rol: "Discursante", nombre: "Fernando Teruel", hora: "10:35", numero: 42 }, { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Los campos están Blacos, listos para la cosecha", hora: "10:49", numero: 43 }, { rol: "Discursante", nombre: "José Manuel Lara", hora: "11:15", numero: 44 }, { rol: "Discursante", nombre: "Nino Llopis", hora: "11:45", numero: 45 } ] }, { sesion: "Domingo Tarde", participantes: [ { rol: "Presidente", nombre: "Julián Lasheras" }, { rol: "Discursante", nombre: "PRODUCCIÓN AUDIOVISUAL", hora: "13:50", numero: 46 }, { rol: "Discursante", nombre: "Julián Lasheras", hora: "14:45", numero: 47 }, { rol: "Discursante", nombre: "Andrés Mayor (Betel)", hora: "14:54", numero: 48 }, { rol: "Oración Final", nombre: "Andrés Mayor (Betel)" } ] } ];
 const itemsChecklist = [ { id: 'recogida', texto: 'Recogida en presidencia', tipo: 'checkbox', icon: 'fa-solid fa-handshake', indicator: true }, { id: 'orientacion', texto: 'Orientación inicial', tipo: 'checkbox', icon: 'fa-solid fa-compass', indicator: true }, { id: 'maquillaje', texto: 'Maquillaje', tipo: 'radio', opciones: ['Sí', 'No', 'N/A'], icon: 'fa-solid fa-palette', indicator: true }, { id: 'detras_plataforma', texto: 'Listo tras bastidores (20 min)', tipo: 'checkbox', icon: 'fa-solid fa-clock', indicator: true }, { id: 'repaso_maquillaje', texto: 'Repaso final de maquillaje', tipo: 'checkbox', icon: 'fa-solid fa-brush', indicator: false }, { id: 'recordatorios', texto: 'Recordatorios finales', tipo: 'checkbox', icon: 'fa-solid fa-bullhorn', indicator: false }, { id: 'discursado', texto: 'Participación completada', tipo: 'checkbox', icon: 'fa-solid fa-microphone-slash', indicator: true } ];
 const responsablesPorTurno = [ { "Día": "Viernes", "Turno": "Mañana", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Javier Bolivar", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Inma C., Vanessa C., Raquel P.", "Maquillaje Plataforma": "Gemma Monje" }, { "Día": "Viernes", "Turno": "Tarde", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Alejandro Hernandez", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Ana M., Sandra O., Gemma M.", "Maquillaje Plataforma": "Raquel Pallares" }, { "Día": "Sábado", "Turno": "Mañana", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Mario Martín", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Gemma M., Inma C., Sandra O.", "Maquillaje Plataforma": "Ana Marañón" }, { "Día": "Sábado", "Turno": "Tarde", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Javier Bolivar", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Vanessa C., Raquel P., Ana M.", "Maquillaje Plataforma": "Sandra Ortega" }, { "Día": "Domingo", "Turno": "Mañana", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Alejandro Hernandez", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Ana M., Sandra O., Vanessa C.", "Maquillaje Plataforma": "Inma Casino" }, { "Día": "Domingo", "Turno": "Tarde", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Mario Martín", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Gemma Monje, Ana M., Raquel P.", "Maquillaje Plataforma": "Vanessa Intriago" } ];
-const instruccionesPorPerfil = [ { perfil: "Recepción", icono: "fa-solid fa-hands-holding-child", color: "color-recepcion", instrucciones: [ "Esperaremos a los oradores en presidencia donde les daremos la bienvenida.", "Los llevaremos a plataforma para las orientaciones. Asignados por las mañanas 8:45 y asignados por las tardes 12:45", "Dirigirlos a maquillaje (en principio estará situado al lado de presidencia)", "Asegurarnos que estén en plataforma al menos 20 minutos antes de su participación.", "Comprobar que llevan su tarjeta de solapa. (Tener preparada una tarjeta por si fuera necesario)." ] }, { perfil: "Maquillaje", icono: "fa-solid fa-palette", color: "color-maquillaje", instrucciones: [ "La decisión de usar maquillaje le corresponde a los participantes.", "No debe parecer que los hombres van maquillados, se trata de evitar brillos o reflejos en el rostro.", "No se maquilla a quienes hagan las oraciones, comenten durante la atalaya o sean entrevistados.", "Debemos asegurarnos que nuestra vestimenta sea decentes \"en cualquier postura\" especialmente al acercarnos al oradora para maquillarle." ] }, { perfil: "Plataforma / Atrezzo", icono: "fa-solid fa-chair", color: "color-plataforma", instrucciones: [ { titulo: "Antes del inicio de cada sesión:", puntos: [ "Colocaremos una silla en el lado izquierdo de la plataforma. (El presidente del programa se sentará durante el video musical de 10 minutos).", "Comprobar el buen funcionamiento del cronómetro. (Disponemos de un cronómetro de repuesto si fuera necesario)." ]}, { titulo: "Durante el programa:", puntos: [ "Se pondrá en marcha el cronómetro al inicio del video musical con el que se empiezan todas las sesiones. (Sirve de referencia al presidente del programa para saber cuando va a terminar el video).", "Durante la canción de inicio de la sesión retiraremos la silla que usó el presidente del programa.", "Poner en marcha el cronómetro justo cuando el orador empiece a hablar y ponerlo a cero cuando termine." ]}, { titulo: "Entrevistas:", puntos: [ "Indicar a los entrevistados por donde deberán entrar y salir a plataforma y donde situarse (habrá unas marcas en el suelo como referencia).", "Entregar los micrófonos a los entrevistados y recordarles cómo usarlos.", "Preguntar al hermano de comunicación con AV qué micrófonos usar." ]} ] }, { perfil: "Atril", icono: "fa-solid fa-person-chalkboard", color: "color-atril", instrucciones: [ { titulo: "Comentar a los oradores las siguientes pautas antes de salir a plataforma:", puntos: [ "Colocaremos el atril a la altura que les sea más cómoda para ellos, pero la altura y posición del micrófono la decidiréis vosotros.", "En el momento de ajustar el micrófono el orador debe permanecer erguido mirando al frente para facilitar vuestra labor.", "Recordarles que tienen que mirar a las cámaras que tienen enfrente y no al auditorio." ]}, { titulo: "Recordatorios sobre la entrada y salida a plataforma:", puntos: [ "Al acceder a plataforma se hará en este orden: Primero el hermano de plataforma, seguido del orador y del presidente de la sesión. (Entrarán en el mismo momento pero en este orden).", "El orador siempre entrarán por la derecha y saldrán por el lado izquierdo de plataforma.", "El hermano de plataforma entrará por la derecha y saldrá por la izquierda. (Excepto cuando el presidente use el atril, entonces saldrá por el lado derecho).", "El presidente del programa entrará y saldrá por la derecha cuando use el micrófono de pie. Solo en los inicios de sesión, cuando presenta desde el atril, saldrá por la izquierda." ]} ] }, { perfil: "Comunicación AV", icono: "fa-solid fa-satellite-dish", color: "color-comunicación", instrucciones: [ "Estar en contacto con audio y video antes del inicio de la sesión y durante todo el programa.", "1 minuto antes del inicio de cada sesión comunicar al hermano que se ocupa del atril que acompañe al presidente del programa a plataforma para iniciar el programa.", "Al mismo tiempo avisar a AV que el presidente del programa sale a plataforma.", "Comunicar al hermano de plataforma cualquier indicación que nos den desde AV (ajustar el micrófono del orador...)." ] } ];
+const instruccionesPorPerfil = [
+  {
+    perfil: "Recepción",
+    icono: "fa-solid fa-hands-holding-child",
+    color: "color-recepcion",
+    instrucciones: [
+      "Esperaremos a los oradores en presidencia donde les daremos la bienvenida.",
+      `Los llevaremos a plataforma para las orientaciones. <span class="importante"><strong>Asignados por las mañanas 8:45</strong></span> y <span class="importante"><strong>asignados por las tardes 12:45</strong></span>`,
+      "Dirigirlos a maquillaje (en principio estará situado al lado de presidencia)",
+      "Asegurarnos que estén en plataforma al menos 20 minutos antes de su participación.",
+      "Comprobar que llevan su tarjeta de solapa. (Tener preparada una tarjeta por si fuera necesario)."
+    ]
+  },
+  {
+    perfil: "Maquillaje",
+    icono: "fa-solid fa-palette",
+    color: "color-maquillaje",
+    instrucciones: [
+      "La decisión de usar maquillaje le corresponde a los participantes.",
+      "No debe parecer que los hombres van maquillados, se trata de evitar brillos o reflejos en el rostro.",
+      "No se maquilla a quienes hagan las oraciones, comenten durante la atalaya o sean entrevistados.",
+      "Debemos asegurarnos que nuestra vestimenta sea decente \"en cualquier postura\" especialmente al acercarnos al oradora para maquillarle."
+    ]
+  },
+  {
+    perfil: "Plataforma / Atrezzo",
+    icono: "fa-solid fa-chair",
+    color: "color-plataforma",
+    instrucciones: [
+      {
+        titulo: "Antes del inicio de cada sesión:",
+        puntos: [
+          "Colocaremos una silla en el lado izquierdo de la plataforma. (El presidente del programa se sentará durante el video musical de 10 minutos).",
+          "Comprobar el buen funcionamiento del cronómetro. (Disponemos de un cronómetro de repuesto si fuera necesario)."
+        ]
+      },
+      {
+        titulo: "Durante el programa:",
+        puntos: [
+          "Se pondrá en marcha el cronómetro al inicio del video musical con el que se empiezan todas las sesiones. (Sirve de referencia al presidente del programa para saber cuando va a terminar el video).",
+          "Durante la canción de inicio de la sesión retiraremos la silla que usó el presidente del programa.",
+          "Poner en marcha el cronómetro justo cuando el orador empiece a hablar y ponerlo a cero cuando termine."
+        ]
+      },
+      {
+        titulo: "Entrevistas:",
+        puntos: [
+          "Indicar a los entrevistados por donde deberán entrar y salir a plataforma y donde situarse (habrá unas marcas en el suelo como referencia).",
+          "Entregar los micrófonos a los entrevistados y recordarles cómo usarlos.",
+          "Preguntar al hermano de comunicación con AV qué micrófonos usar."
+        ]
+      }
+    ]
+  },
+  {
+    perfil: "Atril",
+    icono: "fa-solid fa-person-chalkboard",
+    color: "color-atril",
+    instrucciones: [
+      {
+        titulo: "Comentar a los oradores las siguientes pautas antes de salir a plataforma:",
+        puntos: [
+          "Colocaremos el atril a la altura que les sea más cómoda para ellos, pero la altura y posición del micrófono la decidiréis vosotros.",
+          "En el momento de ajustar el micrófono el orador debe permanecer erguido mirando al frente para facilitar vuestra labor.",
+          "Recordarles que tienen que mirar a las cámaras que tienen enfrente y no al auditorio."
+        ]
+      },
+      {
+        titulo: "Recordatorios sobre la entrada y salida a plataforma:",
+        puntos: [
+          "Al acceder a plataforma se hará en este orden: Primero el hermano de plataforma, seguido del orador y del presidente de la sesión. (Entrarán en el mismo momento pero en este orden).",
+          "El orador siempre entrarán por la derecha y saldrán por el lado izquierdo de plataforma.",
+          "El hermano de plataforma entrará por la derecha y saldrá por la izquierda. (Excepto cuando el presidente use el atril, entonces saldrá por el lado derecho).",
+          "El presidente del programa entrará y saldrá por la derecha cuando use el micrófono de pie. Solo en los inicios de sesión, cuando presenta desde el atril, saldrá por la izquierda."
+        ]
+      }
+    ]
+  },
+  {
+    perfil: "Comunicación AV",
+    icono: "fa-solid fa-satellite-dish",
+    color: "color-comunicación",
+    instrucciones: [
+      "Estar en contacto con audio y video antes del inicio de la sesión y durante todo el programa.",
+      "1 minuto antes del inicio de cada sesión comunicar al hermano que se ocupa del atril que acompañe al presidente del programa a plataforma para iniciar el programa.",
+      "Al mismo tiempo avisar a AV que el presidente del programa sale a plataforma.",
+      "Comunicar al hermano de plataforma cualquier indicación que nos den desde AV (ajustar el micrófono del orador...)."
+    ]
+  }
+];
+
 
 // --- INICIALIZACIÓN DE FIREBASE ---
 const app = initializeApp(firebaseConfig);
