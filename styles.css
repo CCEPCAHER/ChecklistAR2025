@@ -178,6 +178,11 @@ main { max-width: 800px; margin: 0 auto; }
 .instruccion-card.color-plataforma { border-color: #2ecc71; } .instruccion-card.color-plataforma .card-header { color: #2ecc71; }
 .instruccion-card.color-atril { border-color: #9b59b6; } .instruccion-card.color-atril .card-header { color: #9b59b6; }
 .instruccion-card.color-comunicación { border-color: #f1c40f; } .instruccion-card.color-comunicación .card-header { color: #f1c40f; }
+/* --- ESTILOS PARA RESALTAR INSTRUCCIONES IMPORTANTES --- */
+.importante {
+  color: #d32f2f; /* rojo fuerte */
+  font-weight: bold;
+}
 
 
 /* --- RESPONSIVE Y OTROS ESTILOS --- */
