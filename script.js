@@ -81,12 +81,12 @@ const instruccionesPorPerfil = [
         titulo: "Comentar a los oradores las siguientes pautas antes de salir a plataforma: APENDICE F",
         puntos: [
           "En la plataforma, todos los teléfonos móviles y tabletas deben ponerse en modo avión. Además, el participante debe asegurarse de silenciar todas las alertas",
-          "No aleje el atril del micrófono de pie."
-          "Proyecte la voz y utilice algo más de volumen e intensidad que en una conversación normal."
+          "No aleje el atril del micrófono de pie.",
+          "Proyecte la voz y utilice algo más de volumen e intensidad que en una conversación normal.",
           "Colocaremos el atril a la altura que les sea más cómoda para ellos, pero la altura y posición del micrófono la decidiréis vosotros.",
           "En el momento de ajustar el micrófono el orador debe permanecer erguido mirando al frente para facilitar vuestra labor.",
-          "Recordarles que tienen que mirar a las cámaras que tienen enfrente y no al auditorio."
-          "Indique por qué lado de la plataforma saldrán los participantes."
+          "Recordarles que tienen que mirar a las cámaras que tienen enfrente y no al auditorio.",
+          "Indique por qué lado de la plataforma saldrán los participantes.",
         ]
       },
       {
