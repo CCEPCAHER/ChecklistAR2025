@@ -465,10 +465,10 @@ body.day-domingo .summary-item .count { color: var(--domingo-primary); }
 .indicator.orientacion { background-color: var(--viernes-primary); }
 .indicator.detras_plataforma { background-color: var(--sabado-primary); }
 .indicator.discursado { background-color: var(--domingo-primary); }
-.indicator.maquillaje-si { background-color: #ea4335; }
+.indicator.maquillaje-sí { background-color: #ea4335; }
 .indicator.maquillaje-no { background-color: var(--text-primary); }
 .indicator.maquillaje-na { background-color: #80868b; }
-.indicator.maquillaje-maquillado { background-color: var(--maquillado-color); } /* Nuevo color para "Maquillado" */
+.indicator.maquillaje-maquillado { background-color: var(--maquillado-color); }
 
 
 .accordion-content {
@@ -520,15 +520,20 @@ body.day-domingo .summary-item .count { color: var(--domingo-primary); }
 /* Opciones de Maquillaje (Radio Buttons personalizados) */
 .makeup-options {
     display: flex;
-    gap: 1rem;
+    /* Permite que los elementos se envuelvan en múltiples líneas si no hay espacio */
+    flex-wrap: wrap; 
+    gap: 0.5rem; /* Reduce el espacio entre los botones */
 }
 
 .makeup-options label {
     cursor: pointer;
-    padding: 0.3rem 0.8rem;
+    padding: 0.2rem 0.6rem; /* Reduce el padding para hacer los botones más pequeños */
+    font-size: 0.85em; /* Reduce el tamaño de la fuente */
     border-radius: 15px;
     border: 1px solid var(--border-color);
     transition: all 0.2s ease;
+    /* Añadido para asegurar que el texto se ajuste si la pantalla es muy pequeña */
+    white-space: nowrap; 
 }
 
 .makeup-options input[type="radio"] {
