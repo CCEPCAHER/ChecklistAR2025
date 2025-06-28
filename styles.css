@@ -30,6 +30,9 @@
     --domingo-progress: #9d4edd;
     --domingo-bg-light: #f6eff9;
     --domingo-success: #8e44ad;
+
+    /* --- Color para Maquillado --- */
+    --maquillado-color: #5d3587; /* Un color morado oscuro */
 }
 
 body {
@@ -462,9 +465,11 @@ body.day-domingo .summary-item .count { color: var(--domingo-primary); }
 .indicator.orientacion { background-color: var(--viernes-primary); }
 .indicator.detras_plataforma { background-color: var(--sabado-primary); }
 .indicator.discursado { background-color: var(--domingo-primary); }
-.indicator.maquillaje-sí { background-color: #ea4335; }
+.indicator.maquillaje-si { background-color: #ea4335; }
 .indicator.maquillaje-no { background-color: var(--text-primary); }
 .indicator.maquillaje-na { background-color: #80868b; }
+.indicator.maquillaje-maquillado { background-color: var(--maquillado-color); } /* Nuevo color para "Maquillado" */
+
 
 .accordion-content {
     max-height: 0;
@@ -494,10 +499,11 @@ body.day-domingo .summary-item .count { color: var(--domingo-primary); }
     border-bottom: none;
 }
 
-.checklist-item.disabled {
-    opacity: 0.5;
-    pointer-events: none;
-    background-color: #f8f9fa;
+/* Estilo para el item de checklist deshabilitado (como Repaso de Maquillaje) */
+.checklist-item.disabled-item {
+    opacity: 0.5; /* Atenúa el ítem */
+    pointer-events: none; /* Deshabilita las interacciones del ratón */
+    background-color: #f8f9fa; /* Color de fondo ligero para indicar desactivación */
 }
 
 .checklist-item .icon {
