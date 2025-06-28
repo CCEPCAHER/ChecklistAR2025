@@ -16,7 +16,15 @@ const firebaseConfig = {
 
 // --- DATOS DE LA APLICACIÓN ---
 const programa = [ { sesion: "Viernes Mañana", participantes: [ { rol: "Presidente", nombre: "David Castro", hora: "9:30" }, { rol: "Oración", nombre: "Francisco José Sánchez" }, { rol: "Discursante", nombre: "Julián Lasheras ¿Qué es la adoración pura?", hora: "9:40", numero: 1 }, { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Las buenas noticias según Jesús (Episodio 1).", hora: "10:10", numero: 2 }, { rol: "Discursante", nombre: "Domingo Tarrasón", hora: "10:50", numero: 3 }, { rol: "Discursante", nombre: "Pedro Medina", hora: "11:11", numero: 4 }, { rol: "Discursante", nombre: "Daniel Velasco", hora: "11:28", numero: 5 }, { rol: "Discursante", nombre: "Álex Botella", hora: "11:45", numero: 6 } ] }, { sesion: "Viernes Tarde", participantes: [ { rol: "Presidente", nombre: "Eduardo Ayala" }, { rol: "Discursante", nombre: "Miguel Solé", hora: "13:50", numero: 7 }, { rol: "Discursante", nombre: "David Aleixandri", hora: "14:06", numero: 8 }, { rol: "Discursante", nombre: "David Maldonado", hora: "14:22", numero: 9 }, { rol: "Discursante", nombre: "Juan Martín Prior", hora: "14:36", numero: 10 }, { rol: "Discursante", nombre: "Elliot Miguel", hora: "15:00", numero: 11 }, { rol: "Discursante", nombre: "José Bonet", hora: "15:12", numero: 12 }, { rol: "Discursante", nombre: "Santiago Cardona", hora: "15:21", numero: 13 }, { rol: "Discursante", nombre: "Israel Malla", hora: "15:30", numero: 14 }, { rol: "Discursante", nombre: "Bárbaro Yuliexi Tejera Ríos", hora: "15:39", numero: 15 }, { rol: "Discursante", nombre: "Rafael Corral", hora: "15:48", numero: 16 }, { rol: "Discursante", nombre: "Míchel Gottardo", hora: "15:58", numero: 17 }, { rol: "Discursante", nombre: "Andrés Mayor (Betel)", hora: "16:10", numero: 18 }, { rol: "Oración Final", nombre: "Pedro Mora" } ] }, { sesion: "Sábado Mañana", participantes: [ { rol: "Presidente", nombre: "Abel Reguant" }, { rol: "Oración", nombre: "Ricardo Cordovilla" }, { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL:¿Qué buscan?", hora: "9:40", numero: 19 }, { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL:Las buenas noticias según Jesús (Episodio 2).", hora: "9:50", numero: 20 }, { rol: "Discursante", nombre: "Gabriel Quintana", hora: "10:30", numero: 21 }, { rol: "Discursante", nombre: "Manuel Casino", hora: "10:40", numero: 22 }, { rol: "Discursante", nombre: "Esteban Martín", hora: "10:49", numero: 23 }, { rol: "Discursante", nombre: "Kevin Adiel Cobo (BTL)", hora: "10:59", numero: 24 }, { rol: "Discursante", nombre: "Rubén Verdés", hora: "11:09", numero: 25 }, { rol: "Discursante", nombre: "David Mercader", hora: "11:17", numero: 26 }, { rol: "Discursante", nombre: "Daniel Sellares", hora: "11:25", numero: 27 }, { rol: "Discursante", nombre: "Natán Becerril", hora: "11:34", numero: 28 } ] }, { sesion: "Sábado Tarde", participantes: [ { rol: "Presidente", nombre: "Climent Ambrós" }, { rol: "Discursante", nombre: "Jonatán Vicente", hora: "13:50", numero: 29 }, { rol: "Discursante", nombre: "Santiago Sáez", hora: "14:00", numero: 30 }, { rol: "Discursante", nombre: "Ricardo Anguita", hora: "14:09", numero: 31 }, { rol: "Discursante", nombre: "Josué Rabaneda", hora: "14:20", numero: 32 }, { rol: "Discursante", nombre: "Edgar Teruel (BTL)", hora: "14:45", numero: 33 }, { rol: "Discursante", nombre: "Álvaro Paniagua", hora: "14:56", numero: 34 }, { rol: "Discursante", nombre: "Adolfo Fornieles", hora: "15:06", numero: 35 }, { rol: "Discursante", nombre: "Alfonso Guerrero", hora: "15:30", numero: 36 }, { rol: "Discursante", nombre: "Andrés Mayor (Betel)", hora: "16:00", numero: 37 }, { rol: "Oración Final", nombre: "Jairo José Galán" } ] }, { sesion: "Domingo Mañana", participantes: [ { rol: "Presidente", nombre: "Juan Alcaraz" }, { rol: "Oración", nombre: "José Diego" }, { rol: "Discursante", nombre: "Isaac Díaz", hora: "9:40", numero: 38 }, { rol: "Discursante", nombre: "Benjamín Ferrer", hora: "9:55", numero: 39 }, { rol: "Discursante", nombre: "Francisco Javier Vila", hora: "10:07", numero: 40 }, { rol: "Discursante", nombre: "Joseph Salazar", hora: "10:21", numero: 41 }, { rol: "Discursante", nombre: "Fernando Teruel", hora: "10:35", numero: 42 }, { rol: "Video", nombre: "PRODUCCIÓN AUDIOVISUAL: Los campos están Blacos, listos para la cosecha", hora: "10:49", numero: 43 }, { rol: "Discursante", nombre: "José Manuel Lara", hora: "11:15", numero: 44 }, { rol: "Discursante", nombre: "Nino Llopis", hora: "11:45", numero: 45 } ] }, { sesion: "Domingo Tarde", participantes: [ { rol: "Presidente", nombre: "Julián Lasheras" }, { rol: "Discursante", nombre: "PRODUCCIÓN AUDIOVISUAL", hora: "13:50", numero: 46 }, { rol: "Discursante", nombre: "Julián Lasheras", hora: "14:45", numero: 47 }, { rol: "Discursante", nombre: "Andrés Mayor (Betel)", hora: "14:54", numero: 48 }, { rol: "Oración Final", nombre: "Andrés Mayor (Betel)" } ] } ];
-const itemsChecklist = [ { id: 'recogida', texto: 'Recogida en presidencia', tipo: 'checkbox', icon: 'fa-solid fa-handshake', indicator: true }, { id: 'orientacion', texto: 'Orientación inicial', tipo: 'checkbox', icon: 'fa-solid fa-compass', indicator: true }, { id: 'maquillaje', texto: 'Maquillaje', tipo: 'radio', opciones: ['Sí', 'No', 'N/A'], icon: 'fa-solid fa-palette', indicator: true }, { id: 'detras_plataforma', texto: 'Listo tras bastidores (20 min)', tipo: 'checkbox', icon: 'fa-solid fa-clock', indicator: true }, { id: 'repaso_maquillaje', texto: 'Repaso final de maquillaje', tipo: 'checkbox', icon: 'fa-solid fa-brush', indicator: false }, { id: 'recordatorios', texto: 'Recordatorios finales', tipo: 'checkbox', icon: 'fa-solid fa-bullhorn', indicator: false }, { id: 'discursado', texto: 'Participación completada', tipo: 'checkbox', icon: 'fa-solid fa-microphone-slash', indicator: true } ];
+const itemsChecklist = [
+    { id: 'recogida', texto: 'Recogida en presidencia', tipo: 'checkbox', icon: 'fa-solid fa-handshake', indicator: true },
+    { id: 'orientacion', texto: 'Orientación inicial', tipo: 'checkbox', icon: 'fa-solid fa-compass', indicator: true },
+    { id: 'maquillaje', texto: 'Maquillaje', tipo: 'radio', opciones: ['Maquillado', 'Sí', 'No', 'N/A'], icon: 'fa-solid fa-palette', indicator: true }, // 'Maquillado' añadido aquí
+    { id: 'detras_plataforma', texto: 'Listo tras bastidores (20 min)', tipo: 'checkbox', icon: 'fa-solid fa-clock', indicator: true },
+    { id: 'repaso_maquillaje', texto: 'Repaso final de maquillaje', tipo: 'checkbox', icon: 'fa-solid fa-brush', indicator: false },
+    { id: 'recordatorios', texto: 'Recordatorios finales', tipo: 'checkbox', icon: 'fa-solid fa-bullhorn', indicator: false },
+    { id: 'discursado', texto: 'Participación completada', tipo: 'checkbox', icon: 'fa-solid fa-microphone-slash', indicator: true }
+];
 const responsablesPorTurno = [ { "Día": "Viernes", "Turno": "Mañana", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Javier Bolivar", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Inma C., Vanessa C., Raquel P.", "Maquillaje Plataforma": "Gemma Monje" }, { "Día": "Viernes", "Turno": "Tarde", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Alejandro Hernandez", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Ana M., Sandra O., Gemma M.", "Maquillaje Plataforma": "Raquel Pallares" }, { "Día": "Sábado", "Turno": "Mañana", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Mario Martín", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Gemma M., Inma C., Sandra O.", "Maquillaje Plataforma": "Ana Marañón" }, { "Día": "Sábado", "Turno": "Tarde", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Javier Bolivar", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Vanessa C., Raquel P., Ana M.", "Maquillaje Plataforma": "Sandra Ortega" }, { "Día": "Domingo", "Turno": "Mañana", "Comunicación AV": "Manel Casino", "Atrezzo/Crono": "Rubén Gomez", "Atril": "Alejandro Hernandez", "Recepción y Enlace": "Juan Carlos Marín", "Maquillaje": "Ana M., Sandra O., Vanessa C.", "Maquillaje Plataforma": "Inma Casino" }, { "Día": "Domingo", "Turno": "Tarde", "Comunicación AV": "Rafael Monje", "Atrezzo/Crono": "Adriá Rivera", "Atril": "Mario Martín", "Recepción y Enlace": "Luis Fernando Paz", "Maquillaje": "Gemma Monje, Ana M., Raquel P.", "Maquillaje Plataforma": "Vanessa Intriago" } ];
 const instruccionesPorPerfil = [
   {
@@ -252,7 +260,9 @@ function crearAcordeon(participante, idUnico) {
 
     accordionItem.append(header, content);
     return accordionItem;
-}/** Genera toda la estructura HTML del programa. */
+}
+
+/** Genera toda la estructura HTML del programa. */
 function generarProgramaHTML() {
     DOMElements.app.programContainer.innerHTML = '';
     ['Viernes', 'Sábado', 'Domingo'].forEach(dia => {
@@ -347,29 +357,45 @@ function actualizarEstadoUI(accordion) {
     const ocultaParaOracion = ['maquillaje', 'repaso_maquillaje', 'orientacion', 'recordatorios'];
     const ocultaParaBetel = ['orientacion', 'recordatorios'];
     
-    const maquillajeNA = accordion.querySelector('input[data-item-id="maquillaje"][value="N/A"]:checked');
-    const repasoContainer = accordion.querySelector('[data-container-for="repaso_maquillaje"] input');
-    
-    if (repasoContainer) {
-        repasoContainer.disabled = !!maquillajeNA;
-        if (maquillajeNA && repasoContainer.checked) {
-            repasoContainer.checked = false;
-            repasoContainer.dispatchEvent(new Event('change', { bubbles: true }));
+    // Lógica para el campo de Maquillaje y Repaso final de maquillaje
+    const maquillajeRadios = accordion.querySelectorAll('input[data-item-id="maquillaje"]');
+    const repasoMaquillajeInput = accordion.querySelector('input[data-item-id="repaso_maquillaje"]');
+    const repasoMaquillajeContainer = accordion.querySelector('[data-container-for="repaso_maquillaje"]');
+
+    let maquillajeValue = null;
+    maquillajeRadios.forEach(radio => {
+        if (radio.checked) {
+            maquillajeValue = radio.value;
+        }
+    });
+
+    if (repasoMaquillajeInput && repasoMaquillajeContainer) {
+        if (maquillajeValue === 'No' || maquillajeValue === 'N/A') {
+            repasoMaquillajeInput.checked = false; // Desmarca si estaba marcado
+            repasoMaquillajeInput.disabled = true; // Deshabilita el input
+            repasoMaquillajeContainer.classList.add('disabled-item'); // Opcional: estilo para indicar que está deshabilitado
+        } else {
+            repasoMaquillajeInput.disabled = false; // Habilita el input
+            repasoMaquillajeContainer.classList.remove('disabled-item');
         }
     }
 
     const itemsAplicables = itemsChecklist.filter(it => 
         !(esOra && ocultaParaOracion.includes(it.id)) && 
         !(esBetel && ocultaParaBetel.includes(it.id)) && 
-        !(maquillajeNA && it.id === 'repaso_maquillaje')
+        !(it.id === 'repaso_maquillaje' && (maquillajeValue === 'No' || maquillajeValue === 'N/A')) // Excluye si 'maquillaje' es 'No' o 'N/A'
     );
     
     let completedTasks = 0;
     const checkedItems = new Set();
     accordion.querySelectorAll('input[data-item-id]:checked').forEach(input => {
-        if (!checkedItems.has(input.dataset.itemId)) {
+        const itemId = input.dataset.itemId;
+        // Solo cuenta si el ítem no está deshabilitado lógicamente
+        if (itemId === 'repaso_maquillaje' && (maquillajeValue === 'No' || maquillajeValue === 'N/A')) {
+            // No cuenta 'repaso_maquillaje' si está deshabilitado
+        } else if (!checkedItems.has(itemId)) {
             completedTasks++;
-            checkedItems.add(input.dataset.itemId);
+            checkedItems.add(itemId);
         }
     });
 
@@ -381,11 +407,13 @@ function actualizarEstadoUI(accordion) {
         indicator.className = 'indicator';
         const itemId = indicator.dataset.indicatorFor;
         const input = accordion.querySelector(`input[data-item-id="${itemId}"]`);
+        
         if (input?.type === 'checkbox' && input.checked) {
             indicator.classList.add(itemId);
         } else if (input?.type === 'radio') {
             const checkedRadio = accordion.querySelector(`input[name="${input.name}"]:checked`);
             if (checkedRadio) {
+                // Asegúrate de que las clases CSS 'maquillaje-maquillado', 'maquillaje-si', 'maquillaje-no', 'maquillaje-na' existan
                 indicator.classList.add(`maquillaje-${checkedRadio.value.toLowerCase().replace('/', '')}`);
             }
         }
@@ -406,11 +434,12 @@ function updateSummary() {
     const totalParticipantes = dayContent.querySelectorAll('.participant-accordion:not(.is-audiovisual)').length;
     const completos = dayContent.querySelectorAll('.participant-accordion.is-complete').length;
     const conMaquillaje = dayContent.querySelectorAll('input[data-item-id="maquillaje"][value="Sí"]:checked').length;
+    const yaMaquillados = dayContent.querySelectorAll('input[data-item-id="maquillaje"][value="Maquillado"]:checked').length;
     
     DOMElements.app.summaryPanel.innerHTML = `
         <div class="summary-item"><div class="count">${totalParticipantes}</div><div class="label">Participantes</div></div>
         <div class="summary-item"><div class="count">${completos}</div><div class="label">Completos</div></div>
-        <div class="summary-item"><div class="count">${conMaquillaje}</div><div class="label">Maquillaje</div></div>`;
+        <div class="summary-item"><div class="count">${conMaquillaje + yaMaquillados}</div><div class="label">Maquillaje</div></div>`; // Suma 'Sí' y 'Maquillado'
     document.title = `(${completos}/${totalParticipantes}) Checklist ${appState.currentDay}`;
 }
 
