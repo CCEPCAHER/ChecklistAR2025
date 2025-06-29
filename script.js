@@ -33,7 +33,7 @@ const instruccionesPorPerfil = [
     color: "color-recepcion",
     instrucciones: [
       "Esperaremos a los oradores en presidencia donde les daremos la bienvenida.",
-      `Los llevaremos a plataforma para las orientaciones. <span class="importante"><strong>Asignados por las mañanas 8:45</strong></span> y <span class="importante"><strong>asignados por las tardes 12:45</strong></span>`,
+      `Los llevaremos a plataforma para las orientaciones. <span class="importante"><strong>Asignados por las mañanas 8:35</strong></span> y <span class="importante"><strong>asignados por las tardes 12:45</strong></span>`,
       "Dirigirlos a maquillaje (en principio estará situado al lado de presidencia)",
       "Asegurarnos que estén en plataforma al menos 20 minutos antes de su participación.",
       "Comprobar que llevan su tarjeta de solapa. (Tener preparada una tarjeta por si fuera necesario)."
